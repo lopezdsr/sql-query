@@ -66,15 +66,15 @@ The bucket name:
 
 **`<object>`**
 A more exact specification of the file or files:
-- For an input URI, a pattern that matches one or more input files. 
+- For an input URI, this is a pattern that matches one or more input files. 
 The specified pattern behaves as if it were appended with a wildcard character, so that any files whose fully-qualified names begin with the pattern are 
 used as input files. For example:
   - The pattern `mydir/test1/` matches all files in the specified directory, including files in any subdirectory of that directory.
   - The pattern `mydir/test1/tr` matches all files in the specified directory whose names begin with `tr`, plus all files in any subdirectory whose name begins with `tr`.
   
   Because a pattern might match more than one file, ensure that the schema of each matching file is appropriate within the context of the SELECT statement. 
-- For an output URI, the directory to which the result file is to be written. 
-A subfolder indicating the job ID is automatically appended, and the name of the result file is generated automatically.
+- For an output URI, this is the directory to which the result file is to be written. 
+Each result file is stored in a separate subfolder with a name that indicates the job ID. The name of the result file is automatically generated and also indicates the job ID.
 Consequently, each time a query is run, the result is stored in a different subdirectory of the target directory. 
 For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result file is written to `mydir/out/jobid=<job_id>`.
 
@@ -109,8 +109,14 @@ s3.us-east.objectstorage.{softlayer.net\|service.networklayer.com} | us-east
 
 You can use the [SQL Query service REST API](https://sql-api.ng.bluemix.net/v2/sql_jobs/docs/swagger/index.html) to run queries 
 and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
+<!--BLH; 13 FEB 2018: This will be uncommented later.
+Click [here](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) for more information about how to use the REST API.
 
-For a Python application, you can also use the [ibmdbpy package](https://pypi.python.org/pypi/ibmcloudsql).
+At the end of the month when the Bluemix catalog is combined with AE, the URL will change to
+https://developer.ibm.com/api/view/cloudsqlquery/cloud-sql-query
+-->
+
+For a Python application, you can also use the [ibmcloudsql package](https://pypi.python.org/pypi/ibmcloudsql).
 
 ## Required user roles
 
