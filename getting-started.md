@@ -34,7 +34,7 @@ To create a Cloud Object Storage instance:
 ## Step 1: Create your SQL Query service instance
 {: #sql_query}
 
-1. Go to the [**IBM Cloud Catalog**](https://console.stage1.bluemix.net/catalog) and search for **SQL Query**.
+1. Go to the [**IBM Cloud Catalog**](https://console.bluemix.net/catalog) and search for **SQL Query**.
 2. Click **SQL Query** to open the Catalog details page.
 3. Select the Beta plan and Click **Create** to create an instance of the service.
 4. Click **Open UI** on the Dashboard page to open the SQL Query Console.
@@ -87,7 +87,7 @@ I REMOVED STEP 5 (operationalize) AND ADDED THE VIDEO TO THE VIDEO LIST BECAUSE:
 ## Next steps
 {: #next_steps}
 
-To analyze your own data, upload it to a Cloud Object Storage instance and run SQL queries as described [here](sql-query.md).
+To analyze your own data, upload it to a Cloud Object Storage instance and run SQL queries as described [here](sql-query.html).
 
 For more advanced capabilities, check out these video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)

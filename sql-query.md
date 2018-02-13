@@ -21,7 +21,7 @@ IBM Cloud SQL Query is a fully-managed service that lets you run SQL queries (th
 
 Input data is read from CSV, JSON, or Parquet files located in one or more IBM Cloud Object Storage instances.
 Each query result is written to a CSV file in a Cloud Object Storage instance of your choice. 
-Use the SQL Query user interface (UI) to develop your queries and the [SQL Query REST API](sql-query.md#rest-api) to automate them.
+Use the SQL Query user interface (UI) to develop your queries and the [SQL Query REST API](sql-query.html#rest-api) to automate them.
 
 ## Where your input data and query results are stored
 
@@ -36,14 +36,14 @@ or [quickstart guide](https://ibm-public-cos.github.io/crs-docs/getting-started-
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
 1. In the SQL editor field of the SQL Query UI, enter a SELECT statement. In this statement:
-    - After the FROM keyword, specify one or more [unique resource identifiers](sql-query.md#table-unique-resource-identifier) (URIs).
+    - After the FROM keyword, specify one or more [unique resource identifiers](sql-query.html#table-unique-resource-identifier) (URIs).
 Each URI can be thought of as a table. 
 Each URI comprises one or more input files; each input file can be thought of as a table partition.
 You must have at least 'Reader' access to the buckets that contain the input files.
     - If the format of the input files is CSV, there is no need to specify a STORED AS clause. 
 However, if the format is JSON or Parquet, after the FROM clause, specify either STORED AS JSON or STORED AS PARQUET, as appropriate. 
     - If required, you can use JOIN constructs to join data from several input files, even if those files are located in different instances.
-2. Below the SELECT statement, in the **Target** field, specify the output [URI](sql-query.md#table-unique-resource-identifier),
+2. Below the SELECT statement, in the **Target** field, specify the output [URI](sql-query.html#table-unique-resource-identifier),
 that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
 3. Click the **Run** button.
 The query result is displayed in the result area of the UI.
@@ -57,7 +57,7 @@ A table unique resource identifier (URI) has the form
 where:
 
 **`<endpoint>`**
-The [endpoint](sql-query.md#endpoints) of your Cloud Object Store instance, or its [alias](sql-query.md#endpoints).
+The [endpoint](sql-query.html#endpoints) of your Cloud Object Store instance, or its [alias](sql-query.html#endpoints).
 
 **`<bucket>`**
 The bucket name:
