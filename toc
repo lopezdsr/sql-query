@@ -1,0 +1,11 @@
+{:navgroup: .navgroup}
+{:topicgroup: .topicgroup}
+
+{: .toc subcollection="sql-query" audience="service" href="/docs/services/sql-query/getting-started.html"}
+IBM Cloud SQL Query
+
+	{: .navgroup id="learn"}
+	getting-started.md
+	sql-query.md
+	{: .navgroup-end}
+
