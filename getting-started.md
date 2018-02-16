@@ -22,14 +22,14 @@ In this IBM Cloud SQL Query tutorial, we'll set you up for querying rectangular 
 ## Before you begin
 {: #prereqs}
 
-Before you can run SQL queries, you need to have one or more Cloud Object Storage (COS) buckets to hold the data to be analyzed and to hold the query results.
+Before you can run SQL queries, you need to have one or more Cloud Object Storage (sometimes abbreviated to COS) buckets to hold the data to be analyzed and to hold the query results.
 Cloud Object Storage offers several plans, including a free "Lite" plan.
 To create a Cloud Object Storage instance:
 1. Go to the [**IBM Cloud Catalog > Storage > Object Storage**](https://console.bluemix.net/catalog/infrastructure/cloud-object-storage) page.
 2. Select one of the plans and create the service.
 3. Go to your [**IBM Cloud Dashboard > Services**](https://console.bluemix.net/dashboard/apps) page to find your Cloud Object Storage instance.
 (If you do not see it in the list, select the resource group "All Resources".)
-4. Click your instance to manage and browse the buckets and data it contains.
+4. Click your instance to manage and browse the buckets and data it contains. Click [here](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console) for more information about how to use Cloud Object Storage.
 
 ## Step 1: Create your SQL Query service instance
 {: #sql_query}

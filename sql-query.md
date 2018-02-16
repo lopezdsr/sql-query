@@ -46,7 +46,7 @@ However, if the format is JSON or Parquet, after the FROM clause, specify either
 2. Below the SELECT statement, in the **Target** field, specify the output [URI](sql-query.html#table-unique-resource-identifier),
 that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
 3. Click the **Run** button.
-The query result is displayed in the result area of the UI.
+The query result is displayed in the result area of the UI. You can run up to 5 queries simultaneously.
 
 ## Table unique resource identifier
 
@@ -107,7 +107,7 @@ s3.us-east.objectstorage.{softlayer.net\|service.networklayer.com} | us-east
 
 ## REST API
 
-You can use the [SQL Query service REST API](https://sql-api.ng.bluemix.net/v2/sql_jobs/docs/swagger/index.html) to run queries 
+You can use the [SQL Query service REST API](https://apiexplorer.swg.usma.ibm.com/test/explorer/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) to run queries 
 and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 <!--BLH; 13 FEB 2018: This will be uncommented later.
 Click [here](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) for more information about how to use the REST API.
