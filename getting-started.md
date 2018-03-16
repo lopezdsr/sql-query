@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-02-13"
+lastupdated: "2018-02-16"
 
 ---
 
@@ -15,14 +15,14 @@ lastupdated: "2018-02-13"
 
 
 # Getting started tutorial
-In this IBM Cloud SQL Query tutorial, we'll set you up for querying rectangular data in IBM Cloud Object Storage.
+In this IBM Cloud SQL Query tutorial, we'll set you up to begin querying rectangular data in IBM Cloud Object Storage.
 
 {: shortdesc}
 
 ## Before you begin
 {: #prereqs}
 
-Before you can run SQL queries, you need to have one or more Cloud Object Storage (sometimes abbreviated to COS) buckets to hold the data to be analyzed and to hold the query results.
+Before you can run SQL queries, you need to have one or more Cloud Object Storage (COS) buckets to hold the data to be analyzed and to hold the query results.
 Cloud Object Storage offers several plans, including a free "Lite" plan.
 To create a Cloud Object Storage instance:
 1. Go to the [**IBM Cloud Catalog > Storage > Object Storage**](https://console.bluemix.net/catalog/infrastructure/cloud-object-storage) page.
@@ -87,7 +87,7 @@ I REMOVED STEP 5 (operationalize) AND ADDED THE VIDEO TO THE VIDEO LIST BECAUSE:
 ## Next steps
 {: #next_steps}
 
-To analyze your own data, upload it to a Cloud Object Storage instance and run SQL queries as described [here](sql-query.html).
+To analyze your own data, upload it to a Cloud Object Storage instance and run SQL queries as described [here](sql-query.html#running-an-sql-query).
 
 For more advanced capabilities, check out these video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)
