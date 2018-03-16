@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-02-13"
+lastupdated: "2018-03-16"
 
 ---
 
@@ -14,7 +14,8 @@ lastupdated: "2018-02-13"
 
 # Overview
 {:shortdesc}
-IBM Cloud SQL Query is a fully-managed service that lets you run SQL queries (that is, SELECT statements) to analyze, transform, or clean up rectangular data.
+
+IBM Cloud SQL Query is a fully-managed service that lets you run [SQL queries](r0008467.html) (that is, SELECT statements) to analyze, transform, or clean up rectangular data.
 {:shortdesc}
 
 **Note:** You can use SQL Query to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
@@ -28,8 +29,7 @@ Use the SQL Query user interface (UI) to develop your queries and the [SQL Query
 Before you can use the SQL Query service to run SQL queries, the input data must be uploaded to one or more Cloud Object Storage instances.
 You must also have at least 'Writer' access to at least one Cloud Object Storage bucket, so that result files (that is, the files containing output data) can be written there.
 For more information about Cloud Object Storage, including how to provision an instance, create buckets, and upload data, 
-refer to the Cloud Object Storage [getting started information](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console)
-or [quickstart guide](https://ibm-public-cos.github.io/crs-docs/getting-started-with-cos).
+refer to the [Cloud Object Storage Getting Started Guide](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console).
 
 ## Running an SQL query
 
@@ -89,33 +89,63 @@ For example, if you specify `mydir/out` or `mydir/out/` as the target directory,
 Your Cloud Object Storage instance will have one of the endpoints shown in the following tables. 
 To save space, you can use the alias shown instead of the full endpoint name.
 
-Cross-Regional Endpoint Name | Alias
+Internal Cross-Regional Endpoint Name | Alias
 --- | --- 
-s3-api.us-geo.objectstorage.{softlayer.net\|service.networklayer.com}     | us-geo
-s3-api.dal-us-geo.objectstorage.{softlayer.net\|service.networklayer.com} | dal
-s3-api.wdc-us-geo.objectstorage.{softlayer.net\|service.networklayer.com} | wdc
-s3-api.sjc-us-geo.objectstorage.{softlayer.net\|service.networklayer.com} | sjc
-s3.eu-geo.objectstorage.{softlayer.net\|service.networklayer.com}         | eu-geo
-s3.ams-eu-geo.objectstorage.{softlayer.net\|service.networklayer.com}     | ams
-s3.fra-eu-geo.objectstorage.{softlayer.net\|service.networklayer.com}     | fra
-s3.mil-eu-geo.objectstorage.{softlayer.net\|service.networklayer.com}     | mil
+s3-api.us-geo.objectstorage.service.networklayer.com     | us-geo
+s3-api.dal-us-geo.objectstorage.service.networklayer.com | dal
+s3-api.wdc-us-geo.objectstorage.service.networklayer.com | wdc
+s3-api.sjc-us-geo.objectstorage.service.networklayer.com | sjc
+s3.eu-geo.objectstorage.service.networklayer.com         | eu-geo
+s3.ams-eu-geo.objectstorage.service.networklayer.com     | ams
+s3.fra-eu-geo.objectstorage.service.networklayer.com     | fra
+s3.mil-eu-geo.objectstorage.service.networklayer.com     | mil
 
-Regional Endpoint Name | Alias
+External Cross-Regional Endpoint Name | Alias
 --- | --- 
-s3.us-south.objectstorage.{softlayer.net\|service.networklayer.com}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| us-south
-s3.us-east.objectstorage.{softlayer.net\|service.networklayer.com} | us-east
+s3-api.us-geo.objectstorage.softlayer.net    | us-geo
+s3-api.dal-us-geo.objectstorage.softlayer.net| dal
+s3-api.wdc-us-geo.objectstorage.softlayer.net| wdc
+s3-api.sjc-us-geo.objectstorage.softlayer.net| sjc
+s3.eu-geo.objectstorage.softlayer.net        | eu-geo
+s3.ams-eu-geo.objectstorage.softlayer.net    | ams
+s3.fra-eu-geo.objectstorage.softlayer.net    | fra
+s3.mil-eu-geo.objectstorage.softlayer.net    | mil
 
-## REST API
+Internal Regional Endpoint Name | Alias
+--- | --- 
+s3.us-south.objectstorage.service.networklayer.com  | us-south
+s3.us-east.objectstorage.service.networklayer.com   | us-east
 
-You can use the [SQL Query service REST API](https://apiexplorer.swg.usma.ibm.com/test/explorer/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) to run queries 
-and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
+External Regional Endpoint Name | Alias
+--- | --- 
+s3.us-south.objectstorage.softlayer.net | us-south
+s3.us-east.objectstorage.softlayer.net  | us-east
+
+## Programmatic access
+
+### REST API
+
+You can use the [SQL Query service REST API](https://apiexplorer.swg.usma.ibm.com/test/explorer/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 <!--BLH; 13 FEB 2018: This will be uncommented later.
 Click [here](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) for more information about how to use the REST API.
 At the end of the month when the Bluemix catalog is combined with AE, the URL will change to
 https://developer.ibm.com/api/view/cloudsqlquery/cloud-sql-query
 -->
 
-For a Python application, you can also use the [ibmcloudsql package](https://pypi.python.org/pypi/ibmcloudsql).
+### Python applications and notebooks
+
+For a Python application, you can also use the [ibmcloudsql package](https://pypi.python.org/pypi/ibmcloudsql). 
+This allows you to use Data Science Experience (DSX) <!-- ANDREAL, MAR 19: Change to Watson Studio notebooks--> to run queries with SQL Query and visualize the query results with one of the various widget libraries available in [DSX](https://console.stage1.bluemix.net/catalog/services/data-science-experience)<!-- ANDREAL, MAR 19: Change to Watson Studio notebooks and check link-->.
+
+Using the ibmcloudsql library, you can also interact with SQL Query directly from DSX <!-- ANDREAL, MAR 19: Change to Watson Studio notebooks-->notebooks. You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.ibm.com/analytics/notebooks/v2/656c7d43-7ccd-4e50-a3c0-bbc37c001132/view?access_token=baaa77ad715e17a8f823615d45431329fde0fe92fecb85abb9fc55a877939fe8) 
+in the DSX community.<!--ANDREAL, Change to Watson Studio community MAR 19--> <!--ANDREAL, 12 MAR 2018: Add the following link for MAR 15th: https://dataplatform.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d for Watson Studio
+Community here:...-->
+
+### Cloud functions
+
+SQL Query is a serverless mechanism to submit SQL queries, making it a very natural match for the serverless 
+[IBM Cloud Functions](https://www.ibm.com/cloud/functions). Accordingly, you can use the generic 
+[SQL Cloud function](https://hub.docker.com/r/ibmfunctions/sqlquery) to run SQL Query as an IBM Cloud function.
 
 ## Required user roles
 
@@ -127,3 +157,12 @@ Description | Service Action | API Endpoint | Required User Roles
 Submit an SQL query | sql-query.api.submit | POST/v2-beta/sql_jobs/ | Manager or Writer
 Get info for all submitted jobs | sql-query.api.getalljobs | GET/v2-beta/sql_jobs/ | Manager, Writer, or Reader
 Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2-beta/sql_jobs/{job_id} | Manager, Writer, or Reader
+
+## Limitations
+
+- JSON is not fully supported yet, it is in experimental state.
+- CSV input only supports comma-separated objects with a header.
+- JSON/Parquet: If objects contain nested or arrayed structures, the CSV result output format requires special consideration as part of the query. 
+Only using `select *...` returns an error, such as "Invalid CSV data type used: `struct< the nested JSON object you used >`. Use a valid data type for the CSV format."
+As a workaround for nested structures, specify the full nested column name(s) instead of the wildcard, for example, `select address.city from cos://...` 
+For arrays, the Spark SQL explode() function can be applied in the query, for example, `select explode(address.city) from cos://...`
