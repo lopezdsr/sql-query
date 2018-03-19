@@ -5,7 +5,7 @@
 IBM Cloud SQL Query
 
 	{: .navgroup id="learn"}
-	getting-started.md
 	sql-query.md
-	{: .navgroup-end}
+	getting-started.md
+{: .navgroup-end}
 
