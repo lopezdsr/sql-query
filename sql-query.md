@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-03-16"
+lastupdated: "2018-03-19"
 
 ---
 
@@ -125,7 +125,7 @@ s3.us-east.objectstorage.softlayer.net  | us-east
 
 ### REST API
 
-You can use the [SQL Query service REST API](https://apiexplorer.swg.usma.ibm.com/test/explorer/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
+You can use the [SQL Query service REST API](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 <!--BLH; 13 FEB 2018: This will be uncommented later.
 Click [here](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) for more information about how to use the REST API.
 At the end of the month when the Bluemix catalog is combined with AE, the URL will change to
