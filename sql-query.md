@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-03-19"
+lastupdated: "2018-03-20"
 
 ---
 
@@ -15,7 +15,7 @@ lastupdated: "2018-03-19"
 # Overview
 {:shortdesc}
 
-IBM Cloud SQL Query is a fully-managed service that lets you run [SQL queries](r0008467.html) (that is, SELECT statements) to analyze, transform, or clean up rectangular data.
+IBM Cloud SQL Query is a fully-managed service that lets you run SQL queries (that is, SELECT statements) to analyze, transform, or clean up rectangular data.
 {:shortdesc}
 
 **Note:** You can use SQL Query to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
@@ -127,7 +127,7 @@ s3.us-east.objectstorage.softlayer.net  | us-east
 
 You can use the [SQL Query service REST API](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 
-**Note:** The Cloud Resource Name (CRN) is a mandatory part of a REST API command. The CRN Copy button copies your CRN to clipboard and you can just paste it into your API command.
+**Note:** The Cloud Resource Name (CRN) is a mandatory part of an SQL Query REST endpoint call. The CRN Copy button copies your CRN to clipboard and you can just paste it into your API call.
 
 <!--BLH; 13 FEB 2018: This will be uncommented later.
 Click [here](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) for more information about how to use the REST API.
@@ -138,11 +138,12 @@ https://developer.ibm.com/api/view/cloudsqlquery/cloud-sql-query
 ### Python applications and notebooks
 
 For a Python application, you can also use the [ibmcloudsql package](https://pypi.python.org/pypi/ibmcloudsql). 
-This allows you to use Data Science Experience (DSX) <!-- ANDREAL, MAR 19: Change to Watson Studio notebooks--> to run queries with SQL Query and visualize the query results with one of the various widget libraries available in [DSX](https://console.stage1.bluemix.net/catalog/services/data-science-experience)<!-- ANDREAL, MAR 19: Change to Watson Studio notebooks and check link-->.
+This allows you to use IBM Watson Studio to run queries with SQL Query and visualize the query results with one 
+of the various widget libraries available in [Watson Studio](https://console.stage1.bluemix.net/catalog/services/data-science-experience).
 
-Using the ibmcloudsql library, you can also interact with SQL Query directly from DSX <!-- ANDREAL, MAR 19: Change to Watson Studio notebooks-->notebooks. You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.ibm.com/analytics/notebooks/v2/656c7d43-7ccd-4e50-a3c0-bbc37c001132/view?access_token=baaa77ad715e17a8f823615d45431329fde0fe92fecb85abb9fc55a877939fe8) 
-in the DSX community.<!--ANDREAL, Change to Watson Studio community MAR 19--> <!--ANDREAL, 12 MAR 2018: Add the following link for MAR 15th: https://dataplatform.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d for Watson Studio
-Community here:...-->
+Using the ibmcloudsql library, you can also interact with SQL Query directly from Watson Studio notebooks. 
+You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.ibm.com/analytics/notebooks/v2/656c7d43-7ccd-4e50-a3c0-bbc37c001132/view?access_token=baaa77ad715e17a8f823615d45431329fde0fe92fecb85abb9fc55a877939fe8) 
+in the [Watson Studio community](https://dataplatform.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d). 
 
 ### Cloud functions
 
@@ -169,3 +170,11 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2-beta/s
 Only using `select *...` returns an error, such as "Invalid CSV data type used: `struct< the nested JSON object you used >`. Use a valid data type for the CSV format."
 As a workaround for nested structures, specify the full nested column name(s) instead of the wildcard, for example, `select address.city from cos://...` 
 For arrays, the Spark SQL explode() function can be applied in the query, for example, `select explode(address.city) from cos://...`
+- In case you receive a corrupted result, check if your source file is corrupted, or if the file format you selected is correct.
+- In order to further process CSV output with SQL Query, all values have to be contained within one line. The multi-line option is not supported and therefore must be manually changed. 
+To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton SQL statement looks like the following:
+
+	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
+	
+- Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in each part of the object.
+- Ensure that all SQL statements, introducing new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
