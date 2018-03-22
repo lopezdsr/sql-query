@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-03-20"
+lastupdated: "2018-03-22"
 
 ---
 
@@ -170,7 +170,10 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2-beta/s
 Only using `select *...` returns an error, such as "Invalid CSV data type used: `struct< the nested JSON object you used >`. Use a valid data type for the CSV format."
 As a workaround for nested structures, specify the full nested column name(s) instead of the wildcard, for example, `select address.city from cos://...` 
 For arrays, the Spark SQL explode() function can be applied in the query, for example, `select explode(address.city) from cos://...`
-- In case you receive a corrupted result, check if your source file is corrupted, or if the file format you selected is correct.
+- If you receive a corrupted result, verify that the source file is correct and that the correct input file format is specified using 'STORED AS' in the SQL statement.
+- If you receive an error message stating that some columns are not found in the input columns,
+but the columns do exist in the input file, check if the input file format being specified using 'STORED AS'
+in the SQL statement is the actual file format of your current file.
 - In order to further process CSV output with SQL Query, all values have to be contained within one line. The multi-line option is not supported and therefore must be manually changed. 
 To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton SQL statement looks like the following:
 
