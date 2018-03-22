@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-02-22"
 
 ---
 
@@ -91,7 +91,7 @@ To analyze your own data, upload it to a Cloud Object Storage instance and run S
 
 For more advanced capabilities, check out these video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)
-- [How to use the Amazon Web Services (AWS) command line interface](http://ibm.biz/csq-aws-sli)
+- [IBM Cloud SQL Query: Connect to IBM Cloud Object Storage Through the Command Line](http://ibm.biz/csq-aws-sli)
 - [How to use the SQL Query REST API](http://ibm.biz/csq-use-api)
 - [How to operationalize SQL code and call it from an application](http://ibm.biz/csq-e2e)
 
