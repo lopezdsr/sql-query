@@ -181,3 +181,12 @@ To remove new lines from multi-line column values, use the SQL function `regexp_
 	
 - Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in each part of the object.
 - Ensure that all SQL statements, introducing new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+
+
+### TEST SYNTAX DIAGRAM
+
+
+![query](./SqlReference/query.svg)
+
+Used by: [namedQuery](#namedQuery), [booleanExpression](#booleanExpression), [predicate](#predicate), [primaryExpression](#primaryExpression)
+References: [namedQuery](#namedQuery), [fullselect](#fullselect)
