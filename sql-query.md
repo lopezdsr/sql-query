@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-03-22"
+lastupdated: "2018-06-11"
 
 ---
 
@@ -48,6 +48,19 @@ that is, the URI of the directory to which the result file is to be written. You
 3. Click the **Run** button.
 The query result is displayed in the result area of the UI. You can run up to 5 queries simultaneously.
 
+## Object result set
+
+Currently three objects are written as a result set per job:
+
+1. `jobid=<job_id>`
+2. `jobid=<job_id>/_SUCCESS`
+3. `jobid=<job_id>/<part-number>`
+
+Only contains the result set (`jobid=<job_id>/<part-number>`), and the other two are empty and don't contain any data. 
+It is important not to delete any of the files if you want to use the result set.
+Each result is stored with an own job ID prefix that allows you to use the result directly in a query.
+When you want to specify a result as input in your SQL query, specify the first (`jobid=<job_id>`) or the third one (`jobid=<job_id>/<part-number>`).
+
 ## Table unique resource identifier
 
 A table unique resource identifier (URI) has the form 
@@ -66,11 +79,12 @@ The bucket name:
 
 **`<object>`**
 A more exact specification of the file or files:
-- For an input URI, this is a pattern that matches one or more input files. 
-The specified pattern behaves as if it were appended with a wildcard character, so that any files whose fully-qualified names begin with the pattern are 
-used as input files. For example:
+- The specified object is interpreted in a similar way as listing file system contents with `ls`. 
+When you specify a folder name, it will match all objects in that folder. When you specify a 
+specific object name, it only matches that single object. When you specify the string with a * wildcard, 
+it matches all objects accordingly. For example:
   - The pattern `mydir/test1/` matches all files in the specified directory, including files in any subdirectory of that directory.
-  - The pattern `mydir/test1/tr` matches all files in the specified directory whose names begin with `tr`, plus all files in any subdirectory whose name begins with `tr`.
+  - The pattern `mydir/test1/tr*` matches all files in the specified directory whose names begin with `tr`, plus all files in any subdirectory whose name begins with `tr`.
   
   Because a pattern might match more than one file, ensure that the schema of each matching file is appropriate within the context of the SELECT statement. 
 - For an output URI, this is the directory to which the result file is to be written. 
@@ -100,6 +114,7 @@ s3.ams-eu-geo.objectstorage.service.networklayer.com     | ams
 s3.fra-eu-geo.objectstorage.service.networklayer.com     | fra
 s3.mil-eu-geo.objectstorage.service.networklayer.com     | mil
 
+
 External Cross-Regional Endpoint Name | Alias
 --- | --- 
 s3-api.us-geo.objectstorage.softlayer.net    | us-geo
@@ -111,10 +126,12 @@ s3.ams-eu-geo.objectstorage.softlayer.net    | ams
 s3.fra-eu-geo.objectstorage.softlayer.net    | fra
 s3.mil-eu-geo.objectstorage.softlayer.net    | mil
 
+
 Internal Regional Endpoint Name | Alias
 --- | --- 
 s3.us-south.objectstorage.service.networklayer.com  | us-south
 s3.us-east.objectstorage.service.networklayer.com   | us-east
+
 
 External Regional Endpoint Name | Alias
 --- | --- 
@@ -180,4 +197,4 @@ To remove new lines from multi-line column values, use the SQL function `regexp_
 	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
 	
 - Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in each part of the object.
-- Ensure that all SQL statements, introducing new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
