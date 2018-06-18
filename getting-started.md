@@ -51,6 +51,7 @@ It uses this bucket as the default target for your query results.
 1. Select a sample query. This loads it into the editor. The input data used by the sample queries is available in a publicly accessable bucket.
 2. The Target field is automatically filled in with the unique resource identifier (URI) of your default bucket. You can use this bucket or specify a different URI.
 3. Click **Run** to run the query. The query result is displayed below the editor.
+4. Each sample data set is available in each of the supported input data formats (CSV, JSON, ORC, and Parquet). If you want to experiment with different formats, edit the selected sample query and change the specified file name and format. For example, change `orders.parquet STORED AS PARQUET` to `orders.orc STORED AS ORC`.
 
 <!--
 
