@@ -20,7 +20,7 @@ IBM Cloud SQL Query is a fully-managed service that lets you run SQL queries (th
 
 **Note:** You can use SQL Query to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
 
-Input data is read from CSV, JSON, or Parquet files located in one or more IBM Cloud Object Storage instances.
+Input data is read from CSV, JSON, ORC, or Parquet files located in one or more IBM Cloud Object Storage instances.
 Each query result is written to a CSV file in a Cloud Object Storage instance of your choice. 
 Use the SQL Query user interface (UI) to develop your queries and the [SQL Query REST API](sql-query.html#rest-api) to automate them.
 
@@ -41,7 +41,7 @@ Each URI can be thought of as a table.
 Each URI comprises one or more input files; each input file can be thought of as a table partition.
 You must have at least 'Reader' access to the buckets that contain the input files.
     - If the format of the input files is CSV, there is no need to specify a STORED AS clause. 
-However, if the format is JSON or Parquet, after the FROM clause, specify either STORED AS JSON or STORED AS PARQUET, as appropriate. 
+However, if the format is JSON, ORC, or Parquet, after the FROM clause, specify STORED AS JSON, STORED AS ORC, or STORED AS PARQUET, as appropriate. 
     - If required, you can use JOIN constructs to join data from several input files, even if those files are located in different instances.
 2. Below the SELECT statement, in the **Target** field, specify the output [URI](sql-query.html#table-unique-resource-identifier),
 that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
@@ -181,12 +181,12 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2-beta/s
 
 ## Limitations
 
-- JSON is not fully supported yet, it is in experimental state.
-- CSV input only supports comma-separated objects with a header.
-- JSON/Parquet: If objects contain nested or arrayed structures, the CSV result output format requires special consideration as part of the query. 
-Only using `select *...` returns an error, such as "Invalid CSV data type used: `struct< the nested JSON object you used >`. Use a valid data type for the CSV format."
-As a workaround for nested structures, specify the full nested column name(s) instead of the wildcard, for example, `select address.city from cos://...` 
-For arrays, the Spark SQL explode() function can be applied in the query, for example, `select explode(address.city) from cos://...`
+- JSON is not yet fully supported. It is in experimental state.
+- CSV input supports only comma-separated objects with a header.
+- If a JSON, ORC, or Parquet object contains a nested or arrayed structure, using a wildcard (for example, `select * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
+Use one of the following workarounds:
+  - For a nested structure, specify the fully nested column name instead of the wildcard, for example, `select address.city from cos://...`.
+  - For an array, use the Spark SQL explode() function, for example, `select explode(address.city) from cos://...`.
 - If you receive a corrupted result, verify that the source file is correct and that the correct input file format is specified using 'STORED AS' in the SQL statement.
 - If you receive an error message stating that some columns are not found in the input columns,
 but the columns do exist in the input file, check if the input file format being specified using 'STORED AS'
@@ -196,5 +196,5 @@ To remove new lines from multi-line column values, use the SQL function `regexp_
 
 	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
 	
-- Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in each part of the object.
+- Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in different parts of the object.
 - Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
