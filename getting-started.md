@@ -91,7 +91,7 @@ I REMOVED STEP 5 (operationalize) AND ADDED THE VIDEO TO THE VIDEO LIST BECAUSE:
 ## Next steps
 {: #next_steps}
 
-To analyze your own data (CSV, JSON, or Parquet), upload it to a Cloud Object Storage instance and run SQL queries as described [here](sql-query.html#running-an-sql-query).
+To analyze your own data (CSV, JSON, ORC, or Parquet), upload it to a Cloud Object Storage instance and run SQL queries as described [here](sql-query.html#running-an-sql-query).
 
 For more advanced capabilities, check out these video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)
