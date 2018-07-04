@@ -147,8 +147,10 @@ You can use the [SQL Query service REST API](https://developer.ibm.com/api/view/
 **Note:** The Cloud Resource Name (CRN) is a mandatory part of an SQL Query REST endpoint call. The CRN Copy button copies your CRN to clipboard and you can just paste it into your API call.
 
 <!--BLH; 13 FEB 2018: This will be uncommented later.
-Click [here](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) for more information about how to use the REST API.
-At the end of the month when the Bluemix catalog is combined with AE, the URL will change to
+aa
+[This IBM developerWorks article](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) contains additional information about how to use the REST API.
+aa
+Note to Andrea: When the Bluemix catalog is combined with AE, the URL abwill change to
 https://developer.ibm.com/api/view/cloudsqlquery/cloud-sql-query
 -->
 
