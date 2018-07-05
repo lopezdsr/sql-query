@@ -173,7 +173,7 @@ SQL Query is a serverless mechanism to submit SQL queries, making it a very natu
 <!--BLH; 04 JUL 2018: New section for Geospatial-->
 ### Geospatial functions
 
-SQL Query includes [Geospatial Toolkit](geospatialtoolkit/geospatialtoolkit_index.html) functions, which you can use to 
+SQL Query includes [Geospatial Toolkit](./geospatialtoolkit/geospatialtoolkit_index.html) functions, which you can use to 
 efficiently process and index spatial data.
 
 ## Required user roles
