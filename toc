@@ -7,6 +7,7 @@ IBM Cloud SQL Query
 	{: .navgroup id="learn"}
 	sql-query.md
 	getting-started.md
+	sqlref.md
 	{: .navgroup-end}
 	
 	{: .navgroup id="howto"}
@@ -18,4 +19,6 @@ IBM Cloud SQL Query
 	[Build a data lake using Cloud Object Storage](https://console.bluemix.net/docs/tutorials/smart-data-lake.html#build-a-data-lake-using-object-storage)
 	[Get started with Jupyter Notebooks and SQL Query](https://dataplatform.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d)
 	[Query and visualize traffic data in Jupyter Notebook](https://medium.com/ibm-watson-data-lab/analyzing-data-with-ibm-cloud-sql-query-bc53566a59f5)
-{: .navgroup-end}
+	[Use SQL Query to analyze geospatial data](https://github.ibm.com/Common-Spatiotemporal-Analytics-Library/sparksql-st/wiki/Getting-Started-with-SQL-Query-Geospatial)
+	[Use SQL Query's geospatial capabilities to analyze bike-share data from San Francisco](https://github.ibm.com/Common-Spatiotemporal-Analytics-Library/sparksql-st/wiki/FordGo-bike-analysis-using-SQL-Query)
+	{: .navgroup-end}
