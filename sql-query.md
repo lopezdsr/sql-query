@@ -173,8 +173,13 @@ SQL Query is a serverless mechanism to submit SQL queries, making it a very natu
 <!--BLH; 04 JUL 2018: New section for Geospatial-->
 ### Geospatial functions
 
-SQL Query includes [Geospatial Toolkit](./geospatialtoolkit/geospatialtoolkit_index.html) functions, which you can use to 
-efficiently process and index spatial data.
+The [Geospatial Toolkit](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_intro.html) 
+provides a set 
+of [geospatial functions](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html) 
+that you can use to efficiently process and index spatial data. 
+These functions are integrated into the SQL Query service and ready for immediate use.
+The SQL Query service also provides several sample queries that illustrate how 
+to use these functions. 
 
 ## Required user roles
 
