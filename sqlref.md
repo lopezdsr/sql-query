@@ -20,7 +20,7 @@ The SQL Query service provides a large and varied set of functions for you to us
 
 ## Spark SQL functions
 
-Queries can employ any of the [Spark SQL functions](https://spark.apache.org/docs/2.3.0/api/sql/index.html), with the following exceptions:
+A query can use any of the [Spark SQL functions](https://spark.apache.org/docs/2.3.0/api/sql/index.html), with the following exceptions:
 
 - assert_true
 - input_file_block_start
