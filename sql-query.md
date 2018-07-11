@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-06-11"
+lastupdated: "2018-07-11"
 
 ---
 
@@ -106,37 +106,65 @@ To save space, you can use the alias shown instead of the full endpoint name.
 Internal Cross-Regional Endpoint Name | Alias
 --- | --- 
 s3-api.us-geo.objectstorage.service.networklayer.com     | us-geo
-s3-api.dal-us-geo.objectstorage.service.networklayer.com | dal
-s3-api.wdc-us-geo.objectstorage.service.networklayer.com | wdc
-s3-api.sjc-us-geo.objectstorage.service.networklayer.com | sjc
+s3-api.dal-us-geo.objectstorage.service.networklayer.com | dal-us-geo
+s3-api.wdc-us-geo.objectstorage.service.networklayer.com | wdc-us-geo
+s3-api.sjc-us-geo.objectstorage.service.networklayer.com | sjc-us-geo
 s3.eu-geo.objectstorage.service.networklayer.com         | eu-geo
-s3.ams-eu-geo.objectstorage.service.networklayer.com     | ams
-s3.fra-eu-geo.objectstorage.service.networklayer.com     | fra
-s3.mil-eu-geo.objectstorage.service.networklayer.com     | mil
+s3.ams-eu-geo.objectstorage.service.networklayer.com     | ams-eu-geo
+s3.fra-eu-geo.objectstorage.service.networklayer.com     | fra-eu-geo
+s3.mil-eu-geo.objectstorage.service.networklayer.com     | mil-eu-geo
+s3.ap-geo.objectstorage.service.networklayer.com         | ap-geo
+s3.tok-ap-geo.objectstorage.service.networklayer.com     | tok-ap-geo
+s3.seo-ap-geo.objectstorage.service.networklayer.com     | seo-ap-geo
+s3.hkg-ap-geo.objectstorage.service.networklayer.com     | hkg-ap-geo
 
 
 External Cross-Regional Endpoint Name | Alias
 --- | --- 
-s3-api.us-geo.objectstorage.softlayer.net    | us-geo
-s3-api.dal-us-geo.objectstorage.softlayer.net| dal
-s3-api.wdc-us-geo.objectstorage.softlayer.net| wdc
-s3-api.sjc-us-geo.objectstorage.softlayer.net| sjc
-s3.eu-geo.objectstorage.softlayer.net        | eu-geo
-s3.ams-eu-geo.objectstorage.softlayer.net    | ams
-s3.fra-eu-geo.objectstorage.softlayer.net    | fra
-s3.mil-eu-geo.objectstorage.softlayer.net    | mil
+s3-api.us-geo.objectstorage.softlayer.net     | us-geo
+s3-api.dal-us-geo.objectstorage.softlayer.net | dal-us-geo
+s3-api.wdc-us-geo.objectstorage.softlayer.net | wdc-us-geo
+s3-api.sjc-us-geo.objectstorage.softlayer.net | sjc-us-geo
+s3.eu-geo.objectstorage.softlayer.net         | eu-geo
+s3.ams-eu-geo.objectstorage.softlayer.net     | ams-eu-geo
+s3.fra-eu-geo.objectstorage.softlayer.net     | fra-eu-geo
+s3.mil-eu-geo.objectstorage.softlayer.net     | mil-eu-geo
+s3.ap-geo.objectstorage.softlayer.net         | ap-geo
+s3.tok-ap-geo.objectstorage.softlayer.net     | tok-ap-geo
+s3.seo-ap-geo.objectstorage.softlayer.net     | seo-ap-geo
+s3.hkg-ap-geo.objectstorage.softlayer.net     | hkg-ap-geo
 
 
 Internal Regional Endpoint Name | Alias
 --- | --- 
-s3.us-south.objectstorage.service.networklayer.com  | us-south
-s3.us-east.objectstorage.service.networklayer.com   | us-east
+s3.eu-de.objectstorage.service.networklayer.com    | eu-de
+s3.eu-gb.objectstorage.service.networklayer.com    | eu-gb
+s3.us-south.objectstorage.service.networklayer.com | us-south
+s3.us-east.objectstorage.service.networklayer.com  | us-east
 
 
 External Regional Endpoint Name | Alias
 --- | --- 
+s3.eu-de.objectstorage.softlayer.net    | eu-de
+s3.eu-gb.objectstorage.softlayer.net    | eu-gb
 s3.us-south.objectstorage.softlayer.net | us-south
 s3.us-east.objectstorage.softlayer.net  | us-east
+
+
+Internal Single-Site Endpoint Name | Alias
+--- | --- 
+s3.ams03.objectstorage.service.networklayer.com    | ams
+s3.che01.objectstorage.service.networklayer.com    | che
+s3.mel01.objectstorage.service.networklayer.com    | mel
+s3.tor01.objectstorage.service.networklayer.com    | tor
+
+
+External Single-Site Endpoint Name | Alias
+--- | --- 
+s3.ams03.objectstorage.softlayer.net   | ams
+s3.che01.objectstorage.softlayer.net   | che
+s3.mel01.objectstorage.softlayer.net   | mel
+s3.tor01.objectstorage.softlayer.net   | tor
 
 ## Programmatic access
 
@@ -194,7 +222,6 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2-beta/s
 
 ## Limitations
 
-- JSON is not yet fully supported. It is in experimental state.
 - CSV input supports only comma-separated objects with a header.
 - If a JSON, ORC, or Parquet object contains a nested or arrayed structure, using a wildcard (for example, `select * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
 Use one of the following workarounds:
