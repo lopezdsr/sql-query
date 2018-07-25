@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-07-23"
+lastupdated: "2018-07-25"
 
 ---
 
@@ -17,7 +17,7 @@ lastupdated: "2018-07-23"
 
 # Activity Tracker events
 
-Use the IBM® Cloud Activity Tracker service to track how users and applications interact with IBM® Cloud Object Storage.
+Use the IBM® Cloud Activity Tracker service to track how users and applications interact with IBM® Cloud SQL Query.
 
 The IBM Cloud Activity Tracker service records user-initiated activities that change the state of a service in IBM Cloud. 
 For more information, see [Getting started with Activity Tracker](https://console.bluemix.net/docs/services/cloud-activity-tracker/index.html#getting-started-with-cla).
