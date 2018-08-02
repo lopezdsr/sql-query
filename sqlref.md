@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-07-06"
+lastupdated: "2018-08-02"
 
 ---
 
@@ -15,7 +15,7 @@ lastupdated: "2018-07-06"
 
 
 # SQL function reference
-The SQL Query service provides a large and varied set of functions for you to use in your queries.
+The {{site.data.keyword.sqlquery_full}} service provides a large and varied set of functions for you to use in your queries.
 {: shortdesc}
 
 ## Spark SQL functions
