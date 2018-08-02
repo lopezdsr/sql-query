@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-07-18"
+lastupdated: "2018-08-02"
 
 ---
 
@@ -17,7 +17,9 @@ lastupdated: "2018-07-18"
 
 # API
 
-To get you started using the SQL Query API, this Jupyter Notebook demonstrates an end-to-end cycle starting with setting up libraries and configuring SQL Query, all the way to visualizing results using PixieDust:  
-[Using IBM Cloud SQL Query](https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d)
+To get you started using the {{site.data.keyword.sqlquery_full}} API, the 
+[Using IBM Cloud SQL Query](https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d) 
+Jupyter Notebook demonstrates an end-to-end cycle starting with setting up libraries and configuring {{site.data.keyword.sqlquery_short}}, all the way to visualizing results using PixieDust.
+
 
 
