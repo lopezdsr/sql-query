@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-05-08"
+lastupdated: "2018-08-02"
 
 ---
 
@@ -15,43 +15,46 @@ lastupdated: "2018-05-08"
 
 
 # Getting started tutorial
-In this IBM Cloud SQL Query tutorial, we'll set you up to begin querying rectangular data in IBM Cloud Object Storage.
+In this {{site.data.keyword.sqlquery_full}} tutorial, we'll set you up to begin querying rectangular data in {{site.data.keyword.cos_full}}.
 
 {: shortdesc}
 
 ## Before you begin
 {: #prereqs}
 
-Before you can run SQL queries, you need to have one or more Cloud Object Storage (COS) buckets to hold the data to be analyzed and to hold the query results.
-Cloud Object Storage offers several plans, including a free "Lite" plan.
-To create a Cloud Object Storage instance:
+Before you can run SQL queries, you need to have one or more Cloud {{site.data.keyword.cos_short}} buckets to hold the data to be analyzed and to hold the query results.
+Cloud {{site.data.keyword.cos_short}} offers several plans, including a free "Lite" plan.
+To create an Cloud {{site.data.keyword.cos_short}} instance:
 1. Go to the [**IBM Cloud Catalog > Storage > Object Storage**](https://console.bluemix.net/catalog/infrastructure/cloud-object-storage) page.
 2. Select one of the plans and create the service.  
 
-   If you want to find your Cloud Object Storage instance at a later point of time, go to your  
+   If you want to find your Cloud {{site.data.keyword.cos_short}} instance at a later point of time, go to your  
    [**IBM Cloud Dashboard > Services**](https://console.bluemix.net/dashboard/apps). 
 (If you do not see it in the list, select the resource group "All Resources".)
 
 You can now manage and browse the buckets and data the instance contains. 
-Click [here](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console) for more information about how to use Cloud Object Storage.
+Click [here](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console) 
+for more information about how to use Cloud {{site.data.keyword.cos_short}}.
 
-## Step 1: Create your SQL Query service instance
+## Step 1: Create your {{site.data.keyword.sqlquery_short}} service instance
 {: #sql_query}
 
 1. Go to the [**IBM Cloud Catalog**](https://console.bluemix.net/catalog) and search for **SQL Query**.
 2. Click **SQL Query** to open the Catalog details page.
 3. Select the Beta plan and Click **Create** to create an instance of the service.
-4. Click **Open UI** on the Dashboard page to open the SQL Query Console.
-When you do this for the first time, the SQL Query service automatically creates a bucket for you in your Cloud Object Store instance.
+4. Click **Open UI** on the Dashboard page to open the {{site.data.keyword.sqlquery_short}} Console.
+When you do this for the first time, the {{site.data.keyword.sqlquery_short}} service automatically creates a bucket for you in your Cloud {{site.data.keyword.cos_short}} instance.
 It uses this bucket as the default target for your query results.
 
 ## Step 2: Execute one of the samples to see how to use the service
 {: #samples}
 
-1. Select a sample query. This loads it into the editor. The input data used by the sample queries is available in a publicly accessable bucket.
+1. Select a sample query. This loads it into the editor. The input data used by the sample queries is available in a publicly accessible bucket.
 2. The Target field is automatically filled in with the unique resource identifier (URI) of your default bucket. You can use this bucket or specify a different URI.
 3. Click **Run** to run the query. The query result is displayed below the editor.
-4. Each sample data set is available in each of the supported input data formats (CSV, JSON, ORC, and Parquet). If you want to experiment with different formats, edit the selected sample query and change the specified file name and format. For example, change `orders.parquet STORED AS PARQUET` to `orders.orc STORED AS ORC`.
+4. Each sample data set is available in each of the supported input data formats (CSV, JSON, ORC, and Parquet). 
+If you want to experiment with different formats, edit the selected sample query and change the specified file name and format. 
+For example, change `orders.parquet STORED AS PARQUET` to `orders.orc STORED AS ORC`.
 
 <!--
 
@@ -92,7 +95,8 @@ I REMOVED STEP 5 (operationalize) AND ADDED THE VIDEO TO THE VIDEO LIST BECAUSE:
 ## Next steps
 {: #next_steps}
 
-To analyze your own data (CSV, JSON, ORC, or Parquet), upload it to a Cloud Object Storage instance and run SQL queries as described [here](sql-query.html#running-an-sql-query).
+To analyze your own data (CSV, JSON, ORC, or Parquet), upload it to an Cloud {{site.data.keyword.cos_short}} instance and run SQL queries as described 
+[here](sql-query.html#running-an-sql-query).
 
 For more advanced capabilities, check out these video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)
