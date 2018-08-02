@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-07-18"
+lastupdated: "2018-08-02"
 
 ---
 
@@ -17,7 +17,7 @@ lastupdated: "2018-07-18"
 
 # Log analysis
 
-Learn how to use the Aspera high-speed upload feature of IBM Cloud Object Storage and how to analyze police logs in CSV format:  
-[Build a data lake using object storage](https://console.bluemix.net/docs/tutorials/smart-data-lake.html#build-a-data-lake-using-object-storage) 
+Learn how to use the Aspera high-speed upload feature of {{site.data.keyword.cos_full}} and how to analyze police logs in CSV format with
+[Build a data lake using object storage](https://console.bluemix.net/docs/tutorials/smart-data-lake.html#build-a-data-lake-using-object-storage).
 
 
