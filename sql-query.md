@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-07-11"
+lastupdated: "2018-08-02"
 
 ---
 
@@ -15,27 +15,28 @@ lastupdated: "2018-07-11"
 # Overview
 {:shortdesc}
 
-IBM Cloud SQL Query is a fully-managed service that lets you run SQL queries (that is, SELECT statements) to analyze, transform, or clean up rectangular data.
+{{site.data.keyword.sqlquery_full}} is a fully-managed service that lets you run SQL queries (that is, SELECT statements) to analyze, transform, or clean up rectangular data.
 {:shortdesc}
 
-**Note:** You can use SQL Query to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
+**Note:** You can use {{site.data.keyword.sqlquery_short}} to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
 
-Input data is read from CSV, JSON, ORC, or Parquet files located in one or more IBM Cloud Object Storage instances.
-Each query result is written to a CSV file in a Cloud Object Storage instance of your choice. 
-Use the SQL Query user interface (UI) to develop your queries and the [SQL Query REST API](sql-query.html#rest-api) to automate them.
+Input data is read from CSV, JSON, ORC, or Parquet files located in one or more {{site.data.keyword.cos_full}} instances.
+Each query result is written to a CSV file in a Cloud {{site.data.keyword.cos_short}} instance of your choice. 
+Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the [SQL Query REST API](sql-query.html#rest-api) to automate them.
 
 ## Where your input data and query results are stored
 
-Before you can use the SQL Query service to run SQL queries, the input data must be uploaded to one or more Cloud Object Storage instances.
-You must also have at least 'Writer' access to at least one Cloud Object Storage bucket, so that result files (that is, the files containing output data) can be written there.
-For more information about Cloud Object Storage, including how to provision an instance, create buckets, and upload data, 
+Before you can use the {{site.data.keyword.sqlquery_short}} service to run SQL queries, the input data must be uploaded to one or more Cloud {{site.data.keyword.cos_short}} instances.
+You must also have at least 'Writer' access to at least one Cloud {{site.data.keyword.cos_short}} bucket, so that result files 
+(that is, the files containing output data) can be written there.
+For more information about Cloud {{site.data.keyword.cos_short}}, including how to provision an instance, create buckets, and upload data, 
 refer to the [Cloud Object Storage Getting Started Guide](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console).
 
-## Running an SQL query
+## Running an {{site.data.keyword.sqlquery_short}}
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
-1. In the SQL editor field of the SQL Query UI, enter a SELECT statement. In this statement:
+1. In the SQL editor field of the {{site.data.keyword.sqlquery_short}} UI, enter a SELECT statement. In this statement:
     - After the FROM keyword, specify one or more [unique resource identifiers](sql-query.html#table-unique-resource-identifier) (URIs).
 Each URI can be thought of as a table. 
 Each URI comprises one or more input files; each input file can be thought of as a table partition.
@@ -70,7 +71,7 @@ A table unique resource identifier (URI) has the form
 where:
 
 **`<endpoint>`**
-The [endpoint](sql-query.html#endpoints) of your Cloud Object Store instance, or its [alias](sql-query.html#endpoints).
+The [endpoint](sql-query.html#endpoints) of your Cloud {{site.data.keyword.cos_short}} instance, or its [alias](sql-query.html#endpoints).
 
 **`<bucket>`**
 The bucket name:
@@ -100,7 +101,7 @@ For example, if you specify `mydir/out` or `mydir/out/` as the target directory,
 
 ## Endpoints
 
-Your Cloud Object Storage instance will have one of the endpoints shown in the following tables. 
+Your Cloud {{site.data.keyword.cos_short}} instance will have one of the endpoints shown in the following tables. 
 To save space, you can use the alias shown instead of the full endpoint name.
 
 Internal Cross-Regional Endpoint Name | Alias
@@ -170,33 +171,35 @@ s3.tor01.objectstorage.softlayer.net   | tor
 
 ### REST API
 
-You can use the [SQL Query service REST API](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
+You can use the [SQL Query service REST API](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) 
+to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 
-**Note:** The Cloud Resource Name (CRN) is a mandatory part of an SQL Query REST endpoint call. The CRN Copy button copies your CRN to clipboard and you can just paste it into your API call.
+**Note:** The Cloud Resource Name (CRN) is a mandatory part of an {{site.data.keyword.sqlquery_short}} REST endpoint call. The CRN Copy button 
+copies your CRN to clipboard and you can just paste it into your API call.
 
 <!--BLH; 13 FEB 2018: This will be uncommented later.
 aa
 [This IBM developerWorks article](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query) contains additional information about how to use the REST API.
 aa
-Note to Andrea: When the Bluemix catalog is combined with AE, the URL abwill change to
+Note to Andrea: When the Bluemix catalog is combined with AE, the URL will change to
 https://developer.ibm.com/api/view/cloudsqlquery/cloud-sql-query
 -->
 
 ### Python applications and notebooks
 
 For a Python application, you can also use the [ibmcloudsql package](https://pypi.python.org/pypi/ibmcloudsql). 
-This allows you to use IBM Watson Studio to run queries with SQL Query and visualize the query results with one 
+This allows you to use IBM Watson Studio to run queries with {{site.data.keyword.sqlquery_short}} and visualize the query results with one 
 of the various widget libraries available in [Watson Studio](https://console.stage1.bluemix.net/catalog/services/data-science-experience).
 
-Using the ibmcloudsql library, you can also interact with SQL Query directly from Watson Studio notebooks. 
+Using the ibmcloudsql library, you can also interact with {{site.data.keyword.sqlquery_short}} directly from Watson Studio notebooks. 
 You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.ibm.com/analytics/notebooks/v2/656c7d43-7ccd-4e50-a3c0-bbc37c001132/view?access_token=baaa77ad715e17a8f823615d45431329fde0fe92fecb85abb9fc55a877939fe8) 
 in the [Watson Studio community](https://dataplatform.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d). 
 
 ### Cloud functions
 
-SQL Query is a serverless mechanism to submit SQL queries, making it a very natural match for the serverless 
+{{site.data.keyword.sqlquery_short}} is a serverless mechanism to submit SQL queries, making it a very natural match for the serverless 
 [IBM Cloud Functions](https://www.ibm.com/cloud/functions). Accordingly, you can use the generic 
-[SQL Cloud function](https://hub.docker.com/r/ibmfunctions/sqlquery) to run SQL Query as an IBM Cloud function.
+[SQL Cloud function](https://hub.docker.com/r/ibmfunctions/sqlquery) to run {{site.data.keyword.sqlquery_short}} as an IBM Cloud function.
 
 <!--BLH; 04 JUL 2018: New section for Geospatial-->
 ### Geospatial functions
@@ -205,8 +208,8 @@ The [Geospatial Toolkit](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.
 provides a set 
 of [geospatial functions](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html) 
 that you can use to efficiently process and index spatial data. 
-These functions are integrated into the SQL Query service and ready for immediate use.
-The SQL Query service also provides several sample queries that illustrate how 
+These functions are integrated into the {{site.data.keyword.sqlquery_short}} service and ready for immediate use.
+The {{site.data.keyword.sqlquery_short}} service also provides several sample queries that illustrate how 
 to use these functions. 
 
 ## Required user roles
@@ -223,7 +226,8 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2-beta/s
 ## Limitations
 
 - CSV input supports only comma-separated objects with a header.
-- If a JSON, ORC, or Parquet object contains a nested or arrayed structure, using a wildcard (for example, `select * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
+- If a JSON, ORC, or Parquet object contains a nested or arrayed structure, using a wildcard (for example, `select * from cos://...`) returns an error such as 
+"Invalid CSV data type used: `struct<nested JSON object>`."
 Use one of the following workarounds:
   - For a nested structure, specify the fully nested column name instead of the wildcard, for example, `select address.city from cos://...`.
   - For an array, use the Spark SQL explode() function, for example, `select explode(address.city) from cos://...`.
@@ -231,10 +235,15 @@ Use one of the following workarounds:
 - If you receive an error message stating that some columns are not found in the input columns,
 but the columns do exist in the input file, check if the input file format being specified using 'STORED AS'
 in the SQL statement is the actual file format of your current file.
-- In order to further process CSV output with SQL Query, all values have to be contained within one line. The multi-line option is not supported and therefore must be manually changed. 
-To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton SQL statement looks like the following:
+- In order to further process CSV output with {{site.data.keyword.sqlquery_short}}, all values have to be contained within one line. The multi-line option 
+is not supported and therefore must be manually changed. 
+To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` 
+containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton 
+SQL statement looks like the following:
 
 	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
 	
-- Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in different parts of the object.
-- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+- Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence 
+of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in different parts of the object.
+- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, 
+add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
