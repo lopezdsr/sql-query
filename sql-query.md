@@ -171,7 +171,7 @@ s3.tor01.objectstorage.softlayer.net   | tor
 
 ### REST API
 
-You can use the [SQL Query service REST API](https://developer.ibm.com/api/view/cloudsqlquery-prod:cloud-sql-query:title-Cloud_SQL_Query__beta_#doc) 
+You can use the [SQL Query service REST API](https://console.bluemix.net/apidocs/sql-query?language=curl) 
 to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 
 **Note:** The Cloud Resource Name (CRN) is a mandatory part of an {{site.data.keyword.sqlquery_short}} REST endpoint call. The CRN Copy button 
