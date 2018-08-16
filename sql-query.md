@@ -219,9 +219,9 @@ Use this information to decide which access rights to grant your users when crea
 
 Description | Service Action | API Endpoint | Required User Roles
 --- | --- | --- | ---
-Submit an SQL query | sql-query.api.submit | POST/v2-beta/sql_jobs/ | Manager or Writer
-Get info for all submitted jobs | sql-query.api.getalljobs | GET/v2-beta/sql_jobs/ | Manager, Writer, or Reader
-Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2-beta/sql_jobs/{job_id} | Manager, Writer, or Reader
+Submit an SQL query | sql-query.api.submit | POST/v2/sql_jobs/ | Manager or Writer
+Get info for all submitted jobs | sql-query.api.getalljobs | GET/v2/sql_jobs/ | Manager, Writer, or Reader
+Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2/sql_jobs/{job_id} | Manager, Writer, or Reader
 
 ## Limitations
 
