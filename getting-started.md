@@ -41,7 +41,7 @@ for more information about how to use Cloud {{site.data.keyword.cos_short}}.
 
 1. Go to the [**IBM Cloud Catalog**](https://console.bluemix.net/catalog) and search for **SQL Query**.
 2. Click **SQL Query** to open the Catalog details page.
-3. Select the Beta plan and Click **Create** to create an instance of the service.
+3. Select the Lite plan and Click **Create** to create an instance of the service.
 4. Click **Open UI** on the Dashboard page to open the {{site.data.keyword.sqlquery_short}} Console.
 When you do this for the first time, the {{site.data.keyword.sqlquery_short}} service automatically creates a bucket for you in your Cloud {{site.data.keyword.cos_short}} instance.
 It uses this bucket as the default target for your query results.
