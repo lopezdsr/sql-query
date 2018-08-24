@@ -10,7 +10,7 @@ lastupdated: "2018-07-24"
 
 ## July 2018 
 
-<!-- - IBM SQL Query generally available. The open Beta phase ended.  -->
+- IBM SQL Query is now generally available. Its open beta phase has ended.
 - Support for new built-in SQL functions released with Apache Spark 2.3   
   (https://issues.apache.org/jira/browse/SPARK-20746).
 - Set of SQL optimizer and ANSI SQL and Hive SQL compliance enhancements introduced with Apache Spark 2.3.
