@@ -4,31 +4,31 @@
 {: .toc subcollection="sql-query" audience="service" href="/docs/services/sql-query/getting-started.html"}
 IBM Cloud SQL Query
 
-	{: .navgroup id="learn"}
-	sql-query.md
-	getting-started.md
-	whatsnew.md
-	{: .navgroup-end}
-	
-	{: .navgroup id="reference"}
-  	sqlref.md
-	activity.md
-	{: .navgroup-end}
-	
-	{: .navgroup id="howto"}
-	{: .topicgroup}
-	Video tutorials
-		[Run basic queries](https://www.youtube.com/embed/OcYS4_GaUQU?rel=0)
-		[Connect to IBM Cloud Object Storage Through the Command Line](https://www.youtube.com/embed/mE309Gk8zQ4?rel=0)
-		[Use the SQL Query REST API](https://www.youtube.com/embed/ZmtSF6joY0Q?rel=0)
-		[Operationalize SQL code and call it from an application](https://www.youtube.com/embed/yX-8_jTiAuo?rel=0)
-  	
-	{: .topicgroup}
-  	Guides
-    	big_data.md
-    	setup.md
-    	data_lake.md
-    	api_notebook.md
-    	geospatial.md
-  	{: .navgroup-end}
-  
+    {: .navgroup id="learn"}
+    sql-query.md
+    getting-started.md
+    whatsnew.md
+    {: .navgroup-end}
+
+    {: .navgroup id="reference"}
+    sqlref.md
+    activity.md
+    {: .navgroup-end}
+
+    {: .navgroup id="howto"}
+    {: .topicgroup}
+    Video tutorials
+        [Run basic queries](https://www.youtube.com/embed/OcYS4_GaUQU?rel=0)
+        [Connect to IBM Cloud Object Storage Through the Command Line](https://www.youtube.com/embed/mE309Gk8zQ4?rel=0)
+        [Use the SQL Query REST API](https://www.youtube.com/embed/ZmtSF6joY0Q?rel=0)
+        [Operationalize SQL code and call it from an application](https://www.youtube.com/embed/yX-8_jTiAuo?rel=0)
+
+    {: .topicgroup}
+    Guides
+        big_data.md
+        setup.md
+        data_lake.md
+        api_notebook.md
+        geospatial.md
+        microservice.md
+    {: .navgroup-end}
