@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-08-02"
+lastupdated: "2018-10-22"
 
 ---
 
@@ -62,7 +62,7 @@ It is important not to delete any of the files if you want to use the result set
 Each result is stored with an own job ID prefix that allows you to use the result directly in a query.
 When you want to specify a result as input in your SQL query, specify the first (`jobid=<job_id>`) or the third one (`jobid=<job_id>/<part-number>`).
 
-## Table unique resource identifier
+<h2 id="Table_unique_resource_identifier">Table unique resource identifier</h2>
 
 A table unique resource identifier (URI) has the form 
 
@@ -142,6 +142,7 @@ s3.eu-de.objectstorage.service.networklayer.com    | eu-de
 s3.eu-gb.objectstorage.service.networklayer.com    | eu-gb
 s3.us-south.objectstorage.service.networklayer.com | us-south
 s3.us-east.objectstorage.service.networklayer.com  | us-east
+s3.jp-tok.objectstorage.service.networklayer.com   | jp-tok 
 
 
 External Regional Endpoint Name | Alias
@@ -150,22 +151,26 @@ s3.eu-de.objectstorage.softlayer.net    | eu-de
 s3.eu-gb.objectstorage.softlayer.net    | eu-gb
 s3.us-south.objectstorage.softlayer.net | us-south
 s3.us-east.objectstorage.softlayer.net  | us-east
+s3.jp-tok.objectstorage.softlayer.net   | jp-tok 
 
 
 Internal Single-Site Endpoint Name | Alias
 --- | --- 
-s3.ams03.objectstorage.service.networklayer.com    | ams
-s3.che01.objectstorage.service.networklayer.com    | che
-s3.mel01.objectstorage.service.networklayer.com    | mel
-s3.tor01.objectstorage.service.networklayer.com    | tor
-
+s3.ams03.objectstorage.service.networklayer.com    | ams03
+s3.che01.objectstorage.service.networklayer.com    | che01
+s3.tor01.objectstorage.service.networklayer.com    | tor01
+s3.osl01.objectstorage.service.networklayer.com    | osl01
+s3.mel01.objectstorage.service.networklayer.com    | mel01
+s3.sao01.objectstorage.service.networklayer.com    | sao01
 
 External Single-Site Endpoint Name | Alias
 --- | --- 
-s3.ams03.objectstorage.softlayer.net   | ams
-s3.che01.objectstorage.softlayer.net   | che
-s3.mel01.objectstorage.softlayer.net   | mel
-s3.tor01.objectstorage.softlayer.net   | tor
+s3.ams03.objectstorage.softlayer.net   | ams03
+s3.che01.objectstorage.softlayer.net   | che01
+s3.tor01.objectstorage.softlayer.net   | tor01
+s3.osl01.objectstorage.softlayer.net   | osl01
+s3.mel01.objectstorage.softlayer.net   | mel01
+s3.sao01.objectstorage.softlayer.net   | sao01
 
 ## Programmatic access
 
