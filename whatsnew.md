@@ -2,15 +2,24 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-07-24"
+lastupdated: "2018-11-22"
 
 ---
 
 # What's new
 
-## July 2018 
+## November 2018
 
-- IBM SQL Query is now generally available. Its open beta phase has ended.
+- Support for controlling the layout of SQL results. Including support for creating hive-style partitioning and paginated result data.
+- Support for extensions in Python SDK (https://pypi.org/project/ibmcloudsql) for result data partitioning, pagination and exporting SQL job history to Cloud Object Storage.
+
+## October 2018
+
+Support for SELECT INTO to control the format the SQL result is written in.
+
+## August 2018 
+
+- {{site.data.keyword.sqlquery_full}} is now generally available. Its open beta phase has ended.
 - Support for new built-in SQL functions released with Apache Spark 2.3   
   (https://issues.apache.org/jira/browse/SPARK-20746).
 - Set of SQL optimizer and ANSI SQL and Hive SQL compliance enhancements introduced with Apache Spark 2.3.
@@ -24,4 +33,4 @@ lastupdated: "2018-07-24"
 
 ## April 2018 
 
-IBM SQL Query release beta (https://www.ibm.com/blogs/bluemix/2018/04/introducing-ibm-cloud-sql-query/)
+{{site.data.keyword.sqlquery_notm}} release beta (https://www.ibm.com/blogs/bluemix/2018/04/introducing-ibm-cloud-sql-query/)
