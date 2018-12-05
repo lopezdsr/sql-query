@@ -2752,7 +2752,7 @@ The following types of operators can be used:
 
 | Operator | Operand types | Description |
 | :----: | ---- | ---- |
-| <code>A &#124;&#124; B</code> |  String types | Returns the concatenation of strings A and B. If A or B is not a string, it is first converted into a string type. The result is a string. |
+| <code>A &#124;&#124; B</code> |  All types | Returns the concatenation of A and B. If A or B is not a string, it is first converted into a string type. The result is a string. |
 {: caption="Table 55. String operator" caption-side="top"}
 
 
