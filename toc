@@ -16,6 +16,7 @@ IBM Cloud SQL Query
         sqlref/sql_reference.md
         sqlref/sql_function_reference.md
         sqlref/sql_functions.md
+    {: .navgroup-end}
 
     {: .navgroup id="howto"}
     {: .topicgroup}
