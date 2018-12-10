@@ -2,11 +2,16 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-11-22"
+lastupdated: "2018-12-10"
 
 ---
 
 # What's new
+
+## December 2018
+
+Release of a complete SQL Reference Guide, an SQL introduction for Cloud SQL/Spark SQL.
+This Guide includes examples that can be copied and directly pasted into the Web UI to be executed.
 
 ## November 2018
 
