@@ -1,0 +1,150 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram"  width="437" height="252" viewBox="0 0 437 252" >
+<defs><style type="text/css"><![CDATA[ svg.railroad-diagram {
+  background-color: #ffffff;
+}
+svg.railroad-diagram path {
+  stroke-width: 2;
+  stroke: #5a6872;
+  fill: none;
+}
+svg.railroad-diagram text {
+  font-size: 14px;
+  font-family: 'ibm-plex-mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace;
+  color: #152935;
+  text-anchor: middle;
+  cursor: pointer;
+}
+svg.railroad-diagram text.label {
+  text-anchor: start;
+}
+svg.railroad-diagram text.comment {
+  font-size: 12px;
+}
+svg.railroad-diagram rect {
+  stroke-width: 2;
+  stroke:  #5a6872;
+  fill: #5aaafa;
+}
+ ]]></style></defs>
+
+<g transform="translate(.5 .5)">
+<path d="M20 31  v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path>
+<g>
+<path d="M40 41 h0"></path>
+<path d="M1096 41 h0"></path>
+<path d="M40 41 h10"></path>
+<g>
+<path d="M50 41 h0"></path>
+<path d="M86 41 h0"></path>
+<rect x="50" y="30" width="36" height="22"  rx="10" ry="10"></rect>
+<text x="68" y="45">BY</text>
+</g>
+<path d="M86 41 h10"></path>
+<path d="M96 41 h10"></path>
+<g>
+<path d="M106 41 h0"></path>
+<path d="M134 41 h0"></path>
+<rect x="106" y="30" width="28" height="22"  rx="10" ry="10"></rect>
+<text x="120" y="45">(</text>
+</g>
+<path d="M134 41 h10"></path>
+<path d="M144 41 h10"></path>
+<g>
+<path d="M154 41 h0"></path>
+<path d="M294 41 h0"></path>
+<path d="M154 41 h10"></path>
+<g>
+<path d="M164 41 h0"></path>
+<path d="M284 41 h0"></path>
+<path d="M164 41 h10"></path>
+<g>
+<path d="M174 41 h0"></path>
+<path d="M274 41 h0"></path>
+<rect x="174" y="30" width="100" height="22" ></rect>
+<text x="224" y="45">identifier</text>
+</g>
+<path d="M274 41 h10"></path>
+</g>
+<path d="M284 41 h10"></path>
+<path d="M164 41 a10 10 0 0 0 -10 10v10a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M164 71 h36"></path>
+<path d="M248 71 h36"></path>
+<path d="M200 71 h10"></path>
+<g>
+<path d="M210 71 h0"></path>
+<path d="M238 71 h0"></path>
+<rect x="210" y="60" width="28" height="22"  rx="10" ry="10"></rect>
+<text x="224" y="75">,</text>
+</g>
+<path d="M238 71 h10"></path>
+</g>
+<path d="M284 71 a10 10 0 0 0 10 -10v-10a10 10 0 0 0 -10 -10"></path>
+</g>
+<path d="M294 41 h10"></path>
+<path d="M304 41 h10"></path>
+<g>
+<path d="M314 41 h0"></path>
+<path d="M342 41 h0"></path>
+<rect x="314" y="30" width="28" height="22"  rx="10" ry="10"></rect>
+<text x="328" y="45">)</text>
+</g>
+<path d="M342 41 h10"></path>
+<path d="M352 41 h10"></path>
+<g id="eol">
+<path d="M362 41 h0"></path>
+<path d="M362 41 a 10 10 0 0 1 10 10 V 90 a 10 10 0 0 1 -10 10 h -331 a 10 10 0 0 0 -10 10 V 135 a 10 10 0 0 0 10 10"></path>
+<path d="M362 41 h0"></path>
+<path d="M362 41 h0"></path>
+</g>
+<path d="M31 145 h10"></path>
+<g>
+<path d="M41 145 h0"></path>
+<path d="M325 145 h0"></path>
+<path d="M41 145 a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g>
+<path d="M61 125 h244"></path>
+</g>
+<path d="M305 125 a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M41 145 h20"></path>
+<g>
+<path d="M61 145 h0"></path>
+<path d="M305 145 h0"></path>
+<rect x="61" y="134" width="244" height="22" ></rect>
+<text x="183" y="149">resultPartitionedIntoBuckets</text>
+</g>
+<path d="M305 145 h20"></path>
+</g>
+<path d="M325 145 h10"></path>
+<g id="eol">
+<path d="M335 145 h0"></path>
+<path d="M335 145 a 10 10 0 0 1 10 10 V 164 a 10 10 0 0 1 -10 10 h -304 a 10 10 0 0 0 -10 10 V 209 a 10 10 0 0 0 10 10"></path>
+<path d="M335 145 h0"></path>
+<path d="M335 145 h0"></path>
+</g>
+<path d="M31 219 h10"></path>
+<g>
+<path d="M41 219 h0"></path>
+<path d="M309 219 h0"></path>
+<path d="M41 219 a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g>
+<path d="M61 199 h228"></path>
+</g>
+<path d="M289 199 a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M41 219 h20"></path>
+<g>
+<path d="M61 219 h0"></path>
+<path d="M289 219 h0"></path>
+<rect x="61" y="208" width="228" height="22" ></rect>
+<text x="175" y="223">resultPartitionedEveryRows</text>
+</g>
+<path d="M289 219 h20"></path>
+</g>
+</g>
+<path d="M309 219  h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
+</g>
+</svg>

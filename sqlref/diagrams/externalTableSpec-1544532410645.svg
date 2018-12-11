@@ -1,0 +1,126 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram" width="469" height="192" viewBox="0 0 469 192">
+
+<defs><style type="text/css"><![CDATA[ svg.railroad-diagram {
+  background-color: #ffffff;
+}
+svg.railroad-diagram path {
+  stroke-width: 2;
+  stroke: #5a6872;
+  fill: none;
+}
+svg.railroad-diagram text {
+  font-size: 14px;
+  font-family: 'ibm-plex-mono', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', Courier, monospace;
+  color: #152935;
+  text-anchor: middle;
+  cursor: pointer;
+}
+svg.railroad-diagram text.label {
+  text-anchor: start;
+}
+svg.railroad-diagram text.comment {
+  font-size: 12px;
+}
+svg.railroad-diagram rect {
+  stroke-width: 2;
+  stroke:  #5a6872;
+  fill: #5aaafa;
+}
+ ]]></style></defs>
+
+<g transform="translate(.5 .5)">
+<path d="M 20 31 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path>
+<g>
+<path d="M40 41h0"></path>
+<path d="M428 41h0"></path>
+<path d="M40 41h10"></path>
+<g>
+<path d="M50 41h0"></path>
+<path d="M118 41h0"></path>
+<rect x="50" y="30" width="68" height="22"></rect>
+<text x="84" y="45">COSURI</text>
+</g>
+<path d="M118 41h10"></path>
+<g>
+<path d="M128 41h0"></path>
+<path d="M428 41h0"></path>
+<path d="M128 41a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g>
+<path d="M148 21h260"></path>
+</g>
+<path d="M408 21a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M128 41h20"></path>
+<g>
+<path d="M148 41h0"></path>
+<path d="M408 41h0"></path>
+<path d="M148 41h10"></path>
+<g>
+<path d="M158 41h0"></path>
+<path d="M226 41h0"></path>
+<rect x="158" y="30" width="68" height="22" rx="10" ry="10"></rect>
+<text x="192" y="45">STORED</text>
+</g>
+<path d="M226 41h10"></path>
+<path d="M236 41h10"></path>
+<g>
+<path d="M246 41h0"></path>
+<path d="M282 41h0"></path>
+<rect x="246" y="30" width="36" height="22" rx="10" ry="10"></rect>
+<text x="264" y="45">AS</text>
+</g>
+<path d="M282 41h10"></path>
+<g>
+<path d="M292 41h0"></path>
+<path d="M408 41h0"></path>
+<path d="M292 41h20"></path>
+<g>
+<path d="M312 41h12"></path>
+<path d="M376 41h12"></path>
+<rect x="324" y="30" width="52" height="22" rx="10" ry="10"></rect>
+<text x="350" y="45">AVRO</text>
+</g>
+<path d="M388 41h20"></path>
+<path d="M292 41a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M312 71h16"></path>
+<path d="M372 71h16"></path>
+<rect x="328" y="60" width="44" height="22" rx="10" ry="10"></rect>
+<text x="350" y="75">CSV</text>
+</g>
+<path d="M388 71a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M292 41a10 10 0 0 1 10 10v40a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M312 101h12"></path>
+<path d="M376 101h12"></path>
+<rect x="324" y="90" width="52" height="22" rx="10" ry="10"></rect>
+<text x="350" y="105">JSON</text>
+</g>
+<path d="M388 101a10 10 0 0 0 10 -10v-40a10 10 0 0 1 10 -10"></path>
+<path d="M292 41a10 10 0 0 1 10 10v70a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M312 131h16"></path>
+<path d="M372 131h16"></path>
+<rect x="328" y="120" width="44" height="22" rx="10" ry="10"></rect>
+<text x="350" y="135">ORC</text>
+</g>
+<path d="M388 131a10 10 0 0 0 10 -10v-70a10 10 0 0 1 10 -10"></path>
+<path d="M292 41a10 10 0 0 1 10 10v100a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M312 161h0"></path>
+<path d="M388 161h0"></path>
+<rect x="312" y="150" width="76" height="22" rx="10" ry="10"></rect>
+<text x="350" y="165">PARQUET</text>
+</g>
+<path d="M388 161a10 10 0 0 0 10 -10v-100a10 10 0 0 1 10 -10"></path>
+</g>
+</g>
+<path d="M408 41h20"></path>
+</g>
+</g>
+<path d="M 428 41 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
+</g>
+</svg>
