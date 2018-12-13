@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-10-01"
+lastupdated: "2018-12-13"
 
 ---
 
@@ -21,9 +21,9 @@ expr1 % expr2 - Returns the remainder after <code>expr1</code>/<code>expr2</code
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 % 1.8;
+<pre><code>&gt; SELECT 2 % 1.8
  0.2
-&gt; SELECT MOD(2, 1.8);
+&gt; SELECT MOD(2, 1.8)
  0.2
 </code></pre>
 
@@ -33,7 +33,7 @@ expr1 &amp; expr2 - Returns the result of bitwise AND of <code>expr1</code> and 
 
 **Examples:**
 
-<pre><code>&gt; SELECT 3 &amp; 5;
+<pre><code>&gt; SELECT 3 &amp; 5
  1
 </code></pre>
 
@@ -43,7 +43,7 @@ expr1 * expr2 - Returns <code>expr1</code>*<code>expr2</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 * 3;
+<pre><code>&gt; SELECT 2 * 3
  6
 </code></pre>
 
@@ -53,7 +53,7 @@ expr1 + expr2 - Returns <code>expr1</code>+<code>expr2</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT 1 + 2;
+<pre><code>&gt; SELECT 1 + 2
  3
 </code></pre>
 
@@ -63,7 +63,7 @@ expr1 - expr2 - Returns <code>expr1</code>-<code>expr2</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 - 1;
+<pre><code>&gt; SELECT 2 - 1
  1
 </code></pre>
 
@@ -73,9 +73,9 @@ expr1 / expr2 - Returns <code>expr1</code>/<code>expr2</code>. It always perform
 
 **Examples:**
 
-<pre><code>&gt; SELECT 3 / 2;
+<pre><code>&gt; SELECT 3 / 2
  1.5
-&gt; SELECT 2L / 2L;
+&gt; SELECT 2L / 2L
  1.0
 </code></pre>
 
@@ -94,15 +94,15 @@ expr1 &lt; expr2 - Returns true if <code>expr1</code> is less than <code>expr2</
 
 **Examples:**
 
-<pre><code>&gt; SELECT 1 &lt; 2;
+<pre><code>&gt; SELECT 1 &lt; 2
  true
-&gt; SELECT 1.1 &lt; '1';
+&gt; SELECT 1.1 &lt; '1'
  false
-&gt; SELECT to_date('2009-07-30 04:17:52') &lt; to_date('2009-07-30 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &lt; to_date('2009-07-30 04:17:52')
  false
-&gt; SELECT to_date('2009-07-30 04:17:52') &lt; to_date('2009-08-01 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &lt; to_date('2009-08-01 04:17:52')
  true
-&gt; SELECT 1 &lt; NULL;
+&gt; SELECT 1 &lt; NULL
  NULL
 </code></pre>
 
@@ -121,15 +121,15 @@ expr1 &lt;= expr2 - Returns true if <code>expr1</code> is less than or equal to 
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 &lt;= 2;
+<pre><code>&gt; SELECT 2 &lt;= 2
  true
-&gt; SELECT 1.0 &lt;= '1';
+&gt; SELECT 1.0 &lt;= '1'
  true
-&gt; SELECT to_date('2009-07-30 04:17:52') &lt;= to_date('2009-07-30 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &lt;= to_date('2009-07-30 04:17:52')
  true
-&gt; SELECT to_date('2009-07-30 04:17:52') &lt;= to_date('2009-08-01 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &lt;= to_date('2009-08-01 04:17:52')
  true
-&gt; SELECT 1 &lt;= NULL;
+&gt; SELECT 1 &lt;= NULL
  NULL
 </code></pre>
 
@@ -148,13 +148,13 @@ but returns true if both are null, false if one of the them is null.
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 &lt;=&gt; 2;
+<pre><code>&gt; SELECT 2 &lt;=&gt; 2
  true
-&gt; SELECT 1 &lt;=&gt; '1';
+&gt; SELECT 1 &lt;=&gt; '1'
  true
-&gt; SELECT true &lt;=&gt; NULL;
+&gt; SELECT true &lt;=&gt; NULL
  false
-&gt; SELECT NULL &lt;=&gt; NULL;
+&gt; SELECT NULL &lt;=&gt; NULL
  true
 </code></pre>
 
@@ -172,13 +172,13 @@ expr1 = expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, or
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 = 2;
+<pre><code>&gt; SELECT 2 = 2
  true
-&gt; SELECT 1 = '1';
+&gt; SELECT 1 = '1'
  true
-&gt; SELECT true = NULL;
+&gt; SELECT true = NULL
  NULL
-&gt; SELECT NULL = NULL;
+&gt; SELECT NULL = NULL
  NULL
 </code></pre>
 
@@ -196,13 +196,13 @@ expr1 == expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, o
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 == 2;
+<pre><code>&gt; SELECT 2 == 2
  true
-&gt; SELECT 1 == '1';
+&gt; SELECT 1 == '1'
  true
-&gt; SELECT true == NULL;
+&gt; SELECT true == NULL
  NULL
-&gt; SELECT NULL == NULL;
+&gt; SELECT NULL == NULL
  NULL
 </code></pre>
 
@@ -221,15 +221,15 @@ expr1 &gt; expr2 - Returns true if <code>expr1</code> is greater than <code>expr
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 &gt; 1;
+<pre><code>&gt; SELECT 2 &gt; 1
  true
-&gt; SELECT 2 &gt; '1.1';
+&gt; SELECT 2 &gt; '1.1'
  true
-&gt; SELECT to_date('2009-07-30 04:17:52') &gt; to_date('2009-07-30 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &gt; to_date('2009-07-30 04:17:52')
  false
-&gt; SELECT to_date('2009-07-30 04:17:52') &gt; to_date('2009-08-01 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &gt; to_date('2009-08-01 04:17:52')
  false
-&gt; SELECT 1 &gt; NULL;
+&gt; SELECT 1 &gt; NULL
  NULL
 </code></pre>
 
@@ -249,15 +249,15 @@ expr1 &gt;= expr2 - Returns true if <code>expr1</code> is greater than or equal 
 
 **Examples:**
 
-<pre><code>&gt; SELECT 2 &gt;= 1;
+<pre><code>&gt; SELECT 2 &gt;= 1
  true
-&gt; SELECT 2.0 &gt;= '2.1';
+&gt; SELECT 2.0 &gt;= '2.1'
  false
-&gt; SELECT to_date('2009-07-30 04:17:52') &gt;= to_date('2009-07-30 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &gt;= to_date('2009-07-30 04:17:52')
  true
-&gt; SELECT to_date('2009-07-30 04:17:52') &gt;= to_date('2009-08-01 04:17:52');
+&gt; SELECT to_date('2009-07-30 04:17:52') &gt;= to_date('2009-08-01 04:17:52')
  false
-&gt; SELECT 1 &gt;= NULL;
+&gt; SELECT 1 &gt;= NULL
  NULL
 </code></pre>
 
@@ -268,7 +268,7 @@ expr1 ^ expr2 - Returns the result of bitwise exclusive OR of <code>expr1</code>
 
 **Examples:**
 
-<pre><code>&gt; SELECT 3 ^ 5;
+<pre><code>&gt; SELECT 3 ^ 5
  2
 </code></pre>
 
@@ -279,7 +279,7 @@ abs(expr) - Returns the absolute value of the numeric value.
 
 **Examples:**
 
-<pre><code>&gt; SELECT abs(-1);
+<pre><code>&gt; SELECT abs(-1)
  1
 </code></pre>
 
@@ -290,9 +290,9 @@ acos(expr) - Returns the inverse cosine (a.k.a. arccosine) of <code>expr</code> 
 
 **Examples:**
 
-<pre><code>&gt; SELECT acos(1);
+<pre><code>&gt; SELECT acos(1)
  0.0
-&gt; SELECT acos(2);
+&gt; SELECT acos(2)
  NaN
 </code></pre>
 
@@ -303,7 +303,7 @@ add_months(start_date, num_months) - Returns the date that is <code>num_months</
 
 **Examples:**
 
-<pre><code>&gt; SELECT add_months('2016-08-31', 1);
+<pre><code>&gt; SELECT add_months('2016-08-31', 1)
  2016-09-30
 </code></pre>
 
@@ -332,9 +332,9 @@ percentage array.
 
 **Examples:**
 
-<pre><code>&gt; SELECT approx_percentile(10.0, array(0.5, 0.4, 0.1), 100);
+<pre><code>&gt; SELECT approx_percentile(10.0, array(0.5, 0.4, 0.1), 100)
  [10.0,10.0,10.0]
-&gt; SELECT approx_percentile(10.0, 0.5, 100);
+&gt; SELECT approx_percentile(10.0, 0.5, 100)
  10.0
 </code></pre>
 
@@ -344,7 +344,7 @@ percentage array.
 array(expr, ...) - Returns an array with the given elements.
 
 **Examples:**
-<pre><code>&gt; SELECT array(1, 2, 3);
+<pre><code>&gt; SELECT array(1, 2, 3)
  [1,2,3]
 </code></pre>
 
@@ -354,7 +354,7 @@ array(expr, ...) - Returns an array with the given elements.
 array_contains(array, value) - Returns true if the array contains the value.
 
 **Examples:**
-<pre><code>&gt; SELECT array_contains(array(1, 2, 3), 2);
+<pre><code>&gt; SELECT array_contains(array(1, 2, 3), 2)
  true
 </code></pre>
 
@@ -364,9 +364,9 @@ array_contains(array, value) - Returns true if the array contains the value.
 ascii(str) - Returns the numeric value of the first character of <code>str</code>.
 
 **Examples:**
-<pre><code>&gt; SELECT ascii('222');
+<pre><code>&gt; SELECT ascii('222')
  50
-&gt; SELECT ascii(2);
+&gt; SELECT ascii(2)
  50
 </code></pre>
 
@@ -376,9 +376,9 @@ ascii(str) - Returns the numeric value of the first character of <code>str</code
 asin(expr) - Returns the inverse sine (a.k.a. arcsine) the arc sin of <code>expr</code> if -1&lt;=<code>expr</code>&lt;=1 or NaN otherwise.
 
 **Examples:**
-<pre><code>&gt; SELECT asin(0);
+<pre><code>&gt; SELECT asin(0)
  0.0
-&gt; SELECT asin(2);
+&gt; SELECT asin(2)
  NaN
 </code></pre>
 
@@ -388,7 +388,7 @@ asin(expr) - Returns the inverse sine (a.k.a. arcsine) the arc sin of <code>expr
 atan(expr) - Returns the inverse tangent (a.k.a. arctangent).
 
 **Examples:**
-<pre><code>&gt; SELECT atan(0);
+<pre><code>&gt; SELECT atan(0)
  0.0
 </code></pre>
 
@@ -398,7 +398,7 @@ atan(expr) - Returns the inverse tangent (a.k.a. arctangent).
 atan2(expr1, expr2) - Returns the angle in radians between the positive x-axis of a plane and the point given by the coordinates (<code>expr1</code>, <code>expr2</code>).
 
 **Examples:**
-<pre><code>&gt; SELECT atan2(0, 0);
+<pre><code>&gt; SELECT atan2(0, 0)
  0.0
 </code></pre>
 
@@ -413,7 +413,7 @@ avg(expr) - Returns the mean calculated from values of a group.
 base64(bin) - Converts the argument from a binary <code>bin</code> to a base 64 string.
 
 **Examples:**
-<pre><code>&gt; SELECT base64('Spark SQL');
+<pre><code>&gt; SELECT base64('Spark SQL')
  U3BhcmsgU1FM
 </code></pre>
 
@@ -428,11 +428,11 @@ bigint(expr) - Casts the value <code>expr</code> to the target data type <code>b
 bin(expr) - Returns the string representation of the long value <code>expr</code> represented in binary.
 
 **Examples:**
-<pre><code>&gt; SELECT bin(13);
+<pre><code>&gt; SELECT bin(13)
  1101
-&gt; SELECT bin(-13);
+&gt; SELECT bin(-13)
  1111111111111111111111111111111111111111111111111111111111110011
-&gt; SELECT bin(13.3);
+&gt; SELECT bin(13.3)
  1101
 </code></pre>
 
@@ -446,7 +446,7 @@ binary(expr) - Casts the value <code>expr</code> to the target data type <code>b
 bit_length(expr) - Returns the bit length of string data or number of bits of binary data.
 
 **Examples:**
-<pre><code>&gt; SELECT bit_length('Spark SQL');
+<pre><code>&gt; SELECT bit_length('Spark SQL')
  72
 </code></pre>
 
@@ -460,7 +460,7 @@ boolean(expr) - Casts the value <code>expr</code> to the target data type <code>
 bround(expr, d) - Returns <code>expr</code> rounded to <code>d</code> decimal places using HALF_EVEN rounding mode.
 
 **Examples:**
-<pre><code>&gt; SELECT bround(2.5, 0);
+<pre><code>&gt; SELECT bround(2.5, 0)
  2.0
 </code></pre>
 
@@ -470,7 +470,7 @@ bround(expr, d) - Returns <code>expr</code> rounded to <code>d</code> decimal pl
 cast(expr AS type) - Casts the value <code>expr</code> to the target data type <code>type</code>.
 
 **Examples:**
-<pre><code>&gt; SELECT cast('10' as int);
+<pre><code>&gt; SELECT cast('10' as int)
  10
 </code></pre>
 
@@ -480,7 +480,7 @@ cast(expr AS type) - Casts the value <code>expr</code> to the target data type <
 cbrt(expr) - Returns the cube root of <code>expr</code>.
 
 **Examples:**
-<pre><code>&gt; SELECT cbrt(27.0);
+<pre><code>&gt; SELECT cbrt(27.0)
  3.0
 </code></pre>
 
@@ -490,9 +490,9 @@ cbrt(expr) - Returns the cube root of <code>expr</code>.
 ceil(expr) - Returns the smallest integer not smaller than <code>expr</code>.
 
 **Examples:**
-<pre><code>&gt; SELECT ceil(-0.1);
+<pre><code>&gt; SELECT ceil(-0.1)
  0
-&gt; SELECT ceil(5);
+&gt; SELECT ceil(5)
  5
 </code></pre>
 
@@ -502,9 +502,9 @@ ceil(expr) - Returns the smallest integer not smaller than <code>expr</code>.
 ceiling(expr) - Returns the smallest integer not smaller than <code>expr</code>.
 
 **Examples:**
-<pre><code>&gt; SELECT ceiling(-0.1);
+<pre><code>&gt; SELECT ceiling(-0.1)
  0
-&gt; SELECT ceiling(5);
+&gt; SELECT ceiling(5)
  5
 </code></pre>
 
@@ -514,7 +514,7 @@ ceiling(expr) - Returns the smallest integer not smaller than <code>expr</code>.
 char(expr) - Returns the ASCII character having the binary equivalent to <code>expr</code>. If n is larger than 256 the result is equivalent to chr(n % 256)
 
 **Examples:**
-<pre><code>&gt; SELECT char(65);
+<pre><code>&gt; SELECT char(65)
  A
 </code></pre>
 
@@ -524,11 +524,11 @@ char(expr) - Returns the ASCII character having the binary equivalent to <code>e
 char_length(expr) - Returns the character length of string data or number of bytes of binary data. The length of string data includes the trailing spaces. The length of binary data includes binary zeros.
 
 **Examples:**
-<pre><code>&gt; SELECT char_length('Spark SQL ');
+<pre><code>&gt; SELECT char_length('Spark SQL ')
  10
-&gt; SELECT CHAR_LENGTH('Spark SQL ');
+&gt; SELECT CHAR_LENGTH('Spark SQL ')
  10
-&gt; SELECT CHARACTER_LENGTH('Spark SQL ');
+&gt; SELECT CHARACTER_LENGTH('Spark SQL ')
  10
 </code></pre>
 
@@ -538,11 +538,11 @@ char_length(expr) - Returns the character length of string data or number of byt
 character_length(expr) - Returns the character length of string data or number of bytes of binary data. The length of string data includes the trailing spaces. The length of binary data includes binary zeros.
 
 **Examples:**
-<pre><code>&gt; SELECT character_length('Spark SQL ');
+<pre><code>&gt; SELECT character_length('Spark SQL ')
  10
-&gt; SELECT CHAR_LENGTH('Spark SQL ');
+&gt; SELECT CHAR_LENGTH('Spark SQL ')
  10
-&gt; SELECT CHARACTER_LENGTH('Spark SQL ');
+&gt; SELECT CHARACTER_LENGTH('Spark SQL ')
  10
 </code></pre>
 
@@ -552,7 +552,7 @@ character_length(expr) - Returns the character length of string data or number o
 chr(expr) - Returns the ASCII character having the binary equivalent to <code>expr</code>. If n is larger than 256 the result is equivalent to chr(n % 256)
 
 **Examples:**
-<pre><code>&gt; SELECT chr(65);
+<pre><code>&gt; SELECT chr(65)
  A
 </code></pre>
 
@@ -563,7 +563,7 @@ coalesce(expr1, expr2, ...) - Returns the first non-null argument if exists. Oth
 
 **Examples:**
 
-<pre><code>&gt; SELECT coalesce(NULL, 1, NULL);
+<pre><code>&gt; SELECT coalesce(NULL, 1, NULL)
  1
 </code></pre>
 
@@ -583,7 +583,7 @@ collect_set(expr) - Collects and returns a set of unique elements.
 concat(str1, str2, ..., strN) - Returns the concatenation of str1, str2, ..., strN.
 
 **Examples:**
-<pre><code>&gt; SELECT concat('Spark', 'SQL');
+<pre><code>&gt; SELECT concat('Spark', 'SQL')
  SparkSQL
 </code></pre>
 
@@ -593,7 +593,7 @@ concat(str1, str2, ..., strN) - Returns the concatenation of str1, str2, ..., st
 concat_ws(sep, [str | array(str)]+) - Returns the concatenation of the strings separated by <code>sep</code>.
 
 **Examples:**
-<pre><code>&gt; SELECT concat_ws(' ', 'Spark', 'SQL');
+<pre><code>&gt; SELECT concat_ws(' ', 'Spark', 'SQL')
   Spark SQL
 </code></pre>
 
@@ -604,9 +604,9 @@ conv(num, from_base, to_base) - Convert <code>num</code> from <code>from_base</c
 
 **Examples:**
 
-<pre><code>&gt; SELECT conv('100', 2, 10);
+<pre><code>&gt; SELECT conv('100', 2, 10)
  4
-&gt; SELECT conv(-10, 16, -10);
+&gt; SELECT conv(-10, 16, -10)
  -16
 </code></pre>
 
@@ -622,7 +622,7 @@ cos(expr) - Returns the cosine of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT cos(0);
+<pre><code>&gt; SELECT cos(0)
  1.0
 </code></pre>
 
@@ -633,7 +633,7 @@ cosh(expr) - Returns the hyperbolic cosine of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT cosh(0);
+<pre><code>&gt; SELECT cosh(0)
  1.0
 </code></pre>
 
@@ -644,7 +644,7 @@ cot(expr) - Returns the cotangent of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT cot(1);
+<pre><code>&gt; SELECT cot(1)
  0.6420926159343306
 </code></pre>
 
@@ -682,7 +682,7 @@ crc32(expr) - Returns a cyclic redundancy check value of the <code>expr</code> a
 
 **Examples:**
 
-<pre><code>&gt; SELECT crc32('Spark');
+<pre><code>&gt; SELECT crc32('Spark')
  1557323817
 </code></pre>
 
@@ -700,7 +700,7 @@ current_database() - Returns the current database.
 
 **Examples:**
 
-<pre><code>&gt; SELECT current_database();
+<pre><code>&gt; SELECT current_database()
  default
 </code></pre>
 
@@ -730,7 +730,7 @@ date_add(start_date, num_days) - Returns the date that is <code>num_days</code> 
 
 **Examples:**
 
-<pre><code>&gt; SELECT date_add('2016-07-30', 1);
+<pre><code>&gt; SELECT date_add('2016-07-30', 1)
  2016-07-31
 </code></pre>
 
@@ -743,7 +743,7 @@ date_format(timestamp, fmt) - Converts <code>timestamp</code> to a value of stri
 
 **Examples:**
 
-<pre><code>&gt; SELECT date_format('2016-04-08', 'y');
+<pre><code>&gt; SELECT date_format('2016-04-08', 'y')
  2016
 </code></pre>
 
@@ -756,7 +756,7 @@ date_sub(start_date, num_days) - Returns the date that is <code>num_days</code> 
 
 **Examples:**
 
-<pre><code>&gt; SELECT date_sub('2016-07-30', 1);
+<pre><code>&gt; SELECT date_sub('2016-07-30', 1)
  2016-07-29
 </code></pre>
 
@@ -770,13 +770,13 @@ date_trunc(fmt, ts) - Returns timestamp <code>ts</code> truncated to the unit sp
 
 **Examples:**
 
-<pre><code>&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'YEAR');
+<pre><code>&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'YEAR')
  2015-01-01T00:00:00
-&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'MM');
+&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'MM')
  2015-03-01T00:00:00
-&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'DD');
+&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'DD')
  2015-03-05T00:00:00
-&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'HOUR');
+&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'HOUR')
  2015-03-05T09:00:00
 </code></pre>
 
@@ -789,10 +789,10 @@ datediff(endDate, startDate) - Returns the number of days from <code>startDate</
 
 **Examples:**
 
-<pre><code>&gt; SELECT datediff('2009-07-31', '2009-07-30');
+<pre><code>&gt; SELECT datediff('2009-07-31', '2009-07-30')
  1
 
-&gt; SELECT datediff('2009-07-30', '2009-07-31');
+&gt; SELECT datediff('2009-07-30', '2009-07-31')
  -1
 </code></pre>
 
@@ -805,7 +805,7 @@ day(date) - Returns the day of month of the date/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT day('2009-07-30');
+<pre><code>&gt; SELECT day('2009-07-30')
  30
 </code></pre>
 
@@ -818,7 +818,7 @@ dayofmonth(date) - Returns the day of month of the date/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT dayofmonth('2009-07-30');
+<pre><code>&gt; SELECT dayofmonth('2009-07-30')
  30
 </code></pre>
 
@@ -831,7 +831,7 @@ dayofweek(date) - Returns the day of the week for date/timestamp (1 = Sunday, 2 
 
 **Examples:**
 
-<pre><code>&gt; SELECT dayofweek('2009-07-30');
+<pre><code>&gt; SELECT dayofweek('2009-07-30')
  5
 </code></pre>
 
@@ -844,7 +844,7 @@ dayofyear(date) - Returns the day of year of the date/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT dayofyear('2016-04-09');
+<pre><code>&gt; SELECT dayofyear('2016-04-09')
  100
 </code></pre>
 
@@ -862,7 +862,7 @@ decode(bin, charset) - Decodes the first argument using the second argument char
 
 **Examples:**
 
-<pre><code>&gt; SELECT decode(encode('abc', 'utf-8'), 'utf-8');
+<pre><code>&gt; SELECT decode(encode('abc', 'utf-8'), 'utf-8')
  abc
 </code></pre>
 
@@ -873,7 +873,7 @@ degrees(expr) - Converts radians to degrees.
 
 **Examples:**
 
-<pre><code>&gt; SELECT degrees(3.141592653589793);
+<pre><code>&gt; SELECT degrees(3.141592653589793)
  180.0
 </code></pre>
 
@@ -896,7 +896,7 @@ e() - Returns Euler's number, e.
 
 **Examples:**
 
-<pre><code>&gt; SELECT e();
+<pre><code>&gt; SELECT e()
  2.718281828459045
 </code></pre>
 
@@ -907,7 +907,7 @@ elt(n, input1, input2, ...) - Returns the <code>n</code>-th input, e.g., returns
 
 **Examples:**
 
-<pre><code>&gt; SELECT elt(1, 'scala', 'java');
+<pre><code>&gt; SELECT elt(1, 'scala', 'java')
  scala
 </code></pre>
 
@@ -918,7 +918,7 @@ encode(str, charset) - Encodes the first argument using the second argument char
 
 **Examples:**
 
-<pre><code>&gt; SELECT encode('abc', 'utf-8');
+<pre><code>&gt; SELECT encode('abc', 'utf-8')
  abc
 </code></pre>
 
@@ -929,7 +929,7 @@ exp(expr) - Returns e to the power of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT exp(0);
+<pre><code>&gt; SELECT exp(0)
  1.0
 </code></pre>
 
@@ -940,7 +940,7 @@ explode(expr) - Separates the elements of array <code>expr</code> into multiple 
 
 **Examples:**
 
-<pre><code>&gt; SELECT explode(array(10, 20));
+<pre><code>&gt; SELECT explode(array(10, 20))
  10
  20
 </code></pre>
@@ -952,7 +952,7 @@ explode_outer(expr) - Separates the elements of array <code>expr</code> into mul
 
 **Examples:**
 
-<pre><code>&gt; SELECT explode_outer(array(10, 20));
+<pre><code>&gt; SELECT explode_outer(array(10, 20))
  10
  20
 </code></pre>
@@ -964,7 +964,7 @@ expm1(expr) - Returns exp(<code>expr</code>) - 1.
 
 **Examples:**
 
-<pre><code>&gt; SELECT expm1(0);
+<pre><code>&gt; SELECT expm1(0)
  0.0
 </code></pre>
 
@@ -975,7 +975,7 @@ factorial(expr) - Returns the factorial of <code>expr</code>. <code>expr</code> 
 
 **Examples:**
 
-<pre><code>&gt; SELECT factorial(5);
+<pre><code>&gt; SELECT factorial(5)
  120
 </code></pre>
 
@@ -987,7 +987,7 @@ Returns 0, if the string was not found or if the given string (<code>str</code>)
 
 **Examples:**
 
-<pre><code>&gt; SELECT find_in_set('ab','abc,b,ab,c,def');
+<pre><code>&gt; SELECT find_in_set('ab','abc,b,ab,c,def')
  3
 </code></pre>
 
@@ -1015,9 +1015,9 @@ floor(expr) - Returns the largest integer not greater than <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT floor(-0.1);
+<pre><code>&gt; SELECT floor(-0.1)
  -1
-&gt; SELECT floor(5);
+&gt; SELECT floor(5)
  5
 </code></pre>
 
@@ -1030,7 +1030,7 @@ This is supposed to function like MySQL's FORMAT.
 
 **Examples:**
 
-<pre><code>&gt; SELECT format_number(12332.123456, 4);
+<pre><code>&gt; SELECT format_number(12332.123456, 4)
  12,332.1235
 </code></pre>
 
@@ -1041,7 +1041,7 @@ format_string(strfmt, obj, ...) - Returns a formatted string from printf-style f
 
 **Examples:**
 
-<pre><code>&gt; SELECT format_string(&quot;Hello World %d %s&quot;, 100, &quot;days&quot;);
+<pre><code>&gt; SELECT format_string(&quot;Hello World %d %s&quot;, 100, &quot;days&quot;)
  Hello World 100 days
 </code></pre>
 
@@ -1052,9 +1052,9 @@ from_json(jsonStr, schema[, options]) - Returns a struct value with the given <c
 
 **Examples:**
 
-<pre><code>&gt; SELECT from_json('{&quot;a&quot;:1, &quot;b&quot;:0.8}', 'a INT, b DOUBLE');
+<pre><code>&gt; SELECT from_json('{&quot;a&quot;:1, &quot;b&quot;:0.8}', 'a INT, b DOUBLE')
  {&quot;a&quot;:1, &quot;b&quot;:0.8}
-&gt; SELECT from_json('{&quot;time&quot;:&quot;26/08/2015&quot;}', 'time Timestamp', map('timestampFormat', 'dd/MM/yyyy'));
+&gt; SELECT from_json('{&quot;time&quot;:&quot;26/08/2015&quot;}', 'time Timestamp', map('timestampFormat', 'dd/MM/yyyy'))
  {&quot;time&quot;:&quot;2015-08-26 00:00:00.0&quot;}
 </code></pre>
 
@@ -1067,7 +1067,7 @@ from_unixtime(unix_time, format) - Returns <code>unix_time</code> in the specifi
 
 **Examples:**
 
-<pre><code>&gt; SELECT from_unixtime(0, 'yyyy-MM-dd HH:mm:ss');
+<pre><code>&gt; SELECT from_unixtime(0, 'yyyy-MM-dd HH:mm:ss')
  1970-01-01 00:00:00
 </code></pre>
 
@@ -1080,7 +1080,7 @@ from_utc_timestamp(timestamp, timezone) - Given a timestamp like '2017-07-14 02:
 
 **Examples:**
 
-<pre><code>&gt; SELECT from_utc_timestamp('2016-08-31', 'Asia/Seoul');
+<pre><code>&gt; SELECT from_utc_timestamp('2016-08-31', 'Asia/Seoul')
  2016-08-31 09:00:00
 </code></pre>
 
@@ -1093,7 +1093,7 @@ get_json_object(json_txt, path) - Extracts a json object from <code>path</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT get_json_object('{&quot;a&quot;:&quot;b&quot;}', '$.a');
+<pre><code>&gt; SELECT get_json_object('{&quot;a&quot;:&quot;b&quot;}', '$.a')
  b
 </code></pre>
 
@@ -1104,7 +1104,7 @@ greatest(expr, ...) - Returns the greatest value of all parameters, skipping nul
 
 **Examples:**
 
-<pre><code>&gt; SELECT greatest(10, 9, 2, 4, 3);
+<pre><code>&gt; SELECT greatest(10, 9, 2, 4, 3)
  10
 </code></pre>
 
@@ -1121,7 +1121,7 @@ hash(expr1, expr2, ...) - Returns a hash value of the arguments.
 
 **Examples:**
 
-<pre><code>&gt; SELECT hash('Spark', array(123), 2);
+<pre><code>&gt; SELECT hash('Spark', array(123), 2)
  -1321691492
 </code></pre>
 
@@ -1132,9 +1132,9 @@ hex(expr) - Converts <code>expr</code> to hexadecimal.
 
 **Examples:**
 
-<pre><code>&gt; SELECT hex(17);
+<pre><code>&gt; SELECT hex(17)
  11
-&gt; SELECT hex('Spark SQL');
+&gt; SELECT hex('Spark SQL')
  537061726B2053514C
 </code></pre>
 
@@ -1145,7 +1145,7 @@ hour(timestamp) - Returns the hour component of the string/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT hour('2009-07-30 12:58:59');
+<pre><code>&gt; SELECT hour('2009-07-30 12:58:59')
  12
 </code></pre>
 
@@ -1158,7 +1158,7 @@ hypot(expr1, expr2) - Returns sqrt(<code>expr1</code><strong>2 + <code>expr2</co
 
 **Examples:**
 
-<pre><code>&gt; SELECT hypot(3, 4);
+<pre><code>&gt; SELECT hypot(3, 4)
  5.0
 </code></pre>
 
@@ -1169,7 +1169,7 @@ if(expr1, expr2, expr3) - If <code>expr1</code> evaluates to true, then returns 
 
 **Examples:**
 
-<pre><code>&gt; SELECT if(1 &lt; 2, 'a', 'b');
+<pre><code>&gt; SELECT if(1 &lt; 2, 'a', 'b')
  a
 </code></pre>
 
@@ -1180,7 +1180,7 @@ ifnull(expr1, expr2) - Returns <code>expr2</code> if <code>expr1</code> is null,
 
 **Examples:**
 
-<pre><code>&gt; SELECT ifnull(NULL, array('2'));
+<pre><code>&gt; SELECT ifnull(NULL, array('2'))
  [&quot;2&quot;]
 </code></pre>
 
@@ -1197,13 +1197,13 @@ expr1 in(expr2, expr3, ...) - Returns true if <code>expr</code> equals to any va
 
 **Examples:**
 
-<pre><code>&gt; SELECT 1 in(1, 2, 3);
+<pre><code>&gt; SELECT 1 in(1, 2, 3)
  true
-&gt; SELECT 1 in(2, 3, 4);
+&gt; SELECT 1 in(2, 3, 4)
  false
-&gt; SELECT named_struct('a', 1, 'b', 2) in(named_struct('a', 1, 'b', 1), named_struct('a', 1, 'b', 3));
+&gt; SELECT named_struct('a', 1, 'b', 2) in(named_struct('a', 1, 'b', 1), named_struct('a', 1, 'b', 3))
  false
-&gt; SELECT named_struct('a', 1, 'b', 2) in(named_struct('a', 1, 'b', 2), named_struct('a', 1, 'b', 3));
+&gt; SELECT named_struct('a', 1, 'b', 2) in(named_struct('a', 1, 'b', 2), named_struct('a', 1, 'b', 3))
  true
 </code></pre>
 
@@ -1215,7 +1215,7 @@ All other letters are in lowercase. Words are delimited by white space.
 
 **Examples:**
 
-<pre><code>&gt; SELECT initcap('sPark sql');
+<pre><code>&gt; SELECT initcap('sPark sql')
  Spark Sql
 </code></pre>
 
@@ -1226,7 +1226,7 @@ inline(expr) - Explodes an array of structs into a table.
 
 **Examples:**
 
-<pre><code>&gt; SELECT inline(array(struct(1, 'a'), struct(2, 'b')));
+<pre><code>&gt; SELECT inline(array(struct(1, 'a'), struct(2, 'b')))
  1  a
  2  b
 </code></pre>
@@ -1238,7 +1238,7 @@ inline_outer(expr) - Explodes an array of structs into a table.
 
 **Examples:**
 
-<pre><code>&gt; SELECT inline_outer(array(struct(1, 'a'), struct(2, 'b')));
+<pre><code>&gt; SELECT inline_outer(array(struct(1, 'a'), struct(2, 'b')))
  1  a
  2  b
 </code></pre>
@@ -1255,7 +1255,7 @@ instr(str, substr) - Returns the (1-based) index of the first occurrence of <cod
 
 **Examples:**
 
-<pre><code>&gt; SELECT instr('SparkSQL', 'SQL');
+<pre><code>&gt; SELECT instr('SparkSQL', 'SQL')
  6
 </code></pre>
 
@@ -1271,7 +1271,7 @@ isnan(expr) - Returns true if <code>expr</code> is NaN, or false otherwise.
 
 **Examples:**
 
-<pre><code>&gt; SELECT isnan(cast('NaN' as double));
+<pre><code>&gt; SELECT isnan(cast('NaN' as double))
  true
 </code></pre>
 
@@ -1282,7 +1282,7 @@ isnotnull(expr) - Returns true if <code>expr</code> is not null, or false otherw
 
 **Examples:**
 
-<pre><code>&gt; SELECT isnotnull(1);
+<pre><code>&gt; SELECT isnotnull(1)
  true
 </code></pre>
 
@@ -1293,7 +1293,7 @@ isnull(expr) - Returns true if <code>expr</code> is null, or false otherwise.
 
 **Examples:**
 
-<pre><code>&gt; SELECT isnull(1);
+<pre><code>&gt; SELECT isnull(1)
  false
 </code></pre>
 
@@ -1304,7 +1304,7 @@ json_tuple(jsonStr, p1, p2, ..., pn) - Returns a tuple like the function get_jso
 
 **Examples:**
 
-<pre><code>&gt; SELECT json_tuple('{&quot;a&quot;:1, &quot;b&quot;:2}', 'a', 'b');
+<pre><code>&gt; SELECT json_tuple('{&quot;a&quot;:1, &quot;b&quot;:2}', 'a', 'b')
  1  2
 </code></pre>
 
@@ -1335,7 +1335,7 @@ last_day(date) - Returns the last day of the month which the date belongs to.
 
 **Examples:**
 
-<pre><code>&gt; SELECT last_day('2009-01-12');
+<pre><code>&gt; SELECT last_day('2009-01-12')
  2009-01-31
 </code></pre>
 
@@ -1354,7 +1354,7 @@ lcase(str) - Returns <code>str</code> with all characters changed to lowercase.
 
 **Examples:**
 
-<pre><code>&gt; SELECT lcase('SparkSql');
+<pre><code>&gt; SELECT lcase('SparkSql')
  sparksql
 </code></pre>
 
@@ -1374,7 +1374,7 @@ least(expr, ...) - Returns the least value of all parameters, skipping null valu
 
 **Examples:**
 
-<pre><code>&gt; SELECT least(10, 9, 2, 4, 3);
+<pre><code>&gt; SELECT least(10, 9, 2, 4, 3)
  2
 </code></pre>
 
@@ -1385,7 +1385,7 @@ left(str, len) - Returns the leftmost <code>len</code>(<code>len</code> can be s
 
 **Examples:**
 
-<pre><code>&gt; SELECT left('Spark SQL', 3);
+<pre><code>&gt; SELECT left('Spark SQL', 3)
  Spa
 </code></pre>
 
@@ -1396,11 +1396,11 @@ length(expr) - Returns the character length of string data or number of bytes of
 
 **Examples:**
 
-<pre><code>&gt; SELECT length('Spark SQL ');
+<pre><code>&gt; SELECT length('Spark SQL ')
  10
-&gt; SELECT CHAR_LENGTH('Spark SQL ');
+&gt; SELECT CHAR_LENGTH('Spark SQL ')
  10
-&gt; SELECT CHARACTER_LENGTH('Spark SQL ');
+&gt; SELECT CHARACTER_LENGTH('Spark SQL ')
  10
 </code></pre>
 
@@ -1411,7 +1411,7 @@ levenshtein(str1, str2) - Returns the Levenshtein distance between the two given
 
 **Examples:**
 
-<pre><code>&gt; SELECT levenshtein('kitten', 'sitting');
+<pre><code>&gt; SELECT levenshtein('kitten', 'sitting')
  3
 </code></pre>
 
@@ -1465,7 +1465,7 @@ ln(expr) - Returns the natural logarithm (base e) of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT ln(1);
+<pre><code>&gt; SELECT ln(1)
  0.0
 </code></pre>
 
@@ -1477,11 +1477,11 @@ The given <code>pos</code> and return value are 1-based.
 
 **Examples:**
 
-<pre><code>&gt; SELECT locate('bar', 'foobarbar');
+<pre><code>&gt; SELECT locate('bar', 'foobarbar')
  4
-&gt; SELECT locate('bar', 'foobarbar', 5);
+&gt; SELECT locate('bar', 'foobarbar', 5)
  7
-&gt; SELECT POSITION('bar' IN 'foobarbar');
+&gt; SELECT POSITION('bar' IN 'foobarbar')
  4
 </code></pre>
 
@@ -1492,7 +1492,7 @@ log(base, expr) - Returns the logarithm of <code>expr</code> with <code>base</co
 
 **Examples:**
 
-<pre><code>&gt; SELECT log(10, 100);
+<pre><code>&gt; SELECT log(10, 100)
  2.0
 </code></pre>
 
@@ -1503,7 +1503,7 @@ log10(expr) - Returns the logarithm of <code>expr</code> with base 10.
 
 **Examples:**
 
-<pre><code>&gt; SELECT log10(10);
+<pre><code>&gt; SELECT log10(10)
  1.0
 </code></pre>
 
@@ -1514,7 +1514,7 @@ log1p(expr) - Returns log(1 + <code>expr</code>).
 
 **Examples:**
 
-<pre><code>&gt; SELECT log1p(0);
+<pre><code>&gt; SELECT log1p(0)
  0.0
 </code></pre>
 
@@ -1525,7 +1525,7 @@ log2(expr) - Returns the logarithm of <code>expr</code> with base 2.
 
 **Examples:**
 
-<pre><code>&gt; SELECT log2(2);
+<pre><code>&gt; SELECT log2(2)
  1.0
 </code></pre>
 
@@ -1536,7 +1536,7 @@ lower(str) - Returns <code>str</code> with all characters changed to lowercase.
 
 **Examples:**
 
-<pre><code>&gt; SELECT lower('SparkSql');
+<pre><code>&gt; SELECT lower('SparkSql')
  sparksql
 </code></pre>
 
@@ -1548,9 +1548,9 @@ If <code>str</code> is longer than <code>len</code>, the return value is shorten
 
 **Examples:**
 
-<pre><code>&gt; SELECT lpad('hi', 5, '??');
+<pre><code>&gt; SELECT lpad('hi', 5, '??')
  ???hi
-&gt; SELECT lpad('hi', 1, '??');
+&gt; SELECT lpad('hi', 1, '??')
  h
 </code></pre>
 
@@ -1568,9 +1568,9 @@ ltrim(trimStr, str) - Removes the leading string contains the characters from th
 <li>trimStr - the trim string characters to trim, the default value is a single space</li>
 </ul>
 **Examples:**
-<pre><code>&gt; SELECT ltrim('    SparkSQL   ');
+<pre><code>&gt; SELECT ltrim('    SparkSQL   ')
  SparkSQL
-&gt; SELECT ltrim('Sp', 'SSparkSQLS');
+&gt; SELECT ltrim('Sp', 'SSparkSQLS')
  arkSQLS
 </code></pre>
 
@@ -1581,7 +1581,7 @@ map(key0, value0, key1, value1, ...) - Creates a map with the given key/value pa
 
 **Examples:**
 
-<pre><code>&gt; SELECT map(1.0, '2', 3.0, '4');
+<pre><code>&gt; SELECT map(1.0, '2', 3.0, '4')
  {1.0:&quot;2&quot;,3.0:&quot;4&quot;}
 </code></pre>
 
@@ -1592,7 +1592,7 @@ map_keys(map) - Returns an unordered array containing the keys of the map.
 
 **Examples:**
 
-<pre><code>&gt; SELECT map_keys(map(1, 'a', 2, 'b'));
+<pre><code>&gt; SELECT map_keys(map(1, 'a', 2, 'b'))
  [1,2]
 </code></pre>
 
@@ -1603,7 +1603,7 @@ map_values(map) - Returns an unordered array containing the values of the map.
 
 **Examples:**
 
-<pre><code>&gt; SELECT map_values(map(1, 'a', 2, 'b'));
+<pre><code>&gt; SELECT map_values(map(1, 'a', 2, 'b'))
  [&quot;a&quot;,&quot;b&quot;]
 </code></pre>
 
@@ -1619,7 +1619,7 @@ md5(expr) - Returns an MD5 128-bit checksum as a hex string of <code>expr</code>
 
 **Examples:**
 
-<pre><code>&gt; SELECT md5('Spark');
+<pre><code>&gt; SELECT md5('Spark')
  8cde774d6f7333752ed72cacddb05126
 </code></pre>
 
@@ -1640,7 +1640,7 @@ minute(timestamp) - Returns the minute component of the string/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT minute('2009-07-30 12:58:59');
+<pre><code>&gt; SELECT minute('2009-07-30 12:58:59')
  58
 </code></pre>
 
@@ -1655,7 +1655,7 @@ expr1 mod expr2 - Returns the remainder after <code>expr1</code>/<code>expr2</co
 
 <pre><code>&gt; SELECT 2 mod 1.8;
  0.2
-&gt; SELECT MOD(2, 1.8);
+&gt; SELECT MOD(2, 1.8)
  0.2
 </code></pre>
 
@@ -1675,7 +1675,7 @@ month(date) - Returns the month component of the date/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT month('2016-07-30');
+<pre><code>&gt; SELECT month('2016-07-30')
  7
 </code></pre>
 
@@ -1688,7 +1688,7 @@ months_between(timestamp1, timestamp2) - Returns number of months between <code>
 
 **Examples:**
 
-<pre><code>&gt; SELECT months_between('1997-02-28 10:30:00', '1996-10-30');
+<pre><code>&gt; SELECT months_between('1997-02-28 10:30:00', '1996-10-30')
  3.94959677
 </code></pre>
 
@@ -1701,7 +1701,7 @@ named_struct(name1, val1, name2, val2, ...) - Creates a struct with the given fi
 
 **Examples:**
 
-<pre><code>&gt; SELECT named_struct(&quot;a&quot;, 1, &quot;b&quot;, 2, &quot;c&quot;, 3);
+<pre><code>&gt; SELECT named_struct(&quot;a&quot;, 1, &quot;b&quot;, 2, &quot;c&quot;, 3)
  {&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3}
 </code></pre>
 
@@ -1712,7 +1712,7 @@ nanvl(expr1, expr2) - Returns <code>expr1</code> if it's not NaN, or <code>expr2
 
 **Examples:**
 
-<pre><code>&gt; SELECT nanvl(cast('NaN' as double), 123);
+<pre><code>&gt; SELECT nanvl(cast('NaN' as double), 123)
  123.0
 </code></pre>
 
@@ -1723,7 +1723,7 @@ negative(expr) - Returns the negated value of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT negative(1);
+<pre><code>&gt; SELECT negative(1)
  -1
 </code></pre>
 
@@ -1734,7 +1734,7 @@ next_day(start_date, day_of_week) - Returns the first date which is later than <
 
 **Examples:**
 
-<pre><code>&gt; SELECT next_day('2015-01-14', 'TU');
+<pre><code>&gt; SELECT next_day('2015-01-14', 'TU')
  2015-01-20
 </code></pre>
 
@@ -1765,7 +1765,7 @@ nullif(expr1, expr2) - Returns null if <code>expr1</code> equals to <code>expr2<
 
 **Examples:**
 
-<pre><code>&gt; SELECT nullif(2, 2);
+<pre><code>&gt; SELECT nullif(2, 2)
  NULL
 </code></pre>
 
@@ -1776,7 +1776,7 @@ nvl(expr1, expr2) - Returns <code>expr2</code> if <code>expr1</code> is null, or
 
 **Examples:**
 
-<pre><code>&gt; SELECT nvl(NULL, array('2'));
+<pre><code>&gt; SELECT nvl(NULL, array('2'))
  [&quot;2&quot;]
 </code></pre>
 
@@ -1787,7 +1787,7 @@ nvl2(expr1, expr2, expr3) - Returns <code>expr2</code> if <code>expr1</code> is 
 
 **Examples:**
 
-<pre><code>&gt; SELECT nvl2(NULL, 2, 1);
+<pre><code>&gt; SELECT nvl2(NULL, 2, 1)
  1
 </code></pre>
 
@@ -1798,7 +1798,7 @@ octet_length(expr) - Returns the byte length of string data or number of bytes o
 
 **Examples:**
 
-<pre><code>&gt; SELECT octet_length('Spark SQL');
+<pre><code>&gt; SELECT octet_length('Spark SQL')
  9
 </code></pre>
 
@@ -1853,9 +1853,9 @@ percentage array.
 
 **Examples:**
 
-<pre><code>&gt; SELECT percentile_approx(10.0, array(0.5, 0.4, 0.1), 100);
+<pre><code>&gt; SELECT percentile_approx(10.0, array(0.5, 0.4, 0.1), 100)
  [10.0,10.0,10.0]
-&gt; SELECT percentile_approx(10.0, 0.5, 100);
+&gt; SELECT percentile_approx(10.0, 0.5, 100)
  10.0
 </code></pre>
 
@@ -1866,7 +1866,7 @@ pi() - Returns pi.
 
 **Examples:**
 
-<pre><code>&gt; SELECT pi();
+<pre><code>&gt; SELECT pi()
  3.141592653589793
 </code></pre>
 
@@ -1877,9 +1877,9 @@ pmod(expr1, expr2) - Returns the positive value of <code>expr1</code> mod <code>
 
 **Examples:**
 
-<pre><code>&gt; SELECT pmod(10, 3);
+<pre><code>&gt; SELECT pmod(10, 3)
  1
-&gt; SELECT pmod(-10, 3);
+&gt; SELECT pmod(-10, 3)
  2
 </code></pre>
 
@@ -1890,7 +1890,7 @@ posexplode(expr) - Separates the elements of array <code>expr</code> into multip
 
 **Examples:**
 
-<pre><code>&gt; SELECT posexplode(array(10,20));
+<pre><code>&gt; SELECT posexplode(array(10,20))
  0  10
  1  20
 </code></pre>
@@ -1902,7 +1902,7 @@ posexplode_outer(expr) - Separates the elements of array <code>expr</code> into 
 
 **Examples:**
 
-<pre><code>&gt; SELECT posexplode_outer(array(10,20));
+<pre><code>&gt; SELECT posexplode_outer(array(10,20))
  0  10
  1  20
 </code></pre>
@@ -1915,11 +1915,11 @@ The given <code>pos</code> and return value are 1-based.
 
 **Examples:**
 
-<pre><code>&gt; SELECT position('bar', 'foobarbar');
+<pre><code>&gt; SELECT position('bar', 'foobarbar')
  4
-&gt; SELECT position('bar', 'foobarbar', 5);
+&gt; SELECT position('bar', 'foobarbar', 5)
  7
-&gt; SELECT POSITION('bar' IN 'foobarbar');
+&gt; SELECT POSITION('bar' IN 'foobarbar')
  4
 </code></pre>
 
@@ -1935,7 +1935,7 @@ pow(expr1, expr2) - Raises <code>expr1</code> to the power of <code>expr2</code>
 
 **Examples:**
 
-<pre><code>&gt; SELECT pow(2, 3);
+<pre><code>&gt; SELECT pow(2, 3)
  8.0
 </code></pre>
 
@@ -1946,7 +1946,7 @@ power(expr1, expr2) - Raises <code>expr1</code> to the power of <code>expr2</cod
 
 **Examples:**
 
-<pre><code>&gt; SELECT power(2, 3);
+<pre><code>&gt; SELECT power(2, 3)
  8.0
 </code></pre>
 
@@ -1957,7 +1957,7 @@ printf(strfmt, obj, ...) - Returns a formatted string from printf-style format s
 
 **Examples:**
 
-<pre><code>&gt; SELECT printf(&quot;Hello World %d %s&quot;, 100, &quot;days&quot;);
+<pre><code>&gt; SELECT printf(&quot;Hello World %d %s&quot;, 100, &quot;days&quot;)
  Hello World 100 days
 </code></pre>
 
@@ -1968,7 +1968,7 @@ quarter(date) - Returns the quarter of the year for date, in the range 1 to 4.
 
 **Examples:**
 
-<pre><code>&gt; SELECT quarter('2016-08-31');
+<pre><code>&gt; SELECT quarter('2016-08-31')
  3
 </code></pre>
 
@@ -1981,7 +1981,7 @@ radians(expr) - Converts degrees to radians.
 
 **Examples:**
 
-<pre><code>&gt; SELECT radians(180);
+<pre><code>&gt; SELECT radians(180)
  3.141592653589793
 </code></pre>
 
@@ -1992,11 +1992,11 @@ rand([seed]) - Returns a random value with independent and identically distribut
 
 **Examples:**
 
-<pre><code>&gt; SELECT rand();
+<pre><code>&gt; SELECT rand()
  0.9629742951434543
-&gt; SELECT rand(0);
+&gt; SELECT rand(0)
  0.8446490682263027
-&gt; SELECT rand(null);
+&gt; SELECT rand(null)
  0.8446490682263027
 </code></pre>
 
@@ -2007,11 +2007,11 @@ randn([seed]) - Returns a random value with independent and identically distribu
 
 **Examples:**
 
-<pre><code>&gt; SELECT randn();
+<pre><code>&gt; SELECT randn()
  -0.3254147983080288
-&gt; SELECT randn(0);
+&gt; SELECT randn(0)
  1.1164209726833079
-&gt; SELECT randn(null);
+&gt; SELECT randn(null)
  1.1164209726833079
 </code></pre>
 
@@ -2029,7 +2029,7 @@ regexp_extract(str, regexp[, idx]) - Extracts a group that matches <code>regexp<
 
 **Examples:**
 
-<pre><code>&gt; SELECT regexp_extract('100-200', '(\d+)-(\d+)', 1);
+<pre><code>&gt; SELECT regexp_extract('100-200', '(\d+)-(\d+)', 1)
  100
 </code></pre>
 
@@ -2040,7 +2040,7 @@ regexp_replace(str, regexp, rep) - Replaces all substrings of <code>str</code> t
 
 **Examples:**
 
-<pre><code>&gt; SELECT regexp_replace('100-200', '(\d+)', 'num');
+<pre><code>&gt; SELECT regexp_replace('100-200', '(\d+)', 'num')
  num-num
 </code></pre>
 
@@ -2051,7 +2051,7 @@ repeat(str, n) - Returns the string which repeats the given string value n times
 
 **Examples:**
 
-<pre><code>&gt; SELECT repeat('123', 2);
+<pre><code>&gt; SELECT repeat('123', 2)
  123123
 </code></pre>
 
@@ -2069,7 +2069,7 @@ replace(str, search[, replace]) - Replaces all occurrences of <code>search</code
     the string that is removed from <code>str</code>.</li>
 </ul>
 **Examples:**
-<pre><code>&gt; SELECT replace('ABCabc', 'abc', 'DEF');
+<pre><code>&gt; SELECT replace('ABCabc', 'abc', 'DEF')
  ABCDEF
 </code></pre>
 
@@ -2080,7 +2080,7 @@ reverse(str) - Returns the reversed given string.
 
 **Examples:**
 
-<pre><code>&gt; SELECT reverse('Spark SQL');
+<pre><code>&gt; SELECT reverse('Spark SQL')
  LQS krapS
 </code></pre>
 
@@ -2091,7 +2091,7 @@ right(str, len) - Returns the rightmost <code>len</code>(<code>len</code> can be
 
 **Examples:**
 
-<pre><code>&gt; SELECT right('Spark SQL', 3);
+<pre><code>&gt; SELECT right('Spark SQL', 3)
  SQL
 </code></pre>
 
@@ -2102,7 +2102,7 @@ rint(expr) - Returns the double value that is closest in value to the argument a
 
 **Examples:**
 
-<pre><code>&gt; SELECT rint(12.3456);
+<pre><code>&gt; SELECT rint(12.3456)
  12.0
 </code></pre>
 
@@ -2153,7 +2153,7 @@ round(expr, d) - Returns <code>expr</code> rounded to <code>d</code> decimal pla
 
 **Examples:**
 
-<pre><code>&gt; SELECT round(2.5, 0);
+<pre><code>&gt; SELECT round(2.5, 0)
  3.0
 </code></pre>
 
@@ -2171,9 +2171,9 @@ If <code>str</code> is longer than <code>len</code>, the return value is shorten
 
 **Examples:**
 
-<pre><code>&gt; SELECT rpad('hi', 5, '??');
+<pre><code>&gt; SELECT rpad('hi', 5, '??')
  hi???
-&gt; SELECT rpad('hi', 1, '??');
+&gt; SELECT rpad('hi', 1, '??')
  h
 </code></pre>
 
@@ -2194,9 +2194,9 @@ rtrim(trimStr, str) - Removes the trailing string which contains the characters 
 
 **Examples:**
 
-<pre><code>&gt; SELECT rtrim('    SparkSQL   ');
+<pre><code>&gt; SELECT rtrim('    SparkSQL   ')
  SparkSQL
-&gt; SELECT rtrim('LQSa', 'SSparkSQLS');
+&gt; SELECT rtrim('LQSa', 'SSparkSQLS')
  SSpark
 </code></pre>
 
@@ -2207,7 +2207,7 @@ second(timestamp) - Returns the second component of the string/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT second('2009-07-30 12:58:59');
+<pre><code>&gt; SELECT second('2009-07-30 12:58:59')
  59
 </code></pre>
 
@@ -2220,7 +2220,7 @@ sentences(str[, lang, country]) - Splits <code>str</code> into an array of array
 
 **Examples:**
 
-<pre><code>&gt; SELECT sentences('Hi there! Good morning.');
+<pre><code>&gt; SELECT sentences('Hi there! Good morning.')
  [[&quot;Hi&quot;,&quot;there&quot;],[&quot;Good&quot;,&quot;morning&quot;]]
 </code></pre>
 
@@ -2231,7 +2231,7 @@ sha(expr) - Returns a sha1 hash value as a hex string of the <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT sha('Spark');
+<pre><code>&gt; SELECT sha('Spark')
  85f5955f4b27a9a4c2aab6ffe5d7189fc298b92c
 </code></pre>
 
@@ -2242,7 +2242,7 @@ sha1(expr) - Returns a sha1 hash value as a hex string of the <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT sha1('Spark');
+<pre><code>&gt; SELECT sha1('Spark')
  85f5955f4b27a9a4c2aab6ffe5d7189fc298b92c
 </code></pre>
 
@@ -2254,7 +2254,7 @@ SHA-224, SHA-256, SHA-384, and SHA-512 are supported. Bit length of 0 is equival
 
 **Examples:**
 
-<pre><code>&gt; SELECT sha2('Spark', 256);
+<pre><code>&gt; SELECT sha2('Spark', 256)
  529bc3b07127ecb7e53a4dcf1991d9152c24537d919178022b2c42657f79a26b
 </code></pre>
 
@@ -2265,7 +2265,7 @@ shiftleft(base, expr) - Bitwise left shift.
 
 **Examples:**
 
-<pre><code>&gt; SELECT shiftleft(2, 1);
+<pre><code>&gt; SELECT shiftleft(2, 1)
  4
 </code></pre>
 
@@ -2276,7 +2276,7 @@ shiftright(base, expr) - Bitwise (signed) right shift.
 
 **Examples:**
 
-<pre><code>&gt; SELECT shiftright(4, 1);
+<pre><code>&gt; SELECT shiftright(4, 1)
  2
 </code></pre>
 
@@ -2287,7 +2287,7 @@ shiftrightunsigned(base, expr) - Bitwise unsigned right shift.
 
 **Examples:**
 
-<pre><code>&gt; SELECT shiftrightunsigned(4, 1);
+<pre><code>&gt; SELECT shiftrightunsigned(4, 1)
  2
 </code></pre>
 
@@ -2298,7 +2298,7 @@ sign(expr) - Returns -1.0, 0.0 or 1.0 as <code>expr</code> is negative, 0 or pos
 
 **Examples:**
 
-<pre><code>&gt; SELECT sign(40);
+<pre><code>&gt; SELECT sign(40)
  1.0
 </code></pre>
 
@@ -2309,7 +2309,7 @@ signum(expr) - Returns -1.0, 0.0 or 1.0 as <code>expr</code> is negative, 0 or p
 
 **Examples:**
 
-<pre><code>&gt; SELECT signum(40);
+<pre><code>&gt; SELECT signum(40)
  1.0
 </code></pre>
 
@@ -2320,7 +2320,7 @@ sin(expr) - Returns the sine of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT sin(0);
+<pre><code>&gt; SELECT sin(0)
  0.0
 </code></pre>
 
@@ -2331,7 +2331,7 @@ sinh(expr) - Returns the hyperbolic sine of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT sinh(0);
+<pre><code>&gt; SELECT sinh(0)
  0.0
 </code></pre>
 
@@ -2342,7 +2342,7 @@ size(expr) - Returns the size of an array or a map. Returns -1 if null.
 
 **Examples:**
 
-<pre><code>&gt; SELECT size(array('b', 'd', 'c', 'a'));
+<pre><code>&gt; SELECT size(array('b', 'd', 'c', 'a'))
  4
 </code></pre>
 
@@ -2363,7 +2363,7 @@ sort_array(array[, ascendingOrder]) - Sorts the input array in ascending or desc
 
 **Examples:**
 
-<pre><code>&gt; SELECT sort_array(array('b', 'd', 'c', 'a'), true);
+<pre><code>&gt; SELECT sort_array(array('b', 'd', 'c', 'a'), true)
  [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;]
 </code></pre>
 
@@ -2374,7 +2374,7 @@ soundex(str) - Returns Soundex code of the string.
 
 **Examples:**
 
-<pre><code>&gt; SELECT soundex('Miller');
+<pre><code>&gt; SELECT soundex('Miller')
  M460
 </code></pre>
 
@@ -2385,7 +2385,7 @@ space(n) - Returns a string consisting of <code>n</code> spaces.
 
 **Examples:**
 
-<pre><code>&gt; SELECT concat(space(2), '1');
+<pre><code>&gt; SELECT concat(space(2), '1')
    1
 </code></pre>
 
@@ -2401,7 +2401,7 @@ split(str, regex) - Splits <code>str</code> around occurrences that match <code>
 
 **Examples:**
 
-<pre><code>&gt; SELECT split('oneAtwoBthreeC', '[ABC]');
+<pre><code>&gt; SELECT split('oneAtwoBthreeC', '[ABC]')
  [&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;&quot;]
 </code></pre>
 
@@ -2412,7 +2412,7 @@ sqrt(expr) - Returns the square root of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT sqrt(4);
+<pre><code>&gt; SELECT sqrt(4)
  2.0
 </code></pre>
 
@@ -2423,7 +2423,7 @@ stack(n, expr1, ..., exprk) - Separates <code>expr1</code>, ..., <code>exprk</co
 
 **Examples:**
 
-<pre><code>&gt; SELECT stack(2, 1, 2, 3);
+<pre><code>&gt; SELECT stack(2, 1, 2, 3)
  1  2
  3  NULL
 </code></pre>
@@ -2455,9 +2455,9 @@ str_to_map(text[, pairDelim[, keyValueDelim]]) - Creates a map after splitting t
 
 **Examples:**
 
-<pre><code>&gt; SELECT str_to_map('a:1,b:2,c:3', ',', ':');
+<pre><code>&gt; SELECT str_to_map('a:1,b:2,c:3', ',', ':')
  map(&quot;a&quot;:&quot;1&quot;,&quot;b&quot;:&quot;2&quot;,&quot;c&quot;:&quot;3&quot;)
-&gt; SELECT str_to_map('a');
+&gt; SELECT str_to_map('a')
  map(&quot;a&quot;:null)
 </code></pre>
 
@@ -2478,11 +2478,11 @@ substr(str, pos[, len]) - Returns the substring of <code>str</code> that starts 
 
 **Examples:**
 
-<pre><code>&gt; SELECT substr('Spark SQL', 5);
+<pre><code>&gt; SELECT substr('Spark SQL', 5)
  k SQL
-&gt; SELECT substr('Spark SQL', -3);
+&gt; SELECT substr('Spark SQL', -3)
  SQL
-&gt; SELECT substr('Spark SQL', 5, 1);
+&gt; SELECT substr('Spark SQL', 5, 1)
  k
 </code></pre>
 
@@ -2493,11 +2493,11 @@ substring(str, pos[, len]) - Returns the substring of <code>str</code> that star
 
 **Examples:**
 
-<pre><code>&gt; SELECT substring('Spark SQL', 5);
+<pre><code>&gt; SELECT substring('Spark SQL', 5)
  k SQL
-&gt; SELECT substring('Spark SQL', -3);
+&gt; SELECT substring('Spark SQL', -3)
  SQL
-&gt; SELECT substring('Spark SQL', 5, 1);
+&gt; SELECT substring('Spark SQL', 5, 1)
  k
 </code></pre>
 
@@ -2512,7 +2512,7 @@ when searching for <code>delim</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT substring_index('www.apache.org', '.', 2);
+<pre><code>&gt; SELECT substring_index('www.apache.org', '.', 2)
  www.apache
 </code></pre>
 
@@ -2528,7 +2528,7 @@ tan(expr) - Returns the tangent of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT tan(0);
+<pre><code>&gt; SELECT tan(0)
  0.0
 </code></pre>
 
@@ -2539,7 +2539,7 @@ tanh(expr) - Returns the hyperbolic tangent of <code>expr</code>.
 
 **Examples:**
 
-<pre><code>&gt; SELECT tanh(0);
+<pre><code>&gt; SELECT tanh(0)
  0.0
 </code></pre>
 
@@ -2562,9 +2562,9 @@ the <code>fmt</code> is omitted.
 
 **Examples:**
 
-<pre><code>&gt; SELECT to_date('2009-07-30 04:17:52');
+<pre><code>&gt; SELECT to_date('2009-07-30 04:17:52')
  2009-07-30
-&gt; SELECT to_date('2016-12-31', 'yyyy-MM-dd');
+&gt; SELECT to_date('2016-12-31', 'yyyy-MM-dd')
  2016-12-31
 </code></pre>
 
@@ -2577,19 +2577,19 @@ to_json(expr[, options]) - Returns a json string with a given struct value
 
 **Examples:**
 
-<pre><code>&gt; SELECT to_json(named_struct('a', 1, 'b', 2));
+<pre><code>&gt; SELECT to_json(named_struct('a', 1, 'b', 2))
  {&quot;a&quot;:1,&quot;b&quot;:2}
-&gt; SELECT to_json(named_struct('time', to_timestamp('2015-08-26', 'yyyy-MM-dd')), map('timestampFormat', 'dd/MM/yyyy'));
+&gt; SELECT to_json(named_struct('time', to_timestamp('2015-08-26', 'yyyy-MM-dd')), map('timestampFormat', 'dd/MM/yyyy'))
  {&quot;time&quot;:&quot;26/08/2015&quot;}
-&gt; SELECT to_json(array(named_struct('a', 1, 'b', 2));
+&gt; SELECT to_json(array(named_struct('a', 1, 'b', 2))
  [{&quot;a&quot;:1,&quot;b&quot;:2}]
-&gt; SELECT to_json(map('a', named_struct('b', 1)));
+&gt; SELECT to_json(map('a', named_struct('b', 1)))
  {&quot;a&quot;:{&quot;b&quot;:1}}
-&gt; SELECT to_json(map(named_struct('a', 1),named_struct('b', 2)));
+&gt; SELECT to_json(map(named_struct('a', 1),named_struct('b', 2)))
  {&quot;[1]&quot;:{&quot;b&quot;:2}}
-&gt; SELECT to_json(map('a', 1));
+&gt; SELECT to_json(map('a', 1))
  {&quot;a&quot;:1}
-&gt; SELECT to_json(array((map('a', 1))));
+&gt; SELECT to_json(array((map('a', 1))))
  [{&quot;a&quot;:1}]
 </code></pre>
 
@@ -2604,9 +2604,9 @@ a timestamp if the <code>fmt</code> is omitted.
 
 **Examples:**
 
-<pre><code>&gt; SELECT to_timestamp('2016-12-31 00:12:00');
+<pre><code>&gt; SELECT to_timestamp('2016-12-31 00:12:00')
  2016-12-31 00:12:00
-&gt; SELECT to_timestamp('2016-12-31', 'yyyy-MM-dd');
+&gt; SELECT to_timestamp('2016-12-31', 'yyyy-MM-dd')
  2016-12-31 00:00:00
 </code></pre>
 
@@ -2619,7 +2619,7 @@ to_unix_timestamp(expr[, pattern]) - Returns the UNIX timestamp of the given tim
 
 **Examples:**
 
-<pre><code>&gt; SELECT to_unix_timestamp('2016-04-08', 'yyyy-MM-dd');
+<pre><code>&gt; SELECT to_unix_timestamp('2016-04-08', 'yyyy-MM-dd')
  1460041200
 </code></pre>
 
@@ -2632,7 +2632,7 @@ to_utc_timestamp(timestamp, timezone) - Given a timestamp like '2017-07-14 02:40
 
 **Examples:**
 
-<pre><code>&gt; SELECT to_utc_timestamp('2016-08-31', 'Asia/Seoul');
+<pre><code>&gt; SELECT to_utc_timestamp('2016-08-31', 'Asia/Seoul')
  2016-08-30 15:00:00
 </code></pre>
 
@@ -2645,7 +2645,7 @@ translate(input, from, to) - Translates the <code>input</code> string by replaci
 
 **Examples:**
 
-<pre><code>&gt; SELECT translate('AaBbCc', 'abc', '123');
+<pre><code>&gt; SELECT translate('AaBbCc', 'abc', '123')
  A1B2C3
 </code></pre>
 
@@ -2675,15 +2675,15 @@ trim(TRAILING trimStr FROM str) - Remove the trailing <code>trimStr</code> chara
 
 **Examples:**
 
-<pre><code>&gt; SELECT trim('    SparkSQL   ');
+<pre><code>&gt; SELECT trim('    SparkSQL   ')
  SparkSQL
-&gt; SELECT trim('SL', 'SSparkSQLS');
+&gt; SELECT trim('SL', 'SSparkSQLS')
  parkSQ
-&gt; SELECT trim(BOTH 'SL' FROM 'SSparkSQLS');
+&gt; SELECT trim(BOTH 'SL' FROM 'SSparkSQLS')
  parkSQ
-&gt; SELECT trim(LEADING 'SL' FROM 'SSparkSQLS');
+&gt; SELECT trim(LEADING 'SL' FROM 'SSparkSQLS')
  parkSQLS
-&gt; SELECT trim(TRAILING 'SL' FROM 'SSparkSQLS');
+&gt; SELECT trim(TRAILING 'SL' FROM 'SSparkSQLS')
  SSparkSQ
 </code></pre>
 
@@ -2695,9 +2695,9 @@ trunc(date, fmt) - Returns <code>date</code> with the time portion of the day tr
 
 **Examples:**
 
-<pre><code>&gt; SELECT trunc('2009-02-12', 'MM');
+<pre><code>&gt; SELECT trunc('2009-02-12', 'MM')
  2009-02-01
-&gt; SELECT trunc('2015-10-27', 'YEAR');
+&gt; SELECT trunc('2015-10-27', 'YEAR')
  2015-01-01
 </code></pre>
 
@@ -2710,7 +2710,7 @@ ucase(str) - Returns <code>str</code> with all characters changed to uppercase.
 
 **Examples:**
 
-<pre><code>&gt; SELECT ucase('SparkSql');
+<pre><code>&gt; SELECT ucase('SparkSql')
  SPARKSQL
 </code></pre>
 
@@ -2721,7 +2721,7 @@ unbase64(str) - Converts the argument from a base 64 string <code>str</code> to 
 
 **Examples:**
 
-<pre><code>&gt; SELECT unbase64('U3BhcmsgU1FM');
+<pre><code>&gt; SELECT unbase64('U3BhcmsgU1FM')
  Spark SQL
 </code></pre>
 
@@ -2732,7 +2732,7 @@ unhex(expr) - Converts hexadecimal <code>expr</code> to binary.
 
 **Examples:**
 
-<pre><code>&gt; SELECT decode(unhex('537061726B2053514C'), 'UTF-8');
+<pre><code>&gt; SELECT decode(unhex('537061726B2053514C'), 'UTF-8')
  Spark SQL
 </code></pre>
 
@@ -2743,9 +2743,9 @@ unix_timestamp([expr[, pattern]]) - Returns the UNIX timestamp of current or spe
 
 **Examples:**
 
-<pre><code>&gt; SELECT unix_timestamp();
+<pre><code>&gt; SELECT unix_timestamp()
  1476884637
-&gt; SELECT unix_timestamp('2016-04-08', 'yyyy-MM-dd');
+&gt; SELECT unix_timestamp('2016-04-08', 'yyyy-MM-dd')
  1460041200
 </code></pre>
 
@@ -2758,7 +2758,7 @@ upper(str) - Returns <code>str</code> with all characters changed to uppercase.
 
 **Examples:**
 
-<pre><code>&gt; SELECT upper('SparkSql');
+<pre><code>&gt; SELECT upper('SparkSql')
  SPARKSQL
 </code></pre>
 
@@ -2769,7 +2769,7 @@ uuid() - Returns an universally unique identifier (UUID) string. The value is re
 
 **Examples:**
 
-<pre><code>&gt; SELECT uuid();
+<pre><code>&gt; SELECT uuid()
  46707d92-02f4-4817-8116-a4c3b23e6266
 </code></pre>
 
@@ -2795,7 +2795,7 @@ weekofyear(date) - Returns the week of the year of the given date. A week is con
 
 **Examples:**
 
-<pre><code>&gt; SELECT weekofyear('2008-02-20');
+<pre><code>&gt; SELECT weekofyear('2008-02-20')
  8
 </code></pre>
 
@@ -2831,7 +2831,7 @@ xpath(xml, xpath) - Returns a string array of values within the nodes of xml tha
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath('&lt;a&gt;&lt;b&gt;b1&lt;/b&gt;&lt;b&gt;b2&lt;/b&gt;&lt;b&gt;b3&lt;/b&gt;&lt;c&gt;c1&lt;/c&gt;&lt;c&gt;c2&lt;/c&gt;&lt;/a&gt;','a/b/text()');
+<pre><code>&gt; SELECT xpath('&lt;a&gt;&lt;b&gt;b1&lt;/b&gt;&lt;b&gt;b2&lt;/b&gt;&lt;b&gt;b3&lt;/b&gt;&lt;c&gt;c1&lt;/c&gt;&lt;c&gt;c2&lt;/c&gt;&lt;/a&gt;','a/b/text()')
  ['b1','b2','b3']
 </code></pre>
 
@@ -2842,7 +2842,7 @@ xpath_boolean(xml, xpath) - Returns true if the XPath expression evaluates to tr
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_boolean('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;/a&gt;','a/b');
+<pre><code>&gt; SELECT xpath_boolean('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;/a&gt;','a/b')
  true
 </code></pre>
 
@@ -2853,7 +2853,7 @@ xpath_double(xml, xpath) - Returns a double value, the value zero if no match is
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_double('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)');
+<pre><code>&gt; SELECT xpath_double('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)')
  3.0
 </code></pre>
 
@@ -2864,7 +2864,7 @@ xpath_float(xml, xpath) - Returns a float value, the value zero if no match is f
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_float('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)');
+<pre><code>&gt; SELECT xpath_float('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)')
  3.0
 </code></pre>
 
@@ -2875,7 +2875,7 @@ xpath_int(xml, xpath) - Returns an integer value, or the value zero if no match 
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_int('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)');
+<pre><code>&gt; SELECT xpath_int('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)')
  3
 </code></pre>
 
@@ -2886,7 +2886,7 @@ xpath_long(xml, xpath) - Returns a long integer value, or the value zero if no m
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_long('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)');
+<pre><code>&gt; SELECT xpath_long('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)')
  3
 </code></pre>
 
@@ -2897,7 +2897,7 @@ xpath_number(xml, xpath) - Returns a double value, the value zero if no match is
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_number('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)');
+<pre><code>&gt; SELECT xpath_number('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)')
  3.0
 </code></pre>
 
@@ -2908,7 +2908,7 @@ xpath_short(xml, xpath) - Returns a short integer value, or the value zero if no
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_short('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)');
+<pre><code>&gt; SELECT xpath_short('&lt;a&gt;&lt;b&gt;1&lt;/b&gt;&lt;b&gt;2&lt;/b&gt;&lt;/a&gt;', 'sum(a/b)')
  3
 </code></pre>
 
@@ -2919,7 +2919,7 @@ xpath_string(xml, xpath) - Returns the text contents of the first xml node that 
 
 **Examples:**
 
-<pre><code>&gt; SELECT xpath_string('&lt;a&gt;&lt;b&gt;b&lt;/b&gt;&lt;c&gt;cc&lt;/c&gt;&lt;/a&gt;','a/c');
+<pre><code>&gt; SELECT xpath_string('&lt;a&gt;&lt;b&gt;b&lt;/b&gt;&lt;c&gt;cc&lt;/c&gt;&lt;/a&gt;','a/c')
  cc
 </code></pre>
 
@@ -2930,7 +2930,7 @@ year(date) - Returns the year component of the date/timestamp.
 
 **Examples:**
 
-<pre><code>&gt; SELECT year('2016-07-30');
+<pre><code>&gt; SELECT year('2016-07-30')
  2016
 </code></pre>
 
