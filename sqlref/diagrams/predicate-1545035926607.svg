@@ -320,49 +320,57 @@ svg.railroad-diagram rect {
 <path d="M624 261a10 10 0 0 0 10 -10v-200a10 10 0 0 1 10 -10"></path>
 <path d="M40 41a10 10 0 0 1 10 10v240a10 10 0 0 0 10 10"></path>
 <g>
-<path d="M60 301h60"></path>
-<path d="M564 301h60"></path>
-<path d="M120 301h10"></path>
+<path d="M60 301h44"></path>
+<path d="M580 301h44"></path>
+<path d="M104 301h10"></path>
 <g>
-<path d="M130 301h0"></path>
-<path d="M166 301h0"></path>
-<rect x="130" y="290" width="36" height="22" rx="10" ry="10"></rect>
-<text x="148" y="305">IS</text>
+<path d="M114 301h0"></path>
+<path d="M150 301h0"></path>
+<rect x="114" y="290" width="36" height="22" rx="10" ry="10"></rect>
+<text x="132" y="305">IS</text>
 </g>
-<path d="M166 301h10"></path>
+<path d="M150 301h10"></path>
 <g>
-<path d="M176 301h0"></path>
-<path d="M260 301h0"></path>
-<path d="M176 301a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<path d="M160 301h0"></path>
+<path d="M244 301h0"></path>
+<path d="M160 301a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
 <g>
-<path d="M196 281h44"></path>
+<path d="M180 281h44"></path>
 </g>
-<path d="M240 281a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M176 301h20"></path>
+<path d="M224 281a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M160 301h20"></path>
 <g>
-<path d="M196 301h0"></path>
-<path d="M240 301h0"></path>
-<rect x="196" y="290" width="44" height="22" rx="10" ry="10"></rect>
-<text x="218" y="305">NOT</text>
+<path d="M180 301h0"></path>
+<path d="M224 301h0"></path>
+<rect x="180" y="290" width="44" height="22" rx="10" ry="10"></rect>
+<text x="202" y="305">NOT</text>
 </g>
-<path d="M240 301h20"></path>
+<path d="M224 301h20"></path>
 </g>
-<path d="M260 301h10"></path>
+<path d="M244 301h10"></path>
 <g>
-<path d="M270 301h0"></path>
-<path d="M394 301h0"></path>
-<rect x="270" y="290" width="124" height="22" rx="10" ry="10"></rect>
-<text x="332" y="305">DISTINCT FROM</text>
+<path d="M254 301h0"></path>
+<path d="M338 301h0"></path>
+<rect x="254" y="290" width="84" height="22" rx="10" ry="10"></rect>
+<text x="296" y="305">DISTINCT</text>
 </g>
-<path d="M394 301h10"></path>
-<path d="M404 301h10"></path>
+<path d="M338 301h10"></path>
+<path d="M348 301h10"></path>
 <g>
-<path d="M414 301h0"></path>
-<path d="M554 301h0"></path>
-<rect x="414" y="290" width="140" height="22"></rect>
-<text x="484" y="305">valueExpression</text>
+<path d="M358 301h0"></path>
+<path d="M410 301h0"></path>
+<rect x="358" y="290" width="52" height="22" rx="10" ry="10"></rect>
+<text x="384" y="305">FROM</text>
 </g>
-<path d="M554 301h10"></path>
+<path d="M410 301h10"></path>
+<path d="M420 301h10"></path>
+<g>
+<path d="M430 301h0"></path>
+<path d="M570 301h0"></path>
+<rect x="430" y="290" width="140" height="22"></rect>
+<text x="500" y="305">valueExpression</text>
+</g>
+<path d="M570 301h10"></path>
 </g>
 <path d="M624 301a10 10 0 0 0 10 -10v-240a10 10 0 0 1 10 -10"></path>
 </g>
