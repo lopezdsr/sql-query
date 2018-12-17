@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018
-lastupdated: "2018-12-13"
+lastupdated: "2018-12-17"
 
 ---
 
@@ -770,13 +770,13 @@ date_trunc(fmt, ts) - Returns timestamp <code>ts</code> truncated to the unit sp
 
 **Examples:**
 
-<pre><code>&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'YEAR')
+<pre><code>&gt; SELECT date_trunc('YEAR', '2015-03-05T09:32:05.359')
  2015-01-01T00:00:00
-&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'MM')
+&gt; SELECT date_trunc('MM', '2015-03-05T09:32:05.359')
  2015-03-01T00:00:00
-&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'DD')
+&gt; SELECT date_trunc('DD', '2015-03-05T09:32:05.359')
  2015-03-05T00:00:00
-&gt; SELECT date_trunc('2015-03-05T09:32:05.359', 'HOUR')
+&gt; SELECT date_trunc('HOUR', '2015-03-05T09:32:05.359')
  2015-03-05T09:00:00
 </code></pre>
 
