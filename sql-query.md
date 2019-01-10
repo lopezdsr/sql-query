@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018
-lastupdated: "2018-10-22"
+lastupdated: "2019-01-10"
 
 ---
 
@@ -42,7 +42,11 @@ Each URI can be thought of as a table.
 Each URI comprises one or more input files; each input file can be thought of as a table partition.
 You must have at least 'Reader' access to the buckets that contain the input files.
     - If the format of the input files is CSV, there is no need to specify a STORED AS clause. 
-However, if the format is JSON, ORC, or Parquet, after the FROM clause, specify STORED AS JSON, STORED AS ORC, or STORED AS PARQUET, as appropriate. 
+However, if the format is JSON, ORC, or Parquet, after the FROM clause, specify STORED AS JSON, STORED AS ORC, or STORED AS PARQUET, as appropriate.
+    - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using 
+the `FIELDS TERMINATED BY` "<character>" clause. All one-character Unicode characters are allowed as delimiters.
+    - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify
+`NOHEADER` after the `FROM` clause or `STORED AS` clause.
     - If required, you can use JOIN constructs to join data from several input files, even if those files are located in different instances.
 2. Below the SELECT statement, in the **Target** field, specify the output [URI](sql-query.html#table-unique-resource-identifier),
 that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
@@ -57,12 +61,12 @@ Currently three objects are written as a result set per job:
 2. `jobid=<job_id>/_SUCCESS`
 3. `jobid=<job_id>/<part-number>`
 
-Only contains the result set (`jobid=<job_id>/<part-number>`), and the other two are empty and don't contain any data. 
+Only one object contains the result set (`jobid=<job_id>/<part-number>`), and the other two are empty and don't contain any data. 
 It is important not to delete any of the files if you want to use the result set.
 Each result is stored with an own job ID prefix that allows you to use the result directly in a query.
 When you want to specify a result as input in your SQL query, specify the first (`jobid=<job_id>`) or the third one (`jobid=<job_id>/<part-number>`).
 
-<h2 id="Table_unique_resource_identifier">Table unique resource identifier</h2>
+<h2 id="table-unique-resource-identifier">Table unique resource identifier</h2>
 
 A table unique resource identifier (URI) has the form 
 
@@ -230,7 +234,6 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2/sql_jo
 
 ## Limitations
 
-- CSV input supports only comma-separated objects with a header.
 - If a JSON, ORC, or Parquet object contains a nested or arrayed structure, using a wildcard (for example, `select * from cos://...`) returns an error such as 
 "Invalid CSV data type used: `struct<nested JSON object>`."
 Use one of the following workarounds:
