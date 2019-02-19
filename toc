@@ -1,7 +1,7 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="sql-query" audience="service" arm="3663118" href="/docs/services/sql-query/getting-started.html" path="services/sql-query"}
+{: .toc subcollection="sql-query" audience="service" arm="3663118" href="/docs/services/sql-query?topic=sql-query-gettingstarted" path="services/sql-query"}
 IBM Cloud SQL Query
 
     {: .navgroup id="learn"}
@@ -12,11 +12,11 @@ IBM Cloud SQL Query
 
     {: .navgroup id="reference"}
     {: .topicgroup}
-    SQL reference
+    SQL
         sqlref/sql_reference.md
-        sqlref/sql_function_reference.md
         sqlref/sql_functions.md
-
+        sqlref/geospatial.md
+       
     {: .topicgroup}
     activity.md
     {: .navgroup-end}
