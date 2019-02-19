@@ -16,7 +16,7 @@ IBM Cloud SQL Query
         sqlref/sql_reference.md
         sqlref/sql_functions.md
         sqlref/geospatial.md
-       
+
     {: .topicgroup}
     activity.md
     {: .navgroup-end}
