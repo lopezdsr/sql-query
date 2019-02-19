@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  year: 2018
-lastupdated: "2018-08-02"
+  year: 2018, 2019
+lastupdated: "2019-02-18"
 
 ---
 
@@ -15,6 +15,8 @@ lastupdated: "2018-08-02"
 
 
 # Getting started tutorial
+{: #gettingstarted}
+
 In this {{site.data.keyword.sqlquery_full}} tutorial, we'll set you up to begin querying rectangular data in {{site.data.keyword.cos_full}}.
 
 {: shortdesc}
@@ -24,7 +26,7 @@ In this {{site.data.keyword.sqlquery_full}} tutorial, we'll set you up to begin 
 
 Before you can run SQL queries, you need to have one or more Cloud {{site.data.keyword.cos_short}} buckets to hold the data to be analyzed and to hold the query results.
 Cloud {{site.data.keyword.cos_short}} offers several plans, including a free "Lite" plan.
-To create an Cloud {{site.data.keyword.cos_short}} instance:
+To create a Cloud {{site.data.keyword.cos_short}} instance:
 1. Go to the [**IBM Cloud Catalog > Storage > Object Storage**](https://console.bluemix.net/catalog/infrastructure/cloud-object-storage) page.
 2. Select one of the plans and create the service.  
 
@@ -96,7 +98,7 @@ I REMOVED STEP 5 (operationalize) AND ADDED THE VIDEO TO THE VIDEO LIST BECAUSE:
 {: #next_steps}
 
 To analyze your own data (CSV, JSON, ORC, or Parquet), upload it to an Cloud {{site.data.keyword.cos_short}} instance and run SQL queries as described 
-[here](sql-query.html#running-an-sql-query).
+[here](docs/services/sql-query?topic=sql-query-sql-query-running).
 
 For more advanced capabilities, check out these video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)
