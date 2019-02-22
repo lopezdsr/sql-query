@@ -22,7 +22,8 @@ lastupdated: "2019-02-18"
 
 Input data is read from CSV, JSON, ORC, or Parquet files located in one or more {{site.data.keyword.cos_full}} instances.
 Each query result is written to a CSV file in a Cloud {{site.data.keyword.cos_short}} instance of your choice. 
-Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the [SQL Query REST API](sql-query.html#rest-api) to automate them.
+Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the 
+[SQL Query REST API](#restapi) to automate them. 
 
 ## Where your input data and query results are stored
 {: #stored}
