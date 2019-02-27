@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-02-27"
 
 ---
 
@@ -16,6 +16,7 @@ lastupdated: "2019-02-18"
 
 
 # Geospatial functions
+{: #geo-functions}
 
 The [Geospatial Toolkit](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_intro.html) provides a set 
 of [geospatial functions](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html) 
