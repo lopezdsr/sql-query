@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-02-27"
 
 ---
 
@@ -16,7 +16,7 @@ lastupdated: "2019-02-18"
 
 
 # Geospatial Analytics
-{: #geospatial}
+{: #geospatial_analytics}
 
 Geospatial SQL functions allow developers to efficiently index and perform calculations on geospatial data. 
 The combination of geospatial analytic functions with the serverless form factor of {{site.data.keyword.sqlquery_full}} makes it very easy 
