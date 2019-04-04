@@ -2,15 +2,21 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-02-22"
+lastupdated: "2019-04-04"
 
 ---
 
 # What's new
 
+## April 2019
+
+- Support for encrypting SQL queries with {{site.data.keyword.keymanagementservicefull}}. {{site.data.keyword.keymanagementservicelong_notm}} is a centralized key management system (KMS) for generating, managing, and destroying encryption keys used by IBM Cloud™ services. 
+If you are processing particularly sensitive data in your queries, you can now use customer-managed keys to encrypt SQL query texts and error messages that are stored in the job information.
+- {{site.data.keyword.sqlquery_full}} with {{site.data.keyword.keymanagementservicelong_notm}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements.
+
 ## February 2019
 
-- Beta support for JDBC driver of {{site.data.keyword.sqlquery_full}}. Request to participate by sending an email to cglew@us.ibm.com.
+- Beta support for JDBC driver of {{site.data.keyword.sqlquery_short}}. Request to participate by sending an email to cglew@us.ibm.com.
 - Beta support for data skipping indexes. You can create custom indexes on any column for minimum and maximum values, list of values, 
 and geospatial bounding box for any object queried. This significantly reduces I/O and query cost and lower the query execution time. 
 Request to participate by sending an email to cglew@us.ibm.com.
