@@ -8,6 +8,7 @@ IBM Cloud SQL Query
     sql-query.md
     getting-started.md
     whatsnew.md
+    security.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
@@ -16,6 +17,7 @@ IBM Cloud SQL Query
         sqlref/sql_reference.md
         sqlref/sql_functions.md
         sqlref/geospatial.md
+        sqlref/timeseries.md
 
     {: .topicgroup}
     activity.md
@@ -35,6 +37,7 @@ IBM Cloud SQL Query
         setup.md
         data_lake.md
         api_notebook.md
-        geospatial.md
+        geospatial_analytics.md
         microservice.md
+    keyprotect.md
 {: .navgroup-end}
