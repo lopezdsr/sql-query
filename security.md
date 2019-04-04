@@ -1,0 +1,38 @@
+---
+
+copyright:
+  year: 2018, 2019
+lastupdated: "2019-04-04"
+
+---
+
+{:shortdesc: .shortdesc}
+{:new_window: target="_blank"}
+{:codeblock: .codeblock}
+{:pre: .pre}
+{:screen: .screen}
+{:tip: .tip}
+
+# Security and compliance
+{: #security}
+
+## General Data Protection Regulation (GDPR)
+{: #gdpr}
+
+If you have an account with {{site.data.keyword.bluemix}}, your personal data is held by {{site.data.keyword.bluemix_notm}}. The [IBM Data Processing Addendum (IBM DPA)](https://www.ibm.com/support/customer/csol/terms/?cat=dpa) applies to the processing of client's personal data by IBM on behalf of client in order to provide IBM standard services.
+
+{{site.data.keyword.sqlquery_full}} processes limited client Personal Information (PI) in the course of running the service and optimizing the user experience.
+
+{{site.data.keyword.sqlquery_notm}} provides a [Data Sheet Addendum (DSA)](https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=AC17FFB0B52911E7A9EB066095601ABB) with its policies as a Data Processor regarding content and data protection.
+
+## HIPAA
+{: #hipaa}
+
+{{site.data.keyword.sqlquery_notm}} with {{site.data.keyword.skeymanagementserviceshort}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements. These requirements include the appropriate administrative, physical, and technical safeguards required of Business Associates in 45 CFR Part 160 and Subparts A and C of Part 164. HIPAA must be requested at the time of provisioning and requires a representative to sign a Business Associate Addendum (BAA) agreement with IBM.
+
+## Terms
+{: #terms}
+
+[The IBM Privacy Policy](https://www.ibm.com/privacy/us/en/)
+
+[The IBM Cloud Notices and Terms of Use](https://cloud.ibm.com/docs/overview/terms-of-use?topic=overview-terms#terms)
