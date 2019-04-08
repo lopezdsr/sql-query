@@ -2,7 +2,11 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-02-25"
+lastupdated: "2019-04-08"
+
+keywords: SQL, query, object storage, bucket, sample, instance, analyze, CSV, JSON, ORC, Parquet
+
+subcollection: sql-query
 
 ---
 
@@ -14,10 +18,10 @@ lastupdated: "2019-02-25"
 {:tip: .tip}
 
 
-# Getting started tutorial
+# Getting started
 {: #gettingstarted}
 
-In this {{site.data.keyword.sqlquery_full}} tutorial, we'll set you up to begin querying rectangular data in {{site.data.keyword.cos_full}}.
+In this {{site.data.keyword.sqlquery_full}} tutorial, we'll set you up to begin querying rectangular data in {{site.data.keyword.cos_full}} and storing the results in {{site.data.keyword.cos_short}}.
 
 
 {: shortdesc}
