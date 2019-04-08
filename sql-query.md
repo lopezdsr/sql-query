@@ -2,7 +2,11 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-04-08"
+
+keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
+
+subcollection: sql-query
 
 ---
 
@@ -20,8 +24,8 @@ lastupdated: "2019-02-18"
 
 **Note:** You can use {{site.data.keyword.sqlquery_short}} to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
 
-Input data is read from CSV, JSON, ORC, or Parquet files located in one or more {{site.data.keyword.cos_full}} instances.
-Each query result is written to a CSV file in a Cloud {{site.data.keyword.cos_short}} instance of your choice. 
+Input data is read from CSV, JSON, ORC, Parquet, or AVRO files located in one or more {{site.data.keyword.cos_full}} instances.
+Each query result is written to a CSV, JSON, ORC, Parquet, or AVRO file in a Cloud {{site.data.keyword.cos_short}} instance of your choice. 
 Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the 
 [SQL Query REST API](#restapi) to automate them. 
 
@@ -31,8 +35,7 @@ Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your
 Before you can use the {{site.data.keyword.sqlquery_short}} service to run SQL queries, the input data must be uploaded to one or more Cloud {{site.data.keyword.cos_short}} instances.
 You must also have at least 'Writer' access to at least one Cloud {{site.data.keyword.cos_short}} bucket, so that result files 
 (that is, the files containing output data) can be written there.
-For more information about Cloud {{site.data.keyword.cos_short}}, including how to provision an instance, create buckets, and upload data, 
-refer to the [Cloud Object Storage Getting Started Guide](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console).
+For more information about Cloud {{site.data.keyword.cos_short}}, including how to provision an instance, create buckets, and upload data, refer to the [Cloud Object Storage Getting Started Guide](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console).
 
 ## Running an {{site.data.keyword.sqlquery_short}}
 {: #running}
@@ -45,7 +48,7 @@ Each URI can be thought of as a table.
 Each URI comprises one or more input files; each input file can be thought of as a table partition.
 You must have at least 'Reader' access to the buckets that contain the input files.
     - If the format of the input files is CSV, there is no need to specify a STORED AS clause. 
-However, if the format is JSON, ORC, or Parquet, after the FROM clause, specify STORED AS JSON, STORED AS ORC, or STORED AS PARQUET, as appropriate.
+However, if the format is JSON, ORC, Parquet, or AVRO, after the FROM clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO as appropriate.
     - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using 
 the `FIELDS TERMINATED BY` "<character>" clause. All one-character Unicode characters are allowed as delimiters.
     - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify
@@ -190,15 +193,13 @@ s3.sao01.objectstorage.softlayer.net   | sao01
 You can use the [SQL Query service REST API](https://console.bluemix.net/apidocs/sql-query?language=curl) 
 to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 
-**Note:** The Cloud Resource Name (CRN) is a mandatory part of an {{site.data.keyword.sqlquery_short}} REST endpoint call. The CRN Copy button 
-copies your CRN to clipboard and you can just paste it into your API call.
+**Note:** The Cloud Resource Name (CRN) is a mandatory part of an {{site.data.keyword.sqlquery_short}} REST endpoint call. The CRN Copy button copies your CRN to clipboard and you can just paste it into your API call.
 
 ### Python applications and notebooks
 {: #python}
 
 For a Python application, you can also use the [ibmcloudsql package](https://pypi.python.org/pypi/ibmcloudsql). 
-This allows you to use IBM Watson Studio to run queries with {{site.data.keyword.sqlquery_short}} and visualize the query results with one 
-of the various widget libraries available in [Watson Studio](https://console.stage1.bluemix.net/catalog/services/data-science-experience).
+This allows you to use IBM Watson Studio to run queries with {{site.data.keyword.sqlquery_short}} and visualize the query results with one of the various widget libraries available in [Watson Studio](https://console.stage1.bluemix.net/catalog/services/data-science-experience).
 
 Using the ibmcloudsql library, you can also interact with {{site.data.keyword.sqlquery_short}} directly from Watson Studio notebooks. 
 You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.ibm.com/analytics/notebooks/v2/656c7d43-7ccd-4e50-a3c0-bbc37c001132/view?access_token=baaa77ad715e17a8f823615d45431329fde0fe92fecb85abb9fc55a877939fe8) 
