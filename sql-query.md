@@ -29,6 +29,8 @@ Each query result is written to a CSV, JSON, ORC, Parquet, or AVRO file in a Clo
 Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the 
 [SQL Query REST API](#restapi) to automate them. 
 
+![SQL Query Overview](overview.jpg)
+
 ## Where your input data and query results are stored
 {: #stored}
 
