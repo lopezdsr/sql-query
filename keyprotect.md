@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-04-09"
+lastupdated: "2019-04-24"
 
 keywords: encryption, key protect, query, key management system
 
@@ -49,7 +49,7 @@ For performance reasons, create both the {{site.data.keyword.keymanagementservic
 
 Customer key encryption in {{site.data.keyword.sqlquery_short}} applies to the queries that you are processing. 
 With each query, you explicitly specify {{site.data.keyword.cos_full}} locations for input and target data, which are not controlled by {{site.data.keyword.sqlquery_short}}. 
-So if you are processing sensitive data, make sure that your query results are written to a {{site.data.keyword.cos_full_notm}} location that has appropriate protection.
+So, if you are processing sensitive data, make sure that your query results are written to an {{site.data.keyword.cos_full_notm}} location that has appropriate protection. Note that default target locations, where results are stored by default if no other result locations are specified, are not and cannot be encrypted.
 
 {{site.data.keyword.cos_full_notm}} documents [how to configure customer key encryption for the Cloud Object Storage buckets](https://cloud.ibm.com/docs/services/cloud-object-storage/libraries?topic=cloud-object-storage-manage-encryption#manage-encryption)
 storing the actual data.
