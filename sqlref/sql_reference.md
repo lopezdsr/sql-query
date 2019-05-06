@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-04-25"
 
 ---
 
@@ -12,23 +12,23 @@ lastupdated: "2019-02-18"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# SQL Reference
+# SQL reference
 
 ## Introduction
 {: #chapterIntroduction}
 
 {{site.data.keyword.sqlquery_full}} allows you to analyze and transform open data with SQL. It supports the various types of SELECT statements from the ANSI SQL standard.
 
-The select statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS), 
+The select statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
-Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location 
-in Cloud {{site.data.keyword.cos_short}}, you can use it as a data transformation service. 
-It provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically. 
+Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location
+in Cloud {{site.data.keyword.cos_short}}, you can use it as a data transformation service.
+It provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
 This includes control over data location, format, layout and partitioning.
 
-A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically, 
-either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}} 
+A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
+either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
 ## SQL query statement
@@ -44,7 +44,7 @@ The general syntax of an SQL query statement is outlined below using the `query`
 	<area alt="section fullselect" shape="rect" coords="322,30,422,52" href="#fullselect" />
 	<area alt="section resultClause" shape="rect" coords="452,30,568,52" href="#resultClause" />
 </map>
-<img style="max-width: 629px;" usemap="#queryImgMap" alt="syntax diagram for a query" src="./diagrams/query-1551088484370.svg" />
+<img style="max-width: 629px;" usemap="#queryImgMap" alt="syntax diagram for a query" src="./diagrams/query-1556794853299.svg" />
 </div>
 
 <h3 id="namedQuery">namedQuery</h3>
@@ -54,16 +54,16 @@ The general syntax of an SQL query statement is outlined below using the `query`
 	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
 	<area alt="section query" shape="rect" coords="294,30,354,52" href="#query" />
 </map>
-<img style="max-width: 453px;" usemap="#namedQueryImgMap" alt="syntax diagram for a named query" src="./diagrams/namedQuery-1551088484370.svg" />
+<img style="max-width: 453px;" usemap="#namedQueryImgMap" alt="syntax diagram for a named query" src="./diagrams/namedQuery-1556794853299.svg" />
 </div>
 
-The query statement supports *common table expressions*. A common table expression permits defining a result table with a table name 
+The query statement supports *common table expressions*. A common table expression permits defining a result table with a table name
 that can be specified as a table name in any FROM clause of the fullselect that follows.
 
-Common table expressions are defined by using the reserved keyword `WITH` followed by one or more *named queries*. 
-Each common table expression specified can also be referenced by name in the FROM clause of subsequent common table expressions. 
+Common table expressions are defined by using the reserved keyword `WITH` followed by one or more *named queries*.
+Each common table expression specified can also be referenced by name in the FROM clause of subsequent common table expressions.
 
-Creating a common table expression avoids the overhead of creating and dropping an intermediate result object on 
+Creating a common table expression avoids the overhead of creating and dropping an intermediate result object on
 Cloud {{site.data.keyword.cos_short}} that is needed only for a certain query.
 
 Moreover, a common table expression is beneficial when the same result table must be shared in a fullselect.
@@ -75,20 +75,20 @@ The common table expression examples use values clauses to define tables inline.
 ```sql
 -- find the department with the highest total pay
 WITH dtotal AS (
-    SELECT 
-        col1 AS deptno, 
-        SUM(col3+col4) AS totalpay 
+    SELECT
+        col1 AS deptno,
+        SUM(col3+col4) AS totalpay
     FROM  VALUES -- deptno, empid, salary, bonus
         (1, 1, 1000, 0), (1, 2, 2000, 500), (1, 3, 3000, 0),
         (2, 4, 5000, 200), (2, 5, 6000, 0), (2, 6, 4000, 0),
         (3, 7, 2000, 500), (3, 8, 2000, 500), (3, 9, 8000, 0)
-    GROUP BY col1 
+    GROUP BY col1
 )
-SELECT deptno 
+SELECT deptno
 FROM dtotal
 WHERE totalpay = (SELECT MAX(totalpay) FROM  dtotal)
 ```
-{: codeblock} 
+{: codeblock}
 
 | DEPTNO |
 | ------ |
@@ -97,7 +97,7 @@ WHERE totalpay = (SELECT MAX(totalpay) FROM  dtotal)
 
 
 ```sql
--- list products with a price above the average price 
+-- list products with a price above the average price
 WITH  products AS (
     SELECT
         col1 AS productid,
@@ -107,16 +107,16 @@ WITH  products AS (
         (5, 5), (6, 10), (7, 15), (8, 40),
         (9, 100), (10, 200), (11, 300), (12, 400)
 ), avg_product_price AS (
-    SELECT 
+    SELECT
         AVG(price) as avg_price
     FROM products
 )
-SELECT 
+SELECT
     productid,
 	price,
 	(SELECT * FROM avg_product_price) AS avg_price,
-	price-(SELECT * FROM avg_product_price) AS price_dist 
-FROM products WHERE price > (SELECT * FROM avg_product_price) 
+	price-(SELECT * FROM avg_product_price) AS price_dist
+FROM products WHERE price > (SELECT * FROM avg_product_price)
 ```
 {: codeblock}
 
@@ -133,74 +133,54 @@ FROM products WHERE price > (SELECT * FROM avg_product_price)
 
 You can use the result clause to apply detailed control over the location, format and layout of the SQL query result set being stored.
 
+The default is `JOBPREFIX JOBID`, which means that `jobid=` is always appended to the target prefix.
+You can optionally specify `JOBID NONE`, which skips the appending of `jobid=`. This means that the results are written
+exactly to the requested path. However, if that path contains existing objects (for example, from a previous query execution with the same target path), 
+all existing objects get removed when the new result objects are written.
+
+A query cannot run if `JOBPREFIX NONE` is specified and the target overlaps with at least one of the input URIs.
+The reason is that data cannot be overwritten by a query that is reading that same data.
+For example, `SELECT * FROM cos://us-geo/mybucket/myprefix/mysubprefix INTO cos://us-geo/mybucket/myprefix JOBPREFIX NONE`
+will return an error when trying to submit it.
+
 <div style="overflow-x : auto;">
 <map name="resultClauseImgMap">
 	<area alt="section COSURI" shape="rect" coords="122,30,190,52" href="#COSURI" />
-	<area alt="section resultPartitionedClause" shape="rect" coords="520,30,724,52" href="#resultPartitionedClause" />
+	<area alt="section partitionedClause" shape="rect" coords="361,134,517,156" href="#partitionedClause" />
+	<area alt="section sortClause" shape="rect" coords="557,134,657,156" href="#sortClause" />
 </map>
-<img style="max-width: 785px;" usemap="#resultClauseImgMap" alt="syntax diagram for a result clause" src="./diagrams/resultClause-1551088484370.svg" />
+<img style="max-width: 707px;" usemap="#resultClauseImgMap" alt="syntax diagram for a result clause" src="./diagrams/resultClause-1556794853299.svg" />
 </div>
 
-<h3 id="resultPartitionedClause">resultPartitionedClause</h3>
+<h3 id="partitionedClause">partitionedClause</h3>
 
 You can use the result partitioned clause to control the layout of the SQL query result set being stored. The default behavior is to store the result into one single partition, that is a single object in Cloud {{site.data.keyword.cos_short}}.
 
 <div style="overflow-x : auto;">
-<map name="resultPartitionedClauseImgMap">
-	<area alt="section resultPartitionedColumnClause" shape="rect" coords="188,20,440,42" href="#resultPartitionedColumnClause" />
-	<area alt="section resultPartitionedBucketClause" shape="rect" coords="188,50,440,72" href="#resultPartitionedBucketClause" />
-	<area alt="section resultPartitionedEveryRows" shape="rect" coords="200,80,428,102" href="#resultPartitionedEveryRows" />
+<map name="partitionedClauseImgMap">
+	<area alt="section identifier" shape="rect" coords="322,30,422,52" href="#identifier" />
+	<area alt="section number" shape="rect" coords="143,134,211,156" href="#number" />
+	<area alt="section number" shape="rect" coords="151,238,219,260" href="#number" />
 </map>
-<img style="max-width: 501px;" usemap="#resultPartitionedClauseImgMap" alt="syntax diagram for a result partitioned clause" src="./diagrams/resultPartitionedClause-1551088484370.svg" />
+<img style="max-width: 605px;" usemap="#partitionedClauseImgMap" alt="syntax diagram for a result partitioned clause" src="./diagrams/partitionedClause-1556794853299.svg" />
 </div>
 
-<h3 id="resultPartitionedColumnClause">resultPartitionedColumnClause</h3>
+<h3 id="sortClause">sortClause</h3>
 
-This clause causes the creation of Hive-style partitioned result data.
-
-<div style="overflow-x : auto;">
-<map name="resultPartitionedColumnClauseImgMap">
-	<area alt="section identifier" shape="rect" coords="174,30,274,52" href="#identifier" />
-	<area alt="section resultPartitionedIntoBuckets" shape="rect" coords="61,134,305,156" href="#resultPartitionedIntoBuckets" />
-	<area alt="section resultPartitionedEveryRows" shape="rect" coords="61,208,289,230" href="#resultPartitionedEveryRows" />
-</map>
-<img style="max-width: 437px;" usemap="#resultPartitionedColumnClauseImgMap" alt="syntax diagram for a result partitioned column clause" src="./diagrams/resultPartitionedColumnClause-1551088484370.svg" />
-</div>
-
-<h3 id="resultPartitionedBucketClause">resultPartitionedBucketClause</h3>
+This clause can be used to sort in many ways. When specified in combination with PARTITIONED BY, it sorts the rows within each partition 
+by the sort order specified in the SORT BY clause. When specified in combination with PARTITIONED INTO, the same is done, 
+which is often referred to as clustering the rows by the specified columns into the fixed number of partitions specified by PARTITIONED INTO. 
+When specified without the PARTITIONED clause, it is equivalent to an ORDER BY clause specified at the top level of the SQL SELECT statement.
 
 <div style="overflow-x : auto;">
-<map name="resultPartitionedBucketClauseImgMap">
-	<area alt="section resultPartitionedIntoBuckets" shape="rect" coords="50,30,294,52" href="#resultPartitionedIntoBuckets" />
-	<area alt="section resultPartitionedEveryRows" shape="rect" coords="324,30,552,52" href="#resultPartitionedEveryRows" />
+<map name="sortClauseImgMap">
+	<area alt="section expression" shape="rect" coords="214,30,314,52" href="#expression" />
 </map>
-<img style="max-width: 613px;" usemap="#resultPartitionedBucketClauseImgMap" alt="syntax diagram for a result partitioned bucket clause" src="./diagrams/resultPartitionedBucketClause-1551088484370.svg" />
-</div>
-
-<h3 id="resultPartitionedIntoBuckets">resultPartitionedIntoBuckets</h3>
-
-This clause causes the creation of a fixed number of partitions in the result data.
-
-<div style="overflow-x : auto;">
-<map name="resultPartitionedIntoBucketsImgMap">
-	<area alt="section INTEGER&#95;VALUE" shape="rect" coords="122,20,246,42" href="#INTEGER&#95;VALUE" />
-</map>
-<img style="max-width: 393px;" usemap="#resultPartitionedIntoBucketsImgMap" alt="syntax diagram for a result partitioned into bucket clause" src="./diagrams/resultPartitionedIntoBuckets-1551088484370.svg" />
-</div>
-
-<h3 id="resultPartitionedEveryRows">resultPartitionedEveryRows</h3>
-
-This clause causes the creation of result partitions with a fixed number of rows per partition.
-
-<div style="overflow-x : auto;">
-<map name="resultPartitionedEveryRowsImgMap">
-	<area alt="section INTEGER&#95;VALUE" shape="rect" coords="130,20,254,42" href="#INTEGER&#95;VALUE" />
-</map>
-<img style="max-width: 377px;" usemap="#resultPartitionedEveryRowsImgMap" alt="syntax diagram for a result partitioned every rows clause" src="./diagrams/resultPartitionedEveryRows-1551088484370.svg" />
+<img style="max-width: 554px;" usemap="#sortClauseImgMap" alt="syntax diagram for a result partitioned column clause" src="./diagrams/sortClause-1556794853299.svg" />
 </div>
 
 The *query result clause* lets you explicitly specify the storage location and type of a query result.
-The storage location is specified by means of a `COSURI`. 
+The storage location is specified by means of a `COSURI`.
 
 Valid query result object types are: `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`. Note that object type names are not case sensitive.
 
@@ -209,57 +189,56 @@ Being able to explicitly specify the location and the type of the result object 
 * Cleanse the data using SQL constructs
 * Store the cleansed data using an object type that offers benefits with respect to query performance and storage consumption on Cloud {{site.data.keyword.cos_short}}, for example, a column based object format like Parquet
 
-Moreover, a user can explicitly define the way a query result is stored physically on Cloud {{site.data.keyword.cos_short}} by using the *result partitioned clause*. 
+Moreover, a user can explicitly define the way a query result is stored physically on Cloud {{site.data.keyword.cos_short}} by using the *result partitioned clause*.
 
 As shown in the syntax diagrams, there are three main use cases to define the physical layout of a query's result on Cloud {{site.data.keyword.cos_short}}:
 
 1. Partition by columns, that is so-called Hive-style partitioning.
-2. Partition into buckets, that is, bucketizing the query result, with or without specifying columns.
+2. Partition into buckets/objects (both terms can be used synonymously), that is, generate the query result into objects, with or without specifying columns.
 3. Partition by number of rows.
 
-A partition is an object on Cloud {{site.data.keyword.cos_short}} that is potentially a part of an aggregated object. 
-The presence of multiple partitions allows for parallel input/output (I/O) during query execution. Note that if no *result partitioned clause* is specified, 
+A partition is an object on Cloud {{site.data.keyword.cos_short}} that is potentially a part of an aggregated object.
+The presence of multiple partitions allows for parallel input/output (I/O) during query execution. Note that if no *result partitioned clause* is specified,
 the query result is stored in a single partition on Cloud {{site.data.keyword.cos_short}}.
 
 <h4>Partition by columns</h4>
 
-Using the `PARTITIONED BY (column-list)` clause without specifying `INTO x BUCKETS` lets you store the query result 
-using Hive-style partitioning, that is, to create partitions that contain only rows having certain values for one or more columns. 
+Using the `PARTITIONED BY (column-list)` clause without specifying `INTO x BUCKETS/OBJECTS` lets you store the query result
+using Hive-style partitioning, that is, to create partitions that contain only rows having certain values for one or more columns.
 This physical layout should be chosen in case the stored object is further analyzed using SQL queries that specify predicates on the partition columns.
 
-For example, a result object containing world-wide order data has a column `country` representing the country the order has been initiated from. 
+For example, a result object containing world-wide order data has a column `country` representing the country the order has been initiated from.
 Partitioning the result object by the column `PARTITIONED BY (country)`, would create a result object with a partition for each country present in the query result.
 
-Once the result object is stored this way on Cloud {{site.data.keyword.cos_short}}, each SQL query containing a predicate, 
-such as `country = 'USA'` or `country in ('MALTA', 'ITALY', 'VATICAN CITY')`, benefits from this physical layout. The reason is that during 
+Once the result object is stored this way on Cloud {{site.data.keyword.cos_short}}, each SQL query containing a predicate,
+such as `country = 'USA'` or `country in ('MALTA', 'ITALY', 'VATICAN CITY')`, benefits from this physical layout. The reason is that during
 SQL query execution only partitions containing data for the countries of interest have to be read. This tremendously cuts down the I/O traffic of the SQL query.
 
 Some additional remarks on Hive-style partitioning:
 
-1. Hive-style partitions have an eye-catching naming scheme, because the column names used for partitioning are part of the partition object prefix, for example, `/order/COUNTRY=USA/part-m-00000.snappy.parquet`
-2. Hive-style partitions do not contain any values for partition columns since their values are *stored* in the object prefix of the partition. 
-Thus, note that if you copy a HIVE-style partition and rename the object prefix by removing the partition column values you are loosing data.
-3. Hive-style partitions can have a tendency for data skewing, for example, the partition representing order data from Malta is very likely much smaller 
-than the partition representing order data from the USA. Thus, if your primary concern regarding physical layout is *equal sized* partitions, 
-you should bucketize the query result.   
+1. Hive-style partitions have an eye-catching naming scheme, because the column names used for partitioning are part of the partition object prefix, for example, `/order/COUNTRY=USA/part-m-00000.snappy.parquet`.
+2. Hive-style partitions do not contain any values for partition columns since their values are *stored* in the object prefix of the partition.
+Thus, note that if you copy a HIVE-style partition and rename the object prefix by removing the partition column values, you are loosing data.
+3. Hive-style partitions can have a tendency for data skewing, for example, the partition representing order data from Malta is very likely much smaller
+than the partition representing order data from the USA. You can partition the query result into separate objects if you want to have *equal sized* partitions.   
 
 
-<h4>Partition by columns into buckets</h4>
+<h4>Partition by columns into objects</h4>
 
-Bucketizing a query result lets you specify the exact number of *equally-sized* result partitions. This lets you experimentally fine tune the number of buckets to meet certain criteria for partition size. To specify the number of partitions, use the `PARTITIONED INTO x BUCKETS` clause. 
+Partitioning a query result into objects lets you specify the exact number of *equally-sized* result partitions. This lets you experimentally fine tune the number of objects to meet certain criteria for partition size. To specify the number of partitions, use the `PARTITIONED INTO x BUCKETS/OBJECTS` clause.
 
-For example, knowing the size of the query result, it is possible to calculate the number of buckets to end up with partitions having a certain size, for example, 128 MB, that is the HADOOP default file size, or any other size that meets application requirements.
+For example, knowing the size of the query result, it is possible to calculate the number of objects to end up with partitions having a certain size, for example, 128 MB, that is the HADOOP default file size, or any other size that meets application requirements.
 
-The `INTO x BUCKETS` clause can be combined with the `BY (column-list)` clause to create a certain number of partitions that support data affinity with respect to specified partition columns. 
+The `INTO x BUCKETS/OBJECTS` clause can be combined with the `BY (column-list)` clause to create a certain number of partitions that support data affinity with respect to specified partition columns.
 
-Continue with the example above specifying `PARTITION BY (customerid) INTO 10 BUCKETS` stores the query result into 10 buckets ensuring that all data for a customer 
-is stored in the same partition. Note that although it is ensured that all data for a certain customer is stored in the same partition, 
+Continue with the example above specifying `PARTITION BY (customerid) INTO 10 OBJECTS` stores the query result into 10 objects ensuring that all data for a customer
+is stored in the same partition. Note that although it is ensured that all data for a certain customer is stored in the same partition,
 it is not ensured that the data is sorted physically according to the specified column.
 
 <h4>Partition by number of rows</h4>
 
-Partitioning by number of rows lets you specify the number of rows that go into a single partition. To specify the number of rows stored in each partition, 
-use the `EVERY x ROWS` clause. In case the row length of the result object is not varying heavily, the *partition every rows* clause also lets you create *almost equally-sized* result partitions. 
+Partitioning by number of rows lets you specify the number of rows that go into a single partition. To specify the number of rows stored in each partition,
+use the `EVERY x ROWS` clause. In case the row length of the result object is not varying heavily, the *partition every rows* clause also lets you create *almost equally-sized* result partitions.
 
 Using the `PARTITIONED EVERY x ROWS` clause on a sorted query result ensures that partitions are created having a certain number of rows that are sorted according to the query's `SORT BY` clause. This physical layout can be useful to create partitions that are processed by an application in a pagination manner, for example, browsing order data sorted by *order date* and *customer id*.
 
@@ -301,7 +280,7 @@ A *fullselect* is the core component of a *query*. It is the only mandatory gene
 	<area alt="section namedWindows" shape="rect" coords="61,710,177,732" href="#namedWindows" />
 	<area alt="section expression" shape="rect" coords="317,740,417,762" href="#expression" />
 </map>
-<img style="max-width: 502px;" usemap="#fullselectImgMap" alt="syntax diagram for a fullselect" src="./diagrams/fullselect-1551088484370.svg" />
+<img style="max-width: 502px;" usemap="#fullselectImgMap" alt="syntax diagram for a fullselect" src="./diagrams/fullselect-1556794853299.svg" />
 </div>
 
 The result set defined by a single fullselect can be combined with the result set of one or more other fullselects using set operators.
@@ -322,25 +301,25 @@ Note that the following combination of set operators and set modifiers are not s
 * `MINUS ALL`
 
 The characteristics of a result set defined by a fullselect can be further defined using the following clauses:
-* `ORDER BY`: Define an overall ordering of the result set based on the criteria defined by the list of `sortItem` clauses. 
-The default order direction is ascending if not explicitly specified by a `sortItem` clause. Note that the *order by* clause 
+* `ORDER BY`: Define an overall ordering of the result set based on the criteria defined by the list of `sortItem` clauses.
+The default order direction is ascending if not explicitly specified by a `sortItem` clause. Note that the *order by* clause
 cannot be used in conjunction with *cluster by*, *distribute by* or *sort by* clause.
-* `DISTRIBUTE BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses. 
-Result set rows having the same expression values will be moved to the same partition. Note that the *distribute by* clause cannot be 
+* `DISTRIBUTE BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses.
+Result set rows having the same expression values will be moved to the same partition. Note that the *distribute by* clause cannot be
 used in conjunction with *order by* or *cluster by* clause.
-* `SORT BY`: The *sort by* clause lets you define an overall ordering on a partition base as defined by the list of `expression` clauses. 
-The default order direction is ascending if not explicitly specified by an `expression` clause.  The *sort by* clause is used in conjunction 
+* `SORT BY`: The *sort by* clause lets you define an overall ordering on a partition base as defined by the list of `expression` clauses.
+The default order direction is ascending if not explicitly specified by an `expression` clause.  The *sort by* clause is used in conjunction
 with the *distribute by* clause.
-* `CLUSTER BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses. Moreover, each 
-partition is sorted in ascending order based on the criteria defined by the set of `expression` clauses. Thus, this clause represents a shortcut 
-for *distribute by* clause combined with *sort by* in ascending order. The *cluster by* attribute cannot be used in conjunction with the *order by*, 
+* `CLUSTER BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses. Moreover, each
+partition is sorted in ascending order based on the criteria defined by the set of `expression` clauses. Thus, this clause represents a shortcut
+for *distribute by* clause combined with *sort by* in ascending order. The *cluster by* attribute cannot be used in conjunction with the *order by*,
 *distribute by*, *sort by* clause.
-* `LIMIT`: Restrict the number of rows returned from the result set of the fullselect. The number of rows can be defined by an `expression` or using 
+* `LIMIT`: Restrict the number of rows returned from the result set of the fullselect. The number of rows can be defined by an `expression` or using
 the keyword `ALL` that causes all rows to be returned.
 
-Note that `DISTRIBUTE BY`, `SORT BY` and `CLUSTER BY` only have an effect during your SQL query execution and do not influence the query result 
-written back to Cloud {{site.data.keyword.cos_short}}. Use these clauses only in execution of subqueries in order to optimize the outer 
-query execution that works on the intermediate result sets produced by the sub queries. In order to define the persistent target of the overall query 
+Note that `DISTRIBUTE BY`, `SORT BY` and `CLUSTER BY` only have an effect during your SQL query execution and do not influence the query result
+written back to Cloud {{site.data.keyword.cos_short}}. Use these clauses only in execution of subqueries in order to optimize the outer
+query execution that works on the intermediate result sets produced by the sub queries. In order to define the persistent target of the overall query
 that is written back to Cloud {{site.data.keyword.cos_short}}, you need to use the dedicated [resultClause](#resultClause) instead.
 
 <h3>Examples</h3>
@@ -360,7 +339,7 @@ SELECT * FROM VALUES 1, 2 ,3 UNION DISTINCT VALUES 1, 2, 3
 {: codeblock}
 
 The result of the example queries is shown in the table below.
- 
+
 | COL1 |
 | ---- |
 |1     |
@@ -475,7 +454,7 @@ A *simpleselect* is a component of a *fullselect*. Its syntax is defined by the 
 	<area alt="section booleanExpression" shape="rect" coords="323,331,479,353" href="#booleanExpression" />
 	<area alt="section namedWindows" shape="rect" coords="61,405,177,427" href="#namedWindows" />
 </map>
-<img style="max-width: 594px;" usemap="#simpleselectImgMap" alt="syntax diagram for a simpleselect" src="./diagrams/simpleselect-1551088484370.svg" />
+<img style="max-width: 594px;" usemap="#simpleselectImgMap" alt="syntax diagram for a simpleselect" src="./diagrams/simpleselect-1556794853299.svg" />
 </div>
 
 The simpleselect lets you specify the following characteristics of a result set:
@@ -485,7 +464,7 @@ The simpleselect lets you specify the following characteristics of a result set:
 * The `FROM` clause defines the list of *relations* or *lateral views* that are combined to derive a result set.
 * The `WHERE` clause defines the way how *relations* and *lateral views* are filtered and **joined** to derive a result set.
 * In its simplest form the `GROUP BY` clause defines how rows qualifying for the final result set are grouped based on *grouping expressions*. Each group is represented by a single row in the final result set.
-* The `HAVING` clause is used in conjunction with the *group by clause* to filter out groups from the final result set. 
+* The `HAVING` clause is used in conjunction with the *group by clause* to filter out groups from the final result set.
 
 <h3 id="resultColumn">resultColumn</h3>
 
@@ -494,14 +473,14 @@ The simpleselect lets you specify the following characteristics of a result set:
 	<area alt="section expression" shape="rect" coords="50,40,150,62" href="#expression" />
 	<area alt="section identifier" shape="rect" coords="266,40,366,62" href="#identifier" />
 </map>
-<img style="max-width: 437px;" usemap="#resultColumnImgMap" alt="syntax diagram for a result column" src="./diagrams/resultColumn-1551088484370.svg" />
+<img style="max-width: 437px;" usemap="#resultColumnImgMap" alt="syntax diagram for a result column" src="./diagrams/resultColumn-1556794853299.svg" />
 </div>
 
-A *result column* can be any expression that can optionally be associated with an identifier, that is, a *new name*. By providing custom identifiers you can control the column names used in the result data set written to Cloud {{site.data.keyword.cos_short}}. 
+A *result column* can be any expression that can optionally be associated with an identifier, that is, a *new name*. By providing custom identifiers you can control the column names used in the result data set written to Cloud {{site.data.keyword.cos_short}}.
 Examples for such expressions are the following:
 * A column name from one of the relations.
 * An expression using column names from one or multiple relations.
-* Arithmetic expressions performing calculations. 
+* Arithmetic expressions performing calculations.
 
 <h3>Group By Clause</h3>
 
@@ -512,7 +491,7 @@ Examples for such expressions are the following:
 	<area alt="section expression" shape="rect" coords="206,30,306,52" href="#expression" />
 	<area alt="section groupingSet" shape="rect" coords="335,194,443,216" href="#groupingSet" />
 </map>
-<img style="max-width: 591px;" usemap="#groupByClauseImgMap" alt="syntax diagram for a group by clause" src="./diagrams/groupByClause-1551088484370.svg" />
+<img style="max-width: 591px;" usemap="#groupByClauseImgMap" alt="syntax diagram for a group by clause" src="./diagrams/groupByClause-1556794853299.svg" />
 </div>
 
 <h4 id="groupingSet">groupingSet</h4>
@@ -522,7 +501,7 @@ Examples for such expressions are the following:
 	<area alt="section expression" shape="rect" coords="158,30,258,52" href="#expression" />
 	<area alt="section expression" shape="rect" coords="158,90,258,112" href="#expression" />
 </map>
-<img style="max-width: 417px;" usemap="#groupingSetImgMap" alt="syntax diagram for a grouping set" src="./diagrams/groupingSet-1551088484370.svg" />
+<img style="max-width: 417px;" usemap="#groupingSetImgMap" alt="syntax diagram for a grouping set" src="./diagrams/groupingSet-1556794853299.svg" />
 </div>
 
 More complex *group by* clauses use so called *grouping sets* to provide more insights into the set of rows grouped by a grouping expression.
@@ -562,10 +541,10 @@ The result of the example query is shown in the table below.
 {: caption="Table 7. Query result for example 'grouping sales data per year and quarter'" caption-side="top"}
 
 
-A ROLLUP grouping is an extension to the *group by clause* that produces a result set containing subtotal rows in addition to the *regular* grouped rows. 
+A ROLLUP grouping is an extension to the *group by clause* that produces a result set containing subtotal rows in addition to the *regular* grouped rows.
 A `GROUP BY COL1, COL2 WITH ROLLUP` generates the following grouping sets: **(COL1, COL2)**, **(COL1)**, **()**. Note that the **N** grouping expressions of the ROLLUP translate to **N+1** grouping sets.
 
-Referring to the above example, adding a `WITH ROLLUP` modifier to the *group by* clause computes *rollup* sales data on quarter by year basis, 
+Referring to the above example, adding a `WITH ROLLUP` modifier to the *group by* clause computes *rollup* sales data on quarter by year basis,
 a yearly basis and a grand total as shown by the following example.
 
 ```sql
@@ -603,15 +582,15 @@ The result of the example query is shown in the following table.
 {: caption="Table 8. Query result for example 'rollup sales data on quarter by year basis, a yearly basis and a grand total'" caption-side="top"}
 
 
-A CUBE grouping is an extension to the *group by* clause that produces a result set that contains all the rows of a ROLLUP aggregation and, 
-in addition, grouping sets that do not represent a subtotal or grand total. A `GROUPY BY COL1, COL2 WITH CUBE` generates the following grouping sets: 
+A CUBE grouping is an extension to the *group by* clause that produces a result set that contains all the rows of a ROLLUP aggregation and,
+in addition, grouping sets that do not represent a subtotal or grand total. A `GROUPY BY COL1, COL2 WITH CUBE` generates the following grouping sets:
 **(COL1, COL2)**, **(COL1)**, **(COL2)**, **()**. The **N** elements of a CUBE translate to **2\*\*N** (2 to the power N) grouping sets.
 
-Referring to the above example, adding a `WITH CUBE` modifier to the *group by* clause computes *rollup* sales data on a quarter by year basis, a yearly basis, 
+Referring to the above example, adding a `WITH CUBE` modifier to the *group by* clause computes *rollup* sales data on a quarter by year basis, a yearly basis,
 a quarterly year independent basis and a grand total as shown by the following example.
 
 ```sql
--- rollup sales data on a quarter by year basis, a yearly basis, 
+-- rollup sales data on a quarter by year basis, a yearly basis,
 -- a quarterly year independent basis and a grand total
 SELECT
     sales.col1 AS year,
@@ -722,7 +701,7 @@ Multiple relations can be composed using join operators. The syntax for joining 
 	<area alt="section joinClause" shape="rect" coords="278,30,378,52" href="#joinClause" />
 	<area alt="section naturalJoinClause" shape="rect" coords="250,60,406,82" href="#naturalJoinClause" />
 </map>
-<img style="max-width: 497px;" usemap="#relationImgMap" alt="syntax diagram for a relation" src="./diagrams/relation-1551088484370.svg" />
+<img style="max-width: 497px;" usemap="#relationImgMap" alt="syntax diagram for a relation" src="./diagrams/relation-1556794853299.svg" />
 </div>
 
 <h3 id="joinClause">joinClause</h3>
@@ -734,7 +713,7 @@ Multiple relations can be composed using join operators. The syntax for joining 
 	<area alt="section booleanExpression" shape="rect" coords="199,104,355,126" href="#booleanExpression" />
 	<area alt="section identifier" shape="rect" coords="239,134,339,156" href="#identifier" />
 </map>
-<img style="max-width: 487px;" usemap="#joinClauseImgMap" alt="syntax diagram for a join clause" src="./diagrams/joinClause-1551088484370.svg" />
+<img style="max-width: 487px;" usemap="#joinClauseImgMap" alt="syntax diagram for a join clause" src="./diagrams/joinClause-1556794853299.svg" />
 </div>
 
 <h3 id="naturalJoinClause">naturalJoinClause</h3>
@@ -744,16 +723,16 @@ Multiple relations can be composed using join operators. The syntax for joining 
 	<area alt="section joinType" shape="rect" coords="146,20,230,42" href="#joinType" />
 	<area alt="section relationPrimary" shape="rect" coords="322,20,462,42" href="#relationPrimary" />
 </map>
-<img style="max-width: 502px;" usemap="#naturalJoinClauseImgMap" alt="syntax diagram for a natural join clause" src="./diagrams/naturalJoinClause-1551088484370.svg" />
+<img style="max-width: 502px;" usemap="#naturalJoinClauseImgMap" alt="syntax diagram for a natural join clause" src="./diagrams/naturalJoinClause-1556794853299.svg" />
 </div>
 
 Relations can be joined using several types of joins that are described in detail in section [joinType](#joinType).
 
 Apart from the join type, the following two different flavors of joins exist:
 * Joins that specify a *join condition* by means of a `booleanExpression` or a `USING clause`.
-* `NATURAL` joins that make an implicit guess which columns should be used for joining relations. Natural joins should be used carefully. 
+* `NATURAL` joins that make an implicit guess which columns should be used for joining relations. Natural joins should be used carefully.
 
-<h3 id="relationPrimary">relationPrimary</h3> 
+<h3 id="relationPrimary">relationPrimary</h3>
 
 <div style="overflow-x : auto;">
 <map name="relationPrimaryImgMap">
@@ -773,16 +752,16 @@ Apart from the join type, the following two different flavors of joins exist:
 	<area alt="section valuesClause" shape="rect" coords="338,220,454,242" href="#valuesClause" />
 	<area alt="section tableValuedFunction" shape="rect" coords="310,250,482,272" href="#tableValuedFunction" />
 </map>
-<img style="max-width: 793px;" usemap="#relationPrimaryImgMap" alt="syntax diagram for a relation primary" src="./diagrams/relationPrimary-1551088484370.svg" />
+<img style="max-width: 793px;" usemap="#relationPrimaryImgMap" alt="syntax diagram for a relation primary" src="./diagrams/relationPrimary-1556794853299.svg" />
 </div>
 
 <h3 id="externalTableSpec">externalTableSpec</h3>
 
-An external table specification represents an URI for an object stored on Cloud {{site.data.keyword.cos_short}} combined with a specification of the object type. 
-Valid values for object type identifier are `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`. 
+An external table specification represents an URI for an object stored on Cloud {{site.data.keyword.cos_short}} combined with a specification of the object type.
+Valid values for object type identifier are `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`.
 If the file format is CVS, the optional `FIELDS TERMINATED BY` <character> clause
 allows you to specify a field delimiter other than the default `,` (comma). All one-character Unicode characters are allowed as delimiters.
-If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), the optional `NOHEADER` keyword 
+If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), the optional `NOHEADER` keyword
 allows you to specify that the files don't have a header line.
 Refer to section [COS URI](#COSURI) for more details.
 
@@ -791,7 +770,7 @@ Refer to section [COS URI](#COSURI) for more details.
 	<area alt="section COSURI" shape="rect" coords="50,30,118,52" href="#COSURI" />
 	<area alt="section STRING" shape="rect" coords="674,70,742,92" href="#STRING" />
 </map>
-<img style="max-width: 977px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-1551088484370.svg" />
+<img style="max-width: 977px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-1556794853299.svg" />
 </div>
 
 <h3 id="tableValuedFunction">tableValuedFunction</h3>
@@ -803,7 +782,7 @@ A table-valued function returns a relation, that is, a set of rows. An example o
 	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
 	<area alt="section expression" shape="rect" coords="258,30,358,52" href="#expression" />
 </map>
-<img style="max-width: 497px;" usemap="#tableValuedFunctionImgMap" alt="syntax diagram for a table valued function" src="./diagrams/tableValuedFunction-1551088484370.svg" />
+<img style="max-width: 497px;" usemap="#tableValuedFunctionImgMap" alt="syntax diagram for a table valued function" src="./diagrams/tableValuedFunction-1556794853299.svg" />
 </div>
 
 <h3>More Topics</h3>
@@ -836,7 +815,7 @@ A *values clause* is a component of a *fullselect* or represents a *primary rela
 	<area alt="section expression" shape="rect" coords="158,40,258,62" href="#expression" />
 	<area alt="section identifier" shape="rect" coords="394,40,494,62" href="#identifier" />
 </map>
-<img style="max-width: 565px;" usemap="#valuesClauseImgMap" alt="syntax diagram for a values clause" src="./diagrams/valuesClause-1551088484370.svg" />
+<img style="max-width: 565px;" usemap="#valuesClauseImgMap" alt="syntax diagram for a values clause" src="./diagrams/valuesClause-1556794853299.svg" />
 </div>
 
 A values clause lets you define a result set by specifying actual values for each column of a row by means of expressions.
@@ -921,7 +900,7 @@ The result of the example query is shown in the table below.
 ## Values Statement
 {: #chapterValuesStatement}
 
-A *values statement* is a standalone statement on its own. It can be used instead of a *fullselect* if your statement only 
+A *values statement* is a standalone statement on its own. It can be used instead of a *fullselect* if your statement only
 references a single value and does not contain any join with other relations or values clauses.
 
 <h3>Examples</h3>
@@ -978,8 +957,8 @@ A *values clause* is referenced by the following clauses
 ## Lateral Views
 {: #chapterLateralViews}
 
-A lateral view is a component of a *simpleselect*. Lateral views allow to build  *virtual tables* at query execution time 
-by means of *table-generating functions*. Examples of table-generating functions are `explode()`, `posexplode()`, and `posexplode_outer()`. 
+A lateral view is a component of a *simpleselect*. Lateral views allow to build  *virtual tables* at query execution time
+by means of *table-generating functions*. Examples of table-generating functions are `explode()`, `posexplode()`, and `posexplode_outer()`.
 The explode()-style functions take an array or map as input and return a row for each element in the array. Refer to the section about [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for more details.
 
 <h3 id="lateralView">lateralView</h3>
@@ -993,7 +972,7 @@ The syntax of a lateral view clause is described by the syntax diagram below.
 	<area alt="section identifier" shape="rect" coords="51,236,151,258" href="#identifier" />
 	<area alt="section identifier" shape="rect" coords="287,236,387,258" href="#identifier" />
 </map>
-<img style="max-width: 537px;" usemap="#lateralViewImgMap" alt="syntax diagram for a lateral view" src="./diagrams/lateralView-1551088484370.svg" />
+<img style="max-width: 537px;" usemap="#lateralViewImgMap" alt="syntax diagram for a lateral view" src="./diagrams/lateralView-1556794853299.svg" />
 </div>
 
 The semantics of the entities in order of appearance in the syntax diagrams is as follows:
@@ -1010,12 +989,12 @@ Lateral views are useful when dealing with repeating groups within a table, that
 ```sql
 -- deal with a 1-n relation
 
-SELECT 
-    master_child.col1 AS master_id, 
-    child_table.child_id 
-FROM VALUES 
-    ( 1 , ARRAY(1,2,3)), 
-    (2, ARRAY(4,5,6)) AS master_child 
+SELECT
+    master_child.col1 AS master_id,
+    child_table.child_id
+FROM VALUES
+    ( 1 , ARRAY(1,2,3)),
+    (2, ARRAY(4,5,6)) AS master_child
 LATERAL VIEW EXPLODE(master_child.col2) child_table AS child_id
 ```
 {: codeblock}
@@ -1037,13 +1016,13 @@ The result of the example query is shown in the table below.
 ```sql
 -- deal with a n-m relation
 
-SELECT 
-    master_table.master_id, 
-    child_table.child_id 
-FROM VALUES 
-    ( ARRAY(10,20) , ARRAY(1,2,3)), 
-    ( ARRAY(30,40), ARRAY(4,5,6)) AS master_child 
-LATERAL VIEW EXPLODE(master_child.col1) master_table AS master_id 
+SELECT
+    master_table.master_id,
+    child_table.child_id
+FROM VALUES
+    ( ARRAY(10,20) , ARRAY(1,2,3)),
+    ( ARRAY(30,40), ARRAY(4,5,6)) AS master_child
+LATERAL VIEW EXPLODE(master_child.col1) master_table AS master_id
 LATERAL VIEW EXPLODE(master_child.col2) child_table AS child_id
 ```
 {: codeblock}
@@ -1076,7 +1055,7 @@ For further details about the clauses used in a *lateral view* clause, refer to 
 
 Note:
 * A *simpleselect* can contain multiple lateral view clauses that are evaluated in order of appearance.
-* Within a lateral view clause, you can refer to columns defined in any (virtual) table left to the current lateral view clause. 
+* Within a lateral view clause, you can refer to columns defined in any (virtual) table left to the current lateral view clause.
 
 <h3>Related References</h3>
 
@@ -1089,7 +1068,7 @@ SELECT statements can retrieve and join column values from two or more tables in
 
 The main characteristic of a join is, typically, matching column values in rows of each table that participates in the join. The result of a join associates rows from one table with rows from another table. Depending on the type of join operation, some rows might be formed that contain column values in one table that do not match column values in another table.
 
-A joined table specifies an intermediate result table that is the result of either an `INNER` join, an `OUTER` join, a `CROSS` join, or an `ANTI` join. 
+A joined table specifies an intermediate result table that is the result of either an `INNER` join, an `OUTER` join, a `CROSS` join, or an `ANTI` join.
 The table is derived by applying one of the join operators to its operands.
 
 <h3 id="joinType">joinType</h3>
@@ -1097,24 +1076,24 @@ The table is derived by applying one of the join operators to its operands.
 <div style="overflow-x : auto;">
 <map name="joinTypeImgMap">
 </map>
-<img style="max-width: 301px;" usemap="#joinTypeImgMap" alt="syntax diagram for join types" src="./diagrams/joinType-1551088484370.svg" />
+<img style="max-width: 301px;" usemap="#joinTypeImgMap" alt="syntax diagram for join types" src="./diagrams/joinType-1556794853299.svg" />
 </div>
 
-<h4>Inner Join</h4> 
+<h4>Inner Join</h4>
 
-An `INNER` join combines each row of the left table with each row of the right table, keeping only the rows in which the join condition is true. 
+An `INNER` join combines each row of the left table with each row of the right table, keeping only the rows in which the join condition is true.
 
 ```sql
 -- inner join query
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2, 
-    right_table.col1 AS r_col1, 
-    right_table.col2 AS r_col2 
-FROM 
-    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table 
-    INNER JOIN 
-    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2,
+    right_table.col1 AS r_col1,
+    right_table.col2 AS r_col2
+FROM
+    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table
+    INNER JOIN
+    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
     ON left_table.col1 = right_table.col1
 ```
 {: codeblock}
@@ -1132,20 +1111,20 @@ The result of the example query is shown in the table below.
 
 <h4>Outer Join</h4>
 
-An `OUTER` join includes the rows that are produced by the inner join, plus the missing rows, depending on the type of outer join. 
+An `OUTER` join includes the rows that are produced by the inner join, plus the missing rows, depending on the type of outer join.
 
 A `LEFT OUTER` or `LEFT` join includes the rows from the left table that were missing from the inner join.
 
 ```sql
 -- left outer join query
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2, 
-    right_table.col1 AS r_col1, 
-    right_table.col2 AS r_col2 
-FROM VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table 
-LEFT OUTER JOIN 
-VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2,
+    right_table.col1 AS r_col1,
+    right_table.col2 AS r_col2
+FROM VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table
+LEFT OUTER JOIN
+VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
 ON left_table.col1 = right_table.col1
 ```
 {: codeblock}
@@ -1168,15 +1147,15 @@ A `RIGHT OUTER` or `RIGHT` join includes the rows from the right table that were
 
 ```sql
 -- right outer join query
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2, 
-    right_table.col1 AS r_col1, 
-    right_table.col2 AS r_col2 
-FROM 
-    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table 
-    RIGHT OUTER JOIN 
-    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2,
+    right_table.col1 AS r_col1,
+    right_table.col2 AS r_col2
+FROM
+    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table
+    RIGHT OUTER JOIN
+    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
     ON left_table.col1 = right_table.col1
 ```
 {: codeblock}
@@ -1197,15 +1176,15 @@ A `FULL OUTER` or `FULL` join includes the rows from both tables that were missi
 
 ```sql
 -- full outer join query
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2, 
-    right_table.col1 AS r_col1, 
-    right_table.col2 AS r_col2 
-FROM 
-    VALUES (0, 10), (1, 11), (2, 12), (3, 13), (4, 14), (5, 14) AS left_table 
-    FULL OUTER JOIN 
-    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2,
+    right_table.col1 AS r_col1,
+    right_table.col2 AS r_col2
+FROM
+    VALUES (0, 10), (1, 11), (2, 12), (3, 13), (4, 14), (5, 14) AS left_table
+    FULL OUTER JOIN
+    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
     ON left_table.col1 = right_table.col1
 ```
 {: codeblock}
@@ -1232,14 +1211,14 @@ A `CROSS` join creates a Cartesian product of the tables involved in the join op
 ```sql
 -- cross join specifying a join condition
 
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2, 
-    right_table.col1 AS r_col1, 
-    right_table.col2 AS r_col2 
-FROM 
-    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table 
-    CROSS JOIN VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2,
+    right_table.col1 AS r_col1,
+    right_table.col2 AS r_col2
+FROM
+    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table
+    CROSS JOIN VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
     ON left_table.col1 = right_table.col1
 ```
 {: codeblock}
@@ -1257,14 +1236,14 @@ The result of the example query is shown in the table below.
 
 ```sql
 -- cross join specifying no join condition
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2, 
-    right_table.col1 AS r_col1, 
-    right_table.col2 AS r_col2 
-FROM 
-    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table 
-    CROSS JOIN VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2,
+    right_table.col1 AS r_col1,
+    right_table.col2 AS r_col2
+FROM
+    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table
+    CROSS JOIN VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
 ```
 {: codeblock}
 
@@ -1302,18 +1281,18 @@ The result of the example query is shown in the table below.
 
 <h4>Anti Join</h4>
 
-A `LEFT ANTI` or `ANTI` join returns only rows from the left table that do not have a matching row in the right table. 
+A `LEFT ANTI` or `ANTI` join returns only rows from the left table that do not have a matching row in the right table.
 Note that no columns from the right table can be included in the column list of the select statement.
 
 ```sql
 -- left anti join query
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2 
-FROM 
-    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table 
-    ANTI JOIN 
-    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2
+FROM
+    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table
+    ANTI JOIN
+    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
     ON left_table.col1 = right_table.col1
 ```
 {: codeblock}
@@ -1335,13 +1314,13 @@ A `LEFT SEMI` join acts like an inner join but does not include the columns of t
 
 ```sql
 -- left semi join query
-SELECT 
-    left_table.col1 AS l_col1, 
-    left_table.col2 AS l_col2 
-FROM 
-    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table 
-    LEFT SEMI JOIN 
-    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table 
+SELECT
+    left_table.col1 AS l_col1,
+    left_table.col2 AS l_col2
+FROM
+    VALUES (0, 10), (1, 11), (2, 12), (3,13), (4, 14), (5, 14) AS left_table
+    LEFT SEMI JOIN
+    VALUES (0, 10), (2, 12), (4, 14), (6, 16) AS right_table
     ON left_table.col1 = right_table.col1
 ```
 {: codeblock}
@@ -1371,7 +1350,7 @@ The *join types* are specified in a [relation](#relation).
 <map name="sortItemImgMap">
 	<area alt="section expression" shape="rect" coords="50,30,150,52" href="#expression" />
 </map>
-<img style="max-width: 553px;" usemap="#sortItemImgMap" alt="syntax diagram for a sort item" src="./diagrams/sortItem-1551088484370.svg" />
+<img style="max-width: 553px;" usemap="#sortItemImgMap" alt="syntax diagram for a sort item" src="./diagrams/sortItem-1556794853299.svg" />
 </div>
 
 The semantics of the *sort item* components are as follows:
@@ -1393,10 +1372,10 @@ A *sort item clause* is referenced by the following clauses:
 * [fullselect](#fullselect)
 * [windowSpec](#windowSpec)
 
-## SQL Functions 
+## SQL Functions
 {: #chapterSqlFunctions}
 
-The syntax for SQL function invocation is described by the syntax diagram below. 
+The syntax for SQL function invocation is described by the syntax diagram below.
 
 <h3 id="functionOrAggregate">functionOrAggregate</h3>
 
@@ -1422,7 +1401,7 @@ The syntax for SQL function invocation is described by the syntax diagram below.
 	<area alt="section booleanExpression" shape="rect" coords="520,430,676,452" href="#booleanExpression" />
 	<area alt="section resultColumn" shape="rect" coords="464,470,580,492" href="#resultColumn" />
 </map>
-<img style="max-width: 957px;" usemap="#functionOrAggregateImgMap" alt="syntax diagram for a function or aggregate" src="./diagrams/functionOrAggregate-1551088484370.svg" />
+<img style="max-width: 957px;" usemap="#functionOrAggregateImgMap" alt="syntax diagram for a function or aggregate" src="./diagrams/functionOrAggregate-1556794853299.svg" />
 </div>
 
 Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, and `STRUCT()` support a different invocation style.
@@ -1474,7 +1453,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="namedWindowsImgMap">
 	<area alt="section namedWindow" shape="rect" coords="158,20,266,42" href="#namedWindow" />
 </map>
-<img style="max-width: 337px;" usemap="#namedWindowsImgMap" alt="syntax diagram for named windows" src="./diagrams/namedWindows-1551088484370.svg" />
+<img style="max-width: 337px;" usemap="#namedWindowsImgMap" alt="syntax diagram for named windows" src="./diagrams/namedWindows-1556794853299.svg" />
 </div>
 
 <h3 id="namedWindow">namedWindow</h3>
@@ -1484,7 +1463,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 	<area alt="section identifier" shape="rect" coords="50,20,150,42" href="#identifier" />
 	<area alt="section windowSpec" shape="rect" coords="226,20,326,42" href="#windowSpec" />
 </map>
-<img style="max-width: 377px;" usemap="#namedWindowImgMap" alt="syntax diagram for a named window" src="./diagrams/namedWindow-1551088484370.svg" />
+<img style="max-width: 377px;" usemap="#namedWindowImgMap" alt="syntax diagram for a named window" src="./diagrams/namedWindow-1556794853299.svg" />
 </div>
 
 <h3 id="windowSpec">windowSpec</h3>
@@ -1497,7 +1476,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 	<area alt="section windowOrderBy" shape="rect" coords="344,100,468,122" href="#windowOrderBy" />
 	<area alt="section windowFrame" shape="rect" coords="528,60,636,82" href="#windowFrame" />
 </map>
-<img style="max-width: 765px;" usemap="#windowSpecImgMap" alt="syntax diagram for a window specification" src="./diagrams/windowSpec-1551088484370.svg" />
+<img style="max-width: 765px;" usemap="#windowSpecImgMap" alt="syntax diagram for a window specification" src="./diagrams/windowSpec-1556794853299.svg" />
 </div>
 
 <h3 id="windowClusterBy">windowClusterBy</h3>
@@ -1506,7 +1485,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="windowClusterByImgMap">
 	<area alt="section expression" shape="rect" coords="222,20,322,42" href="#expression" />
 </map>
-<img style="max-width: 393px;" usemap="#windowClusterByImgMap" alt="syntax diagram for a window cluster by clause" src="./diagrams/windowClusterBy-1551088484370.svg" />
+<img style="max-width: 393px;" usemap="#windowClusterByImgMap" alt="syntax diagram for a window cluster by clause" src="./diagrams/windowClusterBy-1556794853299.svg" />
 </div>
 
 <h3 id="windowPartitionBy">windowPartitionBy</h3>
@@ -1515,7 +1494,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="windowPartitionByImgMap">
 	<area alt="section expression" shape="rect" coords="266,20,366,42" href="#expression" />
 </map>
-<img style="max-width: 437px;" usemap="#windowPartitionByImgMap" alt="syntax diagram for a window partition by clause" src="./diagrams/windowPartitionBy-1551088484370.svg" />
+<img style="max-width: 437px;" usemap="#windowPartitionByImgMap" alt="syntax diagram for a window partition by clause" src="./diagrams/windowPartitionBy-1556794853299.svg" />
 </div>
 
 <h3 id="windowOrderBy">windowOrderBy</h3>
@@ -1524,7 +1503,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="windowOrderByImgMap">
 	<area alt="section sortItem" shape="rect" coords="226,20,310,42" href="#sortItem" />
 </map>
-<img style="max-width: 381px;" usemap="#windowOrderByImgMap" alt="syntax diagram for a window order by clause" src="./diagrams/windowOrderBy-1551088484370.svg" />
+<img style="max-width: 381px;" usemap="#windowOrderByImgMap" alt="syntax diagram for a window order by clause" src="./diagrams/windowOrderBy-1556794853299.svg" />
 </div>
 
 The window specification consists of the following clauses:
@@ -1554,7 +1533,7 @@ The window specification consists of the following clauses:
 	<area alt="section frameBound" shape="rect" coords="242,110,342,132" href="#frameBound" />
 	<area alt="section frameBound" shape="rect" coords="426,110,526,132" href="#frameBound" />
 </map>
-<img style="max-width: 601px;" usemap="#windowFrameImgMap" alt="syntax diagram for a window frame" src="./diagrams/windowFrame-1551088484370.svg" />
+<img style="max-width: 601px;" usemap="#windowFrameImgMap" alt="syntax diagram for a window frame" src="./diagrams/windowFrame-1556794853299.svg" />
 </div>
 
 <h3 id="frameBound">frameBound</h3>
@@ -1563,7 +1542,7 @@ The window specification consists of the following clauses:
 <map name="frameBoundImgMap">
 	<area alt="section expression" shape="rect" coords="70,110,170,132" href="#expression" />
 </map>
-<img style="max-width: 373px;" usemap="#frameBoundImgMap" alt="syntax diagram for a frame boundary" src="./diagrams/frameBound-1551088484370.svg" />
+<img style="max-width: 373px;" usemap="#frameBoundImgMap" alt="syntax diagram for a frame boundary" src="./diagrams/frameBound-1556794853299.svg" />
 </div>
 
 <h3>Examples</h3>
@@ -1786,7 +1765,7 @@ In the context of an SQL query statement, an *expression* is always a *Boolean e
 <map name="expressionImgMap">
 	<area alt="section booleanExpression" shape="rect" coords="50,20,206,42" href="#booleanExpression" />
 </map>
-<img style="max-width: 257px;" usemap="#expressionImgMap" alt="syntax diagram for an expression" src="./diagrams/expression-1551088484370.svg" />
+<img style="max-width: 257px;" usemap="#expressionImgMap" alt="syntax diagram for an expression" src="./diagrams/expression-1556794853299.svg" />
 </div>
 
 <h4>More Topics</h4>
@@ -1832,7 +1811,7 @@ The syntax of a *Boolean expression* is defined by the following syntax diagrams
 	<area alt="section booleanExpression" shape="rect" coords="306,120,462,142" href="#booleanExpression" />
 	<area alt="section query" shape="rect" coords="282,150,342,172" href="#query" />
 </map>
-<img style="max-width: 537px;" usemap="#booleanExpressionImgMap" alt="syntax diagram for a Boolean expression" src="./diagrams/booleanExpression-1551088484370.svg" />
+<img style="max-width: 537px;" usemap="#booleanExpressionImgMap" alt="syntax diagram for a Boolean expression" src="./diagrams/booleanExpression-1556794853299.svg" />
 </div>
 
 A Boolean expression is one of the following:
@@ -1874,7 +1853,7 @@ A *Boolean expression* is referenced by the following clauses:
 	<area alt="section comparisonOperator" shape="rect" coords="230,110,394,132" href="#comparisonOperator" />
 	<area alt="section valueExpression" shape="rect" coords="414,110,554,132" href="#valueExpression" />
 </map>
-<img style="max-width: 625px;" usemap="#valueExpressionImgMap" alt="syntax diagram for a value expression" src="./diagrams/valueExpression-1551088484370.svg" />
+<img style="max-width: 625px;" usemap="#valueExpressionImgMap" alt="syntax diagram for a value expression" src="./diagrams/valueExpression-1556794853299.svg" />
 </div>
 
 A *value expression* is one of the following:
@@ -1896,7 +1875,7 @@ For further details about the clauses used by a *value expression*, refer to the
 A *value expression* is referenced by the following clauses:
 * [booleanExpression](#booleanExpression)
 * [functionOrAggregate](#functionOrAggregate)
-* [predicate](#predicate) 
+* [predicate](#predicate)
 
 <h3>Primary Expressions</h3>
 
@@ -1918,7 +1897,7 @@ A *value expression* is referenced by the following clauses:
 	<area alt="section identifier" shape="rect" coords="338,269,438,291" href="#identifier" />
 	<area alt="section expression" shape="rect" coords="226,299,326,321" href="#expression" />
 </map>
-<img style="max-width: 553px;" usemap="#primaryExpressionImgMap" alt="syntax diagram for a primary expression" src="./diagrams/primaryExpression-1551088484370.svg" />
+<img style="max-width: 553px;" usemap="#primaryExpressionImgMap" alt="syntax diagram for a primary expression" src="./diagrams/primaryExpression-1556794853299.svg" />
 </div>
 
 <h4 id="constant">constant</h4>
@@ -1931,7 +1910,7 @@ A *value expression* is referenced by the following clauses:
 	<area alt="section number" shape="rect" coords="130,110,198,132" href="#number" />
 	<area alt="section STRING" shape="rect" coords="130,200,198,222" href="#STRING" />
 </map>
-<img style="max-width: 329px;" usemap="#constantImgMap" alt="syntax diagram for a constant" src="./diagrams/constant-1551088484370.svg" />
+<img style="max-width: 329px;" usemap="#constantImgMap" alt="syntax diagram for a constant" src="./diagrams/constant-1556794853299.svg" />
 </div>
 
 <h4 id="interval">interval</h4>
@@ -1940,12 +1919,11 @@ An *interval clause* lets you define time duration constants that can be used in
 
 <div style="overflow-x : auto;">
 <map name="intervalImgMap">
-	<area alt="section INTEGER&#95;VALUE" shape="rect" coords="292,30,416,52" href="#INTEGER&#95;VALUE" />
-	<area alt="section DECIMAL&#95;VALUE" shape="rect" coords="292,60,416,82" href="#DECIMAL&#95;VALUE" />
-	<area alt="section timeUnitSpec" shape="rect" coords="446,30,562,52" href="#timeUnitSpec" />
-	<area alt="section STRING" shape="rect" coords="210,90,278,112" href="#STRING" />
+	<area alt="section number" shape="rect" coords="284,30,352,52" href="#number" />
+	<area alt="section timeUnitSpec" shape="rect" coords="372,30,488,52" href="#timeUnitSpec" />
+	<area alt="section STRING" shape="rect" coords="174,90,242,112" href="#STRING" />
 </map>
-<img style="max-width: 633px;" usemap="#intervalImgMap" alt="syntax diagram for an interval" src="./diagrams/interval-1551088484370.svg" />
+<img style="max-width: 561px;" usemap="#intervalImgMap" alt="syntax diagram for an interval" src="./diagrams/interval-1556794853299.svg" />
 </div>
 
 <h4 id="timeUnitSpec">timeUnitSpec</h4>
@@ -1953,7 +1931,7 @@ An *interval clause* lets you define time duration constants that can be used in
 <div style="overflow-x : auto;">
 <map name="timeUnitSpecImgMap">
 </map>
-<img style="max-width: 237px;" usemap="#timeUnitSpecImgMap" alt="syntax diagram for a time unit specification" src="./diagrams/timeUnitSpec-1551088484370.svg" />
+<img style="max-width: 237px;" usemap="#timeUnitSpecImgMap" alt="syntax diagram for a time unit specification" src="./diagrams/timeUnitSpec-1556794853299.svg" />
 </div>
 
 The following time units are valid:
@@ -1966,13 +1944,13 @@ The following example demonstrates how to add and subtract several timeunits fro
 
 ```sql
 -- add and subtract several timeunits from the current timestamp
-SELECT 
-    CURRENT_TIMESTAMP 
-    - INTERVAL 2 YEARS 
-    + INTERVAL 1 MONTH 
-    - INTERVAL 3 DAYS 
-    + INTERVAL 10 HOURS 
-    + interval 30 MINUTES 
+SELECT
+    CURRENT_TIMESTAMP
+    - INTERVAL 2 YEARS
+    + INTERVAL 1 MONTH
+    - INTERVAL 3 DAYS
+    + INTERVAL 10 HOURS
+    + interval 30 MINUTES
     - INTERVAL 20 SECOND AS past_timestamp
 FROM VALUES ("dummy")
 ```
@@ -2018,9 +1996,9 @@ The following example demonstrates equivalent interval expressions when dealing 
 -- equivalent interval expressions with YEAR and MONTH time units
 WITH ts AS (
     SELECT CURRENT_TIMESTAMP AS now FROM VALUES ('dummy')
-    ) 
-SELECT 
-  now - INTERVAL 1 YEAR - INTERVAL 2 MONTH AS LONG_VERSION, 
+    )
+SELECT
+  now - INTERVAL 1 YEAR - INTERVAL 2 MONTH AS LONG_VERSION,
     now - INTERVAL '1-2' YEAR TO MONTH  AS SHORT_VERSION
 FROM ts
 ```
@@ -2036,13 +2014,13 @@ The result of the example query is shown in the table below.
 
 The following example demonstrates equivalent interval expressions, when dealing with `DAY`, `HOUR`, `MINUTE`, and `SECOND` time units.
 
-```sql 
+```sql
 -- equivalent interval expressions when dealing with DAY, HOUR, MINUTE and SECOND time units
 WITH ts AS (
     SELECT CURRENT_TIMESTAMP AS now FROM VALUES ('dummy')
-    ) 
-SELECT 
-    now - INTERVAL 1 DAY - INTERVAL 2 HOURS - INTERVAL 3 MINUTES - INTERVAL 4 SECONDS AS LONG_VERSION, 
+    )
+SELECT
+    now - INTERVAL 1 DAY - INTERVAL 2 HOURS - INTERVAL 3 MINUTES - INTERVAL 4 SECONDS AS LONG_VERSION,
     now - INTERVAL '1 2:3:4.100' DAY TO SECOND AS SHORT_VERSION
 FROM ts
 ```
@@ -2063,7 +2041,7 @@ The result of the example query is shown in the table below.
 	<area alt="section qualifiedName" shape="rect" coords="118,20,242,42" href="#qualifiedName" />
 	<area alt="section qualifiedName" shape="rect" coords="70,80,194,102" href="#qualifiedName" />
 </map>
-<img style="max-width: 361px;" usemap="#columnReferenceImgMap" alt="syntax diagram for a column reference" src="./diagrams/columnReference-1551088484370.svg" />
+<img style="max-width: 361px;" usemap="#columnReferenceImgMap" alt="syntax diagram for a column reference" src="./diagrams/columnReference-1556794853299.svg" />
 </div>
 
 <h4 id="qualifiedName">qualifiedName</h4>
@@ -2072,10 +2050,10 @@ The result of the example query is shown in the table below.
 <map name="qualifiedNameImgMap">
 	<area alt="section identifier" shape="rect" coords="70,20,170,42" href="#identifier" />
 </map>
-<img style="max-width: 241px;" usemap="#qualifiedNameImgMap" alt="syntax diagram for a qualified name" src="./diagrams/qualifiedName-1551088484370.svg" />
+<img style="max-width: 241px;" usemap="#qualifiedNameImgMap" alt="syntax diagram for a qualified name" src="./diagrams/qualifiedName-1556794853299.svg" />
 </div>
 
-A *qualified name* is a sequence of identifier separated by `.`. 
+A *qualified name* is a sequence of identifier separated by `.`.
 For example, a column name can be qualified by the name of the *relation* the column is defined in.
 
 *Qualified names* are available in the following context:
@@ -2090,7 +2068,7 @@ For further details about the clauses used by a *primary expression*, refer to t
 * [castExpression](#castExpression)
 * [constant](#constant)
 * [columnReference](#columnReference)
-* [DECIMAL_VALUE](#DECIMAL_VALUE), 
+* [DECIMAL_VALUE](#DECIMAL_VALUE),
 * [expression](#expression)
 * [functionOrAggregate](#functionOrAggregate)
 * [identifier](#identifier)
@@ -2114,28 +2092,28 @@ For further details about the clauses used by a *primary expression*, refer to t
 	<area alt="section valueExpression" shape="rect" coords="364,180,504,202" href="#valueExpression" />
 	<area alt="section valueExpression" shape="rect" coords="430,290,570,312" href="#valueExpression" />
 </map>
-<img style="max-width: 685px;" usemap="#predicateImgMap" alt="syntax diagram for a predicate" src="./diagrams/predicate-1551088484370.svg" />
+<img style="max-width: 685px;" usemap="#predicateImgMap" alt="syntax diagram for a predicate" src="./diagrams/predicate-1556794853299.svg" />
 </div>
 
 The `BETWEEN ... AND` predicate compares a value with a range of values. If `NOT` is specified, the result is reversed.
 
-The `IN` predicate compares a value or values with a collection of values. The range of values is either defined by a query or a list of expressions enclosed in parentheses. 
-The query must identify a number of columns that is the same as the number of expressions specified to the left of the IN keyword. 
-In addition, the number of elements in the list of expressions must be the same as the number of expressions specified to the left of the IN keyword. 
+The `IN` predicate compares a value or values with a collection of values. The range of values is either defined by a query or a list of expressions enclosed in parentheses.
+The query must identify a number of columns that is the same as the number of expressions specified to the left of the IN keyword.
+In addition, the number of elements in the list of expressions must be the same as the number of expressions specified to the left of the IN keyword.
 If `NOT` is specified, the result is reversed.
 
-The `LIKE` predicate searches for strings that have a certain pattern. The pattern is specified by a string in which certain characters have a special meaning. 
+The `LIKE` predicate searches for strings that have a certain pattern. The pattern is specified by a string in which certain characters have a special meaning.
 * The underscore character `_` represents any single character.
 * The percent sign `%` represents a string of zero or more characters.
-* Any other character represents itself. Thus trailing blanks in a pattern are part of the pattern. 
+* Any other character represents itself. Thus trailing blanks in a pattern are part of the pattern.
 If `NOT` is specified, the result is reversed.
 
-The `RLIKE` predicate searches for a regular expression pattern in a string. If the pattern expression is found, the result is true. 
-If the pattern expression is not found, the result is false. If the value of any of the arguments is null, the result of the RLIKE predicate is unknown. 
+The `RLIKE` predicate searches for a regular expression pattern in a string. If the pattern expression is found, the result is true.
+If the pattern expression is not found, the result is false. If the value of any of the arguments is null, the result of the RLIKE predicate is unknown.
 If `NOT` is specified, the result is reversed.
 
-The regular expression pattern has to be a Java regular expression as defined by Java class `java.util.regex.Pattern`. 
-Meta characters starting with a `\` have to be escaped for the regular expression to work, for example, use `\\d` instead of `\d` 
+The regular expression pattern has to be a Java regular expression as defined by Java class `java.util.regex.Pattern`.
+Meta characters starting with a `\` have to be escaped for the regular expression to work, for example, use `\\d` instead of `\d`
 in a pattern string to represent a digit. Refer to latest Java documentation for more details like supported meta characters, predefined character classes, and so on.
 
 The `IS NULL` predicate tests for null values. The result of a NULL predicate cannot be unknown. If the value of the expression is null, the result is true. If the value is not null, the result is false. If `NOT` is specified, the result is reversed.
@@ -2150,7 +2128,7 @@ The `IS DISTINCT FROM` predicate compares two expressions and evaluates to TRUE 
 {: caption="Table 34. NULL Values and DISTINCT Predicate Value" caption-side="top"}
 
 
-The following DISTINCT predicates are logically equivalent to the corresponding search conditions: 
+The following DISTINCT predicates are logically equivalent to the corresponding search conditions:
 
 | DISTINCT predicate | Search condition |
 | ------------------ | ---------------- |
@@ -2166,15 +2144,15 @@ The following DISTINCT predicates are logically equivalent to the corresponding 
 ```sql
 -- select all rows with distinct values in column A and B
 SELECT * FROM (
-    SELECT 
-        col1 AS a, 
-        col2  AS b 
-    FROM VALUES 
-            (1 , 2), 
-            (2, 2), 
-            (null, 2), 
-            (1, null), 
-            (2, null), 
+    SELECT
+        col1 AS a,
+        col2  AS b
+    FROM VALUES
+            (1 , 2),
+            (2, 2),
+            (null, 2),
+            (1, null),
+            (2, null),
             (null, null)
 ) WHERE a IS DISTINCT FROM b
 ```
@@ -2192,18 +2170,18 @@ The result of the example query is shown in the table below.
 {: caption="Table 36. Query result for example 'select all rows with distinct values in column A and B'" caption-side="top"}
 
 
-```sql 
+```sql
 -- all rows having no distinct values in column A and B
 SELECT * FROM (
-    SELECT 
-        col1 AS a, 
-        col2 AS b 
-    FROM VALUES 
-            (1, 2), 
-            (2, 2), 
-            (null, 2), 
-            (1, null), 
-            (2, null), 
+    SELECT
+        col1 AS a,
+        col2 AS b
+    FROM VALUES
+            (1, 2),
+            (2, 2),
+            (null, 2),
+            (1, null),
+            (2, null),
             (null, null)
 ) WHERE a IS NOT DISTINCT FROM b
 ```
@@ -2223,19 +2201,19 @@ The result of the example query is shown in the table below.
 
 ```sql
 -- all employees with a salary between 4000 and 8000
-SELECT 
-    emp.col1 AS emp_id, 
-    emp.col2 AS salary 
-FROM VALUES 
-    (0, 1000), 
-    (2, 2000), 
-    (3, 3000), 
-    (4, 4000), 
-    (5, 5000), 
-    (6, 6000), 
-    (7, null), 
-    (8, 8000), 
-    (9,9000) AS emp 
+SELECT
+    emp.col1 AS emp_id,
+    emp.col2 AS salary
+FROM VALUES
+    (0, 1000),
+    (2, 2000),
+    (3, 3000),
+    (4, 4000),
+    (5, 5000),
+    (6, 6000),
+    (7, null),
+    (8, 8000),
+    (9,9000) AS emp
 WHERE emp.col2 BETWEEN 4000 AND 8000
 ```
 {: codeblock}
@@ -2253,20 +2231,20 @@ The result of the example query is shown in the table below.
 
 ```sql
 -- all employees with a salary not between 4000 and 8000
-SELECT 
-    emp.col1 AS emp_id, 
-    emp.col2 AS salary 
-FROM VALUES 
-    (0, 1000), 
-    (2, 2000), 
-    (3, 3000), 
-    (4, 4000), 
-    (5, 5000), 
-    (6, 6000), 
-    (7, null), 
-    (8, 8000), 
-    (9,9000) AS emp 
-WHERE emp.col2 NOT BETWEEN 4000 AND 8000 
+SELECT
+    emp.col1 AS emp_id,
+    emp.col2 AS salary
+FROM VALUES
+    (0, 1000),
+    (2, 2000),
+    (3, 3000),
+    (4, 4000),
+    (5, 5000),
+    (6, 6000),
+    (7, null),
+    (8, 8000),
+    (9,9000) AS emp
+WHERE emp.col2 NOT BETWEEN 4000 AND 8000
 ```
 {: codeblock}
 
@@ -2284,22 +2262,22 @@ The result of the example query is shown in the table below.
 
 <h5><code>IN</code> Examples</h5>
 
-```sql 
--- all employees working in department D01 or D02 
-SELECT 
-    emp.col1 AS emp_id, 
-    emp.col2 AS emp_dept 
-FROM VALUES 
-    (0, 'D01'), 
-    (2, 'C01'), 
-    (3, 'C02'), 
-    (4, 'D01'), 
-    (5, 'D02'), 
-    (6, 'C01'), 
-    (7, 'D01'), 
-    (8, 'C03'), 
-    (9,'D01') AS emp 
-WHERE emp.col2 IN ('D01','D02') 
+```sql
+-- all employees working in department D01 or D02
+SELECT
+    emp.col1 AS emp_id,
+    emp.col2 AS emp_dept
+FROM VALUES
+    (0, 'D01'),
+    (2, 'C01'),
+    (3, 'C02'),
+    (4, 'D01'),
+    (5, 'D02'),
+    (6, 'C01'),
+    (7, 'D01'),
+    (8, 'C03'),
+    (9,'D01') AS emp
+WHERE emp.col2 IN ('D01','D02')
 ```
 {: codeblock}
 
@@ -2315,28 +2293,28 @@ The result of the example query is shown in the table below.
 {: caption="Table 40. Query result for example 'all employees working in department D01 or D02'" caption-side="top"}
 
 
-```sql 
+```sql
 -- all employees that are managing a department
-SELECT 
-    emp.col1 AS emp_id, 
-    emp.col2 AS emp_dept 
-FROM VALUES 
-    (0, 'D01'), 
-    (2, 'C01'), 
-    (3, 'C02'), 
-    (4, 'D01'), 
-    (5, 'D02'), 
-    (6, 'C01'), 
-    (7, 'D01'), 
-    (8, 'C03'), 
-    (9,'D01') AS emp 
+SELECT
+    emp.col1 AS emp_id,
+    emp.col2 AS emp_dept
+FROM VALUES
+    (0, 'D01'),
+    (2, 'C01'),
+    (3, 'C02'),
+    (4, 'D01'),
+    (5, 'D02'),
+    (6, 'C01'),
+    (7, 'D01'),
+    (8, 'C03'),
+    (9,'D01') AS emp
 WHERE (emp.col1,emp.col2) IN (
-    SELECT 
-        mgr.col1, 
-        mgr.col2 
-    FROM VALUES 
-        (2, 'C01'), 
-        (4, 'D01'), 
+    SELECT
+        mgr.col1,
+        mgr.col2
+    FROM VALUES
+        (2, 'C01'),
+        (4, 'D01'),
         (5, 'D02') AS mgr
     )
 ```
@@ -2354,21 +2332,21 @@ The result of the example query is shown in the table below.
 
 <h5><code>LIKE</code> Examples</h5>
 
-```sql 
+```sql
 -- all employess that work in a department that starts with letter C
-SELECT 
-    emp.col1 AS emp_id, 
-    emp.col2 AS emp_dept 
-FROM VALUES 
-        (0, 'D01'), 
-        (2, 'C01'), 
-        (3, 'C02'), 
-        (4, 'D01'), 
-        (5, 'D02'), 
-        (6, 'C01'), 
-        (7, 'D01'), 
-        (8, 'C03'), 
-        (9, 'D01') AS emp 
+SELECT
+    emp.col1 AS emp_id,
+    emp.col2 AS emp_dept
+FROM VALUES
+        (0, 'D01'),
+        (2, 'C01'),
+        (3, 'C02'),
+        (4, 'D01'),
+        (5, 'D02'),
+        (6, 'C01'),
+        (7, 'D01'),
+        (8, 'C03'),
+        (9, 'D01') AS emp
 WHERE emp.col2 LIKE 'C%'
 ```
 {: codeblock}
@@ -2384,20 +2362,20 @@ The result of the example query is shown in the table below.
 {: caption="Table 42. Query result for example 'all employees that work in a department that starts with letter C'" caption-side="top"}
 
 
-```sql 
+```sql
 -- all department names that do not start with letter C
-SELECT 
-    DISTINCT emp.col2 AS emp_dept 
-FROM VALUES 
-    (0, 'D01'), 
-    (2, 'C01'), 
-    (3, 'C02'), 
-    (4, 'D01'), 
-    (5, 'D02'), 
-    (6, 'C01'), 
-    (7, 'D01'), 
-    (8, 'C03'), 
-    (9,'D01') AS emp 
+SELECT
+    DISTINCT emp.col2 AS emp_dept
+FROM VALUES
+    (0, 'D01'),
+    (2, 'C01'),
+    (3, 'C02'),
+    (4, 'D01'),
+    (5, 'D02'),
+    (6, 'C01'),
+    (7, 'D01'),
+    (8, 'C03'),
+    (9,'D01') AS emp
 WHERE emp.col2 NOT LIKE 'C%'   
 ```
 {: codeblock}
@@ -2415,14 +2393,14 @@ The result of the example query is shown in the table below.
 
 ```sql
 -- all rows that contain in col2 a value ending with 'bc'
-SELECT * 
-FROM VALUES 
-    (0, 'Abc'), 
-    (1, 'xyz abc'), 
-    (2, 'abcabcabc'), 
-    (3, 'abc xyzxyz abc'), 
-    (4, '123 456 789') AS data 
-WHERE data.col2 RLIKE 'bc$' 
+SELECT *
+FROM VALUES
+    (0, 'Abc'),
+    (1, 'xyz abc'),
+    (2, 'abcabcabc'),
+    (3, 'abc xyzxyz abc'),
+    (4, '123 456 789') AS data
+WHERE data.col2 RLIKE 'bc$'
 ```
 {: codeblock}
 
@@ -2440,14 +2418,14 @@ The result of the example query is shown in the table below.
 
 ```sql
 -- all rows that contain in col2 a sequence of 3 'abc' string occurrences
-SELECT * 
-FROM VALUES 
-    (0, 'Abc'), 
-    (1, 'xyz abc'), 
-    (2, 'abcabcabc'), 
-    (3, 'abc xyzxyz abc'), 
-    (4, '123 456 789') AS data 
-WHERE data.col2 RLIKE '(abc){3}' 
+SELECT *
+FROM VALUES
+    (0, 'Abc'),
+    (1, 'xyz abc'),
+    (2, 'abcabcabc'),
+    (3, 'abc xyzxyz abc'),
+    (4, '123 456 789') AS data
+WHERE data.col2 RLIKE '(abc){3}'
 ```
 {: codeblock}
 
@@ -2462,13 +2440,13 @@ The result of the example query is shown in the table below.
 
 ```sql
 -- all rows that contain in col2 a sequence of integer values (3 digits) separated by blank or tab
-SELECT * 
-FROM VALUES 
-        (0, 'Abc'), 
-        (1, 'xyz abc'), 
-        (2, 'abcabcabc'), 
-        (3, 'abc xyzxyz abc'), 
-        (4, '123\t456 789') AS data 
+SELECT *
+FROM VALUES
+        (0, 'Abc'),
+        (1, 'xyz abc'),
+        (2, 'abcabcabc'),
+        (3, 'abc xyzxyz abc'),
+        (4, '123\t456 789') AS data
 WHERE data.col2 RLIKE '\\d{3}[ \\t]\\d{3}[ \\t]\\d{3}'
 ```
 {: codeblock}
@@ -2483,22 +2461,22 @@ The result of the example query is shown in the table below.
 
 <h5><code>IS NULL</code> Examples</h5>
 
-```sql 
+```sql
 --- all employees with missing salary information
-SELECT 
-    emp.col1 AS emp_id, 
-    emp.col2 AS salary 
-FROM VALUES 
-    (0, 1000), 
-    (2, 2000), 
-    (3, 3000), 
-    (4, 4000), 
-    (5, 5000), 
-    (6, 6000), 
-    (7, NULL), 
-    (8, 8000), 
-    (9,9000) AS emp 
-WHERE emp.col2 IS NULL 
+SELECT
+    emp.col1 AS emp_id,
+    emp.col2 AS salary
+FROM VALUES
+    (0, 1000),
+    (2, 2000),
+    (3, 3000),
+    (4, 4000),
+    (5, 5000),
+    (6, 6000),
+    (7, NULL),
+    (8, 8000),
+    (9,9000) AS emp
+WHERE emp.col2 IS NULL
 ```
 {: codeblock}
 
@@ -2513,11 +2491,11 @@ The result of the example query is shown in the table below.
 
 <h3>Cast Expression</h3>
 
-The syntax of a *cast expression* is described by the syntax diagrams below. 
+The syntax of a *cast expression* is described by the syntax diagrams below.
 
 The cast specification returns the cast operand (the first operand) cast to the type specified by the data type.
 
-If the specified data type is not supported, an error is returned. 
+If the specified data type is not supported, an error is returned.
 
 <h4 id="castExpression">castExpression</h4>
 
@@ -2526,23 +2504,23 @@ If the specified data type is not supported, an error is returned.
 	<area alt="section expression" shape="rect" coords="170,20,270,42" href="#expression" />
 	<area alt="section dataType" shape="rect" coords="346,20,430,42" href="#dataType" />
 </map>
-<img style="max-width: 529px;" usemap="#castExpressionImgMap" alt="syntax diagram for a cast expression" src="./diagrams/castExpression-1551088484370.svg" />
+<img style="max-width: 529px;" usemap="#castExpressionImgMap" alt="syntax diagram for a cast expression" src="./diagrams/castExpression-1556794853299.svg" />
 </div>
 
-Note that in case an expression cannot be casted to the data type specified in the cast expression, the expression result is `null`. 
+Note that in case an expression cannot be casted to the data type specified in the cast expression, the expression result is `null`.
 
 <h4 id="dataType">dataType</h4>
 
 <div style="overflow-x : auto;">
 <map name="dataTypeImgMap">
-	<area alt="section dataType" shape="rect" coords="278,20,362,42" href="#dataType" />
-	<area alt="section dataType" shape="rect" coords="194,50,278,72" href="#dataType" />
-	<area alt="section dataType" shape="rect" coords="346,50,430,72" href="#dataType" />
-	<area alt="section complexColTypeList" shape="rect" coords="242,90,406,112" href="#complexColTypeList" />
-	<area alt="section identifier" shape="rect" coords="70,160,170,182" href="#identifier" />
-	<area alt="section INTEGER&#95;VALUE" shape="rect" coords="278,160,402,182" href="#INTEGER&#95;VALUE" />
+	<area alt="section dataType" shape="rect" coords="272,20,356,42" href="#dataType" />
+	<area alt="section dataType" shape="rect" coords="188,50,272,72" href="#dataType" />
+	<area alt="section dataType" shape="rect" coords="340,50,424,72" href="#dataType" />
+	<area alt="section complexColTypeList" shape="rect" coords="236,90,400,112" href="#complexColTypeList" />
+	<area alt="section identifier" shape="rect" coords="92,160,192,182" href="#identifier" />
+	<area alt="section number" shape="rect" coords="300,160,368,182" href="#number" />
 </map>
-<img style="max-width: 561px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-1551088484370.svg" />
+<img style="max-width: 549px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-1556794853299.svg" />
 </div>
 
 An `identifier` in a cast expression can have the values listed below.
@@ -2575,9 +2553,9 @@ String values with appropriate formats can be converted to a timestamp or date, 
 
 ```sql
 -- cast string values to timestamp and date types
-SELECT 
-    CAST('2018-10-31 23:55:00' AS TIMESTAMP), 
-    CAST('2018-10-31 23:55:00' AS DATE), 
+SELECT
+    CAST('2018-10-31 23:55:00' AS TIMESTAMP),
+    CAST('2018-10-31 23:55:00' AS DATE),
     CAST('HELLO' AS TIMESTAMP)  
 FROM VALUES ('dummy')
 ```
@@ -2596,13 +2574,13 @@ The result of the example query is shown in the table below.
 
 <h6>Boolean Type</h6>
 
-The `BOOLEAN` type represents a domain with two values, `true` or `false`. 
+The `BOOLEAN` type represents a domain with two values, `true` or `false`.
 
-Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be casted to `false`. 
+Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be casted to `false`.
 
 Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 21474.83648 can be casted to `true`.
 
-The string value `'0'` can be casted to `false` and `'1'` can be casted to `true`, respectively. Any other string value is casted to `false`. 
+The string value `'0'` can be casted to `false` and `'1'` can be casted to `true`, respectively. Any other string value is casted to `false`.
 
 <h6>Binary Type</h6>
 
@@ -2614,7 +2592,7 @@ A `BINARY` type represents an array of byte values. Thus, string values can be c
 <map name="complexColTypeListImgMap">
 	<area alt="section complexColType" shape="rect" coords="70,20,202,42" href="#complexColType" />
 </map>
-<img style="max-width: 273px;" usemap="#complexColTypeListImgMap" alt="syntax diagram for a complex column type list" src="./diagrams/complexColTypeList-1551088484370.svg" />
+<img style="max-width: 273px;" usemap="#complexColTypeListImgMap" alt="syntax diagram for a complex column type list" src="./diagrams/complexColTypeList-1556794853299.svg" />
 </div>
 
 <h4 id="complexColType">complexColType</h4>
@@ -2625,14 +2603,14 @@ A `BINARY` type represents an array of byte values. Thus, string values can be c
 	<area alt="section dataType" shape="rect" coords="218,30,302,52" href="#dataType" />
 	<area alt="section STRING" shape="rect" coords="438,30,506,52" href="#STRING" />
 </map>
-<img style="max-width: 577px;" usemap="#complexColTypeImgMap" alt="syntax diagram for a complex column type" src="./diagrams/complexColType-1551088484370.svg" />
+<img style="max-width: 577px;" usemap="#complexColTypeImgMap" alt="syntax diagram for a complex column type" src="./diagrams/complexColType-1556794853299.svg" />
 </div>
 
 <h4>More Topics</h4>
 
 For further details about the clauses used by a *cast expression*, refer to the following topics:
 * [expression](#expression)
-* [identifier](#identifier), 
+* [identifier](#identifier),
 * [INTEGER_VALUE](#INTEGER_VALUE)
 * [STRING](#STRING)
 
@@ -2657,19 +2635,19 @@ The syntax of a case expression is described by the syntax diagrams below.
 	<area alt="section whenClause" shape="rect" coords="272,79,372,101" href="#whenClause" />
 	<area alt="section expression" shape="rect" coords="494,79,594,101" href="#expression" />
 </map>
-<img style="max-width: 749px;" usemap="#caseExpressionImgMap" alt="syntax diagram for a case expression" src="./diagrams/caseExpression-1551088484370.svg" />
+<img style="max-width: 749px;" usemap="#caseExpressionImgMap" alt="syntax diagram for a case expression" src="./diagrams/caseExpression-1556794853299.svg" />
 </div>
 
-The upper path in the syntax diagram represents a *searched when clause*, that is, the `WHEN` keyword follows directly after the `CASE` keyword. 
-The lower path is a *simple when clause*, that is, an expression follows after the `CASE` keyword. 
+The upper path in the syntax diagram represents a *searched when clause*, that is, the `WHEN` keyword follows directly after the `CASE` keyword.
+The lower path is a *simple when clause*, that is, an expression follows after the `CASE` keyword.
 
-In general, the value of the case expression is the value of the *result expression*, following the first (leftmost) case that evaluates to true. 
-If no case evaluates to true and the ELSE keyword is present, the result is the value of the ELSE case result expression. 
+In general, the value of the case expression is the value of the *result expression*, following the first (leftmost) case that evaluates to true.
+If no case evaluates to true and the ELSE keyword is present, the result is the value of the ELSE case result expression.
 If no case evaluates to true and the ELSE keyword is not present, the result is NULL. Note that when a case evaluates to unknown (because of NULLs), the case is not true and hence is treated the same way as a case that evaluates to false.
 
-When using the *simple when clause*, the value of the expression before the first WHEN keyword is tested for equality with the value of the expression following the WHEN keyword. The data type of the expression before the first WHEN keyword must therefore be comparable to the data types of each expression following the WHEN keyword(s). 
+When using the *simple when clause*, the value of the expression before the first WHEN keyword is tested for equality with the value of the expression following the WHEN keyword. The data type of the expression before the first WHEN keyword must therefore be comparable to the data types of each expression following the WHEN keyword(s).
 
-A *result expression* is an expression following the `THEN` or `ELSE` keywords. 
+A *result expression* is an expression following the `THEN` or `ELSE` keywords.
 
 <h4 id="whenClause">whenClause</h4>
 
@@ -2678,20 +2656,20 @@ A *result expression* is an expression following the `THEN` or `ELSE` keywords.
 	<area alt="section expression" shape="rect" coords="122,20,222,42" href="#expression" />
 	<area alt="section expression" shape="rect" coords="314,20,414,42" href="#expression" />
 </map>
-<img style="max-width: 465px;" usemap="#whenClauseImgMap" alt="syntax diagram for a when clause" src="./diagrams/whenClause-1551088484370.svg" />
+<img style="max-width: 465px;" usemap="#whenClauseImgMap" alt="syntax diagram for a when clause" src="./diagrams/whenClause-1556794853299.svg" />
 </div>
 
 <h4>Examples</h4>
 
 ```sql
 -- simple case expression with no ELSE clause
-SELECT 
-    dep.col1 AS dep_id, 
-    CASE dep.col2 
-        WHEN 'A' THEN 'Administration' 
-        WHEN 'B' THEN 'Human Resource' 
-        WHEN 'C' THEN 'Development' 
-    END AS dep_name 
+SELECT
+    dep.col1 AS dep_id,
+    CASE dep.col2
+        WHEN 'A' THEN 'Administration'
+        WHEN 'B' THEN 'Human Resource'
+        WHEN 'C' THEN 'Development'
+    END AS dep_name
 FROM VALUES (0, 'A'), (1, 'B'), (2, 'C'), (3, 'D'), (4, 'E') AS dep
 ```
 {: codeblock}
@@ -2710,14 +2688,14 @@ The result of the example query is shown in the table below.
 
 ```sql
 -- simple case expression with ELSE clause
-SELECT 
-    dep.col1 AS dep_id, 
-    CASE dep.col2 
-        WHEN 'A' THEN 'Administration' 
-        WHEN 'B' THEN 'Human Resource' 
-        WHEN 'C' THEN 'Development' 
-        ELSE 'UNKOWN' 
-    END AS dep_name 
+SELECT
+    dep.col1 AS dep_id,
+    CASE dep.col2
+        WHEN 'A' THEN 'Administration'
+        WHEN 'B' THEN 'Human Resource'
+        WHEN 'C' THEN 'Development'
+        ELSE 'UNKOWN'
+    END AS dep_name
 FROM VALUES (0, 'A'), (1, 'B'), (2, 'C'), (3, 'D'), (4, 'E') AS dep
 ```
 {: codeblock}
@@ -2735,7 +2713,7 @@ The result of the example query is shown in the table below.
 {: caption="Table 51. Query result for example 'simple case expression with ELSE clause'" caption-side="top"}
 
 
-There are two scalar functions, `NULLIF()` and `COALESCE()`, that are specialized to handle a subset of the functionality provided by `CASE`. 
+There are two scalar functions, `NULLIF()` and `COALESCE()`, that are specialized to handle a subset of the functionality provided by `CASE`.
 
 | Expression | Equivalent Expression |
 | ---------- | --------------------- |
@@ -2843,22 +2821,21 @@ The general syntax of a table sample clause is described by the syntax diagram b
 
 <div style="overflow-x : auto;">
 <map name="sampleImgMap">
-	<area alt="section INTEGER&#95;VALUE" shape="rect" coords="256,20,380,42" href="#INTEGER&#95;VALUE" />
-	<area alt="section DECIMAL&#95;VALUE" shape="rect" coords="256,50,380,72" href="#DECIMAL&#95;VALUE" />
-	<area alt="section expression" shape="rect" coords="270,90,370,112" href="#expression" />
-	<area alt="section bucketSampleClause" shape="rect" coords="284,120,448,142" href="#bucketSampleClause" />
+	<area alt="section number" shape="rect" coords="260,20,328,42" href="#number" />
+	<area alt="section expression" shape="rect" coords="246,60,346,82" href="#expression" />
+	<area alt="section bucketSampleClause" shape="rect" coords="260,90,424,112" href="#bucketSampleClause" />
 </map>
-<img style="max-width: 605px;" usemap="#sampleImgMap" alt="syntax diagram for a sample" src="./diagrams/sample-1551088484370.svg" />
+<img style="max-width: 557px;" usemap="#sampleImgMap" alt="syntax diagram for a sample" src="./diagrams/sample-1556794853299.svg" />
 </div>
 
 <h3 id="bucketSampleClause">bucketSampleClause</h3>
 
 <div style="overflow-x : auto;">
 <map name="bucketSampleClauseImgMap">
-	<area alt="section INTEGER&#95;VALUE" shape="rect" coords="138,20,262,42" href="#INTEGER&#95;VALUE" />
-	<area alt="section INTEGER&#95;VALUE" shape="rect" coords="402,20,526,42" href="#INTEGER&#95;VALUE" />
+	<area alt="section number" shape="rect" coords="138,20,206,42" href="#number" />
+	<area alt="section number" shape="rect" coords="346,20,414,42" href="#number" />
 </map>
-<img style="max-width: 566px;" usemap="#bucketSampleClauseImgMap" alt="syntax diagram for a bucket sample clause" src="./diagrams/bucketSampleClause-1551088484370.svg" />
+<img style="max-width: 454px;" usemap="#bucketSampleClauseImgMap" alt="syntax diagram for a bucket sample clause" src="./diagrams/bucketSampleClause-1556794853299.svg" />
 </div>
 
 Three sampling types are supported:
@@ -2869,7 +2846,7 @@ Three sampling types are supported:
 
 <h3>Examples</h3>
 
-The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}. 
+The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}.
 Note that the object referenced is accessible from the web UI as part of the provided sample queries.
 
 ```sql
@@ -2885,7 +2862,7 @@ SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (
 {: codeblock}
 
 ```sql
--- bucketize the employee data in 10 buckets and retrieve data from 2 buckets 
+-- bucketize the employee data in 10 buckets and retrieve data from 2 buckets
 SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (BUCKET 2 OUT OF 10)
 ```
 {: codeblock}
@@ -2926,7 +2903,7 @@ An unquoted identifier is at least one character long. Valid characters that can
 
 <h4>Backquoted Identifier</h4>
 
-This is an identifier that is embraced by grave accent <code>&#96;</code> characters. Backquoted identifier can 
+This is an identifier that is embraced by grave accent <code>&#96;</code> characters. Backquoted identifier can
 contain any character including the grave accent character that has to be escaped like this <code>&#96;&#96;</code>.
 
 <h3 id="number">Number</h3>
@@ -2935,7 +2912,7 @@ A number is either a signed or unsigned *integer* or a *decimal* number.
 
 <h4 id="INTEGER_VALUE">Integer Value</h4>
 
-An integer number is represented by a sequence of at least one digit, that is, `0` to `9`. 
+An integer number is represented by a sequence of at least one digit, that is, `0` to `9`.
 The integer number can have a trailing identifier denoting the type of integer number. There are three types of integer numbers:
 * `Y`: tiny integer number
 * `S`: small integer number
@@ -2948,7 +2925,7 @@ See section [dataType](#dataType) for more details about data types.
 A decimal number is the following:
 * A sequence of at least one digit followed by a positive or negative exponent, for example, `10E2` represents integer `1000` and `1E-1` represents 0.1.
 * A decimal number, for example, `3.14`.
-* A decimal number followed by a positive or negative exponent , for example, `3.14E+3` represents `3140.00` or `3.14E-3` represents `0.00314`. 
+* A decimal number followed by a positive or negative exponent , for example, `3.14E+3` represents `3140.00` or `3.14E-3` represents `0.00314`.
 
 The decimal number can have a trailing identifier denoting the type of decimal number. There are two types of decimal numbers:
 * `D`: double decimal number
@@ -2958,7 +2935,7 @@ See section [dataType](#dataType) for more details about data types.
 
 <h3 id="STRING">String</h3>
 
-A *string* is a sequence of arbitrary characters including escaped characters, for example, 
-`\t`, either enclosed in single quotes `'`, or double quotes, `"`. 
+A *string* is a sequence of arbitrary characters including escaped characters, for example,
+`\t`, either enclosed in single quotes `'`, or double quotes, `"`.
 To include any quote characters in the string they have to be escaped as <code>\\\\&#96;</code> or `\\"`, respectively.
 
