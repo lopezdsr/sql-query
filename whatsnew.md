@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-05-06"
+lastupdated: "2019-05-07"
 
 keywords: what's new, support, release, beta
 
@@ -14,9 +14,10 @@ subcollection: sql-query
 
 ## May 2019
 
-- With JOBPREFIX JOBID/NONE you can now specify if you want the jobid= appended to the target prefix, or not. 
-- The SORT BY clause is new, you can use it to sort in many ways. It can be used in combination with PARTITIONED BY, PARTITIONED INTO (to cluster the results), or without the PARTITIONED clause.
-- PARTITIONED INTO BUCKETS and PARTITIONED INTO OBJECTS are now both supported, thus can be used synonymously.
+- Updates to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference):
+  - With [`JOBPREFIX JOBID/NONE`](/docs/services/sql-query?topic=sql-query-sql-reference#resultClause) you can now specify if you want       the jobid= appended to the target prefix, or not. 
+  - The [`SORT BY`](/docs/services/sql-query?topic=sql-query-sql-reference#sortClause) clause is new, you can use it to sort in many ways. It can be used in combination with [`PARTITIONED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause), [`PARTITIONED INTO`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) (to cluster the results), or without the PARTITIONED clause.
+  - [`PARTITIONED INTO BUCKETS`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) and [`PARTITIONED INTO OBJECTS`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) are now both supported, thus can be used synonymously.
 
 ## April 2019
 
