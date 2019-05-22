@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-04-08"
+lastupdated: "2019-05-22"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -51,10 +51,8 @@ Each URI comprises one or more input files; each input file can be thought of as
 You must have at least 'Reader' access to the buckets that contain the input files.
     - If the format of the input files is CSV, there is no need to specify a STORED AS clause. 
 However, if the format is JSON, ORC, Parquet, or AVRO, after the FROM clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO as appropriate.
-    - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using 
-the `FIELDS TERMINATED BY` "<character>" clause. All one-character Unicode characters are allowed as delimiters.
-    - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify
-`NOHEADER` after the `FROM` clause or `STORED AS` clause.
+    - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the [`FIELDS TERMINATED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All one-character Unicode characters are allowed as delimiters.
+    - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify `NOHEADER` after the `FROM` clause or `STORED AS` clause.
     - If required, you can use JOIN constructs to join data from several input files, even if those files are located in different instances.
 2. Below the SELECT statement, in the **Target** field, specify the output [URI](#table-unique-resource-identifier),
 that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
@@ -248,15 +246,11 @@ Use one of the following workarounds:
 - If you receive an error message stating that some columns are not found in the input columns,
 but the columns do exist in the input file, check if the input file format being specified using 'STORED AS'
 in the SQL statement is the actual file format of your current file.
-- In order to further process CSV output with {{site.data.keyword.sqlquery_short}}, all values have to be contained within one line. The multi-line option 
-is not supported and therefore must be manually changed. 
-To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` 
-containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton 
-SQL statement looks like the following:
+- In order to further process CSV output with {{site.data.keyword.sqlquery_short}}, all values have to be contained within one line. The multi-line option is not supported and therefore must be manually changed. 
+To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton SQL statement looks like the following:
 
 	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
 	
 - Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence 
 of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in different parts of the object.
-- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, 
-add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
