@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-05-22"
+lastupdated: "2019-06-04"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -118,71 +118,71 @@ To save space, you can use the alias shown instead of the full endpoint name.
 
 Internal Cross-Regional Endpoint Name | Alias
 --- | --- 
-s3-api.us-geo.objectstorage.service.networklayer.com     | us-geo
-s3-api.dal-us-geo.objectstorage.service.networklayer.com | dal-us-geo
-s3-api.wdc-us-geo.objectstorage.service.networklayer.com | wdc-us-geo
-s3-api.sjc-us-geo.objectstorage.service.networklayer.com | sjc-us-geo
-s3.eu-geo.objectstorage.service.networklayer.com         | eu-geo
-s3.ams-eu-geo.objectstorage.service.networklayer.com     | ams-eu-geo
-s3.fra-eu-geo.objectstorage.service.networklayer.com     | fra-eu-geo
-s3.mil-eu-geo.objectstorage.service.networklayer.com     | mil-eu-geo
-s3.ap-geo.objectstorage.service.networklayer.com         | ap-geo
-s3.tok-ap-geo.objectstorage.service.networklayer.com     | tok-ap-geo
-s3.seo-ap-geo.objectstorage.service.networklayer.com     | seo-ap-geo
-s3.hkg-ap-geo.objectstorage.service.networklayer.com     | hkg-ap-geo
+s3-api.us-geo.cloud-object-storage.appdomain.cloud     | us-geo
+s3-api.dal-us-geo.cloud-object-storage.appdomain.cloud | dal-us-geo
+s3-api.wdc-us-geo.cloud-object-storage.appdomain.cloud | wdc-us-geo
+s3-api.sjc-us-geo.cloud-object-storage.appdomain.cloud | sjc-us-geo
+s3.eu-geo.cloud-object-storage.appdomain.cloud         | eu-geo
+s3.ams-eu-geo.cloud-object-storage.appdomain.cloud     | ams-eu-geo
+s3.fra-eu-geo.cloud-object-storage.appdomain.cloud     | fra-eu-geo
+s3.mil-eu-geo.cloud-object-storage.appdomain.cloud     | mil-eu-geo
+s3.ap-geo.cloud-object-storage.appdomain.cloud         | ap-geo
+s3.tok-ap-geo.cloud-object-storage.appdomain.cloud     | tok-ap-geo
+s3.seo-ap-geo.cloud-object-storage.appdomain.cloud     | seo-ap-geo
+s3.hkg-ap-geo.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
 
 
 External Cross-Regional Endpoint Name | Alias
 --- | --- 
-s3-api.us-geo.objectstorage.softlayer.net     | us-geo
-s3-api.dal-us-geo.objectstorage.softlayer.net | dal-us-geo
-s3-api.wdc-us-geo.objectstorage.softlayer.net | wdc-us-geo
-s3-api.sjc-us-geo.objectstorage.softlayer.net | sjc-us-geo
-s3.eu-geo.objectstorage.softlayer.net         | eu-geo
-s3.ams-eu-geo.objectstorage.softlayer.net     | ams-eu-geo
-s3.fra-eu-geo.objectstorage.softlayer.net     | fra-eu-geo
-s3.mil-eu-geo.objectstorage.softlayer.net     | mil-eu-geo
-s3.ap-geo.objectstorage.softlayer.net         | ap-geo
-s3.tok-ap-geo.objectstorage.softlayer.net     | tok-ap-geo
-s3.seo-ap-geo.objectstorage.softlayer.net     | seo-ap-geo
-s3.hkg-ap-geo.objectstorage.softlayer.net     | hkg-ap-geo
+s3-api.us-geo.cloud-object-storage.appdomain.cloud     | us-geo
+s3-api.dal-us-geo.cloud-object-storage.appdomain.cloud | dal-us-geo
+s3-api.wdc-us-geo.cloud-object-storage.appdomain.cloud | wdc-us-geo
+s3-api.sjc-us-geo.cloud-object-storage.appdomain.cloud | sjc-us-geo
+s3.eu-geo.cloud-object-storage.appdomain.cloud         | eu-geo
+s3.ams-eu-geo.cloud-object-storage.appdomain.cloud     | ams-eu-geo
+s3.fra-eu-geo.cloud-object-storage.appdomain.cloud     | fra-eu-geo
+s3.mil-eu-geo.cloud-object-storage.appdomain.cloud     | mil-eu-geo
+s3.ap-geo.cloud-object-storage.appdomain.cloud         | ap-geo
+s3.tok-ap-geo.cloud-object-storage.appdomain.cloud     | tok-ap-geo
+s3.seo-ap-geo.cloud-object-storage.appdomain.cloud     | seo-ap-geo
+s3.hkg-ap-geo.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
 
 
 Internal Regional Endpoint Name | Alias
 --- | --- 
-s3.eu-de.objectstorage.service.networklayer.com    | eu-de
-s3.eu-gb.objectstorage.service.networklayer.com    | eu-gb
-s3.us-south.objectstorage.service.networklayer.com | us-south
-s3.us-east.objectstorage.service.networklayer.com  | us-east
-s3.jp-tok.objectstorage.service.networklayer.com   | jp-tok 
+s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
+s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
+s3.us-south.cloud-object-storage.appdomain.cloud | us-south
+s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
+s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok 
 
 
 External Regional Endpoint Name | Alias
 --- | --- 
-s3.eu-de.objectstorage.softlayer.net    | eu-de
-s3.eu-gb.objectstorage.softlayer.net    | eu-gb
-s3.us-south.objectstorage.softlayer.net | us-south
-s3.us-east.objectstorage.softlayer.net  | us-east
-s3.jp-tok.objectstorage.softlayer.net   | jp-tok 
+s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
+s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
+s3.us-south.cloud-object-storage.appdomain.cloud | us-south
+s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
+s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok 
 
 
 Internal Single-Site Endpoint Name | Alias
 --- | --- 
-s3.ams03.objectstorage.service.networklayer.com    | ams03
-s3.che01.objectstorage.service.networklayer.com    | che01
-s3.tor01.objectstorage.service.networklayer.com    | tor01
-s3.osl01.objectstorage.service.networklayer.com    | osl01
-s3.mel01.objectstorage.service.networklayer.com    | mel01
-s3.sao01.objectstorage.service.networklayer.com    | sao01
+s3.ams03.cloud-object-storage.appdomain.cloud    | ams03
+s3.che01.cloud-object-storage.appdomain.cloud    | che01
+s3.tor01.cloud-object-storage.appdomain.cloud    | tor01
+s3.osl01.cloud-object-storage.appdomain.cloud    | osl01
+s3.mel01.cloud-object-storage.appdomain.cloud    | mel01
+s3.sao01.cloud-object-storage.appdomain.cloud    | sao01
 
 External Single-Site Endpoint Name | Alias
 --- | --- 
-s3.ams03.objectstorage.softlayer.net   | ams03
-s3.che01.objectstorage.softlayer.net   | che01
-s3.tor01.objectstorage.softlayer.net   | tor01
-s3.osl01.objectstorage.softlayer.net   | osl01
-s3.mel01.objectstorage.softlayer.net   | mel01
-s3.sao01.objectstorage.softlayer.net   | sao01
+s3.ams03.cloud-object-storage.appdomain.cloud   | ams03
+s3.che01.cloud-object-storage.appdomain.cloud   | che01
+s3.tor01.cloud-object-storage.appdomain.cloud   | tor01
+s3.osl01.cloud-object-storage.appdomain.cloud   | osl01
+s3.mel01.cloud-object-storage.appdomain.cloud   | mel01
+s3.sao01.cloud-object-storage.appdomain.cloud   | sao01
 
 ## Programmatic access
 {: #access}
