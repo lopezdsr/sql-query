@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-05-07"
+lastupdated: "2019-06-04"
 
 keywords: what's new, support, release, beta
 
@@ -11,6 +11,11 @@ subcollection: sql-query
 ---
 
 # What's new
+
+## June 2019
+
+Support for [time series SQL functions](/docs/services/sql-query?topic=sql-query-ts_intro) to process time series data, for example, 
+to identify trends and to predict future values based on these trends.
 
 ## May 2019
 
