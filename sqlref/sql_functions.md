@@ -2,11 +2,16 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-02-18"
+lastupdated: "2019-04-04"
+
+keywords: SQL, functions
+
+subcollection: sql-query
 
 ---
 
 # SQL functions
+{: #sqlfunctions}
 
 You can use any of the following functions in your query.
 
