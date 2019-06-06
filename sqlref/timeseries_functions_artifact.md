@@ -83,7 +83,7 @@ timeticks.
 ## TRS creation functions
 {: #trs_creation}
 
-These functions create or reassign a [time reference system (TRS)(/docs/services/sql-query?topic=sql-query-TRS).
+These functions create or reassign a [time reference system (TRS)](/docs/services/sql-query?topic=sql-query-TRS).
 
 **TS_TRS(String, TimestampType) or TS_TRS(String, String)**  
 Output: TRS  
