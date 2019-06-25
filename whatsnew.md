@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-06-04"
+lastupdated: "2019-06-25"
 
 keywords: what's new, support, release, beta
 
@@ -14,7 +14,8 @@ subcollection: sql-query
 
 ## June 2019
 
-Support for [time series SQL functions](/docs/services/sql-query?topic=sql-query-ts_intro) to process time series data, for example, 
+- {{site.data.keyword.sqlquery_full}} is now available in Frankfurt, Germany. When provisioning new instances, you can now select whether it is being provisioned in Dallas or in Frankfurt.
+- Support for [time series SQL functions](/docs/services/sql-query?topic=sql-query-ts_intro) to process time series data, for example, 
 to identify trends and to predict future values based on these trends.
 
 ## May 2019
@@ -28,7 +29,7 @@ to identify trends and to predict future values based on these trends.
 
 - Support for encrypting SQL queries with {{site.data.keyword.keymanagementservicefull}}. {{site.data.keyword.keymanagementservicelong_notm}} is a centralized key management system (KMS) for generating, managing, and destroying encryption keys used by IBM Cloud™ services. 
 If you are processing particularly sensitive data in your queries, you can now use customer-managed keys to encrypt SQL query texts and error messages that are stored in the job information.
-- {{site.data.keyword.sqlquery_full}} with {{site.data.keyword.keymanagementservicelong_notm}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements.
+- {{site.data.keyword.sqlquery_notm}} with {{site.data.keyword.keymanagementservicelong_notm}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements.
 
 ## February 2019
 
@@ -55,7 +56,7 @@ Support for SELECT INTO to control the format the SQL result is written in.
 
 ## August 2018 
 
-- {{site.data.keyword.sqlquery_full}} is now generally available. Its open beta phase has ended.
+- {{site.data.keyword.sqlquery_notm}} is now generally available. Its open beta phase has ended.
 - Support for [new built-in SQL functions](https://issues.apache.org/jira/browse/SPARK-20746) released with Apache Spark 2.3.
 - Set of SQL optimizer and ANSI SQL and Hive SQL compliance enhancements introduced with Apache Spark 2.3.
 
