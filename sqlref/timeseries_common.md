@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-06-06"
+lastupdated: "2019-06-26"
 
 keywords: SQL query, time series, SQL, cleaning, resampling, examples, common functions, converting, timeticks, segmentation, TRS
 
@@ -24,7 +24,7 @@ These examples of SQL queries illustrate commonly used time series functions.
 ## Converting table data to a time series
 {: #converting}
 
-Consider the following table, which is stored in a Parquet object with the name cos://us/bucket5/out47.parquet.
+Consider the following table, which is stored in a Parquet object with the name cos://us-geo/sql/timeseries.parquet.
 
 | timetick | value |
 |-----------|-------|
@@ -39,10 +39,10 @@ Consider the following table, which is stored in a Parquet object with the name 
 The following SQL statement creates a new table with the name ts_table:
 
 ```
-SELECT TS_TIME_SERIES(timetick, value) as ts FROM cos://us-geo/bucket5/in47.parquet STORED AS PARQUET INTO cos://us-geo/bucket5/out47.parquet STORED AS PARQUET
+SELECT TS_TIME_SERIES(timetick, value) as ts FROM cos://us-geo/bucket5/in47.parquet STORED AS PARQUET INTO cos://us-geo/sql/timeseries.parquet STORED AS PARQUET
 ```
 
-The output object (out47.parquet) contains a table with a single column named ts that contains the output value.
+The output object (timeseries.parquet) contains a table with a single column named ts that contains the output value.
 
 
 The data type of column ts in the following table is DoubleTimeSeries.
