@@ -38,24 +38,11 @@ The general syntax of an SQL query statement is outlined below using the `query`
 
 <h3 id="query">query</h3>
 
-<div style="overflow-x : auto;">
-<map name="queryImgMap">
-	<area alt="section namedQuery" shape="rect" coords="162,30,262,52" href="#namedQuery" />
-	<area alt="section fullselect" shape="rect" coords="322,30,422,52" href="#fullselect" />
-	<area alt="section resultClause" shape="rect" coords="452,30,568,52" href="#resultClause" />
-</map>
-<img style="max-width: 629px;" usemap="#queryImgMap" alt="syntax diagram for a query" src="./diagrams/query-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/query.svg" target="./diagrams/query.svg" alt="syntax diagram for a query" layout="" -->
 
 <h3 id="namedQuery">namedQuery</h3>
 
-<div style="overflow-x : auto;">
-<map name="namedQueryImgMap">
-	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
-	<area alt="section query" shape="rect" coords="294,30,354,52" href="#query" />
-</map>
-<img style="max-width: 453px;" usemap="#namedQueryImgMap" alt="syntax diagram for a named query" src="./diagrams/namedQuery-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/namedQuery.svg" target="./diagrams/namedQuery.svg" alt="syntax diagram for a named query" layout="" -->
 
 The query statement supports *common table expressions*. A common table expression permits defining a result table with a table name
 that can be specified as a table name in any FROM clause of the fullselect that follows.
@@ -93,8 +80,7 @@ WHERE totalpay = (SELECT MAX(totalpay) FROM  dtotal)
 | DEPTNO |
 | ------ |
 | 2 |
-{: caption="Table 1. Query result for example 'find the department with the highest total pay'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'find the department with the highest total pay'"-->
 
 ```sql
 -- list products with a price above the average price
@@ -126,8 +112,7 @@ FROM products WHERE price > (SELECT * FROM avg_product_price)
 | 10        | 200   |  97.5     | 102.5      |
 | 11        | 300   |  97.5     | 202.5      |
 | 12        | 400   |  97.5     | 302.5      |
-{: caption="Table 2. Query result for example 'list products with a price above the average price'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'list products with a price above the average price'"-->
 
 <h3 id="resultClause">resultClause</h3>
 
@@ -143,27 +128,13 @@ The reason is that data cannot be overwritten by a query that is reading that sa
 For example, `SELECT * FROM cos://us-geo/mybucket/myprefix/mysubprefix INTO cos://us-geo/mybucket/myprefix JOBPREFIX NONE`
 will return an error when trying to submit it.
 
-<div style="overflow-x : auto;">
-<map name="resultClauseImgMap">
-	<area alt="section COSURI" shape="rect" coords="122,30,190,52" href="#COSURI" />
-	<area alt="section partitionedClause" shape="rect" coords="361,134,517,156" href="#partitionedClause" />
-	<area alt="section sortClause" shape="rect" coords="557,134,657,156" href="#sortClause" />
-</map>
-<img style="max-width: 707px;" usemap="#resultClauseImgMap" alt="syntax diagram for a result clause" src="./diagrams/resultClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/resultClause.svg" target="./diagrams/resultClause.svg" alt="syntax diagram for a result clause" layout="@break@" -->
 
 <h3 id="partitionedClause">partitionedClause</h3>
 
 You can use the result partitioned clause to control the layout of the SQL query result set being stored. The default behavior is to store the result into one single partition, that is a single object in Cloud {{site.data.keyword.cos_short}}.
 
-<div style="overflow-x : auto;">
-<map name="partitionedClauseImgMap">
-	<area alt="section identifier" shape="rect" coords="322,30,422,52" href="#identifier" />
-	<area alt="section number" shape="rect" coords="143,134,211,156" href="#number" />
-	<area alt="section number" shape="rect" coords="151,238,219,260" href="#number" />
-</map>
-<img style="max-width: 605px;" usemap="#partitionedClauseImgMap" alt="syntax diagram for a result partitioned clause" src="./diagrams/partitionedClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/partitionedClause.svg" target="./diagrams/partitionedClause.svg" alt="syntax diagram for a result partitioned clause" layout="@break@" -->
 
 <h3 id="sortClause">sortClause</h3>
 
@@ -172,12 +143,7 @@ by the sort order specified in the SORT BY clause. When specified in combination
 which is often referred to as clustering the rows by the specified columns into the fixed number of partitions specified by PARTITIONED INTO.
 When specified without the PARTITIONED clause, it is equivalent to an ORDER BY clause specified at the top level of the SQL SELECT statement.
 
-<div style="overflow-x : auto;">
-<map name="sortClauseImgMap">
-	<area alt="section expression" shape="rect" coords="214,30,314,52" href="#expression" />
-</map>
-<img style="max-width: 554px;" usemap="#sortClauseImgMap" alt="syntax diagram for a result partitioned column clause" src="./diagrams/sortClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/sortClause.svg" target="./diagrams/sortClause.svg" alt="syntax diagram for a result partitioned column clause" layout="@break@" -->
 
 The *query result clause* lets you explicitly specify the storage location and type of a query result.
 The storage location is specified by means of a `COSURI`.
@@ -268,20 +234,7 @@ A *query* is referenced by the following clauses:
 
 A *fullselect* is the core component of a *query*. It is the only mandatory general component for a valid query statement. The other components outside of *fullselect* are optional. Its syntax is defined by the syntax diagram below.
 
-<div style="overflow-x : auto;">
-<map name="fullselectImgMap">
-	<area alt="section simpleselect" shape="rect" coords="150,30,266,52" href="#simpleselect" />
-	<area alt="section fullselect" shape="rect" coords="158,60,258,82" href="#fullselect" />
-	<area alt="section valuesClause" shape="rect" coords="150,90,266,112" href="#valuesClause" />
-	<area alt="section sortItem" shape="rect" coords="227,294,311,316" href="#sortItem" />
-	<area alt="section expression" shape="rect" coords="243,398,343,420" href="#expression" />
-	<area alt="section expression" shape="rect" coords="267,502,367,524" href="#expression" />
-	<area alt="section sortItem" shape="rect" coords="219,606,303,628" href="#sortItem" />
-	<area alt="section namedWindows" shape="rect" coords="61,710,177,732" href="#namedWindows" />
-	<area alt="section expression" shape="rect" coords="317,740,417,762" href="#expression" />
-</map>
-<img style="max-width: 502px;" usemap="#fullselectImgMap" alt="syntax diagram for a fullselect" src="./diagrams/fullselect-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/fullselect.svg" target="./diagrams/fullselect.svg" alt="syntax diagram for a fullselect" layout="@break@" -->
 
 The result set defined by a single fullselect can be combined with the result set of one or more other fullselects using set operators.
 
@@ -345,8 +298,7 @@ The result of the example queries is shown in the table below.
 |1     |
 |3     |
 |2     |
-{: caption="Table 3. Query result for example 'set union eliminating duplicate rows'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'set union eliminating duplicate rows'"-->
 
 ```sql
 -- set union with duplicate rows
@@ -364,8 +316,7 @@ The result of the example query is shown in the table below.
 |1   |
 |2   |
 |3   |
-{: caption="Table 4. Query result for example 'set union with duplicate rows'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'set union with duplicate rows'"-->
 
 ```sql
 -- intersecting set eliminating duplicate rows
@@ -385,8 +336,7 @@ The result of the example queries is shown in the table below.
 |----|
 |3   |
 |2   |
-{: caption="Table 5. Query result for example 'intersecting set eliminating duplicate rows'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'intersecting set eliminating duplicate rows'"-->
 
 ```sql
 -- Difference quantity eliminating duplicate rows
@@ -417,8 +367,7 @@ The result of the example queries is shown in the table below.
 |COL1|
 |----|
 |1   |
-{: caption="Table 6. Query result for example 'difference quantity eliminating duplicate rows'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'difference quantity eliminating duplicate rows'"-->
 
 <h3>More Topics</h3>
 
@@ -444,18 +393,7 @@ A *simpleselect* is a component of a *fullselect*. Its syntax is defined by the 
 
 <h3 id="simpleselect">simpleselect</h3>
 
-<div style="overflow-x : auto;">
-<map name="simpleselectImgMap">
-	<area alt="section resultColumn" shape="rect" coords="322,40,438,62" href="#resultColumn" />
-	<area alt="section relation" shape="rect" coords="163,153,247,175" href="#relation" />
-	<area alt="section lateralView" shape="rect" coords="307,153,415,175" href="#lateralView" />
-	<area alt="section booleanExpression" shape="rect" coords="151,257,307,279" href="#booleanExpression" />
-	<area alt="section groupByClause" shape="rect" coords="61,331,185,353" href="#groupByClause" />
-	<area alt="section booleanExpression" shape="rect" coords="323,331,479,353" href="#booleanExpression" />
-	<area alt="section namedWindows" shape="rect" coords="61,405,177,427" href="#namedWindows" />
-</map>
-<img style="max-width: 594px;" usemap="#simpleselectImgMap" alt="syntax diagram for a simpleselect" src="./diagrams/simpleselect-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/simpleselect.svg" target="./diagrams/simpleselect.svg" alt="syntax diagram for a simpleselect" layout="@break@"-->
 
 The simpleselect lets you specify the following characteristics of a result set:
 * The list of *result columns* from *relations* or *lateral views* that are part of the final result set. The result column list can be further redefined using the following modifier keywords:
@@ -468,13 +406,7 @@ The simpleselect lets you specify the following characteristics of a result set:
 
 <h3 id="resultColumn">resultColumn</h3>
 
-<div style="overflow-x : auto;">
-<map name="resultColumnImgMap">
-	<area alt="section expression" shape="rect" coords="50,40,150,62" href="#expression" />
-	<area alt="section identifier" shape="rect" coords="266,40,366,62" href="#identifier" />
-</map>
-<img style="max-width: 437px;" usemap="#resultColumnImgMap" alt="syntax diagram for a result column" src="./diagrams/resultColumn-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/resultColumn.svg" target="./diagrams/resultColumn.svg" alt="syntax diagram for a result column" layout="" -->
 
 A *result column* can be any expression that can optionally be associated with an identifier, that is, a *new name*. By providing custom identifiers you can control the column names used in the result data set written to Cloud {{site.data.keyword.cos_short}}.
 Examples for such expressions are the following:
@@ -486,23 +418,11 @@ Examples for such expressions are the following:
 
 <h4 id="groupByClause">groupByClause</h4>
 
-<div style="overflow-x : auto;">
-<map name="groupByClauseImgMap">
-	<area alt="section expression" shape="rect" coords="206,30,306,52" href="#expression" />
-	<area alt="section groupingSet" shape="rect" coords="335,194,443,216" href="#groupingSet" />
-</map>
-<img style="max-width: 591px;" usemap="#groupByClauseImgMap" alt="syntax diagram for a group by clause" src="./diagrams/groupByClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/groupByClause.svg" target="./diagrams/groupByClause.svg" alt="syntax diagram for a group by clause" layout="@break@" -->
 
 <h4 id="groupingSet">groupingSet</h4>
 
-<div style="overflow-x : auto;">
-<map name="groupingSetImgMap">
-	<area alt="section expression" shape="rect" coords="158,30,258,52" href="#expression" />
-	<area alt="section expression" shape="rect" coords="158,90,258,112" href="#expression" />
-</map>
-<img style="max-width: 417px;" usemap="#groupingSetImgMap" alt="syntax diagram for a grouping set" src="./diagrams/groupingSet-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/groupingSet.svg" target="./diagrams/groupingSet.svg" alt="syntax diagram for a grouping set" layout="" -->
 
 More complex *group by* clauses use so called *grouping sets* to provide more insights into the set of rows grouped by a grouping expression.
 
@@ -538,8 +458,7 @@ The result of the example query is shown in the table below.
 |2017|2      |500   |
 |2018|1      |400   |
 |2018|2      |400   |
-{: caption="Table 7. Query result for example 'grouping sales data per year and quarter'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'grouping sales data per year and quarter'"-->
 
 A ROLLUP grouping is an extension to the *group by clause* that produces a result set containing subtotal rows in addition to the *regular* grouped rows.
 A `GROUP BY COL1, COL2 WITH ROLLUP` generates the following grouping sets: **(COL1, COL2)**, **(COL1)**, **()**. Note that the **N** grouping expressions of the ROLLUP translate to **N+1** grouping sets.
@@ -579,8 +498,7 @@ The result of the example query is shown in the following table.
 |2018|null   |800   |
 |2018|1      |400   |
 |2018|2      |400   |
-{: caption="Table 8. Query result for example 'rollup sales data on quarter by year basis, a yearly basis and a grand total'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'rollup sales data on quarter by year basis, a yearly basis and a grand total'"-->
 
 A CUBE grouping is an extension to the *group by* clause that produces a result set that contains all the rows of a ROLLUP aggregation and,
 in addition, grouping sets that do not represent a subtotal or grand total. A `GROUPY BY COL1, COL2 WITH CUBE` generates the following grouping sets:
@@ -624,8 +542,7 @@ The result of the example query is shown in the table below.
 |2018|null   |800   |
 |2018|1      |400   |
 |2018|2      |400   |
-{: caption="Table 9. Query result for example 'rollup sales data on a quarter by year basis, a yearly basis, a quarterly year independent basis and a grand total'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'rollup sales data on a quarter by year basis, a yearly basis, a quarterly year independent basis and a grand total'"-->
 
 A GROUPING SETS grouping is an extension to the *group by clause* that lets you explicitly specify the grouping sets of interest. In other words, the ROLLUP and CUBE groupings are shortcuts for common grouping set use cases.
 
@@ -662,8 +579,7 @@ The result of the example query is shown in the table below.
 |2018|null   |800   |
 |2018|1      |400   |
 |2018|2      |400   |
-{: caption="Table 10. Query result for example 'rollup sales data on a quarter by year basis and a yearly basis only'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'rollup sales data on a quarter by year basis and a yearly basis only'"-->
 
 <h3>More Topics</h3>
 
@@ -695,36 +611,15 @@ Multiple relations can be composed using join operators. The syntax for joining 
 
 <h3 id="relation">relation</h3>
 
-<div style="overflow-x : auto;">
-<map name="relationImgMap">
-	<area alt="section relationPrimary" shape="rect" coords="50,30,190,52" href="#relationPrimary" />
-	<area alt="section joinClause" shape="rect" coords="278,30,378,52" href="#joinClause" />
-	<area alt="section naturalJoinClause" shape="rect" coords="250,60,406,82" href="#naturalJoinClause" />
-</map>
-<img style="max-width: 497px;" usemap="#relationImgMap" alt="syntax diagram for a relation" src="./diagrams/relation-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/relation.svg" target="./diagrams/relation.svg" alt="syntax diagram for a relation" layout="" -->
 
 <h3 id="joinClause">joinClause</h3>
 
-<div style="overflow-x : auto;">
-<map name="joinClauseImgMap">
-	<area alt="section joinType" shape="rect" coords="50,30,134,52" href="#joinType" />
-	<area alt="section relationPrimary" shape="rect" coords="226,30,366,52" href="#relationPrimary" />
-	<area alt="section booleanExpression" shape="rect" coords="199,104,355,126" href="#booleanExpression" />
-	<area alt="section identifier" shape="rect" coords="239,134,339,156" href="#identifier" />
-</map>
-<img style="max-width: 487px;" usemap="#joinClauseImgMap" alt="syntax diagram for a join clause" src="./diagrams/joinClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/joinClause.svg" target="./diagrams/joinClause.svg" alt="syntax diagram for a join clause" layout="@break@" -->
 
 <h3 id="naturalJoinClause">naturalJoinClause</h3>
 
-<div style="overflow-x : auto;">
-<map name="naturalJoinClauseImgMap">
-	<area alt="section joinType" shape="rect" coords="146,20,230,42" href="#joinType" />
-	<area alt="section relationPrimary" shape="rect" coords="322,20,462,42" href="#relationPrimary" />
-</map>
-<img style="max-width: 502px;" usemap="#naturalJoinClauseImgMap" alt="syntax diagram for a natural join clause" src="./diagrams/naturalJoinClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/naturalJoinClause.svg" target="./diagrams/naturalJoinClause.svg" alt="syntax diagram for a natural join clause" layout="@break@" -->
 
 Relations can be joined using several types of joins that are described in detail in section [joinType](#joinType).
 
@@ -734,26 +629,7 @@ Apart from the join type, the following two different flavors of joins exist:
 
 <h3 id="relationPrimary">relationPrimary</h3>
 
-<div style="overflow-x : auto;">
-<map name="relationPrimaryImgMap">
-	<area alt="section externalTableSpec" shape="rect" coords="146,40,302,62" href="#externalTableSpec" />
-	<area alt="section sample" shape="rect" coords="332,40,400,62" href="#sample" />
-	<area alt="section identifier" shape="rect" coords="526,40,626,62" href="#identifier" />
-	<area alt="section identifier" shape="rect" coords="90,90,190,112" href="#identifier" />
-	<area alt="section identifier" shape="rect" coords="278,90,378,112" href="#identifier" />
-	<area alt="section sample" shape="rect" coords="408,90,476,112" href="#sample" />
-	<area alt="section identifier" shape="rect" coords="602,90,702,112" href="#identifier" />
-	<area alt="section fullselect" shape="rect" coords="174,140,274,162" href="#fullselect" />
-	<area alt="section sample" shape="rect" coords="352,140,420,162" href="#sample" />
-	<area alt="section identifier" shape="rect" coords="546,140,646,162" href="#identifier" />
-	<area alt="section relation" shape="rect" coords="182,190,266,212" href="#relation" />
-	<area alt="section sample" shape="rect" coords="344,190,412,212" href="#sample" />
-	<area alt="section identifier" shape="rect" coords="538,190,638,212" href="#identifier" />
-	<area alt="section valuesClause" shape="rect" coords="338,220,454,242" href="#valuesClause" />
-	<area alt="section tableValuedFunction" shape="rect" coords="310,250,482,272" href="#tableValuedFunction" />
-</map>
-<img style="max-width: 793px;" usemap="#relationPrimaryImgMap" alt="syntax diagram for a relation primary" src="./diagrams/relationPrimary-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/relationPrimary.svg" target="./diagrams/relationPrimary.svg" alt="syntax diagram for a relation primary" layout="" -->
 
 <h3 id="externalTableSpec">externalTableSpec</h3>
 
@@ -776,13 +652,7 @@ should be scanned for their schema and final schema should be merged across all 
 found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not 
 have homogeneous schema.
 
-<div style="overflow-x : auto;">
-<map name="externalTableSpecImgMap">
-	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
-	<area alt="section STRING" shape="rect" coords="694,70,762,92" href="#STRING" />
-</map>
-<img style="max-width: 1017px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/externalTableSpec.svg" target="./diagrams/externalTableSpec.svg" alt="syntax diagram for an external table specification" layout="" -->
 
 <h3 id="tableTransformer">tableTransformer</h3>
 
@@ -807,24 +677,13 @@ For example, you can use `SELECT * CLEANCOLS(cos://us-geo/sql/iotmessages STORED
 
 You can optionally also combine `CLEANCOLS` with `FLATTEN`.
 
-<div style="overflow-x : auto;">
-<map name="tableTransformerImgMap">
-	<area alt="section externalTableSpec" shape="rect" coords="230,20,386,42" href="#externalTableSpec" />
-</map>
-<img style="max-width: 485px;" usemap="#tableTransformerImgMap" alt="syntax diagram for an table transformer" src="./diagrams/tableTransformer-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/tableTransformer.svg" target="./diagrams/tableTransformer.svg" alt="syntax diagram for an table transformer" layout="" -->
 
 <h3 id="tableValuedFunction">tableValuedFunction</h3>
 
 A table-valued function returns a relation, that is, a set of rows. An example of a table-valued function is `range()`. Refer to the section about [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for more details.
 
-<div style="overflow-x : auto;">
-<map name="tableValuedFunctionImgMap">
-	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
-	<area alt="section expression" shape="rect" coords="258,30,358,52" href="#expression" />
-</map>
-<img style="max-width: 497px;" usemap="#tableValuedFunctionImgMap" alt="syntax diagram for a table valued function" src="./diagrams/tableValuedFunction-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/tableValuedFunction.svg" target="./diagrams/tableValuedFunction.svg" alt="syntax diagram for a table valued function" layout="" -->
 
 <h3>More Topics</h3>
 
@@ -851,13 +710,7 @@ A *values clause* is a component of a *fullselect* or represents a *primary rela
 
 <h3 id="valuesClause">valuesClause</h3>
 
-<div style="overflow-x : auto;">
-<map name="valuesClauseImgMap">
-	<area alt="section expression" shape="rect" coords="158,40,258,62" href="#expression" />
-	<area alt="section identifier" shape="rect" coords="394,40,494,62" href="#identifier" />
-</map>
-<img style="max-width: 565px;" usemap="#valuesClauseImgMap" alt="syntax diagram for a values clause" src="./diagrams/valuesClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/valuesClause.svg" target="./diagrams/valuesClause.svg" alt="syntax diagram for a values clause" layout="" -->
 
 A values clause lets you define a result set by specifying actual values for each column of a row by means of expressions.
 
@@ -885,8 +738,7 @@ The result of the example query is shown in the table below.
 |1   |
 |2   |
 |3   |
-{: caption="Table 11. Query result for example 'single column result set with 3 rows'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'single column result set with 3 rows'"-->
 
 ```sql
 -- single column result set with 3 rows specifying parantheses for row expressions
@@ -902,8 +754,7 @@ The result of the example query is shown in the table below.
 |1   |
 |2   |
 |3   |
-{: caption="Table 12. Query result for example 'single column result set with 3 rows specifying parantheses for row expressions'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'single column result set with 3 rows specifying parantheses for row expressions'"-->
 
 ```sql
 --- joining two multi column result sets using their identifier
@@ -935,8 +786,7 @@ The result of the example query is shown in the table below.
 |2  |Kirk  |2000    |
 |3  |McCoy |3000    |
 |4  |Scotty|4000    |
-{: caption="Table 13. Query result for example 'joining two multi column result sets using their identifier'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'joining two multi column result sets using their identifier'"-->
 
 ## Values Statement
 {: #chapterValuesStatement}
@@ -960,8 +810,7 @@ The result of the example query is shown in the table below.
 |1   |
 |2   |
 |3   |
-{: caption="Table 14. Query result for example 'values statement with single column result set with 3 rows'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'values statement with single column result set with 3 rows'"-->
 
 ```sql
 --- values statement with multi column result set
@@ -981,8 +830,7 @@ The result of the example query is shown in the table below.
 |2   |Kirk  |
 |3   |McCoy |
 |4   |Scotty|
-{: caption="Table 15. Query result for example 'values statement with multi column result set'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'values statement with multi column result set'"-->
 
 <h3>More Topics</h3>
 For further details about the clauses used in a *values clause*, refer to the following topics:
@@ -1006,15 +854,7 @@ The explode()-style functions take an array or map as input and return a row for
 
 The syntax of a lateral view clause is described by the syntax diagram below.
 
-<div style="overflow-x : auto;">
-<map name="lateralViewImgMap">
-	<area alt="section qualifiedName" shape="rect" coords="318,40,442,62" href="#qualifiedName" />
-	<area alt="section expression" shape="rect" coords="139,123,239,145" href="#expression" />
-	<area alt="section identifier" shape="rect" coords="51,236,151,258" href="#identifier" />
-	<area alt="section identifier" shape="rect" coords="287,236,387,258" href="#identifier" />
-</map>
-<img style="max-width: 537px;" usemap="#lateralViewImgMap" alt="syntax diagram for a lateral view" src="./diagrams/lateralView-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/lateralView.svg" target="./diagrams/lateralView.svg" alt="syntax diagram for a lateral view" layout="@break@" -->
 
 The semantics of the entities in order of appearance in the syntax diagrams is as follows:
 * `OUTER`: Specifying this keyword ensures that the lateral view contains at least one row with *null* values in case the table-generating function does not return any rows.
@@ -1051,8 +891,7 @@ The result of the example query is shown in the table below.
 |2        |4       |
 |2        |5       |
 |2        |6       |
-{: caption="Table 16. Query result for example 'deal with a 1-n relation'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'deal with a 1-n relation'"-->
 
 ```sql
 -- deal with a n-m relation
@@ -1084,8 +923,7 @@ The result of the example query is shown in the table below.
 |40       |4       |
 |40       |5       |
 |40       |6       |
-{: caption="Table 17. Query result for example 'deal with a n-m relation'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'deal with a n-m relation'"-->
 
 <h3>More Topics</h3>
 
@@ -1114,11 +952,7 @@ The table is derived by applying one of the join operators to its operands.
 
 <h3 id="joinType">joinType</h3>
 
-<div style="overflow-x : auto;">
-<map name="joinTypeImgMap">
-</map>
-<img style="max-width: 301px;" usemap="#joinTypeImgMap" alt="syntax diagram for join types" src="./diagrams/joinType-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/joinType.svg" target="./diagrams/joinType.svg" alt="syntax diagram for join types"  layout="" -->
 
 <h4>Inner Join</h4>
 
@@ -1147,8 +981,7 @@ The result of the example query is shown in the table below.
 |0     |10    |0     |10    |
 |2     |12    |2     |12    |
 |4     |14    |4     |14    |
-{: caption="Table 18. Query result for example 'inner join query'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'inner join query'"-->
 
 <h4>Outer Join</h4>
 
@@ -1181,8 +1014,7 @@ The result of the example query is shown in the table below.
 |3     |13    |null  |null  |
 |4     |14    |4     |14    |
 |5     |14    |null  |null  |
-{: caption="Table 19. Query result for example 'left outer join query'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'left outer join query'"-->
 
 A `RIGHT OUTER` or `RIGHT` join includes the rows from the right table that were missing from the inner join.
 
@@ -1210,8 +1042,7 @@ The result of the example query is shown in the table below.
 |2     |12    |2     |12    |
 |4     |14    |4     |14    |
 |null  |null  |6     |16    |
-{: caption="Table 20. Query result for example 'right outer join query'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'right outer join query'"-->
 
 A `FULL OUTER` or `FULL` join includes the rows from both tables that were missing from the inner join.
 
@@ -1242,8 +1073,7 @@ The result of the example query is shown in the table below.
 |4     |14    |4     |14    |
 |2     |12    |2     |12    |
 |0     |10    |0     |10    |
-{: caption="Table 21. Query result for example 'full outer join query'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'full outer join query'"-->
 
 <h4>Cross Join</h4>
 
@@ -1272,8 +1102,7 @@ The result of the example query is shown in the table below.
 |0     |10    |0     |10    |
 |2     |12    |2     |12    |
 |4     |14    |4     |14    |
-{: caption="Table 22. Query result for example 'cross join specifying a join condition'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'cross join specifying a join condition'"-->
 
 ```sql
 -- cross join specifying no join condition
@@ -1317,8 +1146,7 @@ The result of the example query is shown in the table below.
 |5     |14    |2     |12    |
 |5     |14    |4     |14    |
 |5     |14    |6     |16    |
-{: caption="Table 23. Query result for example 'cross join specifying no join condition'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'cross join specifying no join condition'"-->
 
 <h4>Anti Join</h4>
 
@@ -1346,8 +1174,7 @@ The result of the example query is shown in the table below.
 |1     |11    |
 |3     |13    |
 |5     |14    |
-{: caption="Table 24. Query result for example 'left anti join query'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'left anti join query'"-->
 
 <h4>Left Semi Join</h4>
 
@@ -1373,8 +1200,7 @@ The result of the example query is shown in the table below.
 |0     |10    |
 |2     |12    |
 |4     |14    |
-{: caption="Table 25. Query result for example 'left semi join query'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'left semi join query'"-->
 
 <h3>Related References</h3>
 
@@ -1387,12 +1213,7 @@ The *join types* are specified in a [relation](#relation).
 
 <h3 id="sortItem">sortItem</h3>
 
-<div style="overflow-x : auto;">
-<map name="sortItemImgMap">
-	<area alt="section expression" shape="rect" coords="50,30,150,52" href="#expression" />
-</map>
-<img style="max-width: 553px;" usemap="#sortItemImgMap" alt="syntax diagram for a sort item" src="./diagrams/sortItem-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/sortItem.svg" target="./diagrams/sortItem.svg" alt="syntax diagram for a sort item"  layout="" -->
 
 The semantics of the *sort item* components are as follows:
 * `expression`: The expression represents a *sort key*. The value of the sort key is used to order the rows of the result.
@@ -1420,30 +1241,7 @@ The syntax for SQL function invocation is described by the syntax diagram below.
 
 <h3 id="functionOrAggregate">functionOrAggregate</h3>
 
-<div style="overflow-x : auto;">
-<map name="functionOrAggregateImgMap">
-	<area alt="section qualifiedName" shape="rect" coords="70,40,194,62" href="#qualifiedName" />
-	<area alt="section expression" shape="rect" coords="466,40,566,62" href="#expression" />
-	<area alt="section windowSpec" shape="rect" coords="766,40,866,62" href="#windowSpec" />
-	<area alt="section expression" shape="rect" coords="430,100,530,122" href="#expression" />
-	<area alt="section expression" shape="rect" coords="622,100,722,122" href="#expression" />
-	<area alt="section expression" shape="rect" coords="360,200,460,222" href="#expression" />
-	<area alt="section expression" shape="rect" coords="548,200,648,222" href="#expression" />
-	<area alt="section valueExpression" shape="rect" coords="352,230,492,252" href="#valueExpression" />
-	<area alt="section valueExpression" shape="rect" coords="568,230,708,252" href="#valueExpression" />
-	<area alt="section expression" shape="rect" coords="292,270,392,292" href="#expression" />
-	<area alt="section expression" shape="rect" coords="460,270,560,292" href="#expression" />
-	<area alt="section expression" shape="rect" coords="648,270,748,292" href="#expression" />
-	<area alt="section expression" shape="rect" coords="364,310,464,332" href="#expression" />
-	<area alt="section expression" shape="rect" coords="336,350,436,372" href="#expression" />
-	<area alt="section booleanExpression" shape="rect" coords="524,350,680,372" href="#booleanExpression" />
-	<area alt="section expression" shape="rect" coords="360,390,460,412" href="#expression" />
-	<area alt="section expression" shape="rect" coords="332,430,432,452" href="#expression" />
-	<area alt="section booleanExpression" shape="rect" coords="520,430,676,452" href="#booleanExpression" />
-	<area alt="section resultColumn" shape="rect" coords="464,470,580,492" href="#resultColumn" />
-</map>
-<img style="max-width: 957px;" usemap="#functionOrAggregateImgMap" alt="syntax diagram for a function or aggregate" src="./diagrams/functionOrAggregate-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/functionOrAggregate.svg" target="./diagrams/functionOrAggregate.svg" alt="syntax diagram for a function or aggregate" layout="" -->
 
 Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, and `STRUCT()` support a different invocation style.
 
@@ -1490,62 +1288,27 @@ The syntax of a window specification is defined by the syntax diagrams below.
 
 <h3 id="namedWindows">namedWindows</h3>
 
-<div style="overflow-x : auto;">
-<map name="namedWindowsImgMap">
-	<area alt="section namedWindow" shape="rect" coords="158,20,266,42" href="#namedWindow" />
-</map>
-<img style="max-width: 337px;" usemap="#namedWindowsImgMap" alt="syntax diagram for named windows" src="./diagrams/namedWindows-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/namedWindows.svg" target="./diagrams/namedWindows.svg" alt="syntax diagram for named windows" layout="" -->
 
 <h3 id="namedWindow">namedWindow</h3>
 
-<div style="overflow-x : auto;">
-<map name="namedWindowImgMap">
-	<area alt="section identifier" shape="rect" coords="50,20,150,42" href="#identifier" />
-	<area alt="section windowSpec" shape="rect" coords="226,20,326,42" href="#windowSpec" />
-</map>
-<img style="max-width: 377px;" usemap="#namedWindowImgMap" alt="syntax diagram for a named window" src="./diagrams/namedWindow-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/namedWindow.svg" target="./diagrams/namedWindow.svg" alt="syntax diagram for a named window" layout="" -->
 
 <h3 id="windowSpec">windowSpec</h3>
 
-<div style="overflow-x : auto;">
-<map name="windowSpecImgMap">
-	<area alt="section identifier" shape="rect" coords="332,20,432,42" href="#identifier" />
-	<area alt="section windowClusterBy" shape="rect" coords="238,60,378,82" href="#windowClusterBy" />
-	<area alt="section windowPartitionBy" shape="rect" coords="148,100,304,122" href="#windowPartitionBy" />
-	<area alt="section windowOrderBy" shape="rect" coords="344,100,468,122" href="#windowOrderBy" />
-	<area alt="section windowFrame" shape="rect" coords="528,60,636,82" href="#windowFrame" />
-</map>
-<img style="max-width: 765px;" usemap="#windowSpecImgMap" alt="syntax diagram for a window specification" src="./diagrams/windowSpec-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/windowSpec.svg" target="./diagrams/windowSpec.svg" alt="syntax diagram for a window specification" layout="" -->
 
 <h3 id="windowClusterBy">windowClusterBy</h3>
 
-<div style="overflow-x : auto;">
-<map name="windowClusterByImgMap">
-	<area alt="section expression" shape="rect" coords="222,20,322,42" href="#expression" />
-</map>
-<img style="max-width: 393px;" usemap="#windowClusterByImgMap" alt="syntax diagram for a window cluster by clause" src="./diagrams/windowClusterBy-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/windowClusterBy.svg" target="./diagrams/windowClusterBy.svg" alt="syntax diagram for a window cluster by clause" layout="" -->
 
 <h3 id="windowPartitionBy">windowPartitionBy</h3>
 
-<div style="overflow-x : auto;">
-<map name="windowPartitionByImgMap">
-	<area alt="section expression" shape="rect" coords="266,20,366,42" href="#expression" />
-</map>
-<img style="max-width: 437px;" usemap="#windowPartitionByImgMap" alt="syntax diagram for a window partition by clause" src="./diagrams/windowPartitionBy-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/windowPartitionBy.svg" target="./diagrams/windowPartitionBy.svg" alt="syntax diagram for a window partition by clause" layout="" -->
 
 <h3 id="windowOrderBy">windowOrderBy</h3>
 
-<div style="overflow-x : auto;">
-<map name="windowOrderByImgMap">
-	<area alt="section sortItem" shape="rect" coords="226,20,310,42" href="#sortItem" />
-</map>
-<img style="max-width: 381px;" usemap="#windowOrderByImgMap" alt="syntax diagram for a window order by clause" src="./diagrams/windowOrderBy-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/windowOrderBy.svg" target="./diagrams/windowOrderBy.svg" alt="syntax diagram for a window order by clause" layout="" -->
 
 The window specification consists of the following clauses:
 * The `PARTITION BY` clause defines which rows belong to the same *window partition*. `DISTRIBUTE BY` can be used as a synonym for `PARTITION BY`.
@@ -1565,26 +1328,11 @@ The window specification consists of the following clauses:
 
 <h3 id="windowFrame">windowFrame</h3>
 
-<div style="overflow-x : auto;">
-<map name="windowFrameImgMap">
-	<area alt="section frameBound" shape="rect" coords="290,20,390,42" href="#frameBound" />
-	<area alt="section frameBound" shape="rect" coords="286,50,386,72" href="#frameBound" />
-	<area alt="section frameBound" shape="rect" coords="246,80,346,102" href="#frameBound" />
-	<area alt="section frameBound" shape="rect" coords="430,80,530,102" href="#frameBound" />
-	<area alt="section frameBound" shape="rect" coords="242,110,342,132" href="#frameBound" />
-	<area alt="section frameBound" shape="rect" coords="426,110,526,132" href="#frameBound" />
-</map>
-<img style="max-width: 601px;" usemap="#windowFrameImgMap" alt="syntax diagram for a window frame" src="./diagrams/windowFrame-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/windowFrame.svg" target="./diagrams/windowFrame.svg" alt="syntax diagram for a window frame" layout="" -->
 
 <h3 id="frameBound">frameBound</h3>
 
-<div style="overflow-x : auto;">
-<map name="frameBoundImgMap">
-	<area alt="section expression" shape="rect" coords="70,110,170,132" href="#expression" />
-</map>
-<img style="max-width: 373px;" usemap="#frameBoundImgMap" alt="syntax diagram for a frame boundary" src="./diagrams/frameBound-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/frameBound.svg" target="./diagrams/frameBound.svg" alt="syntax diagram for a frame boundary" layout="" -->
 
 <h3>Examples</h3>
 
@@ -1637,8 +1385,7 @@ The result of the example query is shown in the table below.
 |5     |3      |300  |2   |
 |9     |2      |1000 |1   |
 |4     |2      |300  |2   |
-{: caption="Table 26. Query result for example 'derive posts ranking using a named window specification'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'derive posts ranking using a named window specification'"-->
 
 ```sql
 -- derive posts ranking using an inline window specification
@@ -1676,8 +1423,7 @@ The result of the example query is shown in the table below.
 |5     |3      |300  |2   |
 |9     |2      |1000 |1   |
 |4     |2      |300  |2   |
-{: caption="Table 27. Query result for example 'derive posts ranking using an inline window specification'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'derive posts ranking using an inline window specification'"-->
 
 <h4>Analytic Function Example</h4>
 
@@ -1725,8 +1471,7 @@ The result of the example query is shown in the table below.
 |-200      |0.5555555555555556|
 |1000      |0.8888888888888888|
 |2000      |1.0               |
-{: caption="Table 28. Query result for example 'cumulative distribution of transaction amounts'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'cumulative distribution of transaction amounts'"-->
 
 <h4>Aggregation Function Example</h4>
 
@@ -1776,8 +1521,7 @@ The result of the example query is shown in the following table.
 |6     |4711   |-300      |1000   |
 |7     |4711   |100       |1100   |
 |9     |4711   |-400      |700    |
-{: caption="Table 29. Query result for example 'total balance of each account at the time of each transaction'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'total balance of each account at the time of each transaction'"-->
 
 <h3>More Topics</h3>
 For further details about the clauses used by a *window functions*, refer to the following topics:
@@ -1802,12 +1546,7 @@ In the context of an SQL query statement, an *expression* is always a *Boolean e
 
 <h4 id="expression">expression</h4>
 
-<div style="overflow-x : auto;">
-<map name="expressionImgMap">
-	<area alt="section booleanExpression" shape="rect" coords="50,20,206,42" href="#booleanExpression" />
-</map>
-<img style="max-width: 257px;" usemap="#expressionImgMap" alt="syntax diagram for an expression" src="./diagrams/expression-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/expression.svg" target="./diagrams/expression.svg" alt="syntax diagram for an expression" layout="" -->
 
 <h4>More Topics</h4>
 
@@ -1841,19 +1580,7 @@ The syntax of a *Boolean expression* is defined by the following syntax diagrams
 
 <h4 id="booleanExpression">booleanExpression</h4>
 
-<div style="overflow-x : auto;">
-<map name="booleanExpressionImgMap">
-	<area alt="section booleanExpression" shape="rect" coords="222,20,378,42" href="#booleanExpression" />
-	<area alt="section valueExpression" shape="rect" coords="132,60,272,82" href="#valueExpression" />
-	<area alt="section predicate" shape="rect" coords="302,60,394,82" href="#predicate" />
-	<area alt="section booleanExpression" shape="rect" coords="70,90,226,112" href="#booleanExpression" />
-	<area alt="section booleanExpression" shape="rect" coords="310,90,466,112" href="#booleanExpression" />
-	<area alt="section booleanExpression" shape="rect" coords="74,120,230,142" href="#booleanExpression" />
-	<area alt="section booleanExpression" shape="rect" coords="306,120,462,142" href="#booleanExpression" />
-	<area alt="section query" shape="rect" coords="282,150,342,172" href="#query" />
-</map>
-<img style="max-width: 537px;" usemap="#booleanExpressionImgMap" alt="syntax diagram for a Boolean expression" src="./diagrams/booleanExpression-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/booleanExpression.svg" target="./diagrams/booleanExpression.svg" alt="syntax diagram for a Boolean expression" layout="" -->
 
 A Boolean expression is one of the following:
 * A negation of a boolean expression using Boolean operator `NOT`.
@@ -1882,20 +1609,7 @@ A *Boolean expression* is referenced by the following clauses:
 
 <h4 id="valueExpression">valueExpression</h4>
 
-<div style="overflow-x : auto;">
-<map name="valueExpressionImgMap">
-	<area alt="section primaryExpression" shape="rect" coords="234,20,390,42" href="#primaryExpression" />
-	<area alt="section unaryOperator" shape="rect" coords="170,50,294,72" href="#unaryOperator" />
-	<area alt="section valueExpression" shape="rect" coords="314,50,454,72" href="#valueExpression" />
-	<area alt="section valueExpression" shape="rect" coords="70,80,210,102" href="#valueExpression" />
-	<area alt="section arithmeticOperator" shape="rect" coords="230,80,394,102" href="#arithmeticOperator" />
-	<area alt="section valueExpression" shape="rect" coords="414,80,554,102" href="#valueExpression" />
-	<area alt="section valueExpression" shape="rect" coords="70,110,210,132" href="#valueExpression" />
-	<area alt="section comparisonOperator" shape="rect" coords="230,110,394,132" href="#comparisonOperator" />
-	<area alt="section valueExpression" shape="rect" coords="414,110,554,132" href="#valueExpression" />
-</map>
-<img style="max-width: 625px;" usemap="#valueExpressionImgMap" alt="syntax diagram for a value expression" src="./diagrams/valueExpression-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/valueExpression.svg" target="./diagrams/valueExpression.svg" alt="syntax diagram for a value expression" layout="" -->
 
 A *value expression* is one of the following:
 * A *primary expression*.
@@ -1922,58 +1636,21 @@ A *value expression* is referenced by the following clauses:
 
 <h4 id="primaryExpression">primaryExpression</h4>
 
-<div style="overflow-x : auto;">
-<map name="primaryExpressionImgMap">
-	<area alt="section caseExpression" shape="rect" coords="210,20,342,42" href="#caseExpression" />
-	<area alt="section castExpression" shape="rect" coords="210,50,342,72" href="#castExpression" />
-	<area alt="section constant" shape="rect" coords="234,80,318,102" href="#constant" />
-	<area alt="section columnReference" shape="rect" coords="206,110,346,132" href="#columnReference" />
-	<area alt="section expression" shape="rect" coords="122,140,222,162" href="#expression" />
-	<area alt="section expression" shape="rect" coords="310,140,410,162" href="#expression" />
-	<area alt="section query" shape="rect" coords="246,179,306,201" href="#query" />
-	<area alt="section functionOrAggregate" shape="rect" coords="190,209,362,231" href="#functionOrAggregate" />
-	<area alt="section primaryExpression" shape="rect" coords="70,239,226,261" href="#primaryExpression" />
-	<area alt="section valueExpression" shape="rect" coords="294,239,434,261" href="#valueExpression" />
-	<area alt="section primaryExpression" shape="rect" coords="114,269,270,291" href="#primaryExpression" />
-	<area alt="section identifier" shape="rect" coords="338,269,438,291" href="#identifier" />
-	<area alt="section expression" shape="rect" coords="226,299,326,321" href="#expression" />
-</map>
-<img style="max-width: 553px;" usemap="#primaryExpressionImgMap" alt="syntax diagram for a primary expression" src="./diagrams/primaryExpression-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/primaryExpression.svg" target="./diagrams/primaryExpression.svg" alt="syntax diagram for a primary expression" layout=""  -->
 
 <h4 id="constant">constant</h4>
 
-<div style="overflow-x : auto;">
-<map name="constantImgMap">
-	<area alt="section interval" shape="rect" coords="122,50,206,72" href="#interval" />
-	<area alt="section identifier" shape="rect" coords="70,80,170,102" href="#identifier" />
-	<area alt="section STRING" shape="rect" coords="190,80,258,102" href="#STRING" />
-	<area alt="section number" shape="rect" coords="130,110,198,132" href="#number" />
-	<area alt="section STRING" shape="rect" coords="130,200,198,222" href="#STRING" />
-</map>
-<img style="max-width: 329px;" usemap="#constantImgMap" alt="syntax diagram for a constant" src="./diagrams/constant-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/constant.svg" target="./diagrams/constant.svg" alt="syntax diagram for a constant" layout="" -->
 
 <h4 id="interval">interval</h4>
 
 An *interval clause* lets you define time duration constants that can be used in expressions to add or subtract time ranges from a timestamp value.
 
-<div style="overflow-x : auto;">
-<map name="intervalImgMap">
-	<area alt="section number" shape="rect" coords="284,30,352,52" href="#number" />
-	<area alt="section timeUnitSpec" shape="rect" coords="372,30,488,52" href="#timeUnitSpec" />
-	<area alt="section STRING" shape="rect" coords="174,90,242,112" href="#STRING" />
-</map>
-<img style="max-width: 561px;" usemap="#intervalImgMap" alt="syntax diagram for an interval" src="./diagrams/interval-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/interval.svg" target="./diagrams/interval.svg" alt="syntax diagram for an interval"  layout="" -->
 
 <h4 id="timeUnitSpec">timeUnitSpec</h4>
 
-<div style="overflow-x : auto;">
-<map name="timeUnitSpecImgMap">
-</map>
-<img style="max-width: 237px;" usemap="#timeUnitSpecImgMap" alt="syntax diagram for a time unit specification" src="./diagrams/timeUnitSpec-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/timeUnitSpec.svg" target="./diagrams/timeUnitSpec.svg" alt="syntax diagram for a time unit specification"  layout="" -->
 
 The following time units are valid:
 * Singular form: `SECOND`, `MINUTE`, `DAY`, `MONTH`, `YEAR`
@@ -2003,8 +1680,7 @@ The result of the example query is shown in the table below.
 |PAST_TIMESTAMP         |
 |-----------------------|
 |2016-11-13 20:23:43.621|
-{: caption="Table 30. Query result for example 'add and subtract several timeunits from the current timestamp'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'add and subtract several timeunits from the current timestamp'"-->
 
 Since interval clauses can get quite long, especially if days, hours, minutes, and seconds are involved, it is possible to use an abbreviated syntax by specifying a format `STRING` and using the `TO` keyword.
 
@@ -2028,8 +1704,7 @@ The following table shows equivalent interval clauses:
 | ------------------- | ---------------------- |
 | INTERVAL 1 DAY - INTERVAL 2 HOURS - INTERVAL 3 MINUTES - INTERVAL 4 SECONDS | INTERVAL '1 2:3:4.100' DAY TO SECOND |
 | INTERVAL 1 YEAR - INTERVAL 2 MONTH | INTERVAL '1-2' YEAR TO MONTH |
-{: caption="Table 31. Equivalent INTERVAL Clauses" caption-side="top"}
-
+<!--table-caption title="Equivalent INTERVAL Clauses"-->
 
 The following example demonstrates equivalent interval expressions when dealing with `YEAR` and `MONTH` time units.
 
@@ -2050,8 +1725,7 @@ The result of the example query is shown in the table below.
 | LONG_VERSION            | SHORT_VERSION           |
 |-------------------------|-------------------------|
 | 2017-08-16 10:38:07.304 | 2017-08-16 10:38:07.304 |
-{: caption="Table 32. Query result for example 'equivalent interval expressions with YEAR and MONTH time units'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'equivalent interval expressions with YEAR and MONTH time units'"-->
 
 The following example demonstrates equivalent interval expressions, when dealing with `DAY`, `HOUR`, `MINUTE`, and `SECOND` time units.
 
@@ -2072,27 +1746,15 @@ The result of the example query is shown in the table below.
 | LONG_VERSION           | SHORT_VERSION           |
 |------------------------|-------------------------|
 | 2018-10-15 08:33:00.84 | 2018-10-15 08:33:00.84  |
-{: caption="Table 33. Query result for example 'equivalent interval expressions when dealing with DAY, HOUR, MINUTE and SECOND time units'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'equivalent interval expressions when dealing with DAY, HOUR, MINUTE and SECOND time units'"-->
 
 <h4 id="columnReference">columnReference</h4>
 
-<div style="overflow-x : auto;">
-<map name="columnReferenceImgMap">
-	<area alt="section qualifiedName" shape="rect" coords="118,20,242,42" href="#qualifiedName" />
-	<area alt="section qualifiedName" shape="rect" coords="70,80,194,102" href="#qualifiedName" />
-</map>
-<img style="max-width: 361px;" usemap="#columnReferenceImgMap" alt="syntax diagram for a column reference" src="./diagrams/columnReference-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/columnReference.svg" target="./diagrams/columnReference.svg" alt="syntax diagram for a column reference" layout="" -->
 
 <h4 id="qualifiedName">qualifiedName</h4>
 
-<div style="overflow-x : auto;">
-<map name="qualifiedNameImgMap">
-	<area alt="section identifier" shape="rect" coords="70,20,170,42" href="#identifier" />
-</map>
-<img style="max-width: 241px;" usemap="#qualifiedNameImgMap" alt="syntax diagram for a qualified name" src="./diagrams/qualifiedName-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/qualifiedName.svg" target="./diagrams/qualifiedName.svg" alt="syntax diagram for a qualified name" layout="" -->
 
 A *qualified name* is a sequence of identifier separated by `.`.
 For example, a column name can be qualified by the name of the *relation* the column is defined in.
@@ -2124,17 +1786,7 @@ For further details about the clauses used by a *primary expression*, refer to t
 
 <h4 id="predicate">predicate</h4>
 
-<div style="overflow-x : auto;">
-<map name="predicateImgMap">
-	<area alt="section valueExpression" shape="rect" coords="250,30,390,52" href="#valueExpression" />
-	<area alt="section valueExpression" shape="rect" coords="474,30,614,52" href="#valueExpression" />
-	<area alt="section expression" shape="rect" coords="362,70,462,92" href="#expression" />
-	<area alt="section query" shape="rect" coords="382,140,442,162" href="#query" />
-	<area alt="section valueExpression" shape="rect" coords="364,180,504,202" href="#valueExpression" />
-	<area alt="section valueExpression" shape="rect" coords="430,290,570,312" href="#valueExpression" />
-</map>
-<img style="max-width: 685px;" usemap="#predicateImgMap" alt="syntax diagram for a predicate" src="./diagrams/predicate-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/predicate.svg" target="./diagrams/predicate.svg" alt="syntax diagram for a predicate" layout="" -->
 
 The `BETWEEN ... AND` predicate compares a value with a range of values. If `NOT` is specified, the result is reversed.
 
@@ -2166,8 +1818,7 @@ The `IS DISTINCT FROM` predicate compares two expressions and evaluates to TRUE 
 | Both inputs are non-null. | Evaluates to TRUE if the inputs are not identical and FALSE if they are. Equivalent to the <> operator. | Evaluates to FALSE if the inputs are not identical and TRUE if they are. Equivalent to the = operator. |
 | One input is null. | Evaluates to TRUE. | Evaluates to FALSE. |
 | Both inputs are null. | Evaluates to FALSE. | Evaluates to TRUE. |  
-{: caption="Table 34. NULL Values and DISTINCT Predicate Value" caption-side="top"}
-
+<!--table-caption title="NULL Values and DISTINCT Predicate Value"-->
 
 The following DISTINCT predicates are logically equivalent to the corresponding search conditions:
 
@@ -2175,8 +1826,7 @@ The following DISTINCT predicates are logically equivalent to the corresponding 
 | ------------------ | ---------------- |
 | value 1 IS NOT DISTINCT FROM value2 | (value1 IS NOT NULL AND value2 IS NOT NULL AND value1 = value 2) OR (value1 IS NULL AND value2 IS NULL) |
 | value 1 IS DISTINCT FROM value2 | NOT (value1 IS NOT DISTINCT FROM value2)|
-{: caption="Table 35. DISTINCT Predicate and Search Condition" caption-side="top"}
-
+<!--table-caption title="DISTINCT Predicate and Search Condition"-->
 
 <h4>Examples</h4>
 
@@ -2208,8 +1858,7 @@ The result of the example query is shown in the table below.
 |null|2   |
 |1   |null|
 |2   |null|
-{: caption="Table 36. Query result for example 'select all rows with distinct values in column A and B'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'select all rows with distinct values in column A and B'"-->
 
 ```sql
 -- all rows having no distinct values in column A and B
@@ -2235,8 +1884,7 @@ The result of the example query is shown in the table below.
 |----|----|
 |2   |2   |
 |null|null|
-{: caption="Table 37. Query result for example 'all rows having no distinct values in column A and B'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all rows having no distinct values in column A and B'"-->
 
 <h5><code>BETWEEN ... AND ...</code> Examples</h5>
 
@@ -2267,8 +1915,7 @@ The result of the example query is shown in the table below.
 |5     |5000  |
 |6     |6000  |
 |8     |8000  |
-{: caption="Table 38. Query result for example 'all employees with a salary between 4000 and 8000'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all employees with a salary between 4000 and 8000'"-->
 
 ```sql
 -- all employees with a salary not between 4000 and 8000
@@ -2298,8 +1945,7 @@ The result of the example query is shown in the table below.
 |2     |2000  |
 |3     |3000  |
 |9     |9000  |
-{: caption="Table 39. Query result for example 'all employees with a salary between 4000 and 8000'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all employees with a salary between 4000 and 8000'"-->
 
 <h5><code>IN</code> Examples</h5>
 
@@ -2331,8 +1977,7 @@ The result of the example query is shown in the table below.
 |5     |D02     |
 |7     |D01     |
 |9     |D01     |
-{: caption="Table 40. Query result for example 'all employees working in department D01 or D02'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all employees working in department D01 or D02'"-->
 
 ```sql
 -- all employees that are managing a department
@@ -2368,8 +2013,7 @@ The result of the example query is shown in the table below.
 |2     |C01     |
 |4     |D01     |
 |5     |D02     |
-{: caption="Table 41. Query result for example 'all employees that are managing a department'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all employees that are managing a department'"-->
 
 <h5><code>LIKE</code> Examples</h5>
 
@@ -2400,8 +2044,7 @@ The result of the example query is shown in the table below.
 |3     |C02     |
 |6     |C01     |
 |8     |C03     |
-{: caption="Table 42. Query result for example 'all employees that work in a department that starts with letter C'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all employees that work in a department that starts with letter C'"-->
 
 ```sql
 -- all department names that do not start with letter C
@@ -2427,8 +2070,7 @@ The result of the example query is shown in the table below.
 |--------|
 |D01     |
 |D02     |
-{: caption="Table 43. Query result for example 'all department names that do not start with letter C'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all department names that do not start with letter C'"-->
 
 <h5><code>RLIKE</code> Examples</h5>
 
@@ -2453,8 +2095,7 @@ The result of the example query is shown in the table below.
 |1   |xyz abc       |
 |2   |abcabcabc     |
 |3   |abc xyzxyz abc|
-{: caption="Table 44. Query result for example 'all rows that contain in col2 a value ending with bc'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all rows that contain in col2 a value ending with bc'"-->
 
 
 ```sql
@@ -2476,8 +2117,7 @@ The result of the example query is shown in the table below.
 |COL1|COL2     |
 |----|---------|
 |2   |abcabcabc|
-{: caption="Table 45. Query result for example 'all rows that contain in col2 a sequence of 3 abc string occurrences'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all rows that contain in col2 a sequence of 3 abc string occurrences'"-->
 
 ```sql
 -- all rows that contain in col2 a sequence of integer values (3 digits) separated by blank or tab
@@ -2497,8 +2137,7 @@ The result of the example query is shown in the table below.
 |COL1|COL2       |
 |----|-----------|
 |4   |123 456 789|
-{: caption="Table 46. Query result for example 'all rows that contain in col2 a sequence of integer values (3 digits) separated by blank or tab'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all rows that contain in col2 a sequence of integer values (3 digits) separated by blank or tab'"-->
 
 <h5><code>IS NULL</code> Examples</h5>
 
@@ -2527,8 +2166,7 @@ The result of the example query is shown in the table below.
 |EMP_ID|SALARY|
 |------|------|
 |7     |null  |
-{: caption="Table 47. Query result for example 'all employees with missing salary information'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'all employees with missing salary information'"-->
 
 <h3>Cast Expression</h3>
 
@@ -2540,29 +2178,13 @@ If the specified data type is not supported, an error is returned.
 
 <h4 id="castExpression">castExpression</h4>
 
-<div style="overflow-x : auto;">
-<map name="castExpressionImgMap">
-	<area alt="section expression" shape="rect" coords="170,20,270,42" href="#expression" />
-	<area alt="section dataType" shape="rect" coords="346,20,430,42" href="#dataType" />
-</map>
-<img style="max-width: 529px;" usemap="#castExpressionImgMap" alt="syntax diagram for a cast expression" src="./diagrams/castExpression-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/castExpression.svg" target="./diagrams/castExpression.svg" alt="syntax diagram for a cast expression" layout="" -->
 
 Note that in case an expression cannot be casted to the data type specified in the cast expression, the expression result is `null`.
 
 <h4 id="dataType">dataType</h4>
 
-<div style="overflow-x : auto;">
-<map name="dataTypeImgMap">
-	<area alt="section dataType" shape="rect" coords="272,20,356,42" href="#dataType" />
-	<area alt="section dataType" shape="rect" coords="188,50,272,72" href="#dataType" />
-	<area alt="section dataType" shape="rect" coords="340,50,424,72" href="#dataType" />
-	<area alt="section complexColTypeList" shape="rect" coords="236,90,400,112" href="#complexColTypeList" />
-	<area alt="section identifier" shape="rect" coords="92,160,192,182" href="#identifier" />
-	<area alt="section number" shape="rect" coords="300,160,368,182" href="#number" />
-</map>
-<img style="max-width: 549px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/dataType.svg" target="./diagrams/dataType.svg" alt="syntax diagram for a data type" layout="" -->
 
 An `identifier` in a cast expression can have the values listed below.
 
@@ -2581,8 +2203,7 @@ Numeric data types are summarized in the table below.
 | `DOUBLE` | double precision floating point number | 8 | n/a | n/a |
 | `DOUBLE PRECISION` | double precision floating point number | 8 | n/a | n/a |
 | `DECIMAL` | precision of 38 digits | n/a | -10e37+1 | 10e37-1 |
-{: caption="Table 48. Numeric Data Types" caption-side="top"}
-
+<!--table-caption title="Numeric Data Types"-->
 
 <h5>String Types</h5>
 
@@ -2608,8 +2229,7 @@ The result of the example query is shown in the table below.
 |CAST(2018-10-31 23:55:00 AS TIMESTAMP)|CAST(2018-2-28 23:55:00 AS DATE)|CAST(HELLO AS TIMESTAMP)|
 |--------------------------------------|--------------------------------|------------------------|
 |2018-10-31 23:55:00.0                 |2018-02-28                      |null                    |
-{: caption="Table 49. Query result for example 'cast string values to TIMESTAMP and DATE types'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'cast string values to TIMESTAMP and DATE types'"-->
 
 <h5>Misc Types</h5>
 
@@ -2629,23 +2249,11 @@ A `BINARY` type represents an array of byte values. Thus, string values can be c
 
 <h4 id="complexColTypeList">complexColTypeList</h4>
 
-<div style="overflow-x : auto;">
-<map name="complexColTypeListImgMap">
-	<area alt="section complexColType" shape="rect" coords="70,20,202,42" href="#complexColType" />
-</map>
-<img style="max-width: 273px;" usemap="#complexColTypeListImgMap" alt="syntax diagram for a complex column type list" src="./diagrams/complexColTypeList-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/complexColTypeList.svg" target="./diagrams/complexColTypeList.svg" alt="syntax diagram for a complex column type list" layout="" -->
 
 <h4 id="complexColType">complexColType</h4>
 
-<div style="overflow-x : auto;">
-<map name="complexColTypeImgMap">
-	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
-	<area alt="section dataType" shape="rect" coords="218,30,302,52" href="#dataType" />
-	<area alt="section STRING" shape="rect" coords="438,30,506,52" href="#STRING" />
-</map>
-<img style="max-width: 577px;" usemap="#complexColTypeImgMap" alt="syntax diagram for a complex column type" src="./diagrams/complexColType-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/complexColType.svg" target="./diagrams/complexColType.svg" alt="syntax diagram for a complex column type" layout="" -->
 
 <h4>More Topics</h4>
 
@@ -2668,16 +2276,7 @@ The syntax of a case expression is described by the syntax diagrams below.
 
 <h4 id="caseExpression">caseExpression</h4>
 
-<div style="overflow-x : auto;">
-<map name="caseExpressionImgMap">
-	<area alt="section whenClause" shape="rect" coords="212,30,312,52" href="#whenClause" />
-	<area alt="section expression" shape="rect" coords="434,30,534,52" href="#expression" />
-	<area alt="section expression" shape="rect" coords="142,79,242,101" href="#expression" />
-	<area alt="section whenClause" shape="rect" coords="272,79,372,101" href="#whenClause" />
-	<area alt="section expression" shape="rect" coords="494,79,594,101" href="#expression" />
-</map>
-<img style="max-width: 749px;" usemap="#caseExpressionImgMap" alt="syntax diagram for a case expression" src="./diagrams/caseExpression-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/caseExpression.svg" target="./diagrams/caseExpression.svg" alt="syntax diagram for a case expression" layout="" -->
 
 The upper path in the syntax diagram represents a *searched when clause*, that is, the `WHEN` keyword follows directly after the `CASE` keyword.
 The lower path is a *simple when clause*, that is, an expression follows after the `CASE` keyword.
@@ -2692,13 +2291,7 @@ A *result expression* is an expression following the `THEN` or `ELSE` keywords.
 
 <h4 id="whenClause">whenClause</h4>
 
-<div style="overflow-x : auto;">
-<map name="whenClauseImgMap">
-	<area alt="section expression" shape="rect" coords="122,20,222,42" href="#expression" />
-	<area alt="section expression" shape="rect" coords="314,20,414,42" href="#expression" />
-</map>
-<img style="max-width: 465px;" usemap="#whenClauseImgMap" alt="syntax diagram for a when clause" src="./diagrams/whenClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/whenClause.svg" target="./diagrams/whenClause.svg" alt="syntax diagram for a when clause" layout="" -->
 
 <h4>Examples</h4>
 
@@ -2724,8 +2317,7 @@ The result of the example query is shown in the table below.
 |2     |Development   |
 |3     |null          |
 |4     |null          |
-{: caption="Table 50. Query result for example 'simple case expression with no ELSE clause'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'simple case expression with no ELSE clause'"-->
 
 ```sql
 -- simple case expression with ELSE clause
@@ -2751,8 +2343,7 @@ The result of the example query is shown in the table below.
 |2     |Development   |
 |3     |UNKOWN        |
 |4     |UNKOWN        |
-{: caption="Table 51. Query result for example 'simple case expression with ELSE clause'" caption-side="top"}
-
+<!--table-caption title="Query result for example 'simple case expression with ELSE clause'"-->
 
 There are two scalar functions, `NULLIF()` and `COALESCE()`, that are specialized to handle a subset of the functionality provided by `CASE`.
 
@@ -2761,8 +2352,7 @@ There are two scalar functions, `NULLIF()` and `COALESCE()`, that are specialize
 | CASE WHEN e1=e2 THEN NULL ELSE e1 END | NULLIF(e1,e2) |
 | CASE WHEN e1 IS NOT NULL THEN e1 ELSE e2 END| COALESCE(e1,e2) |
 | CASE WHEN e1 IS NOT NULL THEN e1 ELSE COALESCE(e2,...,eN) END| COALESCE(e1,e2,...,eN)|
-{: caption="Table 52. CASE, NULLIF(), and COALESCE()" caption-side="top"}
-
+<!--table-caption title="CASE, NULLIF(), and COALESCE()"-->
 
 Refer to the section about [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for more details.
 
@@ -2791,8 +2381,7 @@ The following types of operators can be used:
 | `-A` | All number types | Unary negative operator. The type of the result is the same as the type of A. |
 | `+A` | All number types | Unary positive operator. The type of the result is the same as the type of A. |
 | `~A` | All number types | Bitwise NOT operator. The type of the result is the same as the type of A. |
-{: caption="Table 53. Unary operators" caption-side="top"}
-
+<!--table-caption title="Unary operators"-->
 
 <h3 id="arithmeticOperator">Arithmetic operators</h3>
 
@@ -2807,16 +2396,14 @@ The following types of operators can be used:
 | `A & B`   | All number types | Returns the result of bitwise AND of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
 | <code>A &#124; B</code> | All number types | Returns the result of bitwise OR of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
 | `A ^ B`  | All number types | Returns the result of bitwise XOR of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
-{: caption="Table 54. Arithmetic operators" caption-side="top"}
-
+<!--table-caption title="Arithmetic operators"-->
 
 <h3 id="stringOperator">String operator</h3>
 
 | Operator | Operand types | Description |
 | :----: | ---- | ---- |
 | <code>A &#124;&#124; B</code> |  All types | Returns the concatenation of A and B. If A or B is not a string, it is first converted into a string type. The result is a string. |
-{: caption="Table 55. String operator" caption-side="top"}
-
+<!--table-caption title="String operator"-->
 
 <h3 id="comparisonOperator">Comparison operators</h3>
 
@@ -2833,8 +2420,7 @@ The following types of operators can be used:
 | `A >= B` |All primitive types | Returns NULL if A or B is NULL; TRUE if A is greater than or equal to B; FALSE otherwise. |
 | `A !< B` | All primitive types| Returns NULL if A or B is NULL; TRUE if A is not less than B; FALSE otherwise.|
 | `A <=> B` | All primitive types| Returns the same result as the equal (=) operator if both A and B are not NULL; TRUE if both A and B are NULL; FALSE if A or B (but not both) is NULL.|
-{: caption="Table 56. Comparison operators" caption-side="top"}
-
+<!--table-caption title="Comparison operators"-->
 
 <h3 id="booleanOperator">Boolean operators</h3>
 
@@ -2843,8 +2429,7 @@ The following types of operators can be used:
 | `NOT A` | Boolean expressions | TRUE if A is FALSE; FALSE otherwise. |
 | `A AND B` | Boolean expressions | TRUE if A and B are both TRUE; FALSE otherwise. |
 | `A OR B` | Boolean expressions | FALSE if A and B are both FALSE; TRUE otherwise. |
-{: caption="Table 57. Boolean operators" caption-side="top"}
-
+<!--table-caption title="Boolean operators"-->
 
 <h3>Related References</h3>
 
@@ -2860,24 +2445,11 @@ The general syntax of a table sample clause is described by the syntax diagram b
 
 <h3 id="sample">sample</h3>
 
-<div style="overflow-x : auto;">
-<map name="sampleImgMap">
-	<area alt="section number" shape="rect" coords="260,20,328,42" href="#number" />
-	<area alt="section expression" shape="rect" coords="246,60,346,82" href="#expression" />
-	<area alt="section bucketSampleClause" shape="rect" coords="260,90,424,112" href="#bucketSampleClause" />
-</map>
-<img style="max-width: 557px;" usemap="#sampleImgMap" alt="syntax diagram for a sample" src="./diagrams/sample-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/sample.svg" target="./diagrams/sample.svg" alt="syntax diagram for a sample" layout="" -->
 
 <h3 id="bucketSampleClause">bucketSampleClause</h3>
 
-<div style="overflow-x : auto;">
-<map name="bucketSampleClauseImgMap">
-	<area alt="section number" shape="rect" coords="138,20,206,42" href="#number" />
-	<area alt="section number" shape="rect" coords="346,20,414,42" href="#number" />
-</map>
-<img style="max-width: 454px;" usemap="#bucketSampleClauseImgMap" alt="syntax diagram for a bucket sample clause" src="./diagrams/bucketSampleClause-1562830874599.svg" />
-</div>
+<!--include-svg src="./svgfiles/bucketSampleClause.svg" target="./diagrams/bucketSampleClause.svg" alt="syntax diagram for a bucket sample clause" layout="@break@" -->
 
 Three sampling types are supported:
 
@@ -2979,4 +2551,3 @@ See section [dataType](#dataType) for more details about data types.
 A *string* is a sequence of arbitrary characters including escaped characters, for example,
 `\t`, either enclosed in single quotes `'`, or double quotes, `"`.
 To include any quote characters in the string they have to be escaped as <code>\\\\&#96;</code> or `\\"`, respectively.
-
