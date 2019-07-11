@@ -16,7 +16,7 @@ subcollection: sql-query
 You can use any of the following functions in your query.
 
 
-## ! 
+## !
 {: #!}
 
 expr - Logical not.
@@ -201,7 +201,7 @@ expr1 &lt;= expr2 - Returns true if <code>expr1</code> is less than or equal to 
 <pre><code> true</code></pre>
 
 **Example of an SQL function usage fragment:**
- 
+
 <pre><code>&gt; SELECT to_date('2009-07-30 04:17:52') &lt;= to_date('2009-07-30 04:17:52')</code></pre>
 
 **Result value:**
@@ -246,7 +246,7 @@ but returns true if both are null, false if one of the them is null.
 **Result value:**
 
 <pre><code> true</code></pre>
- 
+
 **Example of an SQL function usage fragment:**
 
 <pre><code>&gt; SELECT 1 &lt;=&gt; '1'</code></pre>
@@ -292,7 +292,7 @@ expr1 = expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, or
 **Result value:**
 
 <pre><code> true</code></pre>
- 
+
 **Example of an SQL function usage fragment:**
 
 <pre><code>&gt; SELECT 1 = '1'</code></pre>
@@ -300,7 +300,7 @@ expr1 = expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, or
 **Result value:**
 
 <pre><code> true</code></pre>
- 
+
 **Example of an SQL function usage fragment:**
 
 <pre><code>&gt; SELECT true = NULL</code></pre>
@@ -308,7 +308,7 @@ expr1 = expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, or
 **Result value:**
 
 <pre><code> NULL</code></pre>
- 
+
 **Example of an SQL function usage fragment:**
 
 <pre><code>gt; SELECT NULL = NULL</code></pre>
@@ -363,7 +363,7 @@ expr1 == expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, o
 <pre><code> NULL</code></pre>
 
 ## &gt;
-{: #&gt;} 
+{: #&gt;}
 
 expr1 &gt; expr2 - Returns true if <code>expr1</code> is greater than <code>expr2</code>.
 
@@ -416,9 +416,9 @@ expr1 &gt; expr2 - Returns true if <code>expr1</code> is greater than <code>expr
 
 <pre><code> NULL</code></pre>
 
- 
+
 ## &gt;=
-{: #&gt;=} 
+{: #&gt;=}
 
 expr1 &gt;= expr2 - Returns true if <code>expr1</code> is greater than or equal to <code>expr2</code>.
 
@@ -471,9 +471,9 @@ expr1 &gt;= expr2 - Returns true if <code>expr1</code> is greater than or equal 
 
 <pre><code> NULL</code></pre>
 
- 
+
 ## ^
-{: #^} 
+{: #^}
 
 expr1 ^ expr2 - Returns the result of bitwise exclusive OR of <code>expr1</code> and <code>expr2</code>.
 
@@ -485,7 +485,7 @@ expr1 ^ expr2 - Returns the result of bitwise exclusive OR of <code>expr1</code>
 
 <pre><code> 2</code></pre>
 
- 
+
 ## abs
 {: #abs}
 
@@ -499,7 +499,7 @@ abs(expr) - Returns the absolute value of the numeric value.
 
 <pre><code> 1</code></pre>
 
- 
+
 ## acos
 {: #acos}
 
@@ -521,7 +521,7 @@ acos(expr) - Returns the inverse cosine (a.k.a. arccosine) of <code>expr</code> 
 
 <pre><code> NaN</code></pre>
 
- 
+
 ## add_months
 {: #add_months}
 
@@ -536,19 +536,19 @@ add_months(start_date, num_months) - Returns the date that is <code>num_months</
 <pre><code> 2016-09-30</code></pre>
 
 <strong>Since:</strong> 1.5.0
- 
+
 ## and
 {: #and}
 
 expr1 and expr2 - Logical AND.
- 
+
 ## approx_count_distinct
 {: #approx_count_distinct}
 
 approx_count_distinct(expr[, relativeSD]) - Returns the estimated cardinality by HyperLogLog++.
 <code>relativeSD</code> defines the maximum estimation error allowed.
 
- 
+
 ## approx_percentile
 {: #approx_percentile}
 
@@ -570,14 +570,14 @@ percentage array.
 <pre><code> [10.0,10.0,10.0]</code></pre>
 
 **Example of an SQL function usage fragment:**
- 
+
 <pre><code>&gt; SELECT approx_percentile(10.0, 0.5, 100)</code></pre>
 
 **Result value:**
 
 <pre><code> 10.0</code></pre>
 
- 
+
 ## array
 {: #array}
 
@@ -591,7 +591,7 @@ array(expr, ...) - Returns an array with the given elements.
 
 <pre><code> [1,2,3]</code></pre>
 
- 
+
 ## array_contains
 {: #array_contains}
 
@@ -605,7 +605,7 @@ array_contains(array, value) - Returns true if the array contains the value.
 
 <pre><code> true</code></pre>
 
- 
+
 ## ascii
 {: #ascii}
 
@@ -627,7 +627,7 @@ ascii(str) - Returns the numeric value of the first character of <code>str</code
 
 <pre><code> 50</code></pre>
 
- 
+
 ## asin
 {: #asin}
 
@@ -663,7 +663,7 @@ atan(expr) - Returns the inverse tangent (a.k.a. arctangent).
 
 <pre><code> 0.0</code></pre>
 
- 
+
 ## atan2
 {: #atan2}
 
@@ -677,13 +677,13 @@ atan2(expr1, expr2) - Returns the angle in radians between the positive x-axis o
 
 <pre><code> 0.0</code></pre>
 
- 
+
 ## avg#
 {: #avg#}
 
 avg(expr) - Returns the mean calculated from values of a group.
 
- 
+
 ## base64
 {: #base64}
 
@@ -697,13 +697,13 @@ base64(bin) - Converts the argument from a binary <code>bin</code> to a base 64 
 
 <pre><code> U3BhcmsgU1FM</code></pre>
 
- 
+
 ## bigint
 {: #bigint}
 
 bigint(expr) - Casts the value <code>expr</code> to the target data type <code>bigint</code>.
 
- 
+
 ## bin
 {: #bin}
 
@@ -718,12 +718,12 @@ bin(expr) - Returns the string representation of the long value <code>expr</code
  1101
 </code></pre>
 
- 
+
 ## binary
 {: #binary}
 
 binary(expr) - Casts the value <code>expr</code> to the target data type <code>binary</code>.
- 
+
 ## bit_length
 {: #bit_length}
 
@@ -734,12 +734,12 @@ bit_length(expr) - Returns the bit length of string data or number of bits of bi
  72
 </code></pre>
 
- 
+
 ## boolean
 {: #boolean}
 
 boolean(expr) - Casts the value <code>expr</code> to the target data type <code>boolean</code>.
- 
+
 ## bround
 {: #bround}
 
@@ -750,7 +750,7 @@ bround(expr, d) - Returns <code>expr</code> rounded to <code>d</code> decimal pl
  2.0
 </code></pre>
 
- 
+
 ## cast
 {: #cast}
 
@@ -761,7 +761,7 @@ cast(expr AS type) - Casts the value <code>expr</code> to the target data type <
  10
 </code></pre>
 
- 
+
 ## cbrt
 {: #cbrt}
 
@@ -772,7 +772,7 @@ cbrt(expr) - Returns the cube root of <code>expr</code>.
  3.0
 </code></pre>
 
- 
+
 ## ceil
 {: #ceil}
 
@@ -785,7 +785,7 @@ ceil(expr) - Returns the smallest integer not smaller than <code>expr</code>.
  5
 </code></pre>
 
- 
+
 ## ceiling
 {: #ceiling}
 
@@ -798,7 +798,7 @@ ceiling(expr) - Returns the smallest integer not smaller than <code>expr</code>.
  5
 </code></pre>
 
- 
+
 ## char
 {: #char}
 
@@ -809,7 +809,7 @@ char(expr) - Returns the ASCII character having the binary equivalent to <code>e
  A
 </code></pre>
 
- 
+
 ## char_length
 {: #char_length}
 
@@ -824,7 +824,7 @@ char_length(expr) - Returns the character length of string data or number of byt
  10
 </code></pre>
 
- 
+
 ## character_length
 {: #character_length}
 
@@ -839,7 +839,7 @@ character_length(expr) - Returns the character length of string data or number o
  10
 </code></pre>
 
- 
+
 ## chr
 {: #chr}
 
@@ -862,19 +862,19 @@ coalesce(expr1, expr2, ...) - Returns the first non-null argument if exists. Oth
  1
 </code></pre>
 
- 
+
 ## collect_list
 {: #collect_list}
 
 collect_list(expr) - Collects and returns a list of non-unique elements.
 
- 
+
 ## collect_set
-{: #collect_set} 
+{: #collect_set}
 
 collect_set(expr) - Collects and returns a set of unique elements.
 
- 
+
 ## concat
 {: #concat}
 
@@ -885,7 +885,7 @@ concat(str1, str2, ..., strN) - Returns the concatenation of str1, str2, ..., st
  SparkSQL
 </code></pre>
 
- 
+
 ## concat_ws
 {: #concat_ws}
 
@@ -896,7 +896,7 @@ concat_ws(sep, [str | array(str)]+) - Returns the concatenation of the strings s
   Spark SQL
 </code></pre>
 
- 
+
 ## conv
 {: #conv}
 
@@ -910,13 +910,13 @@ conv(num, from_base, to_base) - Convert <code>num</code> from <code>from_base</c
  -16
 </code></pre>
 
- 
+
 ## corr
 {: #corr}
 
 corr(expr1, expr2) - Returns Pearson coefficient of correlation between a set of number pairs.
 
- 
+
 ## cos
 {: #cos}
 
@@ -928,7 +928,7 @@ cos(expr) - Returns the cosine of <code>expr</code>.
  1.0
 </code></pre>
 
- 
+
 ## cosh
 {: #cosh}
 
@@ -940,7 +940,7 @@ cosh(expr) - Returns the hyperbolic cosine of <code>expr</code>.
  1.0
 </code></pre>
 
- 
+
 ## cot
 {: #cot}
 
@@ -952,7 +952,7 @@ cot(expr) - Returns the cotangent of <code>expr</code>.
  0.6420926159343306
 </code></pre>
 
- 
+
 ## count
 {: #count}
 
@@ -962,7 +962,7 @@ count(expr) - Returns the number of rows for which the supplied expression is no
 
 count(DISTINCT expr[, expr...]) - Returns the number of rows for which the supplied expression(s) are unique and non-null.
 
- 
+
 ## count_min_sketch
 {: #cont_min_sketch}
 
@@ -971,13 +971,13 @@ confidence and seed. The result is an array of bytes, which can be deserialized 
 <code>CountMinSketch</code> before usage. Count-min sketch is a probabilistic data structure used for
 cardinality estimation using sub-linear space.
 
- 
+
 ## covar_pop
 {: #covar_pop}
 
 covar_pop(expr1, expr2) - Returns the population covariance of a set of number pairs.
 
- 
+
 ## covar_samp
 {: #covar_samp}
 
@@ -995,16 +995,16 @@ crc32(expr) - Returns a cyclic redundancy check value of the <code>expr</code> a
  1557323817
 </code></pre>
 
- 
+
 ## cube
 {: #cube}
- 
+
 ## cume_dist
 {: #cume_dist}
 
 cume_dist() - Computes the position of a value relative to all values in the partition.
 
- 
+
 ## current_database
 {: #current_database}
 
@@ -1016,7 +1016,7 @@ current_database() - Returns the current database.
  default
 </code></pre>
 
- 
+
 ## current_date
 {: #current_date}
 
@@ -1024,7 +1024,7 @@ current_date() - Returns the current date at the start of query evaluation.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## current_timestamp
 {: #current_timestamp}
 
@@ -1032,13 +1032,13 @@ current_timestamp() - Returns the current timestamp at the start of query evalua
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## date
 {: #date}
 
 date(expr) - Casts the value <code>expr</code> to the target data type <code>date</code>.
 
- 
+
 ## date_add
 {: #date_add}
 
@@ -1052,7 +1052,7 @@ date_add(start_date, num_days) - Returns the date that is <code>num_days</code> 
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## date_format
 {: #date_format}
 
@@ -1066,7 +1066,7 @@ date_format(timestamp, fmt) - Converts <code>timestamp</code> to a value of stri
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## date_sub
 {: #date_sub
 
@@ -1080,7 +1080,7 @@ date_sub(start_date, num_days) - Returns the date that is <code>num_days</code> 
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## date_trunc
 {: #date_trunc}
 
@@ -1101,7 +1101,7 @@ date_trunc(fmt, ts) - Returns timestamp <code>ts</code> truncated to the unit sp
 
 <strong>Since:</strong> 2.3.0
 
- 
+
 ## datediff
 {: #datediff}
 
@@ -1118,7 +1118,7 @@ datediff(endDate, startDate) - Returns the number of days from <code>startDate</
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## day
 {: #day}
 
@@ -1132,7 +1132,7 @@ day(date) - Returns the day of month of the date/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## dayofmonth
 {: #dayofmonth}
 
@@ -1146,7 +1146,7 @@ dayofmonth(date) - Returns the day of month of the date/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## dayofweek
 {: #dayofweek}
 
@@ -1160,7 +1160,7 @@ dayofweek(date) - Returns the day of the week for date/timestamp (1 = Sunday, 2 
 
 <strong>Since:</strong> 2.3.0
 
- 
+
 ## dayofyear
 {: #dayofyear}
 
@@ -1174,13 +1174,13 @@ dayofyear(date) - Returns the day of year of the date/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## decimal
 {: #decimal}
 
 decimal(expr) - Casts the value <code>expr</code> to the target data type <code>decimal</code>.
 
- 
+
 ## decode
 {: #decode}
 
@@ -1192,7 +1192,7 @@ decode(bin, charset) - Decodes the first argument using the second argument char
  abc
 </code></pre>
 
- 
+
 ## degrees
 {: #degrees}
 
@@ -1204,7 +1204,7 @@ degrees(expr) - Converts radians to degrees.
  180.0
 </code></pre>
 
- 
+
 ## dense_rank
 {: #dense_rank}
 
@@ -1212,13 +1212,13 @@ dense_rank() - Computes the rank of a value in a group of values. The result is 
 previously assigned rank value. Unlike the function rank, dense_rank will not produce gaps
 in the ranking sequence.
 
- 
+
 ## double
 {: #double}
 
 double(expr) - Casts the value <code>expr</code> to the target data type <code>double</code>.
 
- 
+
 ## e
 
 e() - Returns Euler's number, e.
@@ -1229,7 +1229,7 @@ e() - Returns Euler's number, e.
  2.718281828459045
 </code></pre>
 
- 
+
 ## elt
 {: #elt}
 
@@ -1241,7 +1241,7 @@ elt(n, input1, input2, ...) - Returns the <code>n</code>-th input, e.g., returns
  scala
 </code></pre>
 
- 
+
 ## encode
 {: #encode}
 
@@ -1253,7 +1253,7 @@ encode(str, charset) - Encodes the first argument using the second argument char
  abc
 </code></pre>
 
- 
+
 ## exp
 {: #exp}
 
@@ -1265,7 +1265,7 @@ exp(expr) - Returns e to the power of <code>expr</code>.
  1.0
 </code></pre>
 
- 
+
 ## explode
 {: #explode}
 
@@ -1278,7 +1278,7 @@ explode(expr) - Separates the elements of array <code>expr</code> into multiple 
  20
 </code></pre>
 
- 
+
 ## explode_outer
 {: #explode_outer}
 
@@ -1291,7 +1291,7 @@ explode_outer(expr) - Separates the elements of array <code>expr</code> into mul
  20
 </code></pre>
 
- 
+
 ## expm1
 {: #expm1}
 
@@ -1303,7 +1303,7 @@ expm1(expr) - Returns exp(<code>expr</code>) - 1.
  0.0
 </code></pre>
 
- 
+
 ## factorial
 {: #factorial}
 
@@ -1315,7 +1315,7 @@ factorial(expr) - Returns the factorial of <code>expr</code>. <code>expr</code> 
  120
 </code></pre>
 
- 
+
 ## find_in_set
 {: #find_in_set}
 
@@ -1328,27 +1328,27 @@ Returns 0, if the string was not found or if the given string (<code>str</code>)
  3
 </code></pre>
 
- 
+
 ## first
 {: #first}
 
 first(expr[, isIgnoreNull]) - Returns the first value of <code>expr</code> for a group of rows.
 If <code>isIgnoreNull</code> is true, returns only non-null values.
 
- 
+
 ## first_value
 {: #first_value}
 
 first_value(expr[, isIgnoreNull]) - Returns the first value of <code>expr</code> for a group of rows.
 If <code>isIgnoreNull</code> is true, returns only non-null values.
 
- 
+
 ## float
 {: #float}
 
 float(expr) - Casts the value <code>expr</code> to the target data type <code>float</code>.
 
- 
+
 ## floor
 {: #floor}
 
@@ -1362,7 +1362,7 @@ floor(expr) - Returns the largest integer not greater than <code>expr</code>.
  5
 </code></pre>
 
- 
+
 ## format_number
 {: #format_number}
 
@@ -1376,7 +1376,7 @@ This is supposed to function like MySQL's FORMAT.
  12,332.1235
 </code></pre>
 
- 
+
 ## format_string
 {: #format_string}
 
@@ -1388,7 +1388,7 @@ format_string(strfmt, obj, ...) - Returns a formatted string from printf-style f
  Hello World 100 days
 </code></pre>
 
- 
+
 ## from_json
 {: #from_json}
 
@@ -1404,7 +1404,7 @@ from_json(jsonStr, schema[, options]) - Returns a struct value with the given <c
 
 <strong>Since:</strong> 2.2.0
 
- 
+
 ## from_unixtime
 {: #from_unixtime}
 
@@ -1418,7 +1418,7 @@ from_unixtime(unix_time, format) - Returns <code>unix_time</code> in the specifi
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## from_utc_timestamp
 {: #from_utc_timestamp}
 #
@@ -1432,7 +1432,7 @@ from_utc_timestamp(timestamp, timezone) - Given a timestamp like '2017-07-14 02:
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## get_json_object
 {: #get_json_object}
 
@@ -1444,7 +1444,7 @@ get_json_object(json_txt, path) - Extracts a json object from <code>path</code>.
  b
 </code></pre>
 
- 
+
 ## greatest
 {: #greatest}
 
@@ -1456,15 +1456,15 @@ greatest(expr, ...) - Returns the greatest value of all parameters, skipping nul
  10
 </code></pre>
 
- 
+
 ## grouping
 {: #grouping}
 
- 
+
 ## grouping_id
 {: #grouping_id}
 
- 
+
 ## hash
 {: #hash}
 
@@ -1476,7 +1476,7 @@ hash(expr1, expr2, ...) - Returns a hash value of the arguments.
  -1321691492
 </code></pre>
 
- 
+
 ## hex
 {: #hex}
 
@@ -1490,7 +1490,7 @@ hex(expr) - Converts <code>expr</code> to hexadecimal.
  537061726B2053514C
 </code></pre>
 
- 
+
 ## hour
 {: #hour}
 
@@ -1504,7 +1504,7 @@ hour(timestamp) - Returns the hour component of the string/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## hypot
 {: #hypot}
 
@@ -1516,7 +1516,7 @@ hypot(expr1, expr2) - Returns sqrt(<code>expr1</code><strong>2 + <code>expr2</co
  5.0
 </code></pre>
 
- 
+
 ## if
 {: #if}
 
@@ -1528,7 +1528,7 @@ if(expr1, expr2, expr3) - If <code>expr1</code> evaluates to true, then returns 
  a
 </code></pre>
 
- 
+
 ## ifnull
 {: #ifnull}
 
@@ -1540,7 +1540,7 @@ ifnull(expr1, expr2) - Returns <code>expr2</code> if <code>expr1</code> is null,
  [&quot;2&quot;]
 </code></pre>
 
- 
+
 ## in
 {: #in}
 
@@ -1564,7 +1564,7 @@ expr1 in(expr2, expr3, ...) - Returns true if <code>expr</code> equals to any va
  true
 </code></pre>
 
- 
+
 ## initcap
 {: #initcap}
 
@@ -1577,7 +1577,7 @@ All other letters are in lowercase. Words are delimited by white space.
  Spark Sql
 </code></pre>
 
- 
+
 ## inline
 {: #inline}
 
@@ -1590,7 +1590,7 @@ inline(expr) - Explodes an array of structs into a table.
  2  b
 </code></pre>
 
- 
+
 ## inline_outer
 {: #inline_outer}
 
@@ -1609,7 +1609,7 @@ inline_outer(expr) - Explodes an array of structs into a table.
 
 input_file_name() - Returns the name of the file being read, or empty string if not available.
 
- 
+
 ## instr
 {: #instr}
 
@@ -1621,13 +1621,13 @@ instr(str, substr) - Returns the (1-based) index of the first occurrence of <cod
  6
 </code></pre>
 
- 
+
 ## int
 {: #int}
 
 int(expr) - Casts the value <code>expr</code> to the target data type <code>int</code>.
 
- 
+
 ## isnan
 {: #isnan}
 
@@ -1639,7 +1639,7 @@ isnan(expr) - Returns true if <code>expr</code> is NaN, or false otherwise.
  true
 </code></pre>
 
- 
+
 ## isnotnull
 {: #isnotnull}
 
@@ -1651,7 +1651,7 @@ isnotnull(expr) - Returns true if <code>expr</code> is not null, or false otherw
  true
 </code></pre>
 
- 
+
 ## isnull
 {: #isnull}
 
@@ -1663,7 +1663,7 @@ isnull(expr) - Returns true if <code>expr</code> is null, or false otherwise.
  false
 </code></pre>
 
- 
+
 ## json_tuple
 {: #json_tuple}
 
@@ -1675,13 +1675,13 @@ json_tuple(jsonStr, p1, p2, ..., pn) - Returns a tuple like the function get_jso
  1  2
 </code></pre>
 
- 
+
 ## kurtosis
 {: #kurtosis}
 
 kurtosis(expr) - Returns the kurtosis value calculated from values of a group.
 
- 
+
 ## lag
 {: #lag}
 
@@ -1691,14 +1691,14 @@ value of <code>default</code> is null. If the value of <code>input</code> at the
 null is returned. If there is no such offset row (e.g., when the offset is 1, the first
 row of the window does not have any previous row), <code>default</code> is returned.
 
- 
+
 ## last
 {: #last}
 
 last(expr[, isIgnoreNull]) - Returns the last value of <code>expr</code> for a group of rows.
 If <code>isIgnoreNull</code> is true, returns only non-null values.
 
- 
+
 ## last_day
 {: #last_day}
 
@@ -1712,14 +1712,14 @@ last_day(date) - Returns the last day of the month which the date belongs to.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## last_value
 {: #last_value}
 
 last_value(expr[, isIgnoreNull]) - Returns the last value of <code>expr</code> for a group of rows.
 If <code>isIgnoreNull</code> is true, returns only non-null values.
 
- 
+
 ## lcase
 {: #lcase}
 
@@ -1731,7 +1731,7 @@ lcase(str) - Returns <code>str</code> with all characters changed to lowercase.
  sparksql
 </code></pre>
 
- 
+
 ## lead
 {: #lead}
 
@@ -1741,7 +1741,7 @@ value of <code>default</code> is null. If the value of <code>input</code> at the
 null is returned. If there is no such an offset row (e.g., when the offset is 1, the last
 row of the window does not have any subsequent row), <code>default</code> is returned.
 
- 
+
 ## least
 {: #least}
 
@@ -1753,7 +1753,7 @@ least(expr, ...) - Returns the least value of all parameters, skipping null valu
  2
 </code></pre>
 
- 
+
 ## left
 {: #left}
 
@@ -1765,7 +1765,7 @@ left(str, len) - Returns the leftmost <code>len</code>(<code>len</code> can be s
  Spa
 </code></pre>
 
- 
+
 ## length
 {: #length}
 
@@ -1781,7 +1781,7 @@ length(expr) - Returns the character length of string data or number of bytes of
  10
 </code></pre>
 
- 
+
 ## levenshtein
 {: #levenshtein}
 
@@ -1793,7 +1793,7 @@ levenshtein(str1, str2) - Returns the Levenshtein distance between the two given
  3
 </code></pre>
 
- 
+
 ## like
 {: #like}
 
@@ -1837,7 +1837,7 @@ true
 
 Use RLIKE to match with standard regular expressions.
 
- 
+
 ## ln
 {: #ln}
 
@@ -1849,7 +1849,7 @@ ln(expr) - Returns the natural logarithm (base e) of <code>expr</code>.
  0.0
 </code></pre>
 
- 
+
 ## locate
 {: #locate}
 
@@ -1866,7 +1866,7 @@ The given <code>pos</code> and return value are 1-based.
  4
 </code></pre>
 
- 
+
 ## log
 {: #log}
 
@@ -1878,7 +1878,7 @@ log(base, expr) - Returns the logarithm of <code>expr</code> with <code>base</co
  2.0
 </code></pre>
 
- 
+
 ## log10
 {: #log10}
 
@@ -1890,7 +1890,7 @@ log10(expr) - Returns the logarithm of <code>expr</code> with base 10.
  1.0
 </code></pre>
 
- 
+
 ## log1p
 {: #log1p}
 
@@ -1902,7 +1902,7 @@ log1p(expr) - Returns log(1 + <code>expr</code>).
  0.0
 </code></pre>
 
- 
+
 ## log2
 {: #log2}
 
@@ -1914,7 +1914,7 @@ log2(expr) - Returns the logarithm of <code>expr</code> with base 2.
  1.0
 </code></pre>
 
- 
+
 ## lower
 {: #lower}
 
@@ -1926,7 +1926,7 @@ lower(str) - Returns <code>str</code> with all characters changed to lowercase.
  sparksql
 </code></pre>
 
- 
+
 ## lpad
 {: #lpad}
 
@@ -1941,7 +1941,7 @@ If <code>str</code> is longer than <code>len</code>, the return value is shorten
  h
 </code></pre>
 
- 
+
 ## ltrim
 {: #ltrim}
 
@@ -1962,7 +1962,7 @@ ltrim(trimStr, str) - Removes the leading string contains the characters from th
  arkSQLS
 </code></pre>
 
- 
+
 ## map
 {: #map}
 
@@ -1974,7 +1974,7 @@ map(key0, value0, key1, value1, ...) - Creates a map with the given key/value pa
  {1.0:&quot;2&quot;,3.0:&quot;4&quot;}
 </code></pre>
 
- 
+
 ## map_keys
 {: #map_keys}
 
@@ -1986,7 +1986,7 @@ map_keys(map) - Returns an unordered array containing the keys of the map.
  [1,2]
 </code></pre>
 
- 
+
 ## map_values
 {: #map_values}
 
@@ -1998,13 +1998,13 @@ map_values(map) - Returns an unordered array containing the values of the map.
  [&quot;a&quot;,&quot;b&quot;]
 </code></pre>
 
- 
+
 ## max
 {: #max}
 
 max(expr) - Returns the maximum value of <code>expr</code>.
 
- 
+
 ## md5
 {: #md5}
 
@@ -2016,19 +2016,19 @@ md5(expr) - Returns an MD5 128-bit checksum as a hex string of <code>expr</code>
  8cde774d6f7333752ed72cacddb05126
 </code></pre>
 
- 
+
 ## mean
 {: #mean}
 
 mean(expr) - Returns the mean calculated from values of a group.
 
- 
+
 ## min
 {: #min}
 
 min(expr) - Returns the minimum value of <code>expr</code>.
 
- 
+
 ## minute
 {: #minute}
 
@@ -2042,7 +2042,7 @@ minute(timestamp) - Returns the minute component of the string/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## mod
 {: #mod}
 
@@ -2056,7 +2056,7 @@ expr1 mod expr2 - Returns the remainder after <code>expr1</code>/<code>expr2</co
  0.2
 </code></pre>
 
- 
+
 ## monotonically_increasing_id
 {: #monotonically_increasing_id}
 
@@ -2066,7 +2066,7 @@ puts the partition ID in the upper 31 bits, and the lower 33 bits represent the 
 within each partition. The assumption is that the data frame has less than 1 billion
 partitions, and each partition has less than 8 billion records.
 
- 
+
 ## month
 {: #month}
 
@@ -2080,7 +2080,7 @@ month(date) - Returns the month component of the date/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## months_between
 {: #months_between}
 
@@ -2094,7 +2094,7 @@ months_between(timestamp1, timestamp2) - Returns number of months between <code>
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## named_struct
 {: #named_struct}
 
@@ -2106,7 +2106,7 @@ named_struct(name1, val1, name2, val2, ...) - Creates a struct with the given fi
  {&quot;a&quot;:1,&quot;b&quot;:2,&quot;c&quot;:3}
 </code></pre>
 
- 
+
 ## nanvl
 {: #nanvl}
 
@@ -2118,7 +2118,7 @@ nanvl(expr1, expr2) - Returns <code>expr1</code> if it's not NaN, or <code>expr2
  123.0
 </code></pre>
 
- 
+
 ## negative
 {: #negative}
 
@@ -2130,7 +2130,7 @@ negative(expr) - Returns the negated value of <code>expr</code>.
  -1
 </code></pre>
 
- 
+
 ## next_day
 {: #next_day}
 
@@ -2144,13 +2144,13 @@ next_day(start_date, day_of_week) - Returns the first date which is later than <
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## not
 {: #not}
 
 not expr - Logical not.
 
- 
+
 ## now
 {: #now}
 
@@ -2158,14 +2158,14 @@ now() - Returns the current timestamp at the start of query evaluation.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## ntile
 {: #ntile}
 
 ntile(n) - Divides the rows for each window partition into <code>n</code> buckets ranging
 from 1 to at most <code>n</code>.
 
- 
+
 ## nullif
 {: #nullif}
 
@@ -2177,7 +2177,7 @@ nullif(expr1, expr2) - Returns null if <code>expr1</code> equals to <code>expr2<
  NULL
 </code></pre>
 
- 
+
 ## nvl
 {: #nvl}
 
@@ -2189,7 +2189,7 @@ nvl(expr1, expr2) - Returns <code>expr2</code> if <code>expr1</code> is null, or
  [&quot;2&quot;]
 </code></pre>
 
- 
+
 ## nvl2
 {: #nvl2}
 
@@ -2201,7 +2201,7 @@ nvl2(expr1, expr2, expr3) - Returns <code>expr2</code> if <code>expr1</code> is 
  1
 </code></pre>
 
- 
+
 ## octet_length
 {: #octet_length}
 
@@ -2213,13 +2213,13 @@ octet_length(expr) - Returns the byte length of string data or number of bytes o
  9
 </code></pre>
 
- 
+
 ## or
 {: #or}
 
 expr1 or expr2 - Logical OR.
 
- 
+
 ## parse_url
 {: #parse_url}
 
@@ -2235,13 +2235,13 @@ parse_url(url, partToExtract[, key]) - Extracts a part from a URL.
  1
 </code></pre>
 
- 
+
 ## percent_rank
 {: #percent_rank}
 
 percent_rank() - Computes the percentage ranking of a value in a group of values.
 
- 
+
 ## percentile
 {: #percentile}
 
@@ -2254,7 +2254,7 @@ percentile value array of numeric column <code>col</code> at the given percentag
 of the percentage array must be between 0.0 and 1.0. The value of frequency should be
 positive integral
 
- 
+
 ## percentile_approx
 {: #percentile_approx}
 
@@ -2275,7 +2275,7 @@ percentage array.
  10.0
 </code></pre>
 
- 
+
 ## pi
 {: #pi}
 
@@ -2287,7 +2287,7 @@ pi() - Returns pi.
  3.141592653589793
 </code></pre>
 
- 
+
 ## pmod
 {: #pmod}
 
@@ -2301,7 +2301,7 @@ pmod(expr1, expr2) - Returns the positive value of <code>expr1</code> mod <code>
  2
 </code></pre>
 
- 
+
 ## posexplode
 {: #posexplode}
 
@@ -2314,7 +2314,7 @@ posexplode(expr) - Separates the elements of array <code>expr</code> into multip
  1  20
 </code></pre>
 
- 
+
 ## posexplode_outer
 {: #posexplode_outer}
 
@@ -2327,7 +2327,7 @@ posexplode_outer(expr) - Separates the elements of array <code>expr</code> into 
  1  20
 </code></pre>
 
- 
+
 ## position
 {: #position}
 
@@ -2344,13 +2344,13 @@ The given <code>pos</code> and return value are 1-based.
  4
 </code></pre>
 
- 
+
 ## positive
 {: #positive}
 
 positive(expr) - Returns the value of <code>expr</code>.
 
- 
+
 ## pow
 {: #pow}
 
@@ -2362,7 +2362,7 @@ pow(expr1, expr2) - Raises <code>expr1</code> to the power of <code>expr2</code>
  8.0
 </code></pre>
 
- 
+
 ## power
 {: #power}
 
@@ -2374,7 +2374,7 @@ power(expr1, expr2) - Raises <code>expr1</code> to the power of <code>expr2</cod
  8.0
 </code></pre>
 
- 
+
 ## printf
 {: #printf}
 
@@ -2386,7 +2386,7 @@ printf(strfmt, obj, ...) - Returns a formatted string from printf-style format s
  Hello World 100 days
 </code></pre>
 
- 
+
 ## quarter
 {: #quarter}
 
@@ -2400,7 +2400,7 @@ quarter(date) - Returns the quarter of the year for date, in the range 1 to 4.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## radians
 {: #radians}
 
@@ -2412,7 +2412,7 @@ radians(expr) - Converts degrees to radians.
  3.141592653589793
 </code></pre>
 
- 
+
 ## rand
 {: #rand}
 
@@ -2428,7 +2428,7 @@ rand([seed]) - Returns a random value with independent and identically distribut
  0.8446490682263027
 </code></pre>
 
- 
+
 ## randn
 {: #randn}
 
@@ -2444,7 +2444,7 @@ randn([seed]) - Returns a random value with independent and identically distribu
  1.1164209726833079
 </code></pre>
 
- 
+
 ## rank
 {: #rank}
 
@@ -2452,7 +2452,7 @@ rank() - Computes the rank of a value in a group of values. The result is one pl
 of rows preceding or equal to the current row in the ordering of the partition. The values
 will produce gaps in the sequence.
 
- 
+
 ## regexp_extract
 {: #regexp_extract}
 
@@ -2464,7 +2464,7 @@ regexp_extract(str, regexp[, idx]) - Extracts a group that matches <code>regexp<
  100
 </code></pre>
 
- 
+
 ## regexp_replace
 {: #regexp_replace}
 
@@ -2476,7 +2476,7 @@ regexp_replace(str, regexp, rep) - Replaces all substrings of <code>str</code> t
  num-num
 </code></pre>
 
- 
+
 ## repeat
 {: #repeat}
 
@@ -2488,7 +2488,7 @@ repeat(str, n) - Returns the string which repeats the given string value n times
  123123
 </code></pre>
 
- 
+
 ## replace
 {: #replace}
 
@@ -2508,7 +2508,7 @@ replace(str, search[, replace]) - Replaces all occurrences of <code>search</code
  ABCDEF
 </code></pre>
 
- 
+
 ## reverse
 {: #reverse}
 
@@ -2520,7 +2520,7 @@ reverse(str) - Returns the reversed given string.
  LQS krapS
 </code></pre>
 
- 
+
 ## right
 {: #right}
 
@@ -2532,7 +2532,7 @@ right(str, len) - Returns the rightmost <code>len</code>(<code>len</code> can be
  SQL
 </code></pre>
 
- 
+
 ## rint
 {: #rint}
 
@@ -2544,7 +2544,7 @@ rint(expr) - Returns the double value that is closest in value to the argument a
  12.0
 </code></pre>
 
- 
+
 ## rlike
 {: #rlike}
 
@@ -2583,10 +2583,10 @@ true
 
 Use LIKE to match with simple string pattern.
 
- 
+
 ## rollup
 {: #rollup}
- 
+
 ## round
 {: #round}
 
@@ -2598,14 +2598,14 @@ round(expr, d) - Returns <code>expr</code> rounded to <code>d</code> decimal pla
  3.0
 </code></pre>
 
- 
+
 ## row_number
 {: #row_number}
 
 row_number() - Assigns a unique, sequential number to each row, starting with one,
 according to the ordering of rows within the window partition.
 
- 
+
 ## rpad
 {: #rpad}
 
@@ -2620,7 +2620,7 @@ If <code>str</code> is longer than <code>len</code>, the return value is shorten
  h
 </code></pre>
 
- 
+
 ## rtrim
 {: #rtrim}
 
@@ -2644,7 +2644,7 @@ rtrim(trimStr, str) - Removes the trailing string which contains the characters 
  SSpark
 </code></pre>
 
- 
+
 ## second
 {: #second}
 
@@ -2658,7 +2658,7 @@ second(timestamp) - Returns the second component of the string/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## sentences
 {: #sentences}
 
@@ -2670,7 +2670,7 @@ sentences(str[, lang, country]) - Splits <code>str</code> into an array of array
  [[&quot;Hi&quot;,&quot;there&quot;],[&quot;Good&quot;,&quot;morning&quot;]]
 </code></pre>
 
- 
+
 ## sha
 {: #sha}
 
@@ -2682,7 +2682,7 @@ sha(expr) - Returns a sha1 hash value as a hex string of the <code>expr</code>.
  85f5955f4b27a9a4c2aab6ffe5d7189fc298b92c
 </code></pre>
 
- 
+
 ## sha1
 {: #sha1}
 
@@ -2694,7 +2694,7 @@ sha1(expr) - Returns a sha1 hash value as a hex string of the <code>expr</code>.
  85f5955f4b27a9a4c2aab6ffe5d7189fc298b92c
 </code></pre>
 
- 
+
 ## sha2
 {: #sha2}
 
@@ -2707,7 +2707,7 @@ SHA-224, SHA-256, SHA-384, and SHA-512 are supported. Bit length of 0 is equival
  529bc3b07127ecb7e53a4dcf1991d9152c24537d919178022b2c42657f79a26b
 </code></pre>
 
- 
+
 ## shiftleft
 {: #shiftleft}
 
@@ -2719,7 +2719,7 @@ shiftleft(base, expr) - Bitwise left shift.
  4
 </code></pre>
 
- 
+
 <h3 id="shiftright">shiftright</h3>
 
 shiftright(base, expr) - Bitwise (signed) right shift.
@@ -2730,7 +2730,7 @@ shiftright(base, expr) - Bitwise (signed) right shift.
  2
 </code></pre>
 
- 
+
 ## shiftrightunsigned
 {: #shiftrightunsigned}
 
@@ -2742,7 +2742,7 @@ shiftrightunsigned(base, expr) - Bitwise unsigned right shift.
  2
 </code></pre>
 
- 
+
 ## sign
 {: #sign}
 
@@ -2754,7 +2754,7 @@ sign(expr) - Returns -1.0, 0.0 or 1.0 as <code>expr</code> is negative, 0 or pos
  1.0
 </code></pre>
 
- 
+
 ## signum
 {: #signum}
 
@@ -2766,7 +2766,7 @@ signum(expr) - Returns -1.0, 0.0 or 1.0 as <code>expr</code> is negative, 0 or p
  1.0
 </code></pre>
 
- 
+
 ## sin
 {: #sin}
 
@@ -2778,7 +2778,7 @@ sin(expr) - Returns the sine of <code>expr</code>.
  0.0
 </code></pre>
 
- 
+
 <h3 id="sinh">sinh</h3>
 
 sinh(expr) - Returns the hyperbolic sine of <code>expr</code>.
@@ -2789,7 +2789,7 @@ sinh(expr) - Returns the hyperbolic sine of <code>expr</code>.
  0.0
 </code></pre>
 
- 
+
 ## size
 {: #size}
 
@@ -2801,19 +2801,19 @@ size(expr) - Returns the size of an array or a map. Returns -1 if null.
  4
 </code></pre>
 
- 
+
 ## skewness
 {: #skewness}
 
 skewness(expr) - Returns the skewness value calculated from values of a group.
 
- 
+
 ## smallint
 {: #smallint}
 
 smallint(expr) - Casts the value <code>expr</code> to the target data type <code>smallint</code>.
 
- 
+
 ## sort_array
 {: #sort_array}
 
@@ -2825,7 +2825,7 @@ sort_array(array[, ascendingOrder]) - Sorts the input array in ascending or desc
  [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;]
 </code></pre>
 
- 
+
 ## soundex
 {: #soundex}
 
@@ -2837,7 +2837,7 @@ soundex(str) - Returns Soundex code of the string.
  M460
 </code></pre>
 
- 
+
 ## space
 {: #space}
 
@@ -2849,13 +2849,13 @@ space(n) - Returns a string consisting of <code>n</code> spaces.
    1
 </code></pre>
 
- 
+
 ## spark_partition_id
 {: #spark_partition_id}
 
 spark_partition_id() - Returns the current partition id.
 
- 
+
 ## split
 {: #split}
 
@@ -2867,7 +2867,7 @@ split(str, regex) - Splits <code>str</code> around occurrences that match <code>
  [&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;&quot;]
 </code></pre>
 
- 
+
 ## sqrt
 {: #sqrt}
 
@@ -2879,7 +2879,7 @@ sqrt(expr) - Returns the square root of <code>expr</code>.
  2.0
 </code></pre>
 
- 
+
 ## stack
 {: #stack}
 
@@ -2892,31 +2892,31 @@ stack(n, expr1, ..., exprk) - Separates <code>expr1</code>, ..., <code>exprk</co
  3  NULL
 </code></pre>
 
- 
+
 ## std
 {: #std}
 
 std(expr) - Returns the sample standard deviation calculated from values of a group.
 
- 
+
 ## stddev
 {: #stddev}
 
 stddev(expr) - Returns the sample standard deviation calculated from values of a group.
 
- 
+
 ## stddev_pop
 {: #stddev_pop}
 
 stddev_pop(expr) - Returns the population standard deviation calculated from values of a group.
 
- 
+
 ## stddev_samp
 {: #stddev_samp}
 
 stddev_samp(expr) - Returns the sample standard deviation calculated from values of a group.
 
- 
+
 ## str_to_map
 {: #str_to_map}
 
@@ -2930,19 +2930,19 @@ str_to_map(text[, pairDelim[, keyValueDelim]]) - Creates a map after splitting t
  map(&quot;a&quot;:null)
 </code></pre>
 
- 
+
 ## string
 {: #string}
 
 string(expr) - Casts the value <code>expr</code> to the target data type <code>string</code>.
 
- 
+
 ## struct
 {: #struct}
 
 struct(col1, col2, col3, ...) - Creates a struct with the given field values.
 
- 
+
 ## substr
 {: #substr}
 
@@ -2958,7 +2958,7 @@ substr(str, pos[, len]) - Returns the substring of <code>str</code> that starts 
  k
 </code></pre>
 
- 
+
 ## substring
 {: #substring}
 
@@ -2974,7 +2974,7 @@ substring(str, pos[, len]) - Returns the substring of <code>str</code> that star
  k
 </code></pre>
 
- 
+
 ## substring_index
 {: #substring_index}
 
@@ -2990,13 +2990,13 @@ when searching for <code>delim</code>.
  www.apache
 </code></pre>
 
- 
+
 ## sum
 {: #sum}
 
 sum(expr) - Returns the sum calculated from values of a group.
 
- 
+
 ## tan
 {: #tan}
 
@@ -3008,7 +3008,7 @@ tan(expr) - Returns the tangent of <code>expr</code>.
  0.0
 </code></pre>
 
- 
+
 ## tanh
 {: #tanh}
 
@@ -3020,19 +3020,19 @@ tanh(expr) - Returns the hyperbolic tangent of <code>expr</code>.
  0.0
 </code></pre>
 
- 
+
 ## timestamp
 {: #timestamp}
 
 timestamp(expr) - Casts the value <code>expr</code> to the target data type <code>timestamp</code>.
 
- 
+
 ## tinyint
 {: #tinyint}
 
 tinyint(expr) - Casts the value <code>expr</code> to the target data type <code>tinyint</code>.
 
- 
+
 ## to_date
 {: #to_date}
 
@@ -3050,7 +3050,7 @@ the <code>fmt</code> is omitted.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## to_json
 {: #to_json}
 
@@ -3076,7 +3076,7 @@ to_json(expr[, options]) - Returns a json string with a given struct value
 
 <strong>Since:</strong> 2.2.0
 
- 
+
 ## to_timestamp
 {: #to_timestamp}
 
@@ -3094,7 +3094,7 @@ a timestamp if the <code>fmt</code> is omitted.
 
 <strong>Since:</strong> 2.2.0
 
- 
+
 ## to_unix_timestamp
 {: #to_unix_timestamp}
 
@@ -3108,7 +3108,7 @@ to_unix_timestamp(expr[, pattern]) - Returns the UNIX timestamp of the given tim
 
 <strong>Since:</strong> 1.6.0
 
- 
+
 ## to_utc_timestamp
 {: #to_utc_timestamp}
 
@@ -3122,7 +3122,7 @@ to_utc_timestamp(timestamp, timezone) - Given a timestamp like '2017-07-14 02:40
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## translate
 {: #translate}
 
@@ -3134,7 +3134,7 @@ translate(input, from, to) - Translates the <code>input</code> string by replaci
  A1B2C3
 </code></pre>
 
- 
+
 ## trim
 {: #trim}
 
@@ -3173,7 +3173,7 @@ trim(TRAILING trimStr FROM str) - Remove the trailing <code>trimStr</code> chara
  SSparkSQ
 </code></pre>
 
- 
+
 ## trunc
 {: #trunc}
 
@@ -3190,7 +3190,7 @@ trunc(date, fmt) - Returns <code>date</code> with the time portion of the day tr
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## ucase
 {: #ucase}
 
@@ -3202,7 +3202,7 @@ ucase(str) - Returns <code>str</code> with all characters changed to uppercase.
  SPARKSQL
 </code></pre>
 
- 
+
 ## unbase64
 {: #unbase64}
 
@@ -3214,7 +3214,7 @@ unbase64(str) - Converts the argument from a base 64 string <code>str</code> to 
  Spark SQL
 </code></pre>
 
- 
+
 ## unhex
 {: #unhex}
 
@@ -3226,7 +3226,7 @@ unhex(expr) - Converts hexadecimal <code>expr</code> to binary.
  Spark SQL
 </code></pre>
 
- 
+
 ## unix_timestamp
 {: #unix_timestamp}
 
@@ -3242,7 +3242,7 @@ unix_timestamp([expr[, pattern]]) - Returns the UNIX timestamp of current or spe
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## upper
 {: #upper}
 
@@ -3254,7 +3254,7 @@ upper(str) - Returns <code>str</code> with all characters changed to uppercase.
  SPARKSQL
 </code></pre>
 
- 
+
 ## uuid
 {: #uuid}
 
@@ -3266,25 +3266,25 @@ uuid() - Returns an universally unique identifier (UUID) string. The value is re
  46707d92-02f4-4817-8116-a4c3b23e6266
 </code></pre>
 
- 
+
 ## var_pop
 {: #var_pop}
 
 var_pop(expr) - Returns the population variance calculated from values of a group.
 
- 
+
 ## var_samp
 {: #var_samp}
 
 var_samp(expr) - Returns the sample variance calculated from values of a group.
 
- 
+
 ## variance
 {: #variance}
 
 variance(expr) - Returns the sample variance calculated from values of a group.
 
- 
+
 ## weekofyear
 {: #weekofyear}
 
@@ -3298,7 +3298,7 @@ weekofyear(date) - Returns the week of the year of the given date. A week is con
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 when
 
 CASE WHEN expr1 THEN expr2 [WHEN expr3 THEN expr4]* [ELSE expr5] END - When <code>expr1</code> = true, returns <code>expr2</code>; else when <code>expr3</code> = true, returns <code>expr4</code>; else returns <code>expr5</code>.
@@ -3320,10 +3320,10 @@ CASE WHEN expr1 THEN expr2 [WHEN expr3 THEN expr4]* [ELSE expr5] END - When <cod
  NULL
 </code></pre>
 
- 
+
 ## window
 {: #window}
- 
+
 ## xpath
 {: #xpath}
 
@@ -3335,7 +3335,7 @@ xpath(xml, xpath) - Returns a string array of values within the nodes of xml tha
  ['b1','b2','b3']
 </code></pre>
 
- 
+
 ## xpath_boolean
 {: #xpath_boolean}
 
@@ -3347,7 +3347,7 @@ xpath_boolean(xml, xpath) - Returns true if the XPath expression evaluates to tr
  true
 </code></pre>
 
- 
+
 ## xpath_double
 {: #xpath_double}
 
@@ -3359,7 +3359,7 @@ xpath_double(xml, xpath) - Returns a double value, the value zero if no match is
  3.0
 </code></pre>
 
- 
+
 ## xpath_float
 {: #xpath_float}
 
@@ -3371,7 +3371,7 @@ xpath_float(xml, xpath) - Returns a float value, the value zero if no match is f
  3.0
 </code></pre>
 
- 
+
 ## xpath_int
 {: #xpath_int}
 
@@ -3383,7 +3383,7 @@ xpath_int(xml, xpath) - Returns an integer value, or the value zero if no match 
  3
 </code></pre>
 
- 
+
 ## xpath_long
 {: #xpath_long}
 
@@ -3395,7 +3395,7 @@ xpath_long(xml, xpath) - Returns a long integer value, or the value zero if no m
  3
 </code></pre>
 
- 
+
 ## xpath_number
 {: #xpath_number}
 
@@ -3407,7 +3407,7 @@ xpath_number(xml, xpath) - Returns a double value, the value zero if no match is
  3.0
 </code></pre>
 
- 
+
 ## xpath_short
 {: #xpath_short}
 
@@ -3419,7 +3419,7 @@ xpath_short(xml, xpath) - Returns a short integer value, or the value zero if no
  3
 </code></pre>
 
- 
+
 ## xpath_string
 {: #xpath_string}
 
@@ -3431,7 +3431,7 @@ xpath_string(xml, xpath) - Returns the text contents of the first xml node that 
  cc
 </code></pre>
 
- 
+
 ## year
 {: #year}
 
@@ -3445,7 +3445,7 @@ year(date) - Returns the year component of the date/timestamp.
 
 <strong>Since:</strong> 1.5.0
 
- 
+
 ## |
 {: #|}
 
@@ -3457,7 +3457,7 @@ expr1 | expr2 - Returns the result of bitwise OR of <code>expr1</code> and <code
  7
 </code></pre>
 
- 
+
 ## ~
 {: #~}
 

@@ -1,7 +1,7 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="sql-query" audience="service" arm="3663118" href="/docs/services/sql-query?topic=sql-query-gettingstarted" path="services/sql-query"}
+{: .toc subcollection="sql-query" category="analytics,databases" audience="service" arm="3663118" href="/docs/services/sql-query?topic=sql-query-gettingstarted" path="services/sql-query"}
 IBM Cloud SQL Query
 
     {: .navgroup id="learn"}
@@ -12,14 +12,22 @@ IBM Cloud SQL Query
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
+    sqlref/sql_reference.md
+    sqlref/sql_functions.md
+    sqlref/geospatial.md
+    
     {: .topicgroup}
-    SQL
-        sqlref/sql_reference.md
-        sqlref/sql_functions.md
-        sqlref/geospatial.md
-        sqlref/timeseries.md
-
-    {: .topicgroup}
+    Time series functions
+        sqlref/timeseries_intro.md
+        sqlref/timeseries_trs.md
+        sqlref/timeseries_datatypes.md
+        sqlref/timeseries_develop.md
+        sqlref/timeseries_common.md
+        sqlref/timeseries_matching.md
+        sqlref/timeseries_join.md
+        sqlref/timeseries_functions.md
+        sqlref/timeseries_functions_artifact.md
+        sqlref/timeseries_functions_dataproc.md
     activity.md
     {: .navgroup-end}
 
@@ -40,4 +48,4 @@ IBM Cloud SQL Query
         geospatial_analytics.md
         microservice.md
     keyprotect.md
-{: .navgroup-end}
+    {: .navgroup-end}

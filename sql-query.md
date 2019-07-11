@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-04-08"
+lastupdated: "2019-06-04"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -51,10 +51,8 @@ Each URI comprises one or more input files; each input file can be thought of as
 You must have at least 'Reader' access to the buckets that contain the input files.
     - If the format of the input files is CSV, there is no need to specify a STORED AS clause. 
 However, if the format is JSON, ORC, Parquet, or AVRO, after the FROM clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO as appropriate.
-    - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using 
-the `FIELDS TERMINATED BY` "<character>" clause. All one-character Unicode characters are allowed as delimiters.
-    - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify
-`NOHEADER` after the `FROM` clause or `STORED AS` clause.
+    - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the [`FIELDS TERMINATED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All one-character Unicode characters are allowed as delimiters.
+    - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify `NOHEADER` after the `FROM` clause or `STORED AS` clause.
     - If required, you can use JOIN constructs to join data from several input files, even if those files are located in different instances.
 2. Below the SELECT statement, in the **Target** field, specify the output [URI](#table-unique-resource-identifier),
 that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
@@ -120,71 +118,71 @@ To save space, you can use the alias shown instead of the full endpoint name.
 
 Internal Cross-Regional Endpoint Name | Alias
 --- | --- 
-s3-api.us-geo.objectstorage.service.networklayer.com     | us-geo
-s3-api.dal-us-geo.objectstorage.service.networklayer.com | dal-us-geo
-s3-api.wdc-us-geo.objectstorage.service.networklayer.com | wdc-us-geo
-s3-api.sjc-us-geo.objectstorage.service.networklayer.com | sjc-us-geo
-s3.eu-geo.objectstorage.service.networklayer.com         | eu-geo
-s3.ams-eu-geo.objectstorage.service.networklayer.com     | ams-eu-geo
-s3.fra-eu-geo.objectstorage.service.networklayer.com     | fra-eu-geo
-s3.mil-eu-geo.objectstorage.service.networklayer.com     | mil-eu-geo
-s3.ap-geo.objectstorage.service.networklayer.com         | ap-geo
-s3.tok-ap-geo.objectstorage.service.networklayer.com     | tok-ap-geo
-s3.seo-ap-geo.objectstorage.service.networklayer.com     | seo-ap-geo
-s3.hkg-ap-geo.objectstorage.service.networklayer.com     | hkg-ap-geo
+s3-api.us-geo.cloud-object-storage.appdomain.cloud     | us-geo
+s3-api.dal-us-geo.cloud-object-storage.appdomain.cloud | dal-us-geo
+s3-api.wdc-us-geo.cloud-object-storage.appdomain.cloud | wdc-us-geo
+s3-api.sjc-us-geo.cloud-object-storage.appdomain.cloud | sjc-us-geo
+s3.eu-geo.cloud-object-storage.appdomain.cloud         | eu-geo
+s3.ams-eu-geo.cloud-object-storage.appdomain.cloud     | ams-eu-geo
+s3.fra-eu-geo.cloud-object-storage.appdomain.cloud     | fra-eu-geo
+s3.mil-eu-geo.cloud-object-storage.appdomain.cloud     | mil-eu-geo
+s3.ap-geo.cloud-object-storage.appdomain.cloud         | ap-geo
+s3.tok-ap-geo.cloud-object-storage.appdomain.cloud     | tok-ap-geo
+s3.seo-ap-geo.cloud-object-storage.appdomain.cloud     | seo-ap-geo
+s3.hkg-ap-geo.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
 
 
 External Cross-Regional Endpoint Name | Alias
 --- | --- 
-s3-api.us-geo.objectstorage.softlayer.net     | us-geo
-s3-api.dal-us-geo.objectstorage.softlayer.net | dal-us-geo
-s3-api.wdc-us-geo.objectstorage.softlayer.net | wdc-us-geo
-s3-api.sjc-us-geo.objectstorage.softlayer.net | sjc-us-geo
-s3.eu-geo.objectstorage.softlayer.net         | eu-geo
-s3.ams-eu-geo.objectstorage.softlayer.net     | ams-eu-geo
-s3.fra-eu-geo.objectstorage.softlayer.net     | fra-eu-geo
-s3.mil-eu-geo.objectstorage.softlayer.net     | mil-eu-geo
-s3.ap-geo.objectstorage.softlayer.net         | ap-geo
-s3.tok-ap-geo.objectstorage.softlayer.net     | tok-ap-geo
-s3.seo-ap-geo.objectstorage.softlayer.net     | seo-ap-geo
-s3.hkg-ap-geo.objectstorage.softlayer.net     | hkg-ap-geo
+s3-api.us-geo.cloud-object-storage.appdomain.cloud     | us-geo
+s3-api.dal-us-geo.cloud-object-storage.appdomain.cloud | dal-us-geo
+s3-api.wdc-us-geo.cloud-object-storage.appdomain.cloud | wdc-us-geo
+s3-api.sjc-us-geo.cloud-object-storage.appdomain.cloud | sjc-us-geo
+s3.eu-geo.cloud-object-storage.appdomain.cloud         | eu-geo
+s3.ams-eu-geo.cloud-object-storage.appdomain.cloud     | ams-eu-geo
+s3.fra-eu-geo.cloud-object-storage.appdomain.cloud     | fra-eu-geo
+s3.mil-eu-geo.cloud-object-storage.appdomain.cloud     | mil-eu-geo
+s3.ap-geo.cloud-object-storage.appdomain.cloud         | ap-geo
+s3.tok-ap-geo.cloud-object-storage.appdomain.cloud     | tok-ap-geo
+s3.seo-ap-geo.cloud-object-storage.appdomain.cloud     | seo-ap-geo
+s3.hkg-ap-geo.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
 
 
 Internal Regional Endpoint Name | Alias
 --- | --- 
-s3.eu-de.objectstorage.service.networklayer.com    | eu-de
-s3.eu-gb.objectstorage.service.networklayer.com    | eu-gb
-s3.us-south.objectstorage.service.networklayer.com | us-south
-s3.us-east.objectstorage.service.networklayer.com  | us-east
-s3.jp-tok.objectstorage.service.networklayer.com   | jp-tok 
+s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
+s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
+s3.us-south.cloud-object-storage.appdomain.cloud | us-south
+s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
+s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok 
 
 
 External Regional Endpoint Name | Alias
 --- | --- 
-s3.eu-de.objectstorage.softlayer.net    | eu-de
-s3.eu-gb.objectstorage.softlayer.net    | eu-gb
-s3.us-south.objectstorage.softlayer.net | us-south
-s3.us-east.objectstorage.softlayer.net  | us-east
-s3.jp-tok.objectstorage.softlayer.net   | jp-tok 
+s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
+s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
+s3.us-south.cloud-object-storage.appdomain.cloud | us-south
+s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
+s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok 
 
 
 Internal Single-Site Endpoint Name | Alias
 --- | --- 
-s3.ams03.objectstorage.service.networklayer.com    | ams03
-s3.che01.objectstorage.service.networklayer.com    | che01
-s3.tor01.objectstorage.service.networklayer.com    | tor01
-s3.osl01.objectstorage.service.networklayer.com    | osl01
-s3.mel01.objectstorage.service.networklayer.com    | mel01
-s3.sao01.objectstorage.service.networklayer.com    | sao01
+s3.ams03.cloud-object-storage.appdomain.cloud    | ams03
+s3.che01.cloud-object-storage.appdomain.cloud    | che01
+s3.tor01.cloud-object-storage.appdomain.cloud    | tor01
+s3.osl01.cloud-object-storage.appdomain.cloud    | osl01
+s3.mel01.cloud-object-storage.appdomain.cloud    | mel01
+s3.sao01.cloud-object-storage.appdomain.cloud    | sao01
 
 External Single-Site Endpoint Name | Alias
 --- | --- 
-s3.ams03.objectstorage.softlayer.net   | ams03
-s3.che01.objectstorage.softlayer.net   | che01
-s3.tor01.objectstorage.softlayer.net   | tor01
-s3.osl01.objectstorage.softlayer.net   | osl01
-s3.mel01.objectstorage.softlayer.net   | mel01
-s3.sao01.objectstorage.softlayer.net   | sao01
+s3.ams03.cloud-object-storage.appdomain.cloud   | ams03
+s3.che01.cloud-object-storage.appdomain.cloud   | che01
+s3.tor01.cloud-object-storage.appdomain.cloud   | tor01
+s3.osl01.cloud-object-storage.appdomain.cloud   | osl01
+s3.mel01.cloud-object-storage.appdomain.cloud   | mel01
+s3.sao01.cloud-object-storage.appdomain.cloud   | sao01
 
 ## Programmatic access
 {: #access}
@@ -248,15 +246,11 @@ Use one of the following workarounds:
 - If you receive an error message stating that some columns are not found in the input columns,
 but the columns do exist in the input file, check if the input file format being specified using 'STORED AS'
 in the SQL statement is the actual file format of your current file.
-- In order to further process CSV output with {{site.data.keyword.sqlquery_short}}, all values have to be contained within one line. The multi-line option 
-is not supported and therefore must be manually changed. 
-To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` 
-containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton 
-SQL statement looks like the following:
+- In order to further process CSV output with {{site.data.keyword.sqlquery_short}}, all values have to be contained within one line. The multi-line option is not supported and therefore must be manually changed. 
+To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on COS for further processing, a skeleton SQL statement looks like the following:
 
 	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
 	
 - Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence 
 of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in different parts of the object.
-- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, 
-add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
