@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-07-16"
+lastupdated: "2019-07-23"
 
 keywords: what's new, support, release, beta
 
@@ -14,6 +14,8 @@ subcollection: sql-query
 
 ## July 2019
 
+- JSON preview:
+  You can now directly preview query results in JSON format in the SQL console. Simply add `INTO <COS URI> STORED AS JSON` to your SQL     statement to produce JSON output and preview it in the web console.
 - Support for Parquet schema evolution via the [MERGE SCHEMA](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) sub clause for `STORED AS PARQUET` input data. Check out the new Samples.
 - Support for [CLEANCOLS](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that generically cleanses all input column names from characters that are not supported by the Parquet target format. Check out the new Samples.
 - Support for [FLATTEN](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that generically flattens all nested input columns into a flat hierarchy, allowing to easily work with, for example, JSON input data and write the results out to flat CSV files. Check out the new Samples.
