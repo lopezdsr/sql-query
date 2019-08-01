@@ -14,7 +14,7 @@ subcollection: sql-query
 
 ## August 2019
 
-- Support for the `DESCRIBE` table transformation function that enables easy exploration of the schema of data on {{site.data.keyword.cos_full}} by returning the schema definition instead of data as the table content. Check out the new Starter Query sample in the UI.
+- Support for the [`DESCRIBE`](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that enables easy exploration of the schema of data on {{site.data.keyword.cos_full}} by returning the schema definition instead of data as the table content. Check out the new Starter Query sample in the UI.
 
 ## July 2019
 
