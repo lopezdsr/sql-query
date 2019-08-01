@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-07-10"
+lastupdated: "2019-08-01"
 
 ---
 
@@ -676,6 +676,15 @@ when your input data has columns with these characters. A typical situation is t
 For example, you can use `SELECT * CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON)` to produce a result set that can be stored as is into Parquet target format. 
 
 You can optionally also combine `CLEANCOLS` with `FLATTEN`.
+
+If you wrap your external table definition with the `DESCRIBE` table transformer,
+the table does not show its actual content but the schema that is inferred from the objects in {{site.data.keyword.cos_full}} instead.
+This allows you to explore the schema before authoring your actual SQL statements against it. 
+
+When you use the `DESCRIBE` table transformer in your SQL statement, the default output format is JSON instead of CSV. 
+
+You can also wrap `DESCRIBE` around the other table transformers in order to explore the transformed table schema. 
+However, you cannot wrap other table transformers around the `DESCRIBE` transformer.
 
 <!--include-svg src="./svgfiles/tableTransformer.svg" target="./diagrams/tableTransformer.svg" alt="syntax diagram for an table transformer" layout="" -->
 
