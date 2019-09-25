@@ -298,7 +298,7 @@ Use one of the following workarounds:
 
 - If you receive an error message stating that some columns are not found in the input columns, but the columns do exist in the input file, check if the input file format being specified using 'STORED AS' in the SQL statement is the actual file format of your current file.
 
-- In order to process CSV input with {{site.data.keyword.sqlquery_short}}, all rows have to be contained within one line. Multi-line values are not supported.
+- In order to process CSV input with {{site.data.keyword.sqlquery_short}}, each row has to be contained within one line. Multi-line values are not supported.
 
   When you use {{site.data.keyword.sqlquery_short}} to generate CSV results from other data formats like Parquet that support newlines within values and these CSV results should be queried again, then newlines must explicitly removed before writing the results. To do so, use the SQL function `regexp_replace`. For example, a Parquet object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following:
 
