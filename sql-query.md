@@ -54,25 +54,26 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the FROM clause, sp
     - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the [`FIELDS TERMINATED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All one-character Unicode characters are allowed as delimiters.
     - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify `NOHEADER` after the `FROM` clause or `STORED AS` clause.
     - If required, you can use JOIN constructs to join data from several input files, even if those files are located in different instances.
-
-2. Below the SELECT statement, in the **Target** field, specify the output [URI](#table-unique-resource-identifier),
-that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
+    - Use the `INTO` clause of a [query](https://test.cloud.ibm.com/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify he output [URI](#table-unique-resource-identifier), that is, the URI of the directory to which the result is to be written.
+2. Below the SELECT statement, the **Target** field displays where the result will be stored. A default location is chosen if your query does not specify an `INTO` clause. You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
 3. Click the **Run** button.
 The query result is displayed in the result area of the UI. You can run up to 5 queries simultaneously.
 
 ## Object result set
 {: #result}
 
-Currently three objects are written as a result set per job:
+By default, three objects are written as a result set per job:
 
 1. `jobid=<job_id>`
 2. `jobid=<job_id>/_SUCCESS`
 3. `jobid=<job_id>/<part-number>`
 
 Only one object contains the result set (`jobid=<job_id>/<part-number>`), and the other two are empty and don't contain any data.
-It is important not to delete any of the files if you want to use the result set.
+It is important not to delete any of the objects if you want to use the result set.
 Each result is stored with an own job ID prefix that allows you to use the result directly in a query.
 When you want to specify a result as input in your SQL query, specify the first (`jobid=<job_id>`) or the third one (`jobid=<job_id>/<part-number>`).
+
+You can use the [partitioning clause](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. You can then use either the entire result set or individual objects as input for further SQL queries.
 
 ## Table unique resource identifier
 
@@ -288,19 +289,19 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2/sql_jo
 ## Limitations
 {: #limitations}
 
-- If a JSON, ORC, or Parquet object contains a nested or arrayed structure, using a wildcard (for example, `select * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
+- If a JSON, ORC, or Parquet object contains a nested or arrayed structure, a query with CSV output using a wildcard (for example, `select * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
 Use one of the following workarounds:
-  - For a nested structure, specify the fully nested column name instead of the wildcard, for example, `select address.city from cos://...`.
-  - For an array, use the Spark SQL explode() function, for example, `select explode(address.city) from cos://...`.
+  - For a nested structure, use the [`FLATTEN`](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function. Alternatively, you can specify the fully nested column names instead of the wildcard, for example, `select address.city, address.street, ... from cos://...`.
+  - For an array, use the Spark SQL explode() function, for example, `select explode(contact_names) from cos://...`.
+
 - If you receive a corrupted result, verify that the source file is correct and that the correct input file format is specified using 'STORED AS' in the SQL statement.
-- If you receive an error message stating that some columns are not found in the input columns,
-but the columns do exist in the input file, check if the input file format being specified using 'STORED AS'
-in the SQL statement is the actual file format of your current file.
-- In order to further process CSV output with {{site.data.keyword.sqlquery_short}}, all values have to be contained within one line. The multi-line option is not supported and therefore must be manually changed.
-To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following:
 
-	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
+- If you receive an error message stating that some columns are not found in the input columns, but the columns do exist in the input file, check if the input file format being specified using 'STORED AS' in the SQL statement is the actual file format of your current file.
 
-- Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence
-of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in different parts of the object.
-- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+- In order to process CSV input with {{site.data.keyword.sqlquery_short}}, all rows have to be contained within one line. Multi-line values are not supported.
+
+  When you use {{site.data.keyword.sqlquery_short}} to generate CSV results from other data formats like Parquet that support newlines within values and these CSV results should be queried again, then newlines must explicitly removed before writing the results. To do so, use the SQL function `regexp_replace`. For example, a Parquet object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following:
+
+	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS parquet WHERE condition`
+
+- When you want to run a query over the combined results of multiple previous queries, ensure that these have compatible outputs. For example, you can run some setup queries writing to `cos://us-geo/my-bucket/tempstore`, where each query creates new objects inside that prefix with a distinct `jobid=` name. You can the run an aggregate query over all of the setup results using `cos://us-geo/my-bucket/tempstore` as input. To make this work properly, all setup queries must use the same names of columns and sequence in their `SELECT` clause, so the results have compatible schemas. If you later need to introduce new columns in additional setup queries, add these to the end of the column list. If this is not the case, the structure of the composite `tempstore` data set gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
