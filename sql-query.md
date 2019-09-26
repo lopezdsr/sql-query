@@ -91,9 +91,17 @@ A more exact specification of the object or objects:
   - When the path is a prefix of multiple objects at a slash '/' character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`
   - When the path ends with a `*` wildcard it matches all objects with the given path prefix. For example, `mydir/test1*`, matches objects `mydir/test100` and `mydir/test101/nested/object`
 
-  When a path matches more than one object, ensure that the schema of each matching object is appropriate within the context of the SELECT statement and that the schemas are compatible, e.g. all objects use the same order of columns.
-
 - For an output URI, this is the prefix under which the [result objects](#result) are to be written.
+
+### Composite input tables
+{: compositeInput}
+
+As noted above, the URI for an input table on Cloud {{site.data.keyword.cos_short}} can match multiple objects, forming a "composite" input table. When you run a query over composite input, ensure that the schema of each matching object is appropriate within the context of the SELECT statement. The schemas of the objects don't have to be identical; depending on the input format, the schemas of multiple objects can be merged:
+- For CSV format, columns are matched based on their *order*. Some input objects can contain more columns than others, but common columns must always use the same order across objects. The number of columns in the composite input is the maximum number of columns from all matched objects.
+- For JSON and Parquet format, columns are matched based on their *name*. The set of columns in the composite input is the union of all columns names from matched objects. For Parquet format, you need to use the `MERGE SCHEMA` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause to indicate that schema merging should be performed.
+- Input schema merging is not supported for AVRO and ORC formats. The first object determines the set of columns in the composite input, all columns that do not occur in the first object are ignored. The same behavior applies to Parquet, if the `MERGE SCHEMA` option is not specified.
+
+Matching columns need to have compatible data types across all objects where they appear. If a column does not appear in some of the input objects, it is padded with NULL values in the composite input.
 
 ### Database locations
 
@@ -149,12 +157,9 @@ Only the last object contains the result set, the other two are empty and don't 
 Note that you can use the result set from one query as input data for further SQL queries.
 When you want to specify a result of a single query execution as input in your SQL query, specify the first (`<target>/jobid=<job_id>`) or the third one (`<target>/jobid=<job_id>/<part-number>`). You can also use the [partitioning clause](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. Either the entire result set or individual objects can then serve as input for further queries.
 
-A query can even process the output of multiple previous query executions by omitting the `jobid=<job_id>` part in the object name. For example, you can run some setup queries writing to `cos://us-geo/my-bucket/tempstore`, where each query creates new objects inside that prefix with a distinct `jobid=<job_id>` name. You can the run an aggregate query over all of the setup results using `cos://us-geo/my-bucket/tempstore` as input. The aggregate query can treat `jobid` as if it were a column in the input table (for example, in a WHERE clause). This is the Hive-style partitioning concept that Hadoop SQL engines employ for data stored in Hadoop Distributed File System (HDFS).
+A query can even process the output of multiple previous query executions by omitting the `jobid=<job_id>` part in the object name. For example, you can run some setup queries writing to `cos://us-geo/my-bucket/tempstore`, where each query creates new objects inside that prefix with a distinct `jobid=<job_id>` name. You can the run an aggregate query over all of the setup results using `cos://us-geo/my-bucket/tempstore` as a [composite input table](#compositeInput). The aggregate query can treat `jobid` as if it were a column in the input table (for example, in a WHERE clause). This is the Hive-style partitioning concept that Hadoop SQL engines employ for data stored in Hadoop Distributed File System (HDFS).
 
-When you want to run a query over the combined results of multiple previous queries, ensure that these have compatible outputs.  To make this work properly, all setup queries must use the same names of columns and sequence in their `SELECT` clause, so the results have compatible schemas. If you later need to introduce new columns in additional setup queries, add these to the end of the column list. If this is not the case, the structure of the composite `tempstore` data set gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
-
-Finally, if you are running a query over combined results in Parquet format, it is assumed by default that all have the same schema and errors will occur if, for example, some objects have additional columns. In this case, you can use the `MERGE SCHEMA` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause to indicate that multiple compatible schemas need to be combined.
-
+When you want to run a query over the combined results of multiple previous queries, ensure that these have compatible outputs, so their schemas can be merged. See the section on [composite input tables](#compositeInput) for detailed information. To make this work properly for CSV format, all setup queries must use the same column names and sequence in their `SELECT` clause, so the results have compatible schemas. If you later need to introduce new columns in additional setup queries, add these to the end of the column list. If this is not the case, the structure of the composite `tempstore` data set gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
 
 ## Endpoints
 {: #endpoints}
