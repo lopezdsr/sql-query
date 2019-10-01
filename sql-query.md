@@ -37,7 +37,7 @@ Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your
 Before you can use the {{site.data.keyword.sqlquery_short}} service to run SQL queries, the input data must be uploaded to one or more Cloud {{site.data.keyword.cos_short}} instances.
 You must also have at least 'Writer' access to at least one Cloud {{site.data.keyword.cos_short}} bucket, so that result objects
 (that is, the objects containing output data) can be written there.
-For more information about Cloud {{site.data.keyword.cos_short}}, including how to provision an instance, create buckets, and upload data, refer to the [Cloud Object Storage Getting Started Guide](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console).
+For more information about Cloud {{site.data.keyword.cos_short}}, including how to provision an instance, create buckets, and upload data, refer to the [Cloud Object Storage Getting Started Guide](/docs/services/cloud-object-storage/getting-started.html#getting-started-console).
 
 ## Running a query
 {: #running}
@@ -52,8 +52,8 @@ You must have at least 'Reader' access to the buckets that contain the input obj
 However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO, as appropriate.
     - If the format of the input objects is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the `FIELDS TERMINATED BY` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All single Unicode characters are allowed as delimiters.
     - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify `NOHEADER` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
-    - If required, you can use JOIN constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}}.
-    - Use the `INTO` clause of a [query](https://test.cloud.ibm.com/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the desired result format.
+    - If required, you can use JOIN constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
+    - Use the `INTO` clause of a [query](/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the desired result format.
 2. Below the SELECT statement, the **Target** field displays where the result will be stored. A default location is chosen if your query does not specify an `INTO` clause. You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
 3. Click the **Run** button.
 When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a standard plan instance of {{site.data.keyword.sqlquery_short}}.
@@ -127,7 +127,7 @@ depends on the target database plan and the access you have to that database:
 
 2. If the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance are not accessible to the SQL user, but the instance has been enabled for IAM authentication, the database location can be specified using a URI with the Db2 database host name. The access to this database will be performed with the IAM identity of the user that has submitted the query.
   Before using this option, make sure that the IBMid of the SQL user hase been added as a database user. See section "Console User Experience" in the "User management" documentation of the
-  [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html).
+  [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html).
 
   This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
 
@@ -241,7 +241,7 @@ s3.sao01.cloud-object-storage.appdomain.cloud   | sao01
 ### REST API
 {: #restapi}
 
-You can use the [SQL Query service REST API](https://console.bluemix.net/apidocs/sql-query?language=curl)
+You can use the [SQL Query service REST API](https://cloud.ibm.com/apidocs/sql-query)
 to run queries and retrieve information about their status. This is especially helpful when writing code that automatically queries data.
 
 **Note:** The Cloud Resource Name (CRN) is a mandatory part of an {{site.data.keyword.sqlquery_short}} REST endpoint call. The CRN Copy button copies your CRN to clipboard and you can just paste it into your API call.
@@ -249,8 +249,8 @@ to run queries and retrieve information about their status. This is especially h
 ### Python applications and notebooks
 {: #python}
 
-For a Python application, you can also use the [ibmcloudsql package](https://pypi.python.org/pypi/ibmcloudsql).
-This allows you to use IBM Watson Studio to run queries with {{site.data.keyword.sqlquery_short}} and visualize the query results with one of the various widget libraries available in [Watson Studio](https://console.stage1.bluemix.net/catalog/services/data-science-experience).
+For a Python application, you can also use the [ibmcloudsql package](https://pypi.org/project/ibmcloudsql/).
+This allows you to use IBM Watson Studio to run queries with {{site.data.keyword.sqlquery_short}} and visualize the query results with one of the various widget libraries available in [Watson Studio](https://cloud.ibm.com/catalog/services/data-science-experience).
 
 Using the ibmcloudsql library, you can also interact with {{site.data.keyword.sqlquery_short}} directly from Watson Studio notebooks.
 You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.ibm.com/analytics/notebooks/v2/656c7d43-7ccd-4e50-a3c0-bbc37c001132/view?access_token=baaa77ad715e17a8f823615d45431329fde0fe92fecb85abb9fc55a877939fe8)
@@ -266,8 +266,8 @@ in the [Watson Studio community](https://dataplatform.ibm.com/exchange/public/en
 ### Geospatial functions
 {: #geospatial-functions}
 
-The [Geospatial Toolkit](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_intro.html)
-provides a set of [geospatial functions](https://www.ibm.com/support/knowledgecenter/SS6NHC/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html)
+The [Geospatial Toolkit](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_intro.html)
+provides a set of [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html)
 that you can use to efficiently process and index spatial data.
 These functions are integrated into the {{site.data.keyword.sqlquery_short}} service and ready for immediate use.
 The {{site.data.keyword.sqlquery_short}} service also provides several sample queries that illustrate how
