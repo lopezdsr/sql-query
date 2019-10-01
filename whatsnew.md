@@ -12,6 +12,11 @@ subcollection: sql-query
 
 # What's new
 
+<!--
+  When you add new bullets at the top, prefix your commit message with "whatsnew: "
+  to trigger an update of the UI build that will make users aware of the new information
+-->
+
 ## September 2019
 
 - Support for ETL to {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify [Db2 target tables](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier) in your SQL queries in order to process data from {{site.data.keyword.cos_full}} and save the {{site.data.keyword.sqlquery_full}} result into {{site.data.keyword.Db2_on_Cloud_short}}.
