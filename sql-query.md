@@ -24,8 +24,8 @@ subcollection: sql-query
 
 **Note:** You can use {{site.data.keyword.sqlquery_short}} to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
 
-Input data is read from CSV, JSON, ORC, Parquet, or AVRO files located in one or more {{site.data.keyword.cos_full}} instances.
-Each query result is written to a CSV, JSON, ORC, Parquet, or AVRO file in a Cloud {{site.data.keyword.cos_short}} instance of your choice.
+Input data is read from CSV, JSON, ORC, Parquet, or AVRO objects located in one or more {{site.data.keyword.cos_full}} instances.
+Each query result is written to a CSV, JSON, ORC, Parquet, or AVRO object in a Cloud {{site.data.keyword.cos_short}} instance of your choice.
 Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the
 [SQL Query REST API](#restapi) to automate them.
 
@@ -35,44 +35,28 @@ Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your
 {: #stored}
 
 Before you can use the {{site.data.keyword.sqlquery_short}} service to run SQL queries, the input data must be uploaded to one or more Cloud {{site.data.keyword.cos_short}} instances.
-You must also have at least 'Writer' access to at least one Cloud {{site.data.keyword.cos_short}} bucket, so that result files
-(that is, the files containing output data) can be written there.
+You must also have at least 'Writer' access to at least one Cloud {{site.data.keyword.cos_short}} bucket, so that result objects
+(that is, the objects containing output data) can be written there.
 For more information about Cloud {{site.data.keyword.cos_short}}, including how to provision an instance, create buckets, and upload data, refer to the [Cloud Object Storage Getting Started Guide](https://console.bluemix.net/docs/services/cloud-object-storage/getting-started.html#getting-started-console).
 
-## Running an {{site.data.keyword.sqlquery_short}}
+## Running a query
 {: #running}
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
 1. In the SQL editor field of the {{site.data.keyword.sqlquery_short}} UI, enter a SELECT statement. In this statement:
     - After the FROM keyword, specify one or more [unique resource identifiers](#table-unique-resource-identifier) (URIs).
-Each URI can be thought of as a table.
-Each URI comprises one or more input files; each input file can be thought of as a table partition.
-You must have at least 'Reader' access to the buckets that contain the input files.
-    - If the format of the input files is CSV, there is no need to specify a STORED AS clause.
-However, if the format is JSON, ORC, Parquet, or AVRO, after the FROM clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO as appropriate.
-    - If the format of the input files is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the [`FIELDS TERMINATED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All one-character Unicode characters are allowed as delimiters.
-    - If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), you have to specify `NOHEADER` after the `FROM` clause or `STORED AS` clause.
-    - If required, you can use JOIN constructs to join data from several input files, even if those files are located in different instances.
-
-2. Below the SELECT statement, in the **Target** field, specify the output [URI](#table-unique-resource-identifier),
-that is, the URI of the directory to which the result file is to be written. You must have at least 'Writer' access to the corresponding bucket.
+Each URI can be thought of as a table. It specifies one or more input objects; each input object can be thought of as a table partition.
+You must have at least 'Reader' access to the buckets that contain the input objects.
+    - If the format of the input objects is CSV, and no special options are required, there is no need to specify a `STORED AS` clause.
+However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO, as appropriate.
+    - If the format of the input objects is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the `FIELDS TERMINATED BY` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All single Unicode characters are allowed as delimiters.
+    - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify `NOHEADER` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
+    - If required, you can use JOIN constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}}.
+    - Use the `INTO` clause of a [query](https://test.cloud.ibm.com/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the desired result format.
+2. Below the SELECT statement, the **Target** field displays where the result will be stored. A default location is chosen if your query does not specify an `INTO` clause. You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
 3. Click the **Run** button.
-The query result is displayed in the result area of the UI. You can run up to 5 queries simultaneously.
-
-## Object result set
-{: #result}
-
-Currently three objects are written as a result set per job:
-
-1. `jobid=<job_id>`
-2. `jobid=<job_id>/_SUCCESS`
-3. `jobid=<job_id>/<part-number>`
-
-Only one object contains the result set (`jobid=<job_id>/<part-number>`), and the other two are empty and don't contain any data.
-It is important not to delete any of the files if you want to use the result set.
-Each result is stored with an own job ID prefix that allows you to use the result directly in a query.
-When you want to specify a result as input in your SQL query, specify the first (`jobid=<job_id>`) or the third one (`jobid=<job_id>/<part-number>`).
+When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a standard plan instance of {{site.data.keyword.sqlquery_short}}.
 
 ## Table unique resource identifier
 
@@ -87,7 +71,7 @@ of the user that has submitted the SQL statement to {{site.data.keyword.sqlquery
 
 The identifier has the form:
 
-&nbsp;&nbsp;**`cos://<endpoint>/<bucket>/<object>`**
+&nbsp;&nbsp;**`cos://<endpoint>/<bucket>/<path>`**
 
 where:
 
@@ -96,29 +80,28 @@ The [endpoint](#endpoints) of your Cloud {{site.data.keyword.cos_short}} instanc
 
 **`<bucket>`**
 The bucket name:
-- For an input URI, the bucket that contains the input file or files.
-- For an output URI, the bucket to which the output file is to be written.
+- For an input URI, the bucket that contains the input object or objects.
+- For an output URI, the bucket to which the output objects are to be written.
 
-**`<object>`**
-A more exact specification of the file or files:
-- The specified object is interpreted in a similar way as listing file system contents with `ls`.
-When you specify a folder name, it will match all objects in that folder. When you specify a
-specific object name, it only matches that single object. When you specify the string with a * wildcard,
-it matches all objects accordingly. For example:
-  - The pattern `mydir/test1/` matches all files in the specified directory, including files in any subdirectory of that directory.
-  - The pattern `mydir/test1/tr*` matches all files in the specified directory whose names begin with `tr`, plus all files in any subdirectory whose name begins with `tr`.
+**`<path>`**
+A more exact specification of the object or objects:
+- The specified path is interpreted in a similar way as listing file system contents with `ls`, interpreting slashes `/` in object names as a folder hierarchy.
 
-  Because a pattern might match more than one file, ensure that the schema of each matching file is appropriate within the context of the SELECT statement.
-- For an output URI, this is the directory to which the result file is to be written.
-Each result file is stored in a separate subfolder with a name that indicates the job ID. The name of the result file is automatically generated and also indicates the job ID.
-Consequently, each time a query is run, the result is stored in a different subdirectory of the target directory.
-For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result file is written to `mydir/out/jobid=<job_id>`.
+  - If the path is identical to the name of a an existing (non-empty) object, it only matches that single object.
+  - If the path is a prefix of multiple objects at a slash '/' character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`.
+  - If the path ends with a `*` wildcard, it matches all objects with the given path prefix. For example, `mydir/test1*`, matches objects `mydir/test100`, and `mydir/test101/nested/object`.
 
-  Note that you can use the output data from one query as input data for subsequent queries:
-  - A query can reference the output of single query execution by specifying the fully-qualified object path, including the `jobid=<job_id>` phrase.
-  - A query can reference the output of multiple executions of the same query by omitting the `jobid=<job_id>` part in the object name.
-  Such a query can then treat `jobid` as if it were a column in the input table (for example, in a WHERE clause).
-  This is the Hive-style partitioning concept that Hadoop SQL engines employ for data stored in Hadoop Distributed File System (HDFS).
+- For an output URI, this is the prefix under which the [result objects](#result) are to be written.
+
+### Composite input tables
+{: compositeInput}
+
+As noted above, the URI for an input table on Cloud {{site.data.keyword.cos_short}} can match multiple objects, forming a "composite" input table. When you run a query over composite input, ensure that the schema of each matching object is appropriate within the context of the SELECT statement. The schemas of the objects don't have to be identical; depending on the input format, the schemas of multiple objects can be merged:
+- For CSV format, columns are matched based on their *order*. Some input objects can contain more columns than others, but common columns must always use the same order across objects. The number of columns in the composite input is the maximum number of columns from all matched objects.
+- For JSON and Parquet format, columns are matched based on their *name*. The set of columns in the composite input is the union of all column names from matched objects. For Parquet format, you need to use the `MERGE SCHEMA` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause to indicate that schema merging should be performed.
+- Input schema merging is not supported for AVRO and ORC formats. The first object determines the set of columns in the composite input, all columns that do not occur in the first object are ignored. The same behavior applies to Parquet, if the `MERGE SCHEMA` option is not specified.
+
+Matching columns need to have compatible data types across all objects where they appear. If a column does not appear in some of the input objects, it is padded with NULL values in the composite input.
 
 ### Database locations
 
@@ -160,6 +143,23 @@ depends on the target database plan and the access you have to that database:
 
   An example for a Db2 table URI is: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
 
+## Object result set
+{: #result}
+
+By default, three objects are written to Cloud {{site.data.keyword.cos_short}} as a result set per job:
+
+1. `<target>/jobid=<job_id>`
+2. `<target>/jobid=<job_id>/_SUCCESS`
+3. `<target>/jobid=<job_id>/<part-number>`
+
+Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names will include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO`clause.
+
+Note that you can use the result set from one query as input data for further SQL queries.
+If you want to specify a result of a single query execution as input in your SQL query, specify the first (`<target>/jobid=<job_id>`) or the third one (`<target>/jobid=<job_id>/<part-number>`). You can also use the [partitioning clause](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. Either the entire result set or individual objects can then serve as input for further queries.
+
+A query can even process the output of multiple previous query executions by omitting the `jobid=<job_id>` part in the object name. For example, you can run some setup queries writing to `cos://us-geo/my-bucket/tempstore`, where each query creates new objects inside that prefix with a distinct `jobid=<job_id>` name. You can then run an aggregate query over all of the setup results using `cos://us-geo/my-bucket/tempstore` as a [composite input table](#compositeInput). The aggregate query can treat `jobid` as if it were a column in the input table (for example, in a WHERE clause). This is the Hive-style partitioning concept that Hadoop SQL engines employ for data stored in Hadoop Distributed File System (HDFS).
+
+If you want to run a query over the combined results of multiple previous queries, ensure that these have compatible outputs, so that their schemas can be merged. See the section on [composite input tables](#compositeInput) for detailed information. To make this work properly for CSV format, all setup queries must use the same column names and sequence in their `SELECT` clause, so the results have compatible schemas. If you later need to introduce new columns in additional setup queries, add these to the end of the column list. If this is not the case, the structure of the composite `tempstore` data set gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
 
 ## Endpoints
 {: #endpoints}
@@ -288,19 +288,17 @@ Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2/sql_jo
 ## Limitations
 {: #limitations}
 
-- If a JSON, ORC, or Parquet object contains a nested or arrayed structure, using a wildcard (for example, `select * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
+- If a JSON, ORC, or Parquet object contains a nested or arrayed structure, a query with CSV output using a wildcard (for example, `select * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
 Use one of the following workarounds:
-  - For a nested structure, specify the fully nested column name instead of the wildcard, for example, `select address.city from cos://...`.
-  - For an array, use the Spark SQL explode() function, for example, `select explode(address.city) from cos://...`.
-- If you receive a corrupted result, verify that the source file is correct and that the correct input file format is specified using 'STORED AS' in the SQL statement.
-- If you receive an error message stating that some columns are not found in the input columns,
-but the columns do exist in the input file, check if the input file format being specified using 'STORED AS'
-in the SQL statement is the actual file format of your current file.
-- In order to further process CSV output with {{site.data.keyword.sqlquery_short}}, all values have to be contained within one line. The multi-line option is not supported and therefore must be manually changed.
-To remove new lines from multi-line column values, use the SQL function `regexp_replace`. For example, a CSV object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following:
+  - For a nested structure, use the [`FLATTEN`](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function. Alternatively, you can specify the fully nested column names instead of the wildcard, for example, `select address.city, address.street, ... from cos://...`.
+  - For an array, use the Spark SQL explode() function, for example, `select explode(contact_names) from cos://...`.
 
-	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS CSV WHERE condition`
+- If you receive a corrupted result, verify that the source URI is correct and that the correct input format is specified using 'STORED AS' in the SQL statement.
 
-- Ensure that each SQL query updating the composite object uses the same column select list, meaning that names of columns and sequence
-of columns have to be identical. Otherwise, composed objects become unreadable due to incompatible headers stored in different parts of the object.
-- Ensure that for growing composite objects, all SQL statements that update the object and introduce new columns to a column selection list, add these columns to the end of the column list. If this is not the case, the structure of the object gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+- If you receive an error message stating that some columns are not found in the input columns, but the columns do exist in the input, check if the input format being specified using 'STORED AS' in the SQL statement is the actual format of your input.
+
+- In order to process CSV input with {{site.data.keyword.sqlquery_short}}, each row has to be contained within one line. Multi-line values are not supported.
+
+  If you use {{site.data.keyword.sqlquery_short}} to generate CSV results from other data formats like Parquet that support newlines within values and these CSV results should be queried again, newlines must explicitly be removed before writing the results. To do so, use the SQL function `regexp_replace`. For example, a Parquet object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following:
+
+	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS parquet WHERE condition`

@@ -666,12 +666,11 @@ For example, the query for parsing a CSV with '|' as delimiter looks like the fo
 
 `SELECT * FROM cos://us-geo/sql/BlackFriday.csv STORED AS CSV FIELDS TERMINATED BY '|' limit 3`
 
-All one-character Unicode characters are allowed as delimiters.
-If the format of the input files is CSV and the files don't have a header line (by default a header line is assumed), the optional `NOHEADER` keyword
-allows you to specify that the files don't have a header line.
+All single Unicode characters are allowed as delimiters.
+By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify `NOHEADER` after the `STORED AS` clause. In this case, the names _C0, _C1, ... are used for the input columns.
 Refer to section [COS URI](#COSURI) for more details.
 
-If the file format is PARQUET, the optional MERGE SCHEMA clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects
+If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects
 should be scanned for their schema and final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object
 found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not
 have homogeneous schema.
