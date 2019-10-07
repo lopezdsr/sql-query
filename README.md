@@ -9,8 +9,9 @@ See the [internal documentation for content design](https://test.cloud.ibm.com/d
 Content updates start with the `draft` branch of this repository. Content designers can update the branch directly, other developers create a pull request against `draft` that is reviewed and merged by a content designer. Changes to `draft` trigger a build and automatically update the [IBM Cloud stage docs](https://test.cloud.ibm.com/docs/services/sql-query).
 
 When the draft documentation has been reviewed and checked, they are moved forward to the `publish` branch to publish them externally. To do this in GitHub
-- [Open aull request from draft to master](https://github.ibm.com/cloud-docs/sql-query/compare/publish...draft?expand=1)
-- Merge that pull request, updating the `publish` branch with the latest `draft` content
+- [Open pull request from draft to master](https://github.ibm.com/cloud-docs/sql-query/compare/publish...draft?expand=1)
+- Merge that pull request, updating the `publish` branch with the latest `draft` content.
+  Do not use the "Rebase and Merge" or "Squash and Merge" options, as they will rewrite commits so the branches appear out of sync afterwards!
 
 When the production documentation has been updated, you can validate the changes in the [IBM Cloud production docs](https://test.cloud.ibm.com/docs/services/sql-query). The production documentation build will also update the [doc repository on public GitHub](https://github.com/ibm-cloud-docs/sql-query).
 
