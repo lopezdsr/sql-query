@@ -44,4 +44,4 @@ If you have an account with {{site.data.keyword.cloud}}, your personal data is h
 
 [The IBM Privacy Policy](https://www.ibm.com/privacy/us/en/)
 
-[The IBM Cloud Notices and Terms of Use](https://cloud.ibm.com/docs/overview/terms-of-use?topic=overview-terms#terms)
+[The IBM Cloud Notices and Terms of Use](/docs/overview/terms-of-use?topic=overview-terms#terms)
