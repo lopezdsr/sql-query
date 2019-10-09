@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-09-25"
+lastupdated: "2019-10-09"
 
 keywords: what's new, support, release, beta
 
@@ -17,9 +17,13 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## October 2019
+
+- {{site.data.keyword.sqlquery_full}} now recommends query hints for SQL queries that have potential for faster execution by using certain features of {{site.data.keyword.sqlquery_short}}. These hints are flagged with a light bulb icon in the job list and the specific hint is available inside the Details pane.
+
 ## September 2019
 
-- Support for ETL to {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify [Db2 target tables](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier) in your SQL queries in order to process data from {{site.data.keyword.cos_full}} and save the {{site.data.keyword.sqlquery_full}} result into {{site.data.keyword.Db2_on_Cloud_short}}.
+- Support for ETL to {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify [Db2 target tables](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier) in your SQL queries in order to process data from {{site.data.keyword.cos_full}} and save the {{site.data.keyword.sqlquery_short}} result into {{site.data.keyword.Db2_on_Cloud_short}}.
 
 ## August 2019
 
