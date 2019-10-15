@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019
-lastupdated: "2019-06-06"
+lastupdated: "2019-10-15"
 
 keywords: SQL query, time series, SQL, string matching, set matching
 
@@ -87,7 +87,7 @@ For example, consider the following string time series containing 5 observations
     - The matcher threshold is 0.6, and the 3 input values represent at least 60% of the entire time series. If the threshold were set to a number greater than 0.6, this function would return null.  
     
     ```
-    SELECT TS_MATCH(ts4, TS_MATCHER_SUBSEQ_PS(0.6), ARRAY('a','b','d'))
+    SELECT TS_MATCH(ts4, TS_MATCHER_SUBSET_PS(0.6), ARRAY('a','b','d'))
     ```
 
     Result:  
@@ -99,7 +99,7 @@ For example, consider the following string time series containing 5 observations
     - The matcher threshold is 0.75, and the 3 input values represent at least 75% of the match sublist `(a,b,c,d)`. If the threshold were set to a number greater than 0.75, this function would       return null.  
     
     ```
-    SELECT TS_MATCH(ts4, TS_MATCHER_SUBSEQ_PM(0.75), ARRAY('a','b','d'))
+    SELECT TS_MATCH(ts4, TS_MATCHER_SUBSET_PM(0.75), ARRAY('a','b','d'))
     ```
 
     Result:  
@@ -111,7 +111,7 @@ For example, consider the following string time series containing 5 observations
     - The matcher threshold is 0.8, and the resulting match sublist `[a.b.c.d]` represents at least 80% of the entire sequence `(a,b,c,d,e)`. If the threshold were set to a number greater than 0.8, this function would return null.  
     
     ```
-    SELECT TS_MATCH(ts4, TS_MATCHER_SUBSEQ_MS(0.8), ARRAY('a','b','d'))
+    SELECT TS_MATCH(ts4, TS_MATCHER_SUBSET_MS(0.8), ARRAY('a','b','d'))
     ```
 
     Result:  
@@ -137,7 +137,7 @@ Result:
 The following SELECT statement returns the matching observations. The array `[b,a,d]` is a match because the matcher threshold is 0.75, and the 3 input values represent at least 75% of the match sublist `[a,b,c,d]`. If the threshold were set to a number greater than 0.75, this function would return null.  
 
 ```
-TS_MATCH(ts4, TS_MATCHER_SUBSEQ_PM(0.75), ARRAY('b','a','d'))
+TS_MATCH(ts4, TS_MATCHER_SUBSET_PM(0.75), ARRAY('b','a','d'))
 ```
 
 Result:  
@@ -147,7 +147,7 @@ Result:
 The following SELECT statement returns the observations that correspond to the entire match sublist, not merely those that correspond to the pattern. The array `[b,a,d]` is a match because the resulting match sublist `[a,b,c,d]` represents at least 80% of the entire sequence `[a,b,c,d,e]`. If the threshold were set to a number greater than 0.8, this function would return null.  
 
 ```
-SELECT TS_MATCH(ts4, TS_MATCHER_SUBSEQ_MS(0.8), ARRAY('b','a','d'))
+SELECT TS_MATCH(ts4, TS_MATCHER_SUBSET_MS(0.8), ARRAY('b','a','d'))
 ```
 
 Result:  
