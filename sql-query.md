@@ -189,7 +189,7 @@ s3.private.us.cloud-object-storage.appdomain.cloud     | us-geo
 s3.private.dal.us.cloud-object-storage.appdomain.cloud | dal-us-geo
 s3.private.wdc.us.cloud-object-storage.appdomain.cloud | wdc-us-geo
 s3.private.sjc.us.cloud-object-storage.appdomain.cloud | sjc-us-geo
-s3.private.eu..cloud-object-storage.appdomain.cloud         | eu-geo
+s3.private.eu.cloud-object-storage.appdomain.cloud         | eu-geo
 s3.private.ams.eu.cloud-object-storage.appdomain.cloud     | ams-eu-geo
 s3.private.fra.eu.cloud-object-storage.appdomain.cloud     | fra-eu-geo
 s3.private.mil.eu.cloud-object-storage.appdomain.cloud     | mil-eu-geo
