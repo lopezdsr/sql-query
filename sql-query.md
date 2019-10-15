@@ -169,43 +169,43 @@ To save space, you can use the alias shown instead of the full endpoint name.
 
 Internal Cross-Regional Endpoint Name | Alias
 --- | ---
-s3-api.us-geo.cloud-object-storage.appdomain.cloud     | us-geo
-s3-api.dal-us-geo.cloud-object-storage.appdomain.cloud | dal-us-geo
-s3-api.wdc-us-geo.cloud-object-storage.appdomain.cloud | wdc-us-geo
-s3-api.sjc-us-geo.cloud-object-storage.appdomain.cloud | sjc-us-geo
-s3.eu-geo.cloud-object-storage.appdomain.cloud         | eu-geo
-s3.ams-eu-geo.cloud-object-storage.appdomain.cloud     | ams-eu-geo
-s3.fra-eu-geo.cloud-object-storage.appdomain.cloud     | fra-eu-geo
-s3.mil-eu-geo.cloud-object-storage.appdomain.cloud     | mil-eu-geo
-s3.ap-geo.cloud-object-storage.appdomain.cloud         | ap-geo
-s3.tok-ap-geo.cloud-object-storage.appdomain.cloud     | tok-ap-geo
-s3.seo-ap-geo.cloud-object-storage.appdomain.cloud     | seo-ap-geo
-s3.hkg-ap-geo.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
+s3.us.cloud-object-storage.appdomain.cloud     | us-geo
+s3.dal.us.cloud-object-storage.appdomain.cloud | dal-us-geo
+s3.wdc.us.cloud-object-storage.appdomain.cloud | wdc-us-geo
+s3.sjc.us.cloud-object-storage.appdomain.cloud | sjc-us-geo
+s3.eu.cloud-object-storage.appdomain.cloud         | eu-geo
+s3.ams.eu.cloud-object-storage.appdomain.cloud     | ams-eu-geo
+s3.fra.eu.cloud-object-storage.appdomain.cloud     | fra-eu-geo
+s3.mil.eu.cloud-object-storage.appdomain.cloud     | mil-eu-geo
+s3.ap.cloud-object-storage.appdomain.cloud         | ap-geo
+s3.tok.ap.cloud-object-storage.appdomain.cloud     | tok-ap-geo
+s3.seo.ap.cloud-object-storage.appdomain.cloud     | seo-ap-geo
+s3.hkg.ap.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
 
 
 External Cross-Regional Endpoint Name | Alias
 --- | ---
-s3-api.us-geo.cloud-object-storage.appdomain.cloud     | us-geo
-s3-api.dal-us-geo.cloud-object-storage.appdomain.cloud | dal-us-geo
-s3-api.wdc-us-geo.cloud-object-storage.appdomain.cloud | wdc-us-geo
-s3-api.sjc-us-geo.cloud-object-storage.appdomain.cloud | sjc-us-geo
-s3.eu-geo.cloud-object-storage.appdomain.cloud         | eu-geo
-s3.ams-eu-geo.cloud-object-storage.appdomain.cloud     | ams-eu-geo
-s3.fra-eu-geo.cloud-object-storage.appdomain.cloud     | fra-eu-geo
-s3.mil-eu-geo.cloud-object-storage.appdomain.cloud     | mil-eu-geo
-s3.ap-geo.cloud-object-storage.appdomain.cloud         | ap-geo
-s3.tok-ap-geo.cloud-object-storage.appdomain.cloud     | tok-ap-geo
-s3.seo-ap-geo.cloud-object-storage.appdomain.cloud     | seo-ap-geo
-s3.hkg-ap-geo.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
+s3.private.us.cloud-object-storage.appdomain.cloud     | us-geo
+s3.private.dal.us.cloud-object-storage.appdomain.cloud | dal-us-geo
+s3.private.wdc.us.cloud-object-storage.appdomain.cloud | wdc-us-geo
+s3.private.sjc.us.cloud-object-storage.appdomain.cloud | sjc-us-geo
+s3.private.eu..cloud-object-storage.appdomain.cloud         | eu-geo
+s3.private.ams.eu.cloud-object-storage.appdomain.cloud     | ams-eu-geo
+s3.private.fra.eu.cloud-object-storage.appdomain.cloud     | fra-eu-geo
+s3.private.mil.eu.cloud-object-storage.appdomain.cloud     | mil-eu-geo
+s3.private.ap.cloud-object-storage.appdomain.cloud         | ap-geo
+s3.private.tok.ap.cloud-object-storage.appdomain.cloud     | tok-ap-geo
+s3.private.seo.ap.cloud-object-storage.appdomain.cloud     | seo-ap-geo
+s3.private.hkg.ap.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
 
 
 Internal Regional Endpoint Name | Alias
 --- | ---
-s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
-s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
-s3.us-south.cloud-object-storage.appdomain.cloud | us-south
-s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
-s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok
+s3.private.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
+s3.private.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
+s3.private.us-south.cloud-object-storage.appdomain.cloud | us-south
+s3.private.us-east.cloud-object-storage.appdomain.cloud  | us-east
+s3.private.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok
 
 
 External Regional Endpoint Name | Alias
@@ -219,12 +219,12 @@ s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok
 
 Internal Single-Site Endpoint Name | Alias
 --- | ---
-s3.ams03.cloud-object-storage.appdomain.cloud    | ams03
-s3.che01.cloud-object-storage.appdomain.cloud    | che01
-s3.tor01.cloud-object-storage.appdomain.cloud    | tor01
-s3.osl01.cloud-object-storage.appdomain.cloud    | osl01
-s3.mel01.cloud-object-storage.appdomain.cloud    | mel01
-s3.sao01.cloud-object-storage.appdomain.cloud    | sao01
+s3.private.ams03.cloud-object-storage.appdomain.cloud    | ams03
+s3.private.che01.cloud-object-storage.appdomain.cloud    | che01
+s3.private.tor01.cloud-object-storage.appdomain.cloud    | tor01
+s3.private.osl01.cloud-object-storage.appdomain.cloud    | osl01
+s3.private.mel01.cloud-object-storage.appdomain.cloud    | mel01
+s3.private.sao01.cloud-object-storage.appdomain.cloud    | sao01
 
 External Single-Site Endpoint Name | Alias
 --- | ---
