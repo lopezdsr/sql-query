@@ -167,7 +167,8 @@ If you want to run a query over the combined results of multiple previous querie
 Your Cloud {{site.data.keyword.cos_short}} instance will have one of the endpoints shown in the following tables.
 To save space, you can use the alias shown instead of the full endpoint name.
 
-**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name. When interacting with {{site.data.keyword.sqlquery_short}} programmatically through the API you can use the internal endpoint name to read result instead of the external one returned by the API.  
+**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name. 
+When interacting with {{site.data.keyword.sqlquery_short}} programmatically through the API, you can use the internal endpoint name to read results instead of the external endpoint name that is returned by the API
 
 External Cross-Regional Endpoint Name | Alias
 --- | ---
