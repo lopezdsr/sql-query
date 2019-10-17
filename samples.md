@@ -23,6 +23,7 @@ You find a wide variety of samples in the {{site.data.keyword.sqlquery_full}} UI
 
 
 ## STARTER QUERIES
+{: #starter}
 
 ### Table exploration
 Select the first lines of a table to explore it.
@@ -38,6 +39,7 @@ Generate a row number based to an ordering key and use it for filtering.
 Produce nested JSON records for customers and their orders.
 
 ## BASE QUERIES
+{: #base}
 
 ### OUTER JOIN and GROUP BY
 Use an outer join to retain rows that have no matching entries in a joined table and GROUP BY to aggregate rows into a count.
@@ -49,6 +51,7 @@ Use a subquery to identify rows and NOT IN clause to exclude those rows from the
 Within a subquery, reference a row from the outer query.
 
 ## ADVANCED QUERIES
+{: #advanced}
 
 ### Common table expression with CASE expression
 Use common table expressions to decompose complex query constructs into multiple steps.
@@ -64,6 +67,7 @@ Use window functions to relate each row to a group.
 Use collect_list and concat_ws functions to emulate LISTAGG.
 
 ## CSV & JSON PARSING QUERIES
+{: #csv_json}
 
 ### Custom CSV delimiter
 Analyze a CSV data set with non-standard column delimiter.
@@ -75,6 +79,7 @@ Flatten struct type columns hierarchy (e.g. from JSON) using FLATTEN table trans
 Flatten your JSON array using the explode() function.
 
 ## ELT & ETL QUERIES
+{: #elt_etl}
 
 ### Parquet conversion
 Convert a CSV data set to Parquet with SELECT INTO format specification.
@@ -96,6 +101,7 @@ Merge schema of multiple Parquet input objects.
 Write the query results to a Db2 table using the Db2 service credentials.
 
 ## SPATIAL QUERIES
+{: #spatial}
 
 ### Geospatial calculations
 Geospatial calculation of distance and intersections of location data.
@@ -105,6 +111,7 @@ Geospatial join of two data sets based on the intersections of location data.
 Geospatial join with prefiltering to allow for larger data sets.
 
 ## TIME SERIES QUERIES
+{: #time_series}
 
 ### Hourly sum over time series
 Example of hourly segmentation of time series data.
