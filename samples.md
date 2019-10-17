@@ -19,10 +19,7 @@ subcollection: sql-query
 # Samples
 {: #samples}
 
-You find a wide variety of samples in the {{site.data.keyword.sqlquery_full}} UI to get you started. You only need to click one of the sample
-queries in the UI to paste them into the editor.
-{:shortdesc}
-
+You find a wide variety of samples in the {{site.data.keyword.sqlquery_full}} UI to get you started. You only need to click one of the sample queries in the UI to paste them into the editor.
 
 
 ## STARTER QUERIES
