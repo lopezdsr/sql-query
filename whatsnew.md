@@ -19,7 +19,8 @@ subcollection: sql-query
 
 ## October 2019
 
-- {{site.data.keyword.sqlquery_full}} now recommends query hints for SQL queries that have potential for faster execution by using certain features of {{site.data.keyword.sqlquery_short}}. These hints are flagged with a light bulb icon in the job list and the specific hint is available inside the Details pane.
+- {{site.data.keyword.sqlquery_full}} JSON parser is processing and extracting all JSON keys in lower case, so it can work correctly on LogDNA data.
+- {{site.data.keyword.sqlquery_short}} now recommends query hints for SQL queries that have potential for faster execution by using certain features of {{site.data.keyword.sqlquery_short}}. These hints are flagged with a light bulb icon in the job list and the specific hint is available inside the Details pane.
 
 ## September 2019
 
