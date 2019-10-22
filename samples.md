@@ -17,7 +17,7 @@ subcollection: sql-query
 {:pre: .pre}
 
 # Samples
-{: #samples}
+{: #ui_samples}
 
 You find a wide variety of samples in the {{site.data.keyword.sqlquery_full}} UI to get you started. You only need to click one of the sample queries in the UI to paste them into the editor. Here is an overview of all currently available sample queries, grouped by category.
 
