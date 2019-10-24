@@ -59,12 +59,12 @@ If you are processing particularly sensitive data in your queries, you can now u
 
 ## February 2019
 
-- Beta support for JDBC driver of {{site.data.keyword.sqlquery_short}}. Request to participate by sending an email to cglew@us.ibm.com.
+- Beta support for JDBC driver of {{site.data.keyword.sqlquery_short}}. Request to participate by sending an email to Joshua.Mintz@ibm.com.
 - Beta support for data skipping indexes. You can create custom indexes on any column for minimum and maximum values, list of values,
 and geospatial bounding box for any object queried. This significantly reduces I/O and query cost and lower the query execution time.
-Request to participate by sending an email to cglew@us.ibm.com.
+Request to participate by sending an email to Joshua.Mintz@ibm.com.
 - Beta support for SQL-native TimeSeries support in {{site.data.keyword.sqlquery_short}}. This includes functions for timeseries segmentation, prediction, alignment,
-temporal joins and subsequence mining. Request to participate by sending an email to cglew@us.ibm.com.
+temporal joins and subsequence mining. Request to participate by sending an email to  Joshua.Mintz@ibm.com.
 
 ## December 2018
 
