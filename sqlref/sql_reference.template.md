@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-09-25"
+lastupdated: "2019-10-23"
 
 ---
 
@@ -128,23 +128,6 @@ The reason is that data cannot be overwritten by a query that is reading that sa
 For example, `SELECT * FROM cos://us-geo/mybucket/myprefix/mysubprefix INTO cos://us-geo/mybucket/myprefix JOBPREFIX NONE`
 will return an error when trying to submit it.
 
-<!--include-svg src="./svgfiles/cosResultClause.svg" target="./diagrams/cosResultClause.svg" alt="syntax diagram for a COS result clause" layout="@break@" -->
-
-<h3 id="partitionedClause">partitionedClause</h3>
-
-You can use the result partitioned clause to control the layout of the SQL query result set being stored. The default behavior is to store the result into one single partition, that is a single object in Cloud {{site.data.keyword.cos_short}}.
-
-<!--include-svg src="./svgfiles/partitionedClause.svg" target="./diagrams/partitionedClause.svg" alt="syntax diagram for a result partitioned clause" layout="@break@" -->
-
-<h3 id="sortClause">sortClause</h3>
-
-This clause can be used to sort in many ways. When specified in combination with PARTITIONED BY, it sorts the rows within each partition
-by the sort order specified in the SORT BY clause. When specified in combination with PARTITIONED INTO, the same is done,
-which is often referred to as clustering the rows by the specified columns into the fixed number of partitions specified by PARTITIONED INTO.
-When specified without the PARTITIONED clause, it is equivalent to an ORDER BY clause specified at the top level of the SQL SELECT statement.
-
-<!--include-svg src="./svgfiles/sortClause.svg" target="./diagrams/sortClause.svg" alt="syntax diagram for a result partitioned column clause" layout="@break@" -->
-
 The *COS result clause* lets you explicitly specify the storage location and type of a query result on Cloud {{site.data.keyword.cos_short}}.
 The storage location is specified by means of a `COSURI`.
 
@@ -166,6 +149,24 @@ As shown in the syntax diagrams, there are three main use cases to define the ph
 A partition is an object on Cloud {{site.data.keyword.cos_short}} that is potentially a part of an aggregated object.
 The presence of multiple partitions allows for parallel input/output (I/O) during query execution. Note that if no *result partitioned clause* is specified,
 the query result is stored in a single partition on Cloud {{site.data.keyword.cos_short}}.
+
+<!--include-svg src="./svgfiles/cosResultClause.svg" target="./diagrams/cosResultClause.svg" alt="syntax diagram for a COS result clause" layout="@break@" -->
+
+<h3 id="partitionedClause">partitionedClause</h3>
+
+You can use the result partitioned clause to control the layout of the SQL query result set being stored. The default behavior is to store the result into one single partition, that is a single object in Cloud {{site.data.keyword.cos_short}}.
+
+<!--include-svg src="./svgfiles/partitionedClause.svg" target="./diagrams/partitionedClause.svg" alt="syntax diagram for a result partitioned clause" layout="@break@" -->
+
+<h3 id="sortClause">sortClause</h3>
+
+This clause can be used to sort in many ways. When specified in combination with PARTITIONED BY, it sorts the rows within each partition
+by the sort order specified in the SORT BY clause. When specified in combination with PARTITIONED INTO, the same is done,
+which is often referred to as clustering the rows by the specified columns into the fixed number of partitions specified by PARTITIONED INTO.
+When specified without the PARTITIONED clause, it is equivalent to an ORDER BY clause specified at the top level of the SQL SELECT statement.
+
+<!--include-svg src="./svgfiles/sortClause.svg" target="./diagrams/sortClause.svg" alt="syntax diagram for a result partitioned column clause" layout="@break@" -->
+
 
 <h4>Partition by columns</h4>
 

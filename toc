@@ -48,5 +48,4 @@ IBM Cloud SQL Query
         geospatial_analytics.md
         microservice.md
     keyprotect.md
-    samples.md
     {: .navgroup-end}
