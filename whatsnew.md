@@ -19,6 +19,7 @@ subcollection: sql-query
 
 ## October 2019
 
+- The new open source [cos-upload](https://github.com/IBM-Cloud/data-lake/tree/master/upload/cos-upload) script can be used to efficiently upload large volumes of data to {{site.data.keyword.cos_full}} buckets via Aspera by merely providing an IAM API Key.
 - {{site.data.keyword.sqlquery_full}} JSON parser is processing and extracting all JSON keys in lower case, so it can work correctly on LogDNA data.
 - Storing new objects in {{site.data.keyword.cos_full}} can now trigger {{site.data.keyword.sqlquery_short}} executions. This is enabled by the {{site.data.keyword.cos_full}} [event provider](https://www.ibm.com/cloud/blog/announcements/cloud-object-storage-event-provider-enables-hello-serverless-and-more) for {{site.data.keyword.openwhisk}}. By combining that with the SQL [{{site.data.keyword.openwhisk_short}}](https://hub.docker.com/r/ibmfunctions/sqlquery/), you can automatically run SQL-based post processing for new objects.
 - {{site.data.keyword.sqlquery_short}} now recommends query hints for SQL queries that have potential for faster execution by using certain features of {{site.data.keyword.sqlquery_short}}. These hints are flagged with a light bulb icon in the job list and the specific hint is available inside the Details pane.
