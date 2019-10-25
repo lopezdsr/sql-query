@@ -20,6 +20,7 @@ subcollection: sql-query
 ## October 2019
 
 - {{site.data.keyword.sqlquery_full}} JSON parser is processing and extracting all JSON keys in lower case, so it can work correctly on LogDNA data.
+- Storing new objects in {{site.data.keyword.cos_full}} can now trigger {{site.data.keyword.sqlquery_short}} executions. This is enabled by the {{site.data.keyword.cos_full}} [event provider](https://www.ibm.com/cloud/blog/announcements/cloud-object-storage-event-provider-enables-hello-serverless-and-more) for {{site.data.keyword.openwhisk}}. By combining that with the SQL [{{site.data.keyword.openwhisk_short}}]https://hub.docker.com/r/ibmfunctions/sqlquery/), you can automatically run SQL-based post processing for new objects.
 - {{site.data.keyword.sqlquery_short}} now recommends query hints for SQL queries that have potential for faster execution by using certain features of {{site.data.keyword.sqlquery_short}}. These hints are flagged with a light bulb icon in the job list and the specific hint is available inside the Details pane.
 
 ## September 2019
@@ -59,12 +60,12 @@ If you are processing particularly sensitive data in your queries, you can now u
 
 ## February 2019
 
-- Beta support for JDBC driver of {{site.data.keyword.sqlquery_short}}. Request to participate by sending an email to cglew@us.ibm.com.
+- Beta support for JDBC driver of {{site.data.keyword.sqlquery_short}}. Request to participate by sending an email to Joshua.Mintz@ibm.com.
 - Beta support for data skipping indexes. You can create custom indexes on any column for minimum and maximum values, list of values,
 and geospatial bounding box for any object queried. This significantly reduces I/O and query cost and lower the query execution time.
-Request to participate by sending an email to cglew@us.ibm.com.
+Request to participate by sending an email to Joshua.Mintz@ibm.com.
 - Beta support for SQL-native TimeSeries support in {{site.data.keyword.sqlquery_short}}. This includes functions for timeseries segmentation, prediction, alignment,
-temporal joins and subsequence mining. Request to participate by sending an email to cglew@us.ibm.com.
+temporal joins and subsequence mining. Request to participate by sending an email to  Joshua.Mintz@ibm.com.
 
 ## December 2018
 
