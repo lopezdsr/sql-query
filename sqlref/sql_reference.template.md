@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-10-23"
+lastupdated: "2019-11-12"
 
 ---
 
@@ -164,6 +164,7 @@ This clause can be used to sort in many ways. When specified in combination with
 by the sort order specified in the SORT BY clause. When specified in combination with PARTITIONED INTO, the same is done,
 which is often referred to as clustering the rows by the specified columns into the fixed number of partitions specified by PARTITIONED INTO.
 When specified without the PARTITIONED clause, it is equivalent to an ORDER BY clause specified at the top level of the SQL SELECT statement.
+The ORDER BY clause will be ignored, as soon PARTITIONED INTO is specified.
 
 <!--include-svg src="./svgfiles/sortClause.svg" target="./diagrams/sortClause.svg" alt="syntax diagram for a result partitioned column clause" layout="@break@" -->
 
@@ -282,6 +283,7 @@ The characteristics of a result set defined by a fullselect can be further defin
 * `ORDER BY`: Define an overall ordering of the result set based on the criteria defined by the list of `sortItem` clauses.
 The default order direction is ascending if not explicitly specified by a `sortItem` clause. Note that the *order by* clause
 cannot be used in conjunction with *cluster by*, *distribute by* or *sort by* clause.
+When you use partitioned output, the `ORDER BY` clause gets ignored. Use the `sortClause` instead. 
 * `DISTRIBUTE BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses.
 Result set rows having the same expression values will be moved to the same partition. Note that the *distribute by* clause cannot be
 used in conjunction with *order by* or *cluster by* clause.
