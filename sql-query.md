@@ -98,7 +98,6 @@ prefix `part-`. In this case, use SQL constructs instead of wildcards to query d
 by using arbitrary file names, the usage of wildcards is supported. 
 The wildcard matches all objects with the given path prefix. For example, mydir/test1*, matches 
 objects mydir/test100, and mydir/test101/nested/object.
-  - 
   
 - For an output URI, this is the prefix under which the [result objects](#result) are to be written.
 
