@@ -88,7 +88,7 @@ A more exact specification of the object or objects:
 - The specified path is interpreted in a similar way as listing file system contents with `ls`, interpreting slashes `/` in object names as a folder hierarchy.
 
   - If the path is identical to the name of a an existing (non-empty) object, it only matches that single object.
-  - If the path is a prefix of multiple objects at a slash '/' character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`.
+  - If the path is a prefix of multiple objects at a slash `/` character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`.
   - The usage of a * wildcard depends on how the object structure has been created:
 	   - If the object structure has been created as Hadoop-partitioned structure, 
 for example as SQL Query result output, wildcards are not supported. The reason is that 
@@ -96,8 +96,8 @@ the result objects could consist of one too many objects starting with the same
 prefix `part-`. In this case, use SQL constructs instead of wildcards to query data.
 	   - If the object structure has not been created as Hadoop-partitioned structure 
 by using arbitrary file names, the usage of wildcards is supported. 
-The wildcard matches all objects with the given path prefix. For example, mydir/test1*, matches 
-objects mydir/test100, and mydir/test101/nested/object.
+The wildcard matches all objects with the given path prefix. For example, `mydir/test1*`, matches 
+objects `mydir/test100`, and `mydir/test101/nested/object`.
   
 - For an output URI, this is the prefix under which the [result objects](#result) are to be written.
 
