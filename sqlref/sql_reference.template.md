@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-12"
+lastupdated: "2019-11-15"
 
 ---
 
@@ -689,7 +689,8 @@ It will preprocess your input table before query compilation to a fully flat col
 This can be useful when you have hierarchical input data as it is often found in JSON documents.
 By using `FLATTEN`, you don't have to dereference all nested columns explicitly in your SQL statement.
 
-For example, you can run a simple `SELECT * FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON input and use CSV output to easily browse a sample of your JSON input data.
+For example, you can run a simple `SELECT * FROM FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON 
+input and use CSV output to easily browse a sample of your JSON input data.
 
 The `FLATTEN` table transformation function creates a flat list of columns by concatenating all nested column names with _.
 You can optionally also combine `FLATTEN` with `CLEANCOLS`.
@@ -699,7 +700,8 @@ It will preprocess your input table before query compilation by renaming all col
 These characters are `, ; ,,, =, (, ), { and }`. They are replaced by the corresponding URL-encoded representation, for example, %20 for space (` `). This allows you to write results, for example, into Parquet without having to provide column by column alias names in your SQL
 when your input data has columns with these characters. A typical situation is the existence of space (` `) in input columns.
 
-For example, you can use `SELECT * CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON)` to produce a result set that can be stored as is into Parquet target format.
+For example, you can use `SELECT * FROM CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON) INTO cos://us-geo/mybucket/myprefix STORED AS JSON` to produce a result set 
+that can be stored as is into Parquet target format.
 
 You can optionally also combine `CLEANCOLS` with `FLATTEN`.
 
