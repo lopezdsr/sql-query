@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-10-23"
+lastupdated: "2019-11-15"
 
 ---
 
@@ -45,7 +45,7 @@ The general syntax of an SQL query statement is outlined below using the `query`
 	<area alt="section cosResultClause" shape="rect" coords="153,134,293,156" href="#cosResultClause" />
 	<area alt="section dbResultClause" shape="rect" coords="157,164,289,186" href="#dbResultClause" />
 </map>
-<img style="max-width: 517px;" usemap="#queryImgMap" alt="syntax diagram for a query" src="./diagrams/query-1571986566006.svg" />
+<img style="max-width: 517px;" usemap="#queryImgMap" alt="syntax diagram for a query" src="./diagrams/query-1574085850360.svg" />
 </div>
 
 <h3 id="namedQuery">namedQuery</h3>
@@ -55,7 +55,7 @@ The general syntax of an SQL query statement is outlined below using the `query`
 	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
 	<area alt="section query" shape="rect" coords="294,30,354,52" href="#query" />
 </map>
-<img style="max-width: 453px;" usemap="#namedQueryImgMap" alt="syntax diagram for a named query" src="./diagrams/namedQuery-1571986566006.svg" />
+<img style="max-width: 453px;" usemap="#namedQueryImgMap" alt="syntax diagram for a named query" src="./diagrams/namedQuery-1574085850360.svg" />
 </div>
 
 The query statement supports *common table expressions*. A common table expression permits defining a result table with a table name
@@ -172,7 +172,7 @@ the query result is stored in a single partition on Cloud {{site.data.keyword.co
 	<area alt="section partitionedClause" shape="rect" coords="361,134,517,156" href="#partitionedClause" />
 	<area alt="section sortClause" shape="rect" coords="557,134,657,156" href="#sortClause" />
 </map>
-<img style="max-width: 707px;" usemap="#cosResultClauseImgMap" alt="syntax diagram for a COS result clause" src="./diagrams/cosResultClause-1571986566006.svg" />
+<img style="max-width: 707px;" usemap="#cosResultClauseImgMap" alt="syntax diagram for a COS result clause" src="./diagrams/cosResultClause-1574085850360.svg" />
 </div>
 
 <h3 id="partitionedClause">partitionedClause</h3>
@@ -185,7 +185,7 @@ You can use the result partitioned clause to control the layout of the SQL query
 	<area alt="section unsignedInteger" shape="rect" coords="143,134,283,156" href="#unsignedInteger" />
 	<area alt="section unsignedInteger" shape="rect" coords="151,238,291,260" href="#unsignedInteger" />
 </map>
-<img style="max-width: 605px;" usemap="#partitionedClauseImgMap" alt="syntax diagram for a result partitioned clause" src="./diagrams/partitionedClause-1571986566006.svg" />
+<img style="max-width: 605px;" usemap="#partitionedClauseImgMap" alt="syntax diagram for a result partitioned clause" src="./diagrams/partitionedClause-1574085850360.svg" />
 </div>
 
 <h3 id="sortClause">sortClause</h3>
@@ -194,12 +194,13 @@ This clause can be used to sort in many ways. When specified in combination with
 by the sort order specified in the SORT BY clause. When specified in combination with PARTITIONED INTO, the same is done,
 which is often referred to as clustering the rows by the specified columns into the fixed number of partitions specified by PARTITIONED INTO.
 When specified without the PARTITIONED clause, it is equivalent to an ORDER BY clause specified at the top level of the SQL SELECT statement.
+The ORDER BY clause will be ignored, as soon PARTITIONED INTO is specified.
 
 <div style="overflow-x : auto;">
 <map name="sortClauseImgMap">
 	<area alt="section expression" shape="rect" coords="246,30,346,52" href="#expression" />
 </map>
-<img style="max-width: 586px;" usemap="#sortClauseImgMap" alt="syntax diagram for a result partitioned column clause" src="./diagrams/sortClause-1571986566006.svg" />
+<img style="max-width: 586px;" usemap="#sortClauseImgMap" alt="syntax diagram for a result partitioned column clause" src="./diagrams/sortClause-1574085850360.svg" />
 </div>
 
 
@@ -269,7 +270,7 @@ this can reduce the query processing time significantly.
 <map name="dbResultClauseImgMap">
 	<area alt="section unsignedInteger" shape="rect" coords="454,40,594,62" href="#unsignedInteger" />
 </map>
-<img style="max-width: 654px;" usemap="#dbResultClauseImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/dbResultClause-1571986566006.svg" />
+<img style="max-width: 654px;" usemap="#dbResultClauseImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/dbResultClause-1574085850360.svg" />
 </div>
 
 <h3>More Topics</h3>
@@ -311,7 +312,7 @@ A *fullselect* is the core component of a *query*. It is the only mandatory gene
 	<area alt="section namedWindows" shape="rect" coords="61,710,177,732" href="#namedWindows" />
 	<area alt="section expression" shape="rect" coords="317,740,417,762" href="#expression" />
 </map>
-<img style="max-width: 502px;" usemap="#fullselectImgMap" alt="syntax diagram for a fullselect" src="./diagrams/fullselect-1571986566006.svg" />
+<img style="max-width: 502px;" usemap="#fullselectImgMap" alt="syntax diagram for a fullselect" src="./diagrams/fullselect-1574085850360.svg" />
 </div>
 
 The result set defined by a single fullselect can be combined with the result set of one or more other fullselects using set operators.
@@ -335,6 +336,7 @@ The characteristics of a result set defined by a fullselect can be further defin
 * `ORDER BY`: Define an overall ordering of the result set based on the criteria defined by the list of `sortItem` clauses.
 The default order direction is ascending if not explicitly specified by a `sortItem` clause. Note that the *order by* clause
 cannot be used in conjunction with *cluster by*, *distribute by* or *sort by* clause.
+When you use partitioned output, the `ORDER BY` clause gets ignored. Use the `sortClause` instead. 
 * `DISTRIBUTE BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses.
 Result set rows having the same expression values will be moved to the same partition. Note that the *distribute by* clause cannot be
 used in conjunction with *order by* or *cluster by* clause.
@@ -485,7 +487,7 @@ A *simpleselect* is a component of a *fullselect*. Its syntax is defined by the 
 	<area alt="section booleanExpression" shape="rect" coords="323,331,479,353" href="#booleanExpression" />
 	<area alt="section namedWindows" shape="rect" coords="61,405,177,427" href="#namedWindows" />
 </map>
-<img style="max-width: 594px;" usemap="#simpleselectImgMap" alt="syntax diagram for a simpleselect" src="./diagrams/simpleselect-1571986566006.svg" />
+<img style="max-width: 594px;" usemap="#simpleselectImgMap" alt="syntax diagram for a simpleselect" src="./diagrams/simpleselect-1574085850360.svg" />
 </div>
 
 The simpleselect lets you specify the following characteristics of a result set:
@@ -504,7 +506,7 @@ The simpleselect lets you specify the following characteristics of a result set:
 	<area alt="section expression" shape="rect" coords="50,40,150,62" href="#expression" />
 	<area alt="section identifier" shape="rect" coords="266,40,366,62" href="#identifier" />
 </map>
-<img style="max-width: 437px;" usemap="#resultColumnImgMap" alt="syntax diagram for a result column" src="./diagrams/resultColumn-1571986566006.svg" />
+<img style="max-width: 437px;" usemap="#resultColumnImgMap" alt="syntax diagram for a result column" src="./diagrams/resultColumn-1574085850360.svg" />
 </div>
 
 A *result column* can be any expression that can optionally be associated with an identifier, that is, a *new name*. By providing custom identifiers you can control the column names used in the result data set written to Cloud {{site.data.keyword.cos_short}}.
@@ -522,7 +524,7 @@ Examples for such expressions are the following:
 	<area alt="section expression" shape="rect" coords="206,30,306,52" href="#expression" />
 	<area alt="section groupingSet" shape="rect" coords="335,194,443,216" href="#groupingSet" />
 </map>
-<img style="max-width: 591px;" usemap="#groupByClauseImgMap" alt="syntax diagram for a group by clause" src="./diagrams/groupByClause-1571986566006.svg" />
+<img style="max-width: 591px;" usemap="#groupByClauseImgMap" alt="syntax diagram for a group by clause" src="./diagrams/groupByClause-1574085850360.svg" />
 </div>
 
 <h4 id="groupingSet">groupingSet</h4>
@@ -532,7 +534,7 @@ Examples for such expressions are the following:
 	<area alt="section expression" shape="rect" coords="158,30,258,52" href="#expression" />
 	<area alt="section expression" shape="rect" coords="158,90,258,112" href="#expression" />
 </map>
-<img style="max-width: 417px;" usemap="#groupingSetImgMap" alt="syntax diagram for a grouping set" src="./diagrams/groupingSet-1571986566006.svg" />
+<img style="max-width: 417px;" usemap="#groupingSetImgMap" alt="syntax diagram for a grouping set" src="./diagrams/groupingSet-1574085850360.svg" />
 </div>
 
 More complex *group by* clauses use so called *grouping sets* to provide more insights into the set of rows grouped by a grouping expression.
@@ -732,7 +734,7 @@ Multiple relations can be composed using join operators. The syntax for joining 
 	<area alt="section joinClause" shape="rect" coords="278,30,378,52" href="#joinClause" />
 	<area alt="section naturalJoinClause" shape="rect" coords="250,60,406,82" href="#naturalJoinClause" />
 </map>
-<img style="max-width: 497px;" usemap="#relationImgMap" alt="syntax diagram for a relation" src="./diagrams/relation-1571986566006.svg" />
+<img style="max-width: 497px;" usemap="#relationImgMap" alt="syntax diagram for a relation" src="./diagrams/relation-1574085850360.svg" />
 </div>
 
 <h3 id="joinClause">joinClause</h3>
@@ -744,7 +746,7 @@ Multiple relations can be composed using join operators. The syntax for joining 
 	<area alt="section booleanExpression" shape="rect" coords="199,104,355,126" href="#booleanExpression" />
 	<area alt="section identifier" shape="rect" coords="239,134,339,156" href="#identifier" />
 </map>
-<img style="max-width: 487px;" usemap="#joinClauseImgMap" alt="syntax diagram for a join clause" src="./diagrams/joinClause-1571986566006.svg" />
+<img style="max-width: 487px;" usemap="#joinClauseImgMap" alt="syntax diagram for a join clause" src="./diagrams/joinClause-1574085850360.svg" />
 </div>
 
 <h3 id="naturalJoinClause">naturalJoinClause</h3>
@@ -754,7 +756,7 @@ Multiple relations can be composed using join operators. The syntax for joining 
 	<area alt="section joinType" shape="rect" coords="146,20,230,42" href="#joinType" />
 	<area alt="section relationPrimary" shape="rect" coords="322,20,462,42" href="#relationPrimary" />
 </map>
-<img style="max-width: 502px;" usemap="#naturalJoinClauseImgMap" alt="syntax diagram for a natural join clause" src="./diagrams/naturalJoinClause-1571986566006.svg" />
+<img style="max-width: 502px;" usemap="#naturalJoinClauseImgMap" alt="syntax diagram for a natural join clause" src="./diagrams/naturalJoinClause-1574085850360.svg" />
 </div>
 
 Relations can be joined using several types of joins that are described in detail in section [joinType](#joinType).
@@ -777,7 +779,7 @@ Apart from the join type, the following two different flavors of joins exist:
 	<area alt="section valuesClause" shape="rect" coords="358,170,474,192" href="#valuesClause" />
 	<area alt="section tableValuedFunction" shape="rect" coords="330,200,502,222" href="#tableValuedFunction" />
 </map>
-<img style="max-width: 833px;" usemap="#relationPrimaryImgMap" alt="syntax diagram for a relation primary" src="./diagrams/relationPrimary-1571986566006.svg" />
+<img style="max-width: 833px;" usemap="#relationPrimaryImgMap" alt="syntax diagram for a relation primary" src="./diagrams/relationPrimary-1574085850360.svg" />
 </div>
 
 <h3 id="externalTableSpec">externalTableSpec</h3>
@@ -786,6 +788,7 @@ An external table specification represents an URI for an object stored on Cloud 
 Valid values for object type identifier are `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`.
 If the file format is CVS, the optional `FIELDS TERMINATED BY` <character> clause
 allows you to specify a field delimiter/separator other than the default `,` (comma).
+If the file format is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON.
 
 For example, the query for parsing a CSV with '|' as delimiter looks like the following:
 
@@ -797,15 +800,14 @@ Refer to section [COS URI](#COSURI) for more details.
 
 If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects
 should be scanned for their schema and final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object
-found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not
-have homogeneous schema.
+found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have homogeneous schema.
 
 <div style="overflow-x : auto;">
 <map name="externalTableSpecImgMap">
 	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
 	<area alt="section STRING" shape="rect" coords="750,70,818,92" href="#STRING" />
 </map>
-<img style="max-width: 1073px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-1571986566006.svg" />
+<img style="max-width: 1073px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-1574085850360.svg" />
 </div>
 
 <h3 id="tableTransformer">tableTransformer</h3>
@@ -817,7 +819,8 @@ It will preprocess your input table before query compilation to a fully flat col
 This can be useful when you have hierarchical input data as it is often found in JSON documents.
 By using `FLATTEN`, you don't have to dereference all nested columns explicitly in your SQL statement.
 
-For example, you can run a simple `SELECT * FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON input and use CSV output to easily browse a sample of your JSON input data.
+For example, you can run a simple `SELECT * FROM FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON 
+input and use CSV output to easily browse a sample of your JSON input data.
 
 The `FLATTEN` table transformation function creates a flat list of columns by concatenating all nested column names with _.
 You can optionally also combine `FLATTEN` with `CLEANCOLS`.
@@ -827,7 +830,7 @@ It will preprocess your input table before query compilation by renaming all col
 These characters are `, ; ,,, =, (, ), { and }`. They are replaced by the corresponding URL-encoded representation, for example, %20 for space (` `). This allows you to write results, for example, into Parquet without having to provide column by column alias names in your SQL
 when your input data has columns with these characters. A typical situation is the existence of space (` `) in input columns.
 
-For example, you can use `SELECT * CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON)` to produce a result set that can be stored as is into Parquet target format.
+For example, you can use `SELECT * FROM CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON) INTO cos://us-geo/mybucket/myprefix STORED AS PARQUET` to produce a result set that can be stored as is into Parquet target format.
 
 You can optionally also combine `CLEANCOLS` with `FLATTEN`.
 
@@ -844,7 +847,7 @@ However, you cannot wrap other table transformers around the `DESCRIBE` transfor
 <map name="tableTransformerImgMap">
 	<area alt="section externalTableSpec" shape="rect" coords="230,20,386,42" href="#externalTableSpec" />
 </map>
-<img style="max-width: 485px;" usemap="#tableTransformerImgMap" alt="syntax diagram for an table transformer" src="./diagrams/tableTransformer-1571986566006.svg" />
+<img style="max-width: 485px;" usemap="#tableTransformerImgMap" alt="syntax diagram for an table transformer" src="./diagrams/tableTransformer-1574085850360.svg" />
 </div>
 
 <h3 id="tableValuedFunction">tableValuedFunction</h3>
@@ -856,7 +859,7 @@ A table-valued function returns a relation, that is, a set of rows. An example o
 	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
 	<area alt="section expression" shape="rect" coords="258,30,358,52" href="#expression" />
 </map>
-<img style="max-width: 497px;" usemap="#tableValuedFunctionImgMap" alt="syntax diagram for a table valued function" src="./diagrams/tableValuedFunction-1571986566006.svg" />
+<img style="max-width: 497px;" usemap="#tableValuedFunctionImgMap" alt="syntax diagram for a table valued function" src="./diagrams/tableValuedFunction-1574085850360.svg" />
 </div>
 
 <h3>More Topics</h3>
@@ -889,7 +892,7 @@ A *values clause* is a component of a *fullselect* or represents a *primary rela
 	<area alt="section expression" shape="rect" coords="158,40,258,62" href="#expression" />
 	<area alt="section identifier" shape="rect" coords="394,40,494,62" href="#identifier" />
 </map>
-<img style="max-width: 565px;" usemap="#valuesClauseImgMap" alt="syntax diagram for a values clause" src="./diagrams/valuesClause-1571986566006.svg" />
+<img style="max-width: 565px;" usemap="#valuesClauseImgMap" alt="syntax diagram for a values clause" src="./diagrams/valuesClause-1574085850360.svg" />
 </div>
 
 A values clause lets you define a result set by specifying actual values for each column of a row by means of expressions.
@@ -1046,7 +1049,7 @@ The syntax of a lateral view clause is described by the syntax diagram below.
 	<area alt="section identifier" shape="rect" coords="51,236,151,258" href="#identifier" />
 	<area alt="section identifier" shape="rect" coords="287,236,387,258" href="#identifier" />
 </map>
-<img style="max-width: 537px;" usemap="#lateralViewImgMap" alt="syntax diagram for a lateral view" src="./diagrams/lateralView-1571986566006.svg" />
+<img style="max-width: 537px;" usemap="#lateralViewImgMap" alt="syntax diagram for a lateral view" src="./diagrams/lateralView-1574085850360.svg" />
 </div>
 
 The semantics of the entities in order of appearance in the syntax diagrams is as follows:
@@ -1150,7 +1153,7 @@ The table is derived by applying one of the join operators to its operands.
 <div style="overflow-x : auto;">
 <map name="joinTypeImgMap">
 </map>
-<img style="max-width: 301px;" usemap="#joinTypeImgMap" alt="syntax diagram for join types" src="./diagrams/joinType-1571986566006.svg" />
+<img style="max-width: 301px;" usemap="#joinTypeImgMap" alt="syntax diagram for join types" src="./diagrams/joinType-1574085850360.svg" />
 </div>
 
 <h4>Inner Join</h4>
@@ -1424,7 +1427,7 @@ The *join types* are specified in a [relation](#relation).
 <map name="sortItemImgMap">
 	<area alt="section expression" shape="rect" coords="50,30,150,52" href="#expression" />
 </map>
-<img style="max-width: 553px;" usemap="#sortItemImgMap" alt="syntax diagram for a sort item" src="./diagrams/sortItem-1571986566006.svg" />
+<img style="max-width: 553px;" usemap="#sortItemImgMap" alt="syntax diagram for a sort item" src="./diagrams/sortItem-1574085850360.svg" />
 </div>
 
 The semantics of the *sort item* components are as follows:
@@ -1475,7 +1478,7 @@ The syntax for SQL function invocation is described by the syntax diagram below.
 	<area alt="section booleanExpression" shape="rect" coords="520,430,676,452" href="#booleanExpression" />
 	<area alt="section resultColumn" shape="rect" coords="464,470,580,492" href="#resultColumn" />
 </map>
-<img style="max-width: 957px;" usemap="#functionOrAggregateImgMap" alt="syntax diagram for a function or aggregate" src="./diagrams/functionOrAggregate-1571986566006.svg" />
+<img style="max-width: 957px;" usemap="#functionOrAggregateImgMap" alt="syntax diagram for a function or aggregate" src="./diagrams/functionOrAggregate-1574085850360.svg" />
 </div>
 
 Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, and `STRUCT()` support a different invocation style.
@@ -1527,7 +1530,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="namedWindowsImgMap">
 	<area alt="section namedWindow" shape="rect" coords="158,20,266,42" href="#namedWindow" />
 </map>
-<img style="max-width: 337px;" usemap="#namedWindowsImgMap" alt="syntax diagram for named windows" src="./diagrams/namedWindows-1571986566006.svg" />
+<img style="max-width: 337px;" usemap="#namedWindowsImgMap" alt="syntax diagram for named windows" src="./diagrams/namedWindows-1574085850360.svg" />
 </div>
 
 <h3 id="namedWindow">namedWindow</h3>
@@ -1537,7 +1540,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 	<area alt="section identifier" shape="rect" coords="50,20,150,42" href="#identifier" />
 	<area alt="section windowSpec" shape="rect" coords="226,20,326,42" href="#windowSpec" />
 </map>
-<img style="max-width: 377px;" usemap="#namedWindowImgMap" alt="syntax diagram for a named window" src="./diagrams/namedWindow-1571986566006.svg" />
+<img style="max-width: 377px;" usemap="#namedWindowImgMap" alt="syntax diagram for a named window" src="./diagrams/namedWindow-1574085850360.svg" />
 </div>
 
 <h3 id="windowSpec">windowSpec</h3>
@@ -1550,7 +1553,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 	<area alt="section windowOrderBy" shape="rect" coords="344,100,468,122" href="#windowOrderBy" />
 	<area alt="section windowFrame" shape="rect" coords="528,60,636,82" href="#windowFrame" />
 </map>
-<img style="max-width: 765px;" usemap="#windowSpecImgMap" alt="syntax diagram for a window specification" src="./diagrams/windowSpec-1571986566006.svg" />
+<img style="max-width: 765px;" usemap="#windowSpecImgMap" alt="syntax diagram for a window specification" src="./diagrams/windowSpec-1574085850360.svg" />
 </div>
 
 <h3 id="windowClusterBy">windowClusterBy</h3>
@@ -1559,7 +1562,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="windowClusterByImgMap">
 	<area alt="section expression" shape="rect" coords="222,20,322,42" href="#expression" />
 </map>
-<img style="max-width: 393px;" usemap="#windowClusterByImgMap" alt="syntax diagram for a window cluster by clause" src="./diagrams/windowClusterBy-1571986566006.svg" />
+<img style="max-width: 393px;" usemap="#windowClusterByImgMap" alt="syntax diagram for a window cluster by clause" src="./diagrams/windowClusterBy-1574085850360.svg" />
 </div>
 
 <h3 id="windowPartitionBy">windowPartitionBy</h3>
@@ -1568,7 +1571,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="windowPartitionByImgMap">
 	<area alt="section expression" shape="rect" coords="266,20,366,42" href="#expression" />
 </map>
-<img style="max-width: 437px;" usemap="#windowPartitionByImgMap" alt="syntax diagram for a window partition by clause" src="./diagrams/windowPartitionBy-1571986566006.svg" />
+<img style="max-width: 437px;" usemap="#windowPartitionByImgMap" alt="syntax diagram for a window partition by clause" src="./diagrams/windowPartitionBy-1574085850360.svg" />
 </div>
 
 <h3 id="windowOrderBy">windowOrderBy</h3>
@@ -1577,7 +1580,7 @@ The syntax of a window specification is defined by the syntax diagrams below.
 <map name="windowOrderByImgMap">
 	<area alt="section sortItem" shape="rect" coords="226,20,310,42" href="#sortItem" />
 </map>
-<img style="max-width: 381px;" usemap="#windowOrderByImgMap" alt="syntax diagram for a window order by clause" src="./diagrams/windowOrderBy-1571986566006.svg" />
+<img style="max-width: 381px;" usemap="#windowOrderByImgMap" alt="syntax diagram for a window order by clause" src="./diagrams/windowOrderBy-1574085850360.svg" />
 </div>
 
 The window specification consists of the following clauses:
@@ -1607,7 +1610,7 @@ The window specification consists of the following clauses:
 	<area alt="section frameBound" shape="rect" coords="242,110,342,132" href="#frameBound" />
 	<area alt="section frameBound" shape="rect" coords="426,110,526,132" href="#frameBound" />
 </map>
-<img style="max-width: 601px;" usemap="#windowFrameImgMap" alt="syntax diagram for a window frame" src="./diagrams/windowFrame-1571986566006.svg" />
+<img style="max-width: 601px;" usemap="#windowFrameImgMap" alt="syntax diagram for a window frame" src="./diagrams/windowFrame-1574085850360.svg" />
 </div>
 
 <h3 id="frameBound">frameBound</h3>
@@ -1616,7 +1619,7 @@ The window specification consists of the following clauses:
 <map name="frameBoundImgMap">
 	<area alt="section expression" shape="rect" coords="70,110,170,132" href="#expression" />
 </map>
-<img style="max-width: 373px;" usemap="#frameBoundImgMap" alt="syntax diagram for a frame boundary" src="./diagrams/frameBound-1571986566006.svg" />
+<img style="max-width: 373px;" usemap="#frameBoundImgMap" alt="syntax diagram for a frame boundary" src="./diagrams/frameBound-1574085850360.svg" />
 </div>
 
 <h3>Examples</h3>
@@ -1839,7 +1842,7 @@ In the context of an SQL query statement, an *expression* is always a *Boolean e
 <map name="expressionImgMap">
 	<area alt="section booleanExpression" shape="rect" coords="50,20,206,42" href="#booleanExpression" />
 </map>
-<img style="max-width: 257px;" usemap="#expressionImgMap" alt="syntax diagram for an expression" src="./diagrams/expression-1571986566006.svg" />
+<img style="max-width: 257px;" usemap="#expressionImgMap" alt="syntax diagram for an expression" src="./diagrams/expression-1574085850360.svg" />
 </div>
 
 <h4>More Topics</h4>
@@ -1885,7 +1888,7 @@ The syntax of a *Boolean expression* is defined by the following syntax diagrams
 	<area alt="section booleanExpression" shape="rect" coords="306,120,462,142" href="#booleanExpression" />
 	<area alt="section query" shape="rect" coords="282,150,342,172" href="#query" />
 </map>
-<img style="max-width: 537px;" usemap="#booleanExpressionImgMap" alt="syntax diagram for a Boolean expression" src="./diagrams/booleanExpression-1571986566006.svg" />
+<img style="max-width: 537px;" usemap="#booleanExpressionImgMap" alt="syntax diagram for a Boolean expression" src="./diagrams/booleanExpression-1574085850360.svg" />
 </div>
 
 A Boolean expression is one of the following:
@@ -1927,7 +1930,7 @@ A *Boolean expression* is referenced by the following clauses:
 	<area alt="section comparisonOperator" shape="rect" coords="230,110,394,132" href="#comparisonOperator" />
 	<area alt="section valueExpression" shape="rect" coords="414,110,554,132" href="#valueExpression" />
 </map>
-<img style="max-width: 625px;" usemap="#valueExpressionImgMap" alt="syntax diagram for a value expression" src="./diagrams/valueExpression-1571986566006.svg" />
+<img style="max-width: 625px;" usemap="#valueExpressionImgMap" alt="syntax diagram for a value expression" src="./diagrams/valueExpression-1574085850360.svg" />
 </div>
 
 A *value expression* is one of the following:
@@ -1971,7 +1974,7 @@ A *value expression* is referenced by the following clauses:
 	<area alt="section identifier" shape="rect" coords="338,269,438,291" href="#identifier" />
 	<area alt="section expression" shape="rect" coords="226,299,326,321" href="#expression" />
 </map>
-<img style="max-width: 553px;" usemap="#primaryExpressionImgMap" alt="syntax diagram for a primary expression" src="./diagrams/primaryExpression-1571986566006.svg" />
+<img style="max-width: 553px;" usemap="#primaryExpressionImgMap" alt="syntax diagram for a primary expression" src="./diagrams/primaryExpression-1574085850360.svg" />
 </div>
 
 <h4 id="constant">constant</h4>
@@ -1984,7 +1987,7 @@ A *value expression* is referenced by the following clauses:
 	<area alt="section number" shape="rect" coords="130,110,198,132" href="#number" />
 	<area alt="section STRING" shape="rect" coords="130,200,198,222" href="#STRING" />
 </map>
-<img style="max-width: 329px;" usemap="#constantImgMap" alt="syntax diagram for a constant" src="./diagrams/constant-1571986566006.svg" />
+<img style="max-width: 329px;" usemap="#constantImgMap" alt="syntax diagram for a constant" src="./diagrams/constant-1574085850360.svg" />
 </div>
 
 <h4 id="interval">interval</h4>
@@ -1997,7 +2000,7 @@ An *interval clause* lets you define time duration constants that can be used in
 	<area alt="section timeUnitSpec" shape="rect" coords="434,30,550,52" href="#timeUnitSpec" />
 	<area alt="section STRING" shape="rect" coords="204,90,272,112" href="#STRING" />
 </map>
-<img style="max-width: 621px;" usemap="#intervalImgMap" alt="syntax diagram for an interval" src="./diagrams/interval-1571986566006.svg" />
+<img style="max-width: 621px;" usemap="#intervalImgMap" alt="syntax diagram for an interval" src="./diagrams/interval-1574085850360.svg" />
 </div>
 
 <h4 id="timeUnitSpec">timeUnitSpec</h4>
@@ -2005,7 +2008,7 @@ An *interval clause* lets you define time duration constants that can be used in
 <div style="overflow-x : auto;">
 <map name="timeUnitSpecImgMap">
 </map>
-<img style="max-width: 237px;" usemap="#timeUnitSpecImgMap" alt="syntax diagram for a time unit specification" src="./diagrams/timeUnitSpec-1571986566006.svg" />
+<img style="max-width: 237px;" usemap="#timeUnitSpecImgMap" alt="syntax diagram for a time unit specification" src="./diagrams/timeUnitSpec-1574085850360.svg" />
 </div>
 
 The following time units are valid:
@@ -2115,7 +2118,7 @@ The result of the example query is shown in the table below.
 	<area alt="section qualifiedName" shape="rect" coords="118,20,242,42" href="#qualifiedName" />
 	<area alt="section qualifiedName" shape="rect" coords="70,80,194,102" href="#qualifiedName" />
 </map>
-<img style="max-width: 361px;" usemap="#columnReferenceImgMap" alt="syntax diagram for a column reference" src="./diagrams/columnReference-1571986566006.svg" />
+<img style="max-width: 361px;" usemap="#columnReferenceImgMap" alt="syntax diagram for a column reference" src="./diagrams/columnReference-1574085850360.svg" />
 </div>
 
 <h4 id="qualifiedName">qualifiedName</h4>
@@ -2124,7 +2127,7 @@ The result of the example query is shown in the table below.
 <map name="qualifiedNameImgMap">
 	<area alt="section identifier" shape="rect" coords="70,20,170,42" href="#identifier" />
 </map>
-<img style="max-width: 241px;" usemap="#qualifiedNameImgMap" alt="syntax diagram for a qualified name" src="./diagrams/qualifiedName-1571986566006.svg" />
+<img style="max-width: 241px;" usemap="#qualifiedNameImgMap" alt="syntax diagram for a qualified name" src="./diagrams/qualifiedName-1574085850360.svg" />
 </div>
 
 A *qualified name* is a sequence of identifier separated by `.`.
@@ -2164,7 +2167,7 @@ For further details about the clauses used by a *primary expression*, refer to t
 	<area alt="section valueExpression" shape="rect" coords="364,180,504,202" href="#valueExpression" />
 	<area alt="section valueExpression" shape="rect" coords="430,290,570,312" href="#valueExpression" />
 </map>
-<img style="max-width: 685px;" usemap="#predicateImgMap" alt="syntax diagram for a predicate" src="./diagrams/predicate-1571986566006.svg" />
+<img style="max-width: 685px;" usemap="#predicateImgMap" alt="syntax diagram for a predicate" src="./diagrams/predicate-1574085850360.svg" />
 </div>
 
 The `BETWEEN ... AND` predicate compares a value with a range of values. If `NOT` is specified, the result is reversed.
@@ -2576,7 +2579,7 @@ If the specified data type is not supported, an error is returned.
 	<area alt="section expression" shape="rect" coords="170,20,270,42" href="#expression" />
 	<area alt="section dataType" shape="rect" coords="346,20,430,42" href="#dataType" />
 </map>
-<img style="max-width: 529px;" usemap="#castExpressionImgMap" alt="syntax diagram for a cast expression" src="./diagrams/castExpression-1571986566006.svg" />
+<img style="max-width: 529px;" usemap="#castExpressionImgMap" alt="syntax diagram for a cast expression" src="./diagrams/castExpression-1574085850360.svg" />
 </div>
 
 Note that in case an expression cannot be casted to the data type specified in the cast expression, the expression result is `null`.
@@ -2592,7 +2595,7 @@ Note that in case an expression cannot be casted to the data type specified in t
 	<area alt="section identifier" shape="rect" coords="70,160,170,182" href="#identifier" />
 	<area alt="section unsignedInteger" shape="rect" coords="278,160,418,182" href="#unsignedInteger" />
 </map>
-<img style="max-width: 577px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-1571986566006.svg" />
+<img style="max-width: 577px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-1574085850360.svg" />
 </div>
 
 An `identifier` in a cast expression can have the values listed below.
@@ -2664,7 +2667,7 @@ A `BINARY` type represents an array of byte values. Thus, string values can be c
 <map name="complexColTypeListImgMap">
 	<area alt="section complexColType" shape="rect" coords="70,20,202,42" href="#complexColType" />
 </map>
-<img style="max-width: 273px;" usemap="#complexColTypeListImgMap" alt="syntax diagram for a complex column type list" src="./diagrams/complexColTypeList-1571986566006.svg" />
+<img style="max-width: 273px;" usemap="#complexColTypeListImgMap" alt="syntax diagram for a complex column type list" src="./diagrams/complexColTypeList-1574085850360.svg" />
 </div>
 
 <h4 id="complexColType">complexColType</h4>
@@ -2675,7 +2678,7 @@ A `BINARY` type represents an array of byte values. Thus, string values can be c
 	<area alt="section dataType" shape="rect" coords="218,30,302,52" href="#dataType" />
 	<area alt="section STRING" shape="rect" coords="438,30,506,52" href="#STRING" />
 </map>
-<img style="max-width: 577px;" usemap="#complexColTypeImgMap" alt="syntax diagram for a complex column type" src="./diagrams/complexColType-1571986566006.svg" />
+<img style="max-width: 577px;" usemap="#complexColTypeImgMap" alt="syntax diagram for a complex column type" src="./diagrams/complexColType-1574085850360.svg" />
 </div>
 
 <h4>More Topics</h4>
@@ -2707,7 +2710,7 @@ The syntax of a case expression is described by the syntax diagrams below.
 	<area alt="section whenClause" shape="rect" coords="272,79,372,101" href="#whenClause" />
 	<area alt="section expression" shape="rect" coords="494,79,594,101" href="#expression" />
 </map>
-<img style="max-width: 749px;" usemap="#caseExpressionImgMap" alt="syntax diagram for a case expression" src="./diagrams/caseExpression-1571986566006.svg" />
+<img style="max-width: 749px;" usemap="#caseExpressionImgMap" alt="syntax diagram for a case expression" src="./diagrams/caseExpression-1574085850360.svg" />
 </div>
 
 The upper path in the syntax diagram represents a *searched when clause*, that is, the `WHEN` keyword follows directly after the `CASE` keyword.
@@ -2728,7 +2731,7 @@ A *result expression* is an expression following the `THEN` or `ELSE` keywords.
 	<area alt="section expression" shape="rect" coords="122,20,222,42" href="#expression" />
 	<area alt="section expression" shape="rect" coords="314,20,414,42" href="#expression" />
 </map>
-<img style="max-width: 465px;" usemap="#whenClauseImgMap" alt="syntax diagram for a when clause" src="./diagrams/whenClause-1571986566006.svg" />
+<img style="max-width: 465px;" usemap="#whenClauseImgMap" alt="syntax diagram for a when clause" src="./diagrams/whenClause-1574085850360.svg" />
 </div>
 
 <h4>Examples</h4>
@@ -2897,7 +2900,7 @@ The general syntax of a table sample clause is described by the syntax diagram b
 	<area alt="section expression" shape="rect" coords="264,60,364,82" href="#expression" />
 	<area alt="section bucketSampleClause" shape="rect" coords="278,90,442,112" href="#bucketSampleClause" />
 </map>
-<img style="max-width: 593px;" usemap="#sampleImgMap" alt="syntax diagram for a sample" src="./diagrams/sample-1571986566006.svg" />
+<img style="max-width: 593px;" usemap="#sampleImgMap" alt="syntax diagram for a sample" src="./diagrams/sample-1574085850360.svg" />
 </div>
 
 <h3 id="bucketSampleClause">bucketSampleClause</h3>
@@ -2907,7 +2910,7 @@ The general syntax of a table sample clause is described by the syntax diagram b
 	<area alt="section unsignedInteger" shape="rect" coords="138,20,278,42" href="#unsignedInteger" />
 	<area alt="section unsignedInteger" shape="rect" coords="418,20,558,42" href="#unsignedInteger" />
 </map>
-<img style="max-width: 598px;" usemap="#bucketSampleClauseImgMap" alt="syntax diagram for a bucket sample clause" src="./diagrams/bucketSampleClause-1571986566006.svg" />
+<img style="max-width: 598px;" usemap="#bucketSampleClauseImgMap" alt="syntax diagram for a bucket sample clause" src="./diagrams/bucketSampleClause-1574085850360.svg" />
 </div>
 
 Three sampling types are supported:
