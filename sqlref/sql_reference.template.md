@@ -664,6 +664,7 @@ An external table specification represents an URI for an object stored on Cloud 
 Valid values for object type identifier are `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`.
 If the file format is CVS, the optional `FIELDS TERMINATED BY` <character> clause
 allows you to specify a field delimiter/separator other than the default `,` (comma).
+If the file format is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON.
 
 For example, the query for parsing a CSV with '|' as delimiter looks like the following:
 
@@ -675,8 +676,7 @@ Refer to section [COS URI](#COSURI) for more details.
 
 If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects
 should be scanned for their schema and final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object
-found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not
-have homogeneous schema.
+found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have homogeneous schema.
 
 <!--include-svg src="./svgfiles/externalTableSpec.svg" target="./diagrams/externalTableSpec.svg" alt="syntax diagram for an external table specification" layout="" -->
 
