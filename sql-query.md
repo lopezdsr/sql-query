@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-09-25"
+lastupdated: "2019-11-15"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -88,9 +88,17 @@ A more exact specification of the object or objects:
 - The specified path is interpreted in a similar way as listing file system contents with `ls`, interpreting slashes `/` in object names as a folder hierarchy.
 
   - If the path is identical to the name of a an existing (non-empty) object, it only matches that single object.
-  - If the path is a prefix of multiple objects at a slash '/' character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`.
-  - If the path ends with a `*` wildcard, it matches all objects with the given path prefix. For example, `mydir/test1*`, matches objects `mydir/test100`, and `mydir/test101/nested/object`.
-
+  - If the path is a prefix of multiple objects at a slash `/` character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`.
+  - The usage of a * wildcard depends on how the object structure has been created:
+	   - If the object structure has been created as Hadoop-partitioned structure, 
+for example as SQL Query result output, wildcards are not supported. The reason is that 
+the result objects could consist of one too many objects starting with the same 
+prefix `part-`. In this case, use SQL constructs instead of wildcards to query data.
+	   - If the object structure has not been created as Hadoop-partitioned structure 
+by using arbitrary file names, the usage of wildcards is supported. 
+The wildcard matches all objects with the given path prefix. For example, `mydir/test1*`, matches 
+objects `mydir/test100`, and `mydir/test101/nested/object`.
+  
 - For an output URI, this is the prefix under which the [result objects](#result) are to be written.
 
 ### Composite input tables
@@ -108,7 +116,7 @@ Matching columns need to have compatible data types across all objects where the
 There are two ways to specify database locations, CRN tables, and Db2 table URIs. Which one you choose
 depends on the target database plan and the access you have to that database:
 
-1. If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user who has access to the service credentials for that instance, the database location can be specified using its instance CRN. The access to the database is performed with the "username" and "password" found in the service credentials for this Db2 instance.
+1. If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and the user can see the credentials for that instance, the database location can be specified using its instance CRN. The access to the database is performed with the "username" and "password" found in the service credentials for this Db2 instance.
   Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
   This option is typcially used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full admin access. If the SQL user should only have restricted access to the target database, use the next option (option 2).

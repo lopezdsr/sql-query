@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-10-23"
+lastupdated: "2019-11-15"
 
 ---
 
@@ -164,6 +164,7 @@ This clause can be used to sort in many ways. When specified in combination with
 by the sort order specified in the SORT BY clause. When specified in combination with PARTITIONED INTO, the same is done,
 which is often referred to as clustering the rows by the specified columns into the fixed number of partitions specified by PARTITIONED INTO.
 When specified without the PARTITIONED clause, it is equivalent to an ORDER BY clause specified at the top level of the SQL SELECT statement.
+The ORDER BY clause will be ignored, as soon PARTITIONED INTO is specified.
 
 <!--include-svg src="./svgfiles/sortClause.svg" target="./diagrams/sortClause.svg" alt="syntax diagram for a result partitioned column clause" layout="@break@" -->
 
@@ -282,6 +283,7 @@ The characteristics of a result set defined by a fullselect can be further defin
 * `ORDER BY`: Define an overall ordering of the result set based on the criteria defined by the list of `sortItem` clauses.
 The default order direction is ascending if not explicitly specified by a `sortItem` clause. Note that the *order by* clause
 cannot be used in conjunction with *cluster by*, *distribute by* or *sort by* clause.
+When you use partitioned output, the `ORDER BY` clause gets ignored. Use the `sortClause` instead. 
 * `DISTRIBUTE BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses.
 Result set rows having the same expression values will be moved to the same partition. Note that the *distribute by* clause cannot be
 used in conjunction with *order by* or *cluster by* clause.
@@ -687,7 +689,8 @@ It will preprocess your input table before query compilation to a fully flat col
 This can be useful when you have hierarchical input data as it is often found in JSON documents.
 By using `FLATTEN`, you don't have to dereference all nested columns explicitly in your SQL statement.
 
-For example, you can run a simple `SELECT * FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON input and use CSV output to easily browse a sample of your JSON input data.
+For example, you can run a simple `SELECT * FROM FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON 
+input and use CSV output to easily browse a sample of your JSON input data.
 
 The `FLATTEN` table transformation function creates a flat list of columns by concatenating all nested column names with _.
 You can optionally also combine `FLATTEN` with `CLEANCOLS`.
@@ -697,7 +700,7 @@ It will preprocess your input table before query compilation by renaming all col
 These characters are `, ; ,,, =, (, ), { and }`. They are replaced by the corresponding URL-encoded representation, for example, %20 for space (` `). This allows you to write results, for example, into Parquet without having to provide column by column alias names in your SQL
 when your input data has columns with these characters. A typical situation is the existence of space (` `) in input columns.
 
-For example, you can use `SELECT * CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON)` to produce a result set that can be stored as is into Parquet target format.
+For example, you can use `SELECT * FROM CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON) INTO cos://us-geo/mybucket/myprefix STORED AS PARQUET` to produce a result set that can be stored as is into Parquet target format.
 
 You can optionally also combine `CLEANCOLS` with `FLATTEN`.
 
