@@ -94,8 +94,8 @@ A more exact specification of the object or objects:
 	   - If the object structure has been created as Hive-partitioned structure, 
 for example as SQL Query result output, and the result objects are starting with the prefix `part-`, wildcards are not supported. 
 Using SQL constructs based on the Hive structure should always be the preferred method, in order to restrict the number of objects to be read during query processing.
-	   - If the object structure has not been created as Hive-partitioned structure 
-by using arbitrary file names, the usage of wildcards is supported. 
+	   - If the object structure has been created as Hive-partitioned structure, 
+but by using arbitrary file names, the usage of wildcards is supported. 
 The wildcard matches all objects with the given path prefix. For example, `mydir/test1*`, matches 
 objects `mydir/test100`, and `mydir/test101/nested/object`.
   
