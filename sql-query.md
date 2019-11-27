@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-15"
+lastupdated: "2019-11-27"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -50,6 +50,7 @@ Each URI can be thought of as a table. It specifies one or more input objects; e
 You must have at least 'Reader' access to the buckets that contain the input objects.
     - If the format of the input objects is CSV, and no special options are required, there is no need to specify a `STORED AS` clause.
 However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO, as appropriate.
+    - If text formats, such as JSON and CSV, are compressed with either gzip or bzip2 and have the extensions *.gz and *.bz, they automatically get recognized as compressed files. However, it is not recommended to use these kinds of compressed files due to performance reasons.
     - If the format of the input objects is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the `FIELDS TERMINATED BY` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All single Unicode characters are allowed as delimiters.
     - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify `NOHEADER` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - If required, you can use JOIN constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
@@ -90,11 +91,10 @@ A more exact specification of the object or objects:
   - If the path is identical to the name of a an existing (non-empty) object, it only matches that single object.
   - If the path is a prefix of multiple objects at a slash `/` character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`.
   - The usage of a * wildcard depends on how the object structure has been created:
-	   - If the object structure has been created as Hadoop-partitioned structure, 
-for example as SQL Query result output, wildcards are not supported. The reason is that 
-the result objects could consist of one too many objects starting with the same 
-prefix `part-`. In this case, use SQL constructs instead of wildcards to query data.
-	   - If the object structure has not been created as Hadoop-partitioned structure 
+	   - If the object structure has been created as Hive-partitioned structure, 
+for example as SQL Query result output, and the result objects are starting with the prefix `part-`, wildcards are not supported. 
+Using SQL constructs based on the Hive structure should always be the preferred method, in order to restrict the number of objects to be read during query processing.
+	   - If the object structure has not been created as Hive-partitioned structure 
 by using arbitrary file names, the usage of wildcards is supported. 
 The wildcard matches all objects with the given path prefix. For example, `mydir/test1*`, matches 
 objects `mydir/test100`, and `mydir/test101/nested/object`.
