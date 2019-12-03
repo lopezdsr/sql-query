@@ -788,7 +788,7 @@ Apart from the join type, the following two different flavors of joins exist:
 
 An external table specification represents an URI for an object stored on Cloud {{site.data.keyword.cos_short}} combined with a specification of the object type. Valid values for object type identifier are `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`.
 
-If the file format is CVS, the optional `FIELDS TERMINATED BY` clause allows you to specify a field delimiter/separator other than the default `,` (comma). For example, a query for parsing a CSV with `|` (vertical bar) as the delimiter looks like the following:
+If the file format is CSV, the optional `FIELDS TERMINATED BY` clause allows you to specify a field delimiter/separator other than the default `,` (comma). For example, a query for parsing a CSV with `|` (vertical bar) as the delimiter looks like the following:
 
 ```sql
 SELECT *
@@ -803,7 +803,7 @@ Refer to section [COS URI](#COSURI) for more details.
 
 By default, when the format of the input data is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON. However, if you specify the option MULTILINE, {{site.data.keyword.sqlquery_short}} can process JSON input data even when individual data records span multiple lines, such as, when the data has been formatted to make it easier to read. Specify this option only when it is truly needed, because it limits input parallelization and can significantly reduce performance when processing large volumes of JSON data. If you need to frequently query large amounts of multiline JSON data, use {{site.data.keyword.sqlquery_short}} to transform the data into single line JSON or into a more performance optimized format such as Parquet before querying the transformed data.
 
-If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects should be scanned for their schema and final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have homogeneous schema.
+If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects should be scanned for their schema and the final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have a homogeneous schema.
 
 <div style="overflow-x : auto;">
 <map name="externalTableSpecImgMap">
