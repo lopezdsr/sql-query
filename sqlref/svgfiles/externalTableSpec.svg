@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram" width="1073" height="272" viewBox="0 0 1073 272">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram" width="1073" height="282" viewBox="0 0 1073 282">
 <defs><style type="text/css"><![CDATA[ svg.railroad-diagram {
   background-color: #ffffff;
 }
@@ -175,81 +175,104 @@ svg.railroad-diagram rect {
 </g>
 </g>
 <path d="M972 81a10 10 0 0 0 10 -10v-20a10 10 0 0 1 10 -10"></path>
-<path d="M312 41a10 10 0 0 1 10 10v80a10 10 0 0 0 10 10"></path>
+<path d="M312 41a10 10 0 0 1 10 10v90a10 10 0 0 0 10 10"></path>
 <g>
-<path d="M332 141h294"></path>
-<path d="M678 141h294"></path>
-<rect x="626" y="130" width="52" height="22" rx="10" ry="10"></rect>
-<text x="652" y="145">JSON</text>
+<path d="M332 151h218"></path>
+<path d="M754 151h218"></path>
+<path d="M550 151h10"></path>
+<g>
+<path d="M560 151h0"></path>
+<path d="M612 151h0"></path>
+<rect x="560" y="140" width="52" height="22" rx="10" ry="10"></rect>
+<text x="586" y="155">JSON</text>
 </g>
-<path d="M972 141a10 10 0 0 0 10 -10v-80a10 10 0 0 1 10 -10"></path>
-<path d="M312 41a10 10 0 0 1 10 10v110a10 10 0 0 0 10 10"></path>
+<path d="M612 151h10"></path>
 <g>
-<path d="M332 171h298"></path>
-<path d="M674 171h298"></path>
-<rect x="630" y="160" width="44" height="22" rx="10" ry="10"></rect>
-<text x="652" y="175">ORC</text>
+<path d="M622 151h0"></path>
+<path d="M754 151h0"></path>
+<path d="M622 151a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g>
+<path d="M642 131h92"></path>
 </g>
-<path d="M972 171a10 10 0 0 0 10 -10v-110a10 10 0 0 1 10 -10"></path>
-<path d="M312 41a10 10 0 0 1 10 10v150a10 10 0 0 0 10 10"></path>
+<path d="M734 131a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M622 151h20"></path>
 <g>
-<path d="M332 211h168"></path>
-<path d="M804 211h168"></path>
-<path d="M500 211h10"></path>
-<g>
-<path d="M510 211h0"></path>
-<path d="M586 211h0"></path>
-<rect x="510" y="200" width="76" height="22" rx="10" ry="10"></rect>
-<text x="548" y="215">PARQUET</text>
+<path d="M642 151h0"></path>
+<path d="M734 151h0"></path>
+<rect x="642" y="140" width="92" height="22" rx="10" ry="10"></rect>
+<text x="688" y="155">MULTILINE</text>
 </g>
-<path d="M586 211h10"></path>
-<g>
-<path d="M596 211h0"></path>
-<path d="M804 211h0"></path>
-<path d="M596 211a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g>
-<path d="M616 191h168"></path>
-</g>
-<path d="M784 191a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M596 211h20"></path>
-<g>
-<path d="M616 211h0"></path>
-<path d="M784 211h0"></path>
-<path d="M616 211h10"></path>
-<g>
-<path d="M626 211h0"></path>
-<path d="M686 211h0"></path>
-<rect x="626" y="200" width="60" height="22" rx="10" ry="10"></rect>
-<text x="656" y="215">MERGE</text>
-</g>
-<path d="M686 211h10"></path>
-<path d="M696 211h10"></path>
-<g>
-<path d="M706 211h0"></path>
-<path d="M774 211h0"></path>
-<rect x="706" y="200" width="68" height="22" rx="10" ry="10"></rect>
-<text x="740" y="215">SCHEMA</text>
-</g>
-<path d="M774 211h10"></path>
-</g>
-<path d="M784 211h20"></path>
+<path d="M734 151h20"></path>
 </g>
 </g>
-<path d="M972 211a10 10 0 0 0 10 -10v-150a10 10 0 0 1 10 -10"></path>
+<path d="M972 151a10 10 0 0 0 10 -10v-90a10 10 0 0 1 10 -10"></path>
+<path d="M312 41a10 10 0 0 1 10 10v120a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M332 181h298"></path>
+<path d="M674 181h298"></path>
+<rect x="630" y="170" width="44" height="22" rx="10" ry="10"></rect>
+<text x="652" y="185">ORC</text>
+</g>
+<path d="M972 181a10 10 0 0 0 10 -10v-120a10 10 0 0 1 10 -10"></path>
+<path d="M312 41a10 10 0 0 1 10 10v160a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M332 221h168"></path>
+<path d="M804 221h168"></path>
+<path d="M500 221h10"></path>
+<g>
+<path d="M510 221h0"></path>
+<path d="M586 221h0"></path>
+<rect x="510" y="210" width="76" height="22" rx="10" ry="10"></rect>
+<text x="548" y="225">PARQUET</text>
+</g>
+<path d="M586 221h10"></path>
+<g>
+<path d="M596 221h0"></path>
+<path d="M804 221h0"></path>
+<path d="M596 221a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g>
+<path d="M616 201h168"></path>
+</g>
+<path d="M784 201a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M596 221h20"></path>
+<g>
+<path d="M616 221h0"></path>
+<path d="M784 221h0"></path>
+<path d="M616 221h10"></path>
+<g>
+<path d="M626 221h0"></path>
+<path d="M686 221h0"></path>
+<rect x="626" y="210" width="60" height="22" rx="10" ry="10"></rect>
+<text x="656" y="225">MERGE</text>
+</g>
+<path d="M686 221h10"></path>
+<path d="M696 221h10"></path>
+<g>
+<path d="M706 221h0"></path>
+<path d="M774 221h0"></path>
+<rect x="706" y="210" width="68" height="22" rx="10" ry="10"></rect>
+<text x="740" y="225">SCHEMA</text>
+</g>
+<path d="M774 221h10"></path>
+</g>
+<path d="M784 221h20"></path>
+</g>
+</g>
+<path d="M972 221a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path>
 </g>
 </g>
 <path d="M992 41h20"></path>
 </g>
 </g>
 <path d="M1012 41h20"></path>
-<path d="M40 41a10 10 0 0 1 10 10v180a10 10 0 0 0 10 10"></path>
+<path d="M40 41a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path>
 <g>
-<path d="M60 241h402"></path>
-<path d="M610 241h402"></path>
-<rect x="462" y="230" width="148" height="22"></rect>
-<text x="536" y="245">tableTransformer</text>
+<path d="M60 251h402"></path>
+<path d="M610 251h402"></path>
+<rect x="462" y="240" width="148" height="22"></rect>
+<text x="536" y="255">tableTransformer</text>
 </g>
-<path d="M1012 241a10 10 0 0 0 10 -10v-180a10 10 0 0 1 10 -10"></path>
+<path d="M1012 251a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path>
 </g>
 <path d="M 1032 41 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
 </g>

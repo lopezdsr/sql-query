@@ -283,7 +283,7 @@ The characteristics of a result set defined by a fullselect can be further defin
 * `ORDER BY`: Define an overall ordering of the result set based on the criteria defined by the list of `sortItem` clauses.
 The default order direction is ascending if not explicitly specified by a `sortItem` clause. Note that the *order by* clause
 cannot be used in conjunction with *cluster by*, *distribute by* or *sort by* clause.
-When you use partitioned output, the `ORDER BY` clause gets ignored. Use the `sortClause` instead. 
+When you use partitioned output, the `ORDER BY` clause gets ignored. Use the `sortClause` instead.
 * `DISTRIBUTE BY`: Distribute result set rows into new partitions based on the criteria defined by the list of `expression` clauses.
 Result set rows having the same expression values will be moved to the same partition. Note that the *distribute by* clause cannot be
 used in conjunction with *order by* or *cluster by* clause.
@@ -660,23 +660,20 @@ Apart from the join type, the following two different flavors of joins exist:
 
 <h3 id="externalTableSpec">externalTableSpec</h3>
 
-An external table specification represents an URI for an object stored on Cloud {{site.data.keyword.cos_short}} combined with a specification of the object type.
-Valid values for object type identifier are `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`.
-If the file format is CVS, the optional `FIELDS TERMINATED BY` <character> clause
-allows you to specify a field delimiter/separator other than the default `,` (comma).
-If the file format is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON.
+An external table specification represents an URI for an object stored on Cloud {{site.data.keyword.cos_short}} combined with a specification of the object type. Valid values for object type identifier are `AVRO`, `CSV`, `JSON`, `ORC`, or `PARQUET`.
 
+If the file format is CVS, the optional `FIELDS TERMINATED BY` <character> clause allows you to specify a field delimiter/separator other than the default `,` (comma).
 For example, the query for parsing a CSV with '|' as delimiter looks like the following:
 
 `SELECT * FROM cos://us-geo/sql/BlackFriday.csv STORED AS CSV FIELDS TERMINATED BY '|' limit 3`
 
 All single Unicode characters are allowed as delimiters.
-By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify `NOHEADER` after the `STORED AS` clause. In this case, the names _C0, _C1, ... are used for the input columns.
+By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify the option `NOHEADER` in the `STORED AS CSV` clause. In this case, the names _C0, _C1, ... are used for the input columns.
 Refer to section [COS URI](#COSURI) for more details.
 
-If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects
-should be scanned for their schema and final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object
-found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have homogeneous schema.
+If the file format is JSON, and if the external table specification is used for input data, you can specify the option `MULTILINE`. This allows {{site.data.keyword.sqlquery_short}} to process JSON input data even when individual data records span multiple lines, for example, when the data has been formatted to make it easier to read. Specify this option only when it is truly needed, because it limits input parallelization and can significantly reduce performance when processing large volumes of JSON data. If you need to frequently query large amounts of multiline JSON data, use {{site.data.keyword.sqlquery_short}} to transform the data into single line JSON or into a more performance optimized format such as Parquet before querying the transformed data.
+
+If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects should be scanned for their schema and final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have homogeneous schema.
 
 <!--include-svg src="./svgfiles/externalTableSpec.svg" target="./diagrams/externalTableSpec.svg" alt="syntax diagram for an external table specification" layout="" -->
 
@@ -689,7 +686,7 @@ It will preprocess your input table before query compilation to a fully flat col
 This can be useful when you have hierarchical input data as it is often found in JSON documents.
 By using `FLATTEN`, you don't have to dereference all nested columns explicitly in your SQL statement.
 
-For example, you can run a simple `SELECT * FROM FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON 
+For example, you can run a simple `SELECT * FROM FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON
 input and use CSV output to easily browse a sample of your JSON input data.
 
 The `FLATTEN` table transformation function creates a flat list of columns by concatenating all nested column names with _.
