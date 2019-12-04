@@ -17,6 +17,10 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## November 2019
+
+- You can now specify a [`MULTILINE`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) option for JSON input data if individual JSON records are stored across multiple lines.
+
 ## October 2019
 
 - The new open source [cos-upload](https://github.com/IBM-Cloud/data-lake/tree/master/upload/cos-upload) script can be used to efficiently upload large volumes of data to {{site.data.keyword.cos_full}} buckets via Aspera by merely providing an IAM API Key.

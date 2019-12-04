@@ -53,6 +53,7 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, 
     - If text formats, such as JSON and CSV, are compressed with either gzip or bzip2 and have the extensions *.gz and *.bz, they automatically get recognized as compressed files. However, it is not recommended to use these kinds of compressed files due to performance reasons.
     - If the format of the input objects is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the `FIELDS TERMINATED BY` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All single Unicode characters are allowed as delimiters.
     - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify `NOHEADER` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
+    - By default, it is assumed that JSON input objects consist of a single JSON record per line. If individual records span multiple lines, you have to specify `MULTILINE` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - If required, you can use JOIN constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
     - Use the `INTO` clause of a [query](/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the desired result format.
 2. Below the SELECT statement, the **Target** field displays where the result will be stored. A default location is chosen if your query does not specify an `INTO` clause. You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
@@ -91,14 +92,14 @@ A more exact specification of the object or objects:
   - If the path is identical to the name of a an existing (non-empty) object, it only matches that single object.
   - If the path is a prefix of multiple objects at a slash `/` character, it matches all those objects that are not empty. For example, the path `mydir/test1` (or `mydir/test1/`) matches objects `mydir/test1/object1`, `mydir/test1/nested/object2`, but not `mydir/test100`.
   - The usage of a * wildcard depends on how the object structure has been created:
-	   - If the object structure has been created as Hive-partitioned structure, 
-for example as SQL Query result output, and the result objects are starting with the prefix `part-`, wildcards are not supported. 
+	   - If the object structure has been created as Hive-partitioned structure,
+for example as SQL Query result output, and the result objects are starting with the prefix `part-`, wildcards are not supported.
 Using SQL constructs based on the Hive structure should always be the preferred method, in order to restrict the number of objects to be read during query processing.
-	   - If the object structure has been created as Hive-partitioned structure, 
-but by using arbitrary file names, the usage of wildcards is supported. 
-The wildcard matches all objects with the given path prefix. For example, `mydir/test1*`, matches 
+	   - If the object structure has been created as Hive-partitioned structure,
+but by using arbitrary file names, the usage of wildcards is supported.
+The wildcard matches all objects with the given path prefix. For example, `mydir/test1*`, matches
 objects `mydir/test100`, and `mydir/test101/nested/object`.
-  
+
 - For an output URI, this is the prefix under which the [result objects](#result) are to be written.
 
 ### Composite input tables
@@ -175,7 +176,7 @@ If you want to run a query over the combined results of multiple previous querie
 Your Cloud {{site.data.keyword.cos_short}} instance will have one of the endpoints shown in the following tables.
 To save space, you can use the alias shown instead of the full endpoint name.
 
-**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name. 
+**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.
 When interacting with {{site.data.keyword.sqlquery_short}} programmatically through the API, you can use the internal endpoint name to read results instead of the external endpoint name that is returned by the API.
 
 External Cross-Regional Endpoint Name | Alias
@@ -277,5 +278,3 @@ Use one of the following workarounds:
   If you use {{site.data.keyword.sqlquery_short}} to generate CSV results from other data formats like Parquet that support newlines within values and these CSV results should be queried again, newlines must explicitly be removed before writing the results. To do so, use the SQL function `regexp_replace`. For example, a Parquet object `data` has an attribute `multi_line` containing values spanning multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following:
 
 	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS parquet WHERE condition`
-	
-- If you use JSON input format, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON.
