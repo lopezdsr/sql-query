@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-08-01"
+lastupdated: "2019-12-04"
 
 keywords: SQL, functions
 
@@ -1175,6 +1175,14 @@ date_format(timestamp, fmt) - Converts <code>timestamp</code> to a value of stri
 **Result value:**
 
 <pre><code> 2016</code></pre>
+
+**Example of an SQL function usage fragment:**
+
+<pre><code>&gt; SELECT date_format('2016-04-16T15:16:29.000Z', 'y-MM-dd')</code></pre>
+
+**Result value:**
+
+<pre><code>2016-04-16</code></pre>
 
 <strong>Since:</strong> 1.5.0
 
