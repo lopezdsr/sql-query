@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-11-27"
+lastupdated: "2019-12-06"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -64,7 +64,7 @@ When the query completes, a preview of the query result is displayed in the quer
 
 There are different types of table unique resource identifiers, depending on the type of target service used.
 You can either specify Cloud {{site.data.keyword.cos_short}} locations or database locations.
-The latter is currently only supported for target locations of an SQL query, and only for {{site.data.keyword.Db2_on_Cloud_long}} database services.
+The latter is currently only supported for target locations of an SQL query, and only for {{site.data.keyword.Db2_on_Cloud_long}} and {{site.data.keyword.dashdblong}} database services.
 
 ### Cloud Object Storage locations
 
