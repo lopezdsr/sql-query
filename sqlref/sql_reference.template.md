@@ -679,7 +679,45 @@ By default, if the format of the input data is JSON, each line must contain a se
 
 If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects should be scanned for their schema and the final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have a homogeneous schema.
 
-<!--include-svg src="./svgfiles/externalTableSpec.svg" target="./diagrams/externalTableSpec.svg" alt="syntax diagram for an external table specification" layout="" -->
+<!--include-svg src="./svgfiles/externalTableSpec.svg" target="./diagrams/externalTableSpec.svg" alt="syntax diagram for an external database table specification" layout="" -->
+
+<h3 id="externalDbTableSpec">externalDbTableSpec</h3>
+
+An external database table specification represents a URI for a table stored in a relational database in {{site.data.keyword.Bluemix_notm}}. 
+Currently, {{site.data.keyword.Db2_on_Cloud_long}} is the only supported source database.
+
+The URI is of format CRN_TABLE or DB2_TABLE_URI. The formats are defined in section Database locations. 
+In both formats, the table name and optional schema are specified as part of the target URI.
+
+By default, {{site.data.keyword.sqlquery_short}} reads the data from that table in single-threaded manner. 
+For larger table content, use the optional PARALLELISM clause to specify that multiple parallel database connections should be opened to read the table. 
+Depending on the size of your table and the network connectivity of your source database service, this can reduce the query processing time significantly.
+
+For parallel read, you have to define a way to shard the input table content into separate content sections. 
+With `ON COLUMN` you specify an existing column (or an expression) that must be of a numeric, data, or timestamp data type. 
+With `BETWEEN x AND y` you specify the smallest and the largest value in that column or expression. 
+With `PARALLELISM x` you specify the number of parallel threads to use for reading. 
+{{site.data.keyword.sqlquery_short}} automatically divides the specified range of values into subranges of same size that are read in parallel.
+
+<h4 id="Db2Warehouse">Db2Warehouse</h4>
+
+When reading from a {{site.data.keyword.dashdbshort}} instance with multiple database partitions, you can use the following best practice to read in parallel 
+from each database partition.
+
+In your Db2 database, run the following SQL to identify the number of database partitions and the lowest and largest database partition IDs:
+
+`SELECT MIN(PARTITION_NUMBER) lowerBound, MIN(PARTITION_NUMBER) upperBound, COUNT(*) numPartitions FROM TABLE(DB_PARTITIONS()) as T`
+
+
+With that data you can now construct a PARALLELISM clause for your {{site.data.keyword.dashdbshort_notm}} input table in {{site.data.keyword.sqlquery_short}} as follows:
+
+`WITH PARALLELISM <numPartitions> ON DBPARTITIONNUM(<any column of Db2 table>) BETWEEN <lowerBound> AND <upperBound>`
+
+You can specify any column of your input table to DBPARTITIONNUM. 
+You can identify a valid column of that table in Db2 for instance with 
+SELECT Colname FROM SYSCAT.COLUMNS WHERE TABNAME='<input table name>' AND TABSCHEMA='<input schema name>' AND HIDDEN = ' ' ORDER BY colno ASC LIMIT 1.
+
+<!--include-svg src="./svgfiles/externalDbTableSpec.svg" target="./diagrams/externalDbTableSpec.svg" alt="syntax diagram for an external Db table specification" layout="" -->
 
 <h3 id="tableTransformer">tableTransformer</h3>
 
