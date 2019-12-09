@@ -19,5 +19,3 @@ echo "Updating sparksql-parser project"
 
 echo "Copying SVG files"
 cp ../sparksql-parser/rrd/SqlReference/*.svg ./sqlref/svgfiles/
-
-source ./process-ref-template.sh
