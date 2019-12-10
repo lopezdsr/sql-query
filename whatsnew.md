@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-12-09"
+lastupdated: "2019-10-28"
 
 keywords: what's new, support, release, beta
 
@@ -20,7 +20,6 @@ subcollection: sql-query
 ## November 2019
 
 - You can now specify a [`MULTILINE`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) option for JSON input data if individual JSON records are stored across multiple lines.
-- Support for federated queries and ETL from {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify Db2 input tables in your SQL queries in order to query and process data from Db2 and {{site.data.keyword.dashdb_long}}. This enables you also to ETL data from Db2 to {{site.data.keyword.cos_full}} or between different Db2 instances in {{site.data.keyword.bluemix}}.
 
 ## October 2019
 

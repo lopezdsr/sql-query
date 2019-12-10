@@ -772,16 +772,16 @@ Apart from the join type, the following two different flavors of joins exist:
 <div style="overflow-x : auto;">
 <map name="relationPrimaryImgMap">
 	<area alt="section externalTableSpec" shape="rect" coords="166,40,322,62" href="#externalTableSpec" />
-	<area alt="section identifier" shape="rect" coords="110,110,210,132" href="#identifier" />
-	<area alt="section identifier" shape="rect" coords="298,110,398,132" href="#identifier" />
-	<area alt="section fullselect" shape="rect" coords="194,140,294,162" href="#fullselect" />
-	<area alt="section relation" shape="rect" coords="202,170,286,192" href="#relation" />
+	<area alt="section identifier" shape="rect" coords="110,80,210,102" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="298,80,398,102" href="#identifier" />
+	<area alt="section fullselect" shape="rect" coords="194,110,294,132" href="#fullselect" />
+	<area alt="section relation" shape="rect" coords="202,140,286,162" href="#relation" />
 	<area alt="section sample" shape="rect" coords="448,40,516,62" href="#sample" />
 	<area alt="section identifier" shape="rect" coords="642,40,742,62" href="#identifier" />
-	<area alt="section valuesClause" shape="rect" coords="358,200,474,222" href="#valuesClause" />
-	<area alt="section tableValuedFunction" shape="rect" coords="330,230,502,252" href="#tableValuedFunction" />
+	<area alt="section valuesClause" shape="rect" coords="358,170,474,192" href="#valuesClause" />
+	<area alt="section tableValuedFunction" shape="rect" coords="330,200,502,222" href="#tableValuedFunction" />
 </map>
-<img style="max-width: 833px;" usemap="#relationPrimaryImgMap" alt="syntax diagram for a relation primary" src="./diagrams/relationPrimary-f80c40810d22e8109001d985f330ed12.svg" />
+<img style="max-width: 833px;" usemap="#relationPrimaryImgMap" alt="syntax diagram for a relation primary" src="./diagrams/relationPrimary-6549e29d79c44bd61ca940ade7c9ab8a.svg" />
 </div>
 
 <h3 id="externalTableSpec">externalTableSpec</h3>
@@ -801,7 +801,7 @@ All single Unicode characters are allowed as delimiters.
 By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify the option `NOHEADER` in the `STORED AS CSV` clause. In this case, the names _C0, _C1, ... are used for the input columns.
 Refer to section [COS URI](#COSURI) for more details.
 
-By default, if the format of the input data is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON. However, if you specify the option `MULTILINE`, {{site.data.keyword.sqlquery_short}} can process JSON input data even if individual data records span multiple lines, such as when the data has been formatted to make it easier to read. Only specify this option if you really need it, because it limits input parallelization and can significantly reduce performance when processing large volumes of JSON data. If you need to frequently query large amounts of multiline JSON data, use {{site.data.keyword.sqlquery_short}} to transform the data into single -line JSON, or into a more performance optimized format, such as Parquet, before querying the transformed data. 
+By default, when the format of the input data is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON. However, if you specify the option `MULTILINE`, {{site.data.keyword.sqlquery_short}} can process JSON input data even when individual data records span multiple lines, such as when the data has been formatted to make it easier to read. Specify this option only when it is truly needed, because it limits input parallelization and can significantly reduce performance when processing large volumes of JSON data. If you need to frequently query large amounts of multiline JSON data, use {{site.data.keyword.sqlquery_short}} to transform the data into single line JSON or into a more performance optimized format such as Parquet before querying the transformed data.
 
 If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects should be scanned for their schema and the final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have a homogeneous schema.
 
@@ -810,55 +810,7 @@ If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to 
 	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
 	<area alt="section STRING" shape="rect" coords="750,70,818,92" href="#STRING" />
 </map>
-<img style="max-width: 1073px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external database table specification" src="./diagrams/externalTableSpec-dbd6fb3d78cdffdecf33e67ecd256edb.svg" />
-</div>
-
-<h3 id="externalDbTableSpec">externalDbTableSpec</h3>
-
-An external database table specification represents a URI for a table stored in a relational database in {{site.data.keyword.Bluemix_notm}}. 
-Currently, {{site.data.keyword.Db2_on_Cloud_long}} is the only supported source database.
-
-The URI is of format CRN_TABLE or DB2_TABLE_URI. The formats are defined in section Database locations. 
-In both formats, the table name and optional schema are specified as part of the target URI.
-
-By default, {{site.data.keyword.sqlquery_short}} reads the data from that table in single-threaded manner. 
-For larger table content, use the optional PARALLELISM clause to specify that multiple parallel database connections should be opened to read the table. 
-Depending on the size of your table and the network connectivity of your source database service, this can reduce the query processing time significantly.
-
-For parallel read, you have to define a way to shard the input table content into separate content sections. 
-With `ON COLUMN` you specify an existing column (or an expression) that must be of a numeric, data, or timestamp data type. 
-With `BETWEEN x AND y` you specify the smallest and the largest value in that column or expression. 
-With `PARALLELISM x` you specify the number of parallel threads to use for reading. 
-{{site.data.keyword.sqlquery_short}} automatically divides the specified range of values into subranges of same size that are read in parallel.
-
-<h4 id="Db2Warehouse">Db2Warehouse</h4>
-
-When reading from a {{site.data.keyword.dashdbshort}} instance with multiple database partitions, you can use the following best practice to read in parallel 
-from each database partition.
-
-In your Db2 database, run the following SQL to identify the number of database partitions and the lowest and largest database partition IDs:
-
-`SELECT MIN(PARTITION_NUMBER) lowerBound, MIN(PARTITION_NUMBER) upperBound, COUNT(*) numPartitions FROM TABLE(DB_PARTITIONS()) as T`
-
-
-With that data you can now construct a PARALLELISM clause for your {{site.data.keyword.dashdbshort_notm}} input table in {{site.data.keyword.sqlquery_short}} as follows:
-
-`WITH PARALLELISM <numPartitions> ON DBPARTITIONNUM(<any column of Db2 table>) BETWEEN <lowerBound> AND <upperBound>`
-
-You can specify any column of your input table to DBPARTITIONNUM. 
-You can identify a valid column of that table in Db2 for instance with 
-SELECT Colname FROM SYSCAT.COLUMNS WHERE TABNAME='<input table name>' AND TABSCHEMA='<input schema name>' AND HIDDEN = ' ' ORDER BY colno ASC LIMIT 1.
-
-<div style="overflow-x : auto;">
-<map name="externalDbTableSpecImgMap">
-	<area alt="section CRN_TABLE" shape="rect" coords="76,40,168,62" href="#CRN_TABLE" />
-	<area alt="section DB2_TABLE_URI" shape="rect" coords="60,70,184,92" href="#DB2_TABLE_URI" />
-	<area alt="section unsignedInteger" shape="rect" coords="454,40,594,62" href="#unsignedInteger" />
-	<area alt="section expression" shape="rect" coords="778,40,878,62" href="#expression" />
-	<area alt="section unsignedInteger" shape="rect" coords="994,40,1134,62" href="#unsignedInteger" />
-	<area alt="section unsignedInteger" shape="rect" coords="1218,40,1358,62" href="#unsignedInteger" />
-</map>
-<img style="max-width: 1429px;" usemap="#externalDbTableSpecImgMap" alt="syntax diagram for an external Db table specification" src="./diagrams/externalDbTableSpec-6202ce9845406a403a532786449161a6.svg" />
+<img style="max-width: 1073px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-dbd6fb3d78cdffdecf33e67ecd256edb.svg" />
 </div>
 
 <h3 id="tableTransformer">tableTransformer</h3>

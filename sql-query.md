@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-09"
+lastupdated: "2019-12-06"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -118,7 +118,7 @@ There are two ways to specify database locations, CRN tables, and Db2 table URIs
 depends on the target database plan and the access you have to that database:
 
 1. If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and the user can see the credentials for that instance, the database location can be specified using its instance CRN. The access to the database is performed with the "username" and "password" found in the service credentials for this Db2 instance.
-Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
+  Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
   This option is typcially used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full admin access. If the SQL user should only have restricted access to the target database, use the next option (option 2).
 
@@ -127,8 +127,10 @@ Note that newly created Db2 instances don't have any service credentials; to cre
   **`<db service crn>/<table name>`**
 
   You can retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. This opens an overlay pane to the right where you find a field labelled `CRN:` with the value and an option to copy it to your clipboard.
-  
-  The **`<table name>`** part specifies the table that will be used when accessing your database. In case of the INTO clause, a table with this name will be created. It has the format **`<schemaname>.<tablename>`**. If you omit the **`<schemaname>`** part, the service  searches for the table in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 lite plan, this is the only schema that you have access to. The table name is case-preserving, so use upper case to match database defaults.
+
+  The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
+  If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 lite plan, this is the only schema that you have access to.
+  The table name is case-preserving, so use upper case to match database defaults.
 
   An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
 
@@ -144,7 +146,9 @@ Note that newly created Db2 instances don't have any service credentials; to cre
 
   The **`<db2 host name>`** is the host name of the Db2 instance that is used to access the Db2 Web console and is also used for Java database connectivity (JDBC).
 
-  The **`<table name>`** part specifies the table that will be used when accessing your database. In case of the INTO clause, a table with this name will be created. It has the format **`<schemaname>.<tablename>`**. If you omit the **`<schemaname>`** part, the service searches for the table in the schema of the database user that has been created for the IBMid of the SQL query user. The table name is case-preserving, so use upper case to match database defaults.
+  The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
+  If you omit the **`<schemaname>`** part, the table is created in the schema of database user that has been created for the IBMid of the SQL query user.
+  The table name is case-preserving, so use upper case to match database defaults.
 
   An example for a Db2 table URI is: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
 
