@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-10-28"
+lastupdated: "2019-12-11"
 
 keywords: what's new, support, release, beta
 
