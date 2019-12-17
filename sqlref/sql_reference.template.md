@@ -238,8 +238,10 @@ this can reduce the query processing time significantly.
 By default the credentials to access the target database are either taken from the credentials object of the specified a `CRN_TABLE`, or the IAM user
 submitting the statement is used to connect to the `DB2_TABLE_URI`.
 You can override this default by specifying access secrets, either as a combination of `USER` and `PASSWORD` or as an `APIKEY`. However, these secrets
-(password or API key) are **NOT** specified in plain test inside the SQL statement. Instead, you have to store them as a custom key in a IBM Key Protect instance to which you have access.
-For a description how to store and manage the secrets in Key Protect see [Setting up custom secrets in Key Protect](/docs/services/sql-query?topic=sql-query-security#kpsetup).
+(password or API key) are **NOT** specified in plain test inside the SQL statement. Instead, you have to store them as a custom key in a
+{{site.data.keyword.keymanagementservicefull}} instance to which you have access.
+For a description how to store and manage the secrets in {{site.data.keyword.keymanagementserviceshort}}
+see [Setting up custom secrets in Key Protect](/docs/services/sql-query?topic=sql-query-security#kpsetup).
 
 <!--include-svg src="./svgfiles/accessSecrets.svg" target="./diagrams/accessSecrets.svg" alt="syntax diagram for a Db2 result clause" layout="@break@" -->
 
