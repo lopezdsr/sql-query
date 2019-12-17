@@ -53,14 +53,14 @@ As an alternative to providing user and password combinations, {{site.data.keywo
 
 ### Setting up custom secrets in Key Protect
 {: #kpsetup}
-{{site.data.keyword.keymanagementservicefull}} is the recommended mechanism for storing and manage any secrets in {{site.data.keyword.Bluemix_notm}}. It also provides an option for you to upload custom secrets and manages them for you: {{site.data.keyword.keymanagementserviceshort}} ensures that only those users and services to whom you have explicitly granted access are able to access and use secrets. {{site.data.keyword.sqlquery_short}} uses {{site.data.keyword.keymanagementserviceshort}} as its secure and trusted credential broker for custom secrets used for custom data resources as the following diagram shows.
+{{site.data.keyword.keymanagementservicefull}} is the recommended service for storing and managing secrets in {{site.data.keyword.Bluemix_notm}}. It also allows to upload custom secrets and manages them for you: {{site.data.keyword.keymanagementserviceshort}} ensures that only those users and services to whom you have explicitly granted permission are able to access and use secrets. {{site.data.keyword.sqlquery_short}} uses {{site.data.keyword.keymanagementserviceshort}} as its secure and trusted credential broker for custom access secrets to data resources as the following diagram shows.
 
 ![Secure Credential Passing in SQL Query](accesssecrets.png)
 
 Make sure that you have provisioned or have been given access to an instance of {{site.data.keyword.keymanagementserviceshort}} in {{site.data.keyword.Bluemix_notm}}. The following description uses the command-line interface to set up a new custom key. Alternatively you can also use the {{site.data.keyword.Bluemix_notm}} console.
 
 1. Log on to {{site.data.keyword.Bluemix_notm}} with `ibmcloud login --sso`
-2. Install the {{site.data.keyword.keymanagementserviceshort}} CLI plugin, if it is not already installed: `ibmcloud plugin install key-protect -r 'IBM Cloud'`. For more information, see the [documentaion](/docs/services/key-protect?topic=key-protect-set-up-cli))
+2. Install the {{site.data.keyword.keymanagementserviceshort}} CLI plugin, if it is not already installed: `ibmcloud plugin install key-protect -r 'IBM Cloud'`. For more information, see the [documentation](/docs/services/key-protect?topic=key-protect-set-up-cli)
 3. List your {{site.data.keyword.keymanagementserviceshort}} service instances and identify the ID and region of the instance where you want to store the secret: `ibmcloud resource service-instances --long`. The instance ID is in output column "GUID", the region in column "Location". Search for services that have `:kms:` in the GUID.
 4. Select the appropriate target region with `ibmcloud kp region-set <region>`
 5. Optionally review the existing keys in the instance with following command:  `ibmcloud kp list -c -i <kp instance id>`
