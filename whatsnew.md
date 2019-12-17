@@ -17,6 +17,10 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## December 2019
+
+A new secure option for passing any custom credentials for your data resources used by {site.data.keyword.sqlquery_short}} has been rolled out. It uses [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to ensure safe handling of your secrets. Using these secrets, you can now access any Db2 system in {{site.data.keyword.Bluemix}}. Read more about this feature in the [Authentication documentation](/docs/services/sql-query?topic=sql-query-security#authentication).
+
 ## November 2019
 
 - You can now specify a [`MULTILINE`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) option for JSON input data if individual JSON records are stored across multiple lines.
@@ -59,7 +63,7 @@ to identify trends and to predict future values based on these trends.
 
 ## April 2019
 
-- Support for encrypting SQL queries with {{site.data.keyword.keymanagementservicefull}}. {{site.data.keyword.keymanagementservicelong_notm}} is a centralized key management system (KMS) for generating, managing, and destroying encryption keys used by IBM Cloud™ services.
+- Support for encrypting SQL queries with {{site.data.keyword.keymanagementservicefull}}. {{site.data.keyword.keymanagementservicelong_notm}} is a centralized key management system (KMS) for generating, managing, and destroying encryption keys used by {{site.data.keyword.Bluemix}} services.
 If you are processing particularly sensitive data in your queries, you can now use customer-managed keys to encrypt SQL query texts and error messages that are stored in the job information.
 - {{site.data.keyword.sqlquery_notm}} with {{site.data.keyword.keymanagementservicelong_notm}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements.
 

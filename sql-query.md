@@ -117,40 +117,45 @@ Matching columns need to have compatible data types across all objects where the
 There are two ways to specify database locations, CRN tables, and Db2 table URIs. Which one you choose
 depends on the target database plan and the access you have to that database:
 
-1. If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and the user can see the credentials for that instance, the database location can be specified using its instance CRN. The access to the database is performed with the "username" and "password" found in the service credentials for this Db2 instance.
-  Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
+#### Service CRN location
 
-  This option is typcially used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full admin access. If the SQL user should only have restricted access to the target database, use the next option (option 2).
+If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and the user can see the credentials for that instance (this requires the Operator privilege), then the database location can be specified using its instance CRN. The access to the database is performed with the user name and password found in the service credentials for this Db2 instance. Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
-  The CRN table has the form:
+You can optionally override the user name and password in the credentials with a custom user and password or a custom API Key. To do so, store the secrets into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec). Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details.
 
-  **`<db service crn>/<table name>`**
+This option is typcially used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full admin access. If the SQL user should only have restricted access to the target database, use the subsequent option "Hostname Location."
 
-  You can retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. This opens an overlay pane to the right where you find a field labelled `CRN:` with the value and an option to copy it to your clipboard.
+The CRN table has the form:
 
-  The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
-  If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 lite plan, this is the only schema that you have access to.
-  The table name is case-preserving, so use upper case to match database defaults.
+**`<db service crn>/<table name>`**
 
-  An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
+You can retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. This opens an overlay pane to the right where you find a field labelled `CRN:` with the value and an option to copy it to your clipboard.
 
-2. If the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance are not accessible to the SQL user, but the instance has been enabled for IAM authentication, the database location can be specified using a URI with the Db2 database host name. The access to this database will be performed with the IAM identity of the user that has submitted the query.
-  Before using this option, make sure that the IBMid of the SQL user hase been added as a database user. See section "Console User Experience" in the "User management" documentation of the
-  [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html).
+The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
+If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 lite plan, this is the only schema that you have access to.
+The table name is case-preserving, so use upper case to match database defaults.
 
-  This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
+An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
 
-  The Db2 Table URI has the form:
+#### Hostname location
 
-  **`db2://<db2 host name>/<table name>`**
+If the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance are not accessible by the SQL user (i.e. the user does not have access to the account containing the database instance or hasn't been granted Operator privilege on the instance), the database location can be specified using a URI with the Db2 database host name.
 
-  The **`<db2 host name>`** is the host name of the Db2 instance that is used to access the Db2 Web console and is also used for Java database connectivity (JDBC).
+By default the access to this database will be performed with the IAM identity of the user that has submitted the query. This default requires that the database is enabled for IAM authentication. Also, before using this option, make sure that the IBMid of the user hase been added as a database user. See section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
 
-  The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
-  If you omit the **`<schemaname>`** part, the table is created in the schema of database user that has been created for the IBMid of the SQL query user.
-  The table name is case-preserving, so use upper case to match database defaults.
+If you cannot or do not want to use the default mechanism of IAM user authentication, you can optionally specify a custom user and password or a custom API Key. To do so, store the secrets into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec). Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details. This option allows you to connect to *any* Db2 database that is accessible from the IBM public cloud network
 
-  An example for a Db2 table URI is: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
+The Db2 Table URI has the form:
+
+**`db2://<db2 host name>/<table name>`**
+
+The **`<db2 host name>`** is the host name of the Db2 instance that is used to access the Db2 Web console and is also used for Java database connectivity (JDBC).
+
+The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
+If you omit the **`<schemaname>`** part, the table is created in the schema of database user that has been created for the IBMid of the SQL query user.
+The table name is case-preserving, so use upper case to match database defaults.
+
+An example for a Db2 table URI is: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
 
 ## Object result set
 {: #result}
