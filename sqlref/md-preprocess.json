@@ -15,7 +15,7 @@
                         "constant",
                         "cosResultClause",
                         "COSURI",
-                        "CRN_TABLE",
+                        "CRN_URI",
                         "dataType",
                         "dbResultClause",
                         "DB2_TABLE_URI",
