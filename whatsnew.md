@@ -19,7 +19,7 @@ subcollection: sql-query
 
 ## December 2019
 
-- A new secure option for passing any custom credentials for your data resources used by {{site.data.keyword.sqlquery_short}} has been rolled out. It uses [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to ensure safe handling of your secrets. Using these secrets, you can now access any Db2 system in {{site.data.keyword.Bluemix}}. Read more about this feature in the [Authentication documentation](/docs/services/sql-query?topic=sql-query-security#authentication).
+- You can now use [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to pass credentials to data resources referenced by your queries, thereby ensuring safe handling of your secrets. For more information, see the [authentication documentation](/docs/services/sql-query?topic=sql-query-security#authentication).
 
 ## November 2019
 

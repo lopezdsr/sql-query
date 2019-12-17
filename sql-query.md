@@ -114,16 +114,16 @@ Matching columns need to have compatible data types across all objects where the
 
 ### Database locations
 
-There are two ways to specify database locations, CRN tables, and Db2 table URIs. Which one you choose
+There are two ways to specify database locations, CRN URIs, and Db2 table URIs. Which one you choose
 depends on the target database plan and the access you have to that database:
 
-#### Service CRN location
+#### CRN URI location
 
-If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and the user can see the credentials for that instance (this requires the Operator privilege), then the database location can be specified using its instance CRN. The access to the database is performed with the user name and password found in the service credentials for this Db2 instance. Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
+If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and if the SQL user can see the credentials for that instance (this requires the Operator privilege), then the user can specify the database location using its instance CRN. The access to the database is performed with the user name and password found in the service credentials for this Db2 instance. Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
-You can optionally override the user name and password in the credentials with a custom user and password or a custom API key. To do so, store the secrets into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets). Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details.
+You can optionally override the user name and password in the credentials with a custom user and password or a custom API key. Store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details.
 
-This option is typcially used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full admin access. If the SQL user should only have restricted access to the target database, use the subsequent option "Hostname Location".
+This option is typically used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full administrator access. If the SQL user should have only restricted access to the target database, use the subsequent "Db2 table URI location" option.
 
 The CRN table has the form:
 
@@ -137,15 +137,15 @@ The table name is case-preserving, so use upper case to match database defaults.
 
 An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
 
-#### Hostname location
+#### Db2 table URI location
 
-If the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance are not accessible by the SQL user (i.e. the user does not have access to the account containing the database instance or hasn't been granted Operator privilege on the instance), the database location can be specified using a URI with the Db2 database host name.
+If the SQL user cannot access the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance (because the user does not have access to the account containing the database instance, or hasn't been granted Operator privilege on the instance), that user can specify the database location using a URI with the Db2 database host name.
 
-By default the access to this database will be performed with the IAM identity of the user that has submitted the query. This default requires that the database is enabled for IAM authentication. Also, before using this option, make sure that the IBMid of the user hase been added as a database user. See section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
+By default the access to this database will be performed with the IAM identity of the user who submitted the query. This default requires that the database is enabled for IAM authentication. Also, before using this option, make sure that the IBMid of the user hase been added as a database user. For more information, see section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
 
-If you cannot or do not want to use the default mechanism of IAM user authentication, you can optionally specify a custom user and password or a custom API key. To do so, store the secrets into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets). Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details. This option allows you to connect to *any* Db2 database that is accessible from the IBM public cloud network
+If you cannot or do not want to use the default mechanism of IAM user authentication, you can instead specify a custom user and password or a custom API key. To do so, store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details. This option lets you connect to *any* Db2 database that is accessible from the IBM public cloud network
 
-The Db2 Table URI has the form:
+The Db2 table URI has the form:
 
 **`db2://<db2 host name>/<table name>`**
 
