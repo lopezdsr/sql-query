@@ -271,6 +271,7 @@ this can reduce the query processing time significantly.
 	<area alt="section CRN_URI" shape="rect" coords="84,40,160,62" href="#CRN_URI" />
 	<area alt="section DB2_TABLE_URI" shape="rect" coords="60,70,184,92" href="#DB2_TABLE_URI" />
 	<area alt="section unsignedInteger" shape="rect" coords="454,40,594,62" href="#unsignedInteger" />
+	<area alt="section accessSecrets" shape="rect" coords="644,40,768,62" href="#accessSecrets" />
 </map>
 <img style="max-width: 818px;" usemap="#dbResultClauseImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/dbResultClause-1ba1c1121f626fa0c1bebf53fc3f1234.svg" />
 </div>

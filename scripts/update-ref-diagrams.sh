@@ -17,5 +17,6 @@ echo "Updating sparksql-parser project"
   git reset --hard origin/master \
 ) || { echo "Could not switch to master branch"; exit 1; }
 
-echo "Copying SVG files"
+echo "Updating SVG files"
+rm ./sqlref/svgfiles/*.svg
 cp ../sparksql-parser/rrd/SqlReference/*.svg ./sqlref/svgfiles/
