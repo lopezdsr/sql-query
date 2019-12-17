@@ -53,7 +53,7 @@ As an alternative to providing user and password combinations, {{site.data.keywo
 
 ### Setting up custom secrets in Key Protect
 {: #kpsetup}
-{{site.data.keyword.keymanagementservicefull}} is the recommended mechanism for storing and manage any secrets in {{site.data.keyword.Bluemix_notm}}. It also provides an option for you to upload custom secrets, which it then manages for you. {{site.data.keyword.keymanagementserviceshort}} ensures that only those users and services to whom you have explicitly granted access privileges are able to access and use secrets. The SQL query service uses {{site.data.keyword.keymanagementserviceshort}} as its secure and trusted credential broker for custom secrets used for custom data resources as the following diagram shows.
+{{site.data.keyword.keymanagementservicefull}} is the recommended mechanism for storing and manage any secrets in {{site.data.keyword.Bluemix_notm}}. It also provides an option for you to upload custom secrets and manages them for you: {{site.data.keyword.keymanagementserviceshort}} ensures that only those users and services to whom you have explicitly granted access are able to access and use secrets. {{site.data.keyword.sqlquery_short}} uses {{site.data.keyword.keymanagementserviceshort}} as its secure and trusted credential broker for custom secrets used for custom data resources as the following diagram shows.
 
 ![Secure Credential Passing in SQL Query](accesssecrets.png)
 
@@ -65,7 +65,7 @@ Make sure that you have provisioned or have been given access to an instance of 
 - Optionally review the currently existing keys in that instance by issuing the following command:  `ibmcloud kp list -i <kp instance id>`
 - {{site.data.keyword.keymanagementserviceshort}} accepts only base64 encoded secret data. Issue the following command to add a custom secret as properly encoded content to Key Protect: ``ibmcloud kp create "<custom name for your new key>" -i <kp instance id> -s -k `echo -ne "<your custom secret>" | base64` ``
 
-You cannot use the CLI or web console to review actual key content after it has been uploaded. However, you can use the [REST API](https://cloud.ibm.com/apidocs/key-protect#retrieve-a-key-by-id) directly to review existing custom key content by issuing the following command: `curl -X GET "https://us-south.kms.cloud.ibm.com/api/v2/keys/<key id>" -H "accept: application/vnd.ibm.collection+json" -H "authorization: <Bearer token>" -H "bluemix-instance: <key instance id>" | jq -r '.resources[].payload' | base64 --decode`. The requited `<Bearer token>` content can be retrieved with `ibmcloud iam oauth-tokens`.
+You cannot use the CLI or web console to review actual key content after it has been uploaded. However, you can use the [REST API](https://cloud.ibm.com/apidocs/key-protect#retrieve-a-key-by-id) directly to review existing custom key content by issuing the following command: `curl -X GET "https://us-south.kms.cloud.ibm.com/api/v2/keys/<key id>" -H "accept: application/vnd.ibm.collection+json" -H "authorization: <Bearer token>" -H "bluemix-instance: <key instance id>" | jq -r '.resources[].payload' | base64 --decode`. The required `<Bearer token>` content can be retrieved with `ibmcloud iam oauth-tokens`.
 
 For more information, refer to the {{site.data.keyword.keymanagementserviceshort}} [CLI documentation](/docs/services/key-protect?topic=key-protect-cli-reference#ibmcloud-kp-commands).
 
