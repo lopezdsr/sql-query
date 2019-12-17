@@ -75,7 +75,7 @@ curl -X GET "https://us-south.kms.cloud.ibm.com/api/v2/keys/<key id>" \
   -H "bluemix-instance: <kp instance id>" \
 | jq -r '.resources[].payload' | base64 --decode
 ```
-Replace `us-south` in the REST API URL with the appropriate region. The `<key id>` is the one you obtained in step 6 above. The required `<Bearer token>` can be retrieved with `ibmcloud iam oauth-tokens`. For more information, refer to the {{site.data.keyword.keymanagementserviceshort}} [CLI documentation](/docs/services/key-protect?topic=key-protect-cli-reference#ibmcloud-kp-commands).
+Replace `us-south` in the REST API URL with the appropriate region. The `<key id>` is the one you obtained in step 7 above. The required `<Bearer token>` can be retrieved with `ibmcloud iam oauth-tokens`. For more information, refer to the {{site.data.keyword.keymanagementserviceshort}} [CLI documentation](/docs/services/key-protect?topic=key-protect-cli-reference#ibmcloud-kp-commands).
 
 #### Managing access to custom secrets
 {: #kpauthorization}
