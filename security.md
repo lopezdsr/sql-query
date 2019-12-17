@@ -59,15 +59,23 @@ As an alternative to providing user and password combinations, {{site.data.keywo
 
 Make sure that you have provisioned or have been given access to an instance of {{site.data.keyword.keymanagementserviceshort}} in {{site.data.keyword.Bluemix_notm}}. The following description uses the command-line interface to set up a new custom key. Alternatively you can also use the {{site.data.keyword.Bluemix_notm}} console.
 
-- Log on to {{site.data.keyword.Bluemix_notm}} with `ibmcloud login --sso`
-- If the {{site.data.keyword.keymanagementserviceshort}} CLI plugin is not already installed, install it by issuing the following command: `ibmcloud plugin install key-protect -r 'IBM Cloud'` For more information, see the [documentaion](/docs/services/key-protect?topic=key-protect-set-up-cli))
-- List your {{site.data.keyword.keymanagementserviceshort}} service instances and identify the ID of the instance that you want to use by issuing the following command: `ibmcloud resource service-instances --long`. The service ID is in output column `GUID` of your {{site.data.keyword.keymanagementserviceshort}} service instances.
-- Optionally review the currently existing keys in that instance by issuing the following command:  `ibmcloud kp list -i <kp instance id>`
-- {{site.data.keyword.keymanagementserviceshort}} accepts only base64 encoded secret data. Issue the following command to add a custom secret as properly encoded content to Key Protect: ``ibmcloud kp create "<custom name for your new key>" -i <kp instance id> -s -k `echo -ne "<your custom secret>" | base64` ``
+1. Log on to {{site.data.keyword.Bluemix_notm}} with `ibmcloud login --sso`
+2. Install the {{site.data.keyword.keymanagementserviceshort}} CLI plugin, if it is not already installed: `ibmcloud plugin install key-protect -r 'IBM Cloud'`. For more information, see the [documentaion](/docs/services/key-protect?topic=key-protect-set-up-cli))
+3. List your {{site.data.keyword.keymanagementserviceshort}} service instances and identify the ID and region of the instance where you want to store the secret: `ibmcloud resource service-instances --long`. The instance ID is in output column "GUID", the region in column "Location". Search for services that have `:kms:` in the GUID.
+4. Select the appropriate target region with `ibmcloud kp region-set <region>`
+5. Optionally review the existing keys in the instance with following command:  `ibmcloud kp list -c -i <kp instance id>`
+6. {{site.data.keyword.keymanagementserviceshort}} accepts only base64 encoded secret data. Issue the following command to add a custom secret as properly encoded content to Key Protect: ``ibmcloud kp create "<key name>" -i <kp instance id> -s -k `echo -ne "<your custom secret>" | base64` ``. The key name that you provide is for your reference only and can be an arbitrary string.
+7. List the keys again (as in step 5) to retrieve the key ID and CRN for the new key that you just created. Use the key CRN in an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) of a SQL query.
 
-You cannot use the CLI or web console to review actual key content after it has been uploaded. However, you can use the [REST API](https://cloud.ibm.com/apidocs/key-protect#retrieve-a-key-by-id) directly to review existing custom key content by issuing the following command: `curl -X GET "https://us-south.kms.cloud.ibm.com/api/v2/keys/<key id>" -H "accept: application/vnd.ibm.collection+json" -H "authorization: <Bearer token>" -H "bluemix-instance: <key instance id>" | jq -r '.resources[].payload' | base64 --decode`. The required `<Bearer token>` content can be retrieved with `ibmcloud iam oauth-tokens`.
-
-For more information, refer to the {{site.data.keyword.keymanagementserviceshort}} [CLI documentation](/docs/services/key-protect?topic=key-protect-cli-reference#ibmcloud-kp-commands).
+You cannot use the CLI or web console to review actual key content after it has been uploaded. However, you can use the [REST API](https://cloud.ibm.com/apidocs/key-protect#retrieve-a-key-by-id) directly to review existing custom key content by issuing the following command:
+```
+curl -X GET "https://us-south.kms.cloud.ibm.com/api/v2/keys/<key id>" \
+  -H "accept: application/vnd.ibm.collection+json" \
+  -H "authorization: <Bearer token>" \
+  -H "bluemix-instance: <kp instance id>" \
+| jq -r '.resources[].payload' | base64 --decode
+```
+Replace `us-south` in the REST API URL with the appropriate region. The `<key id>` is the one you obtained in step 6 above. The required `<Bearer token>` can be retrieved with `ibmcloud iam oauth-tokens`. For more information, refer to the {{site.data.keyword.keymanagementserviceshort}} [CLI documentation](/docs/services/key-protect?topic=key-protect-cli-reference#ibmcloud-kp-commands).
 
 #### Managing access to custom secrets
 {: #kpauthorization}
