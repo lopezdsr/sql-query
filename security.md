@@ -61,7 +61,7 @@ Make sure that you have provisioned or have been given access to an instance of 
 
 1. Log on to {{site.data.keyword.Bluemix_notm}} with `ibmcloud login --sso`
 2. Install the {{site.data.keyword.keymanagementserviceshort}} CLI plugin, if it is not already installed: `ibmcloud plugin install key-protect -r 'IBM Cloud'`. For more information, see the [documentation](/docs/services/key-protect?topic=key-protect-set-up-cli)
-3. List your {{site.data.keyword.keymanagementserviceshort}} service instances and identify the ID and region of the instance where you want to store the secret: `ibmcloud resource service-instances --long`. The instance ID is in output column "GUID", the region in column "Location". Search for services that have `:kms:` in the GUID.
+3. List your {{site.data.keyword.keymanagementserviceshort}} service instances and identify the ID and region of the instance where you want to store the secret: `ibmcloud resource service-instances --long --service-name kms`. The instance ID is in output column "GUID", the region in column "Location".
 4. Select the appropriate target region with `ibmcloud kp region-set <region>`
 5. Optionally review the existing keys in the instance with following command:  `ibmcloud kp list -c -i <kp instance id>`
 6. {{site.data.keyword.keymanagementserviceshort}} accepts only base64 encoded secret data. Issue the following command to add a custom secret as properly encoded content to Key Protect: ``ibmcloud kp create "<key name>" -i <kp instance id> -s -k `echo -ne "<your custom secret>" | base64` ``. The key name that you provide is for your reference only and can be an arbitrary string.
