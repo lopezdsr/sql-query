@@ -24,25 +24,25 @@ subcollection: sql-query
 {: #authentication}
 The {{site.data.keyword.sqlquery_full}} service is tightly integrated with {{site.data.keyword.iamlong}} (IAM). In order to perform an action using the {{site.data.keyword.sqlquery_short}} user interface or API, you require an IAM user ID, which is an IBM ID with an IBM Cloud signup. {{site.data.keyword.sqlquery_short}} then verifies whether you are authorised to work with the service instance.
 
-### Authenticating access to data sources in SQL Query
+### Authenticating access to data resources in SQL Query
 {: #accessauthentication}
 #### SSO via IAM
 {: #iamsso}
-IAM is also the preferred and the default mechanism for authenticating access to downstream data sources that are referenced by your SQL queries. If you use it, you have to make sure that the user ID you use to submit the SQL query through the web console or the API is also authorized to read the input data sources (referenced in the  FROM clauses of the query), and to write the result set to the target location (referenced in the INTO clause of the query). This mechanism provides seamless single sign-on (SSO) that happens with your first query submission using the SQL Query service. As alternatives to using IAM, {{site.data.keyword.sqlquery_short}} offers the following alternative methods of authenticating access:
+IAM is also the preferred and the default mechanism for authenticating access to downstream data resources that are referenced by your SQL queries. If you use it, you have to make sure that the user ID you use to submit the SQL query through the web console or the API is also authorized to read the input data resources (referenced in the  FROM clauses of the query), and to write the result set to the target location (referenced in the INTO clause of the query). This mechanism provides seamless single sign-on (SSO) that happens with your first query submission using the SQL Query service. As alternatives to using IAM, {{site.data.keyword.sqlquery_short}} offers the following alternative methods of authenticating access:
 
 #### IBM Cloud service credentials
 {: #servicecredentials}
-You can use the unique CRN of a service instance in {{site.data.keyword.Bluemix_notm}} to address an input data source or target location. The credentials for accessing this data source are retrieved from the Credentials object of that service instance. This requires the that IAM user ID that is used to submit the query has the operator role for the service instance of the corresponding data source.
+You can use the unique CRN of a service instance in {{site.data.keyword.Bluemix_notm}} to address an data resource location. The credentials for accessing this data resource are retrieved from the Credentials object of that service instance. This requires the that IAM user ID that is used to submit the query has the operator role for the service instance of the corresponding data resource.
 
-#### Custom user ID and password for each data source
+#### Custom user ID and password for each data resource
 {: #userpassword}
-You can use the USER and PASSWORD keywords in the corresponding FROM or INTO clauses to securely pass user ID and password combinations for input data sources and target locations. To ensure that the passing of sensitive data is secure, you must first store the password as a custom standard key into an instance of {{site.data.keyword.keymanagementserviceshort}} to which you have access, and then pass in a CRN to that key instead of the plain text password. See [Setting up custom secrets in Key Protect](#kpsetup) for more information about how to store the password securely.
+You can use the USER and PASSWORD keywords in the corresponding FROM or INTO clauses to securely pass user ID and password combinations for data resources locations. To ensure that the passing of sensitive data is secure, you must first store the password as a custom standard key into an instance of {{site.data.keyword.keymanagementserviceshort}} to which you have access, and then pass in a CRN to that key instead of the plain text password. See [Setting up custom secrets in Key Protect](#kpsetup) for more information about how to store the password securely.
 
-#### Custom API key for each data source
+#### Custom API key for each data resource
 {: #apikey}
-As an alternative to providing user and password combinations, {{site.data.keyword.Bluemix_notm}} also allows you to securely pass API keys for input data sources and target locations. Using the `APIKEY` keyword inside the according FROM or INTO clauses you can pass in this information. To ensure that the passing of sensitive data is secure, you must first store the API key as a custom standard key into a {{site.data.keyword.keymanagementserviceshort}} service instance to which you have access, and then pass in a CRN to that key instead of the plain text API key. See [Setting up custom secrets in Key Protect](#kpsetup) for more information about how to store the API key securely.
+As an alternative to providing user and password combinations, {{site.data.keyword.Bluemix_notm}} also allows you to securely pass API keys for data resources locations. Using the `APIKEY` keyword inside the according FROM or INTO clauses you can pass in this information. To ensure that the passing of sensitive data is secure, you must first store the API key as a custom standard key into a {{site.data.keyword.keymanagementserviceshort}} service instance to which you have access, and then pass in a CRN to that key instead of the plain text API key. See [Setting up custom secrets in Key Protect](#kpsetup) for more information about how to store the API key securely.
 
-#### Currently supported authentication methods per data source
+#### Currently supported authentication methods per data resource
 {: #supportedauthentication}
 | Authentication Method                 | COS   | Db2 on Cloud | Db2 Warehouse on Cloud |
 | ---                                   | :---: | :---:        | :---:                  |
@@ -53,7 +53,7 @@ As an alternative to providing user and password combinations, {{site.data.keywo
 
 ### Setting up custom secrets in Key Protect
 {: #kpsetup}
-{{site.data.keyword.keymanagementservicefull}} is the recommended mechanism for storing and manage any secrets in {{site.data.keyword.Bluemix_notm}}. It also provides an option for you to upload custom secrets, which it then manages for you. {{site.data.keyword.keymanagementserviceshort}} ensures that only those users and services to whom you have explicitly granted access privileges are able to access and use secrets. The SQL query service uses {{site.data.keyword.keymanagementserviceshort}} as its secure and trusted credential broker for custom secrets used for custom data sources as the following diagram shows.
+{{site.data.keyword.keymanagementservicefull}} is the recommended mechanism for storing and manage any secrets in {{site.data.keyword.Bluemix_notm}}. It also provides an option for you to upload custom secrets, which it then manages for you. {{site.data.keyword.keymanagementserviceshort}} ensures that only those users and services to whom you have explicitly granted access privileges are able to access and use secrets. The SQL query service uses {{site.data.keyword.keymanagementserviceshort}} as its secure and trusted credential broker for custom secrets used for custom data resources as the following diagram shows.
 
 ![Secure Credential Passing in SQL Query](accesssecrets.png)
 
@@ -61,11 +61,11 @@ Make sure that you have provisioned or have been given access to an instance of 
 
 - Log on to {{site.data.keyword.Bluemix_notm}} with `ibmcloud login --sso`
 - If the {{site.data.keyword.keymanagementserviceshort}} CLI plugin is not already installed, install it by issuing the following command: `ibmcloud plugin install key-protect -r 'IBM Cloud'` For more information, see the [documentaion](/docs/services/key-protect?topic=key-protect-set-up-cli))
-- List your {{site.data.keyword.keymanagementserviceshort}} service instances and identify the ID of the instance that you want to use by issuing the following command: `ibmcloud resource service-instances --long`
-- Optionally review the currently existing keys in that instance by issuing the following command:  `ibmcloud kp list -I <kp instance id>`
-- {{site.data.keyword.keymanagementserviceshort}} accepts only base64 encoded secret data. Issue the following command to add a custom secret as properly encoded content to Key Protect: ``ibmcloud kp create "<custom name for your new key>" -i <kp instance id> -s -k `printf "<your custom secret>" | base64` ``
+- List your {{site.data.keyword.keymanagementserviceshort}} service instances and identify the ID of the instance that you want to use by issuing the following command: `ibmcloud resource service-instances --long`. The service ID is in output column `GUID` of your {{site.data.keyword.keymanagementserviceshort}} service instances.
+- Optionally review the currently existing keys in that instance by issuing the following command:  `ibmcloud kp list -i <kp instance id>`
+- {{site.data.keyword.keymanagementserviceshort}} accepts only base64 encoded secret data. Issue the following command to add a custom secret as properly encoded content to Key Protect: ``ibmcloud kp create "<custom name for your new key>" -i <kp instance id> -s -k `echo -ne "<your custom secret>" | base64` ``
 
-You cannot use the CLI or web console to review actual key content after it has been uploaded. However, you can use the [REST API](https://cloud.ibm.com/apidocs/key-protect#retrieve-a-key-by-id) directly to review existing custom key content by issuing the following command: `curl -X GET "https://us-south.kms.cloud.ibm.com/api/v2/keys/<key id>" -H "accept: application/vnd.ibm.collection+json" -H "authorization: <Bearer token>" -H "bluemix-instance: <key instance id> | jq -r '.resources[].payload' | base64 --decode`.
+You cannot use the CLI or web console to review actual key content after it has been uploaded. However, you can use the [REST API](https://cloud.ibm.com/apidocs/key-protect#retrieve-a-key-by-id) directly to review existing custom key content by issuing the following command: `curl -X GET "https://us-south.kms.cloud.ibm.com/api/v2/keys/<key id>" -H "accept: application/vnd.ibm.collection+json" -H "authorization: <Bearer token>" -H "bluemix-instance: <key instance id>" | jq -r '.resources[].payload' | base64 --decode`. The requited `<Bearer token>` content can be retrieved with `ibmcloud iam oauth-tokens`.
 
 For more information, refer to the {{site.data.keyword.keymanagementserviceshort}} [CLI documentation](/docs/services/key-protect?topic=key-protect-cli-reference#ibmcloud-kp-commands).
 
