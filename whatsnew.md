@@ -17,6 +17,10 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## December 2019
+
+A new secure option for passing any custom credentials for your data resources used by SQL Query as been rolled out. It uses [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to ensure compliant handling of your secrets. You can now use any Db2 system in IBM Cloud™. Read more about it in [Authentication](/docs/services/sql-query?topic=sql-query-security#authentication) documentation.
+
 ## November 2019
 
 - You can now specify a [`MULTILINE`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) option for JSON input data if individual JSON records are stored across multiple lines.
