@@ -235,7 +235,7 @@ this can reduce the query processing time significantly.
 
 <h3 id="accessSecrets">accessSecrets</h3>
 
-By default the credentials to access the target database are either taken from the credentials object of the specified a `CRN_TABLE`, or the IAM user
+By default the credentials to access the target database are either taken from the credentials object of the specified a `CRN_URI`, or the IAM user
 submitting the statement is used to connect to the `DB2_TABLE_URI`.
 You can override this default by specifying access secrets, either as a combination of `USER` and `PASSWORD` or as an `APIKEY`. However, these secrets
 (password or API key) are **NOT** specified in plain test inside the SQL statement. Instead, you have to store them as a custom key in a
