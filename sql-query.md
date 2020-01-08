@@ -182,8 +182,7 @@ Your Cloud {{site.data.keyword.cos_short}} instance will have one of the support
 [public and private {{site.data.keyword.cos_short}} endpoints](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-endpoints).
 To save space, you can use the alias shown instead of the full endpoint name. 
 
-Tethering endpoints, aliases to specific endpoints within cross region domains (for example, `dal-us-geo`), are considered legacy. They continue to
-work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the cross regional endpoints (for example, `us-geo`).
+Aliases to ethering endpoints (specific endpoints within cross region domains, for example, `dal-us-geo`) are considered legacy. They continue to work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the alias of the corresponding cross region endpoint (for example, `us-geo`).
 
 **Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, 
 even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.
