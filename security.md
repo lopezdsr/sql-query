@@ -59,7 +59,7 @@ As an alternative to providing user and password combinations, {{site.data.keywo
 
 Make sure that you have provisioned or have been given access to an instance of {{site.data.keyword.keymanagementserviceshort}} in {{site.data.keyword.Bluemix_notm}}. The following description uses the command-line interface to set up a new custom key. Alternatively you can also use the {{site.data.keyword.Bluemix_notm}} console.
 
-Optionally you can verify the correct setup and function of your ibmcloud CLI for the below steps by dowloading and running <a href="kp_check.sh" download>this script</a> in you command line. It performs some tests for creating and verifying a test key in one of your key protect instances.
+Optionally, you can verify the correct setup and function of your IBM Cloud CLI for the below steps by downloading and running <a href="kp_check.sh" download>this script</a> in your command line. It performs some tests for creating and verifying a test key in one of your Key Protect instances.
 
 1. Log on to {{site.data.keyword.Bluemix_notm}} with `ibmcloud login --sso`
 2. Install the {{site.data.keyword.keymanagementserviceshort}} CLI plugin, if it is not already installed: `ibmcloud plugin install key-protect -r 'IBM Cloud'`. For more information, see the [documentation](/docs/services/key-protect?topic=key-protect-set-up-cli)
