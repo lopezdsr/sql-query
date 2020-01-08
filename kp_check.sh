@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "This script validates your key protect setup from command line by creating a custom test key, retrieving it, verifying it's correct content and then deleting it again. It takes one optional argument, which is the region name to use for looking for a key protect instance in your account. It defaults to \"us-south\"."
+echo "This script validates your Key Protect setup from command line by creating a custom test key, retrieving it, verifying its correct content and then deleting it again. It takes one optional argument, which is the region name to use for looking for a Key Protect instance in your account. It defaults to \"us-south\"."
 
 if [[ $# -eq 0 ]]; then
 	region="us-south"
@@ -10,14 +10,14 @@ fi
 
 token_raw=`ibmcloud iam oauth-tokens`
 if [[ $? -ne 0 ]]; then
-	echo "You are not logged on to IBM Cloud. Please run \"ibmcloud login --sso\" first and rerun this script."
+	echo "You are not logged on to IBM Cloud. Run \"ibmcloud login --sso\" first and rerun this script."
 	exit 1
 fi
 token=`echo $token_raw | sed 's/IAM token: //g'`
 
 ibmcloud plugin list | grep key-protect
 if [[ $? -ne 0 ]]; then
-	echo "Key protect plugin not installec in ibmcloud CLI. Please install first usign \"ibmcloud plugin install key-protect -r 'IBM Cloud'\"."
+	echo "Key Protect plugin is not installed in IBM Cloud CLI. Install usigg \"ibmcloud plugin install key-protect -r 'IBM Cloud'\"."
 	exit 1
 fi
 
@@ -26,7 +26,7 @@ ibmcloud kp region-set $region
 
 kp_instances=`ibmcloud resource service-instances --long --service-name kms | grep active | grep service_instance | grep $region`
 if [[ $? -ne 0 ]]; then
-	echo "Couldn't find a key protect instance in your account in region $region."
+	echo "Cannot find a Key Protect instance in your account in region $region."
 	exit 1
 fi
 
@@ -54,5 +54,5 @@ ibmcloud kp delete -i $kp_instance_id $validation_key_id
 if [[ "$retrieved_validation_content" != "$validation_content" ]]; then
 	echo "There is a problem. The retrieved test key content \"$retrieved_validation_content\" is different from the input test key content \"$validation_content\"."
 else
-	echo "Successfully verified that test key could be created and returned content is the same as input content."
+	echo "Successfully verified that the test key can be created and the returned content is the same as the input content."
 fi
