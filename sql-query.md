@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-06"
+lastupdated: "2020-01-08"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -178,36 +178,37 @@ If you want to run a query over the combined results of multiple previous querie
 ## Endpoints
 {: #endpoints}
 
-Your Cloud {{site.data.keyword.cos_short}} instance will have one of the endpoints shown in the following tables.
-To save space, you can use the alias shown instead of the full endpoint name.
+Your Cloud {{site.data.keyword.cos_short}} instance will have one of the supported endpoints. {{site.data.keyword.sqlquery_short}} supports all 
+[public and private {{site.data.keyword.cos_short}} endpoints](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-endpoints).
+To save space, you can use the alias shown instead of the full endpoint name. 
 
-**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.
-When interacting with {{site.data.keyword.sqlquery_short}} programmatically through the API, you can use the internal endpoint name to read results instead of the external endpoint name that is returned by the API.
+Tethering endpoints, aliases to specific endpoints within cross region domains (for example, `dal-us-geo`), are considered legacy. They continue to
+work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the cross regional endpoints (for example, `us-geo`).
 
-External Cross-Regional Endpoint Name | Alias
+**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, 
+even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.
+When interacting with {{site.data.keyword.sqlquery_short}} programmatically through the API, you can use the internal endpoint name to read results 
+instead of the external endpoint name that is returned by the API.
+
+The following tables list some examples of currently supported {{site.data.keyword.sqlquery_short}} endpoints:
+
+
+Cross Region Endpoint Name | Alias
 --- | ---
 s3.us.cloud-object-storage.appdomain.cloud     | us-geo
-s3.dal.us.cloud-object-storage.appdomain.cloud | dal-us-geo
-s3.wdc.us.cloud-object-storage.appdomain.cloud | wdc-us-geo
-s3.sjc.us.cloud-object-storage.appdomain.cloud | sjc-us-geo
 s3.eu.cloud-object-storage.appdomain.cloud         | eu-geo
-s3.ams.eu.cloud-object-storage.appdomain.cloud     | ams-eu-geo
-s3.fra.eu.cloud-object-storage.appdomain.cloud     | fra-eu-geo
-s3.mil.eu.cloud-object-storage.appdomain.cloud     | mil-eu-geo
 s3.ap.cloud-object-storage.appdomain.cloud         | ap-geo
-s3.tok.ap.cloud-object-storage.appdomain.cloud     | tok-ap-geo
-s3.seo.ap.cloud-object-storage.appdomain.cloud     | seo-ap-geo
-s3.hkg.ap.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
 
-External Regional Endpoint Name | Alias
+Regional Endpoint Name | Alias
 --- | ---
 s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
 s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
 s3.us-south.cloud-object-storage.appdomain.cloud | us-south
 s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
+s3.au-syd.cloud-object-storage.appdomain.cloud  | au-syd
 s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok
 
-External Single-Site Endpoint Name | Alias
+Single Data Center Endpoint Name | Alias
 --- | ---
 s3.ams03.cloud-object-storage.appdomain.cloud   | ams03
 s3.che01.cloud-object-storage.appdomain.cloud   | che01
@@ -215,6 +216,14 @@ s3.tor01.cloud-object-storage.appdomain.cloud   | tor01
 s3.osl01.cloud-object-storage.appdomain.cloud   | osl01
 s3.mel01.cloud-object-storage.appdomain.cloud   | mel01
 s3.sao01.cloud-object-storage.appdomain.cloud   | sao01
+s3.hkg02.cloud-object-storage.appdomain.cloud   | hkg02
+s3.mex01.cloud-object-storage.appdomain.cloud   | mex01
+s3.mil01.cloud-object-storage.appdomain.cloud   | mil01
+s3.mon01.cloud-object-storage.appdomain.cloud   | mon01
+s3.par01.cloud-object-storage.appdomain.cloud   | par01
+s3.sjc04.cloud-object-storage.appdomain.cloud   | sjc04
+s3.seo01.cloud-object-storage.appdomain.cloud   | seo01
+s3.sng01.cloud-object-storage.appdomain.cloud   | sng01
 
 ## Programmatic access
 {: #access}
