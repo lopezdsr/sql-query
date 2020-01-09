@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  year: 2018, 2019
-lastupdated: "2019-12-11"
+  year: 2018, 2020
+lastupdated: "2020-01-08"
 
 keywords: what's new, support, release, beta
 
@@ -17,6 +17,10 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## January 2020
+
+{{site.data.keyword.sqlquery_full}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on *.appdomain.cloud, for example *s3.us.cloud-object-storage.appdomain.cloud*), as well as all new single data center endpoints (for example, *sng01*).
+
 ## December 2019
 
 - You can now use [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to pass credentials to data resources referenced by your queries, thereby ensuring safe handling of your secrets. For more information, see the [authentication documentation](/docs/services/sql-query?topic=sql-query-security#authentication).
@@ -27,14 +31,14 @@ subcollection: sql-query
 
 ## October 2019
 
-- The new open source [cos-upload](https://github.com/IBM-Cloud/data-lake/tree/master/upload/cos-upload) script can be used to efficiently upload large volumes of data to {{site.data.keyword.cos_full}} buckets via Aspera by merely providing an IAM API Key.
-- {{site.data.keyword.sqlquery_full}} JSON parser is processing and extracting all JSON keys in lower case, so it can work correctly on LogDNA data.
-- Storing new objects in {{site.data.keyword.cos_full}} can now trigger {{site.data.keyword.sqlquery_short}} executions. This is enabled by the {{site.data.keyword.cos_full}} [event provider](https://www.ibm.com/cloud/blog/announcements/cloud-object-storage-event-provider-enables-hello-serverless-and-more) for {{site.data.keyword.openwhisk}}. By combining that with the SQL [{{site.data.keyword.openwhisk_short}}](https://hub.docker.com/r/ibmfunctions/sqlquery/), you can automatically run SQL-based post processing for new objects.
+- The new open source [cos-upload](https://github.com/IBM-Cloud/data-lake/tree/master/upload/cos-upload) script can be used to efficiently upload large volumes of data to {{site.data.keyword.cos_full_notm}} buckets via Aspera by merely providing an IAM API Key.
+- {{site.data.keyword.sqlquery_short}} JSON parser is processing and extracting all JSON keys in lower case, so it can work correctly on LogDNA data.
+- Storing new objects in {{site.data.keyword.cos_full_notm}} can now trigger {{site.data.keyword.sqlquery_short}} executions. This is enabled by the {{site.data.keyword.cos_full_notm}} [event provider](https://www.ibm.com/cloud/blog/announcements/cloud-object-storage-event-provider-enables-hello-serverless-and-more) for {{site.data.keyword.openwhisk}}. By combining that with the SQL [{{site.data.keyword.openwhisk_short}}](https://hub.docker.com/r/ibmfunctions/sqlquery/), you can automatically run SQL-based post processing for new objects.
 - {{site.data.keyword.sqlquery_short}} now recommends query hints for SQL queries that have potential for faster execution by using certain features of {{site.data.keyword.sqlquery_short}}. These hints are flagged with a light bulb icon in the job list and the specific hint is available inside the Details pane.
 
 ## September 2019
 
-- Support for ETL to {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify [Db2 target tables](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier) in your SQL queries in order to process data from {{site.data.keyword.cos_full}} and save the {{site.data.keyword.sqlquery_short}} result into {{site.data.keyword.Db2_on_Cloud_short}}.
+- Support for ETL to {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify [Db2 target tables](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier) in your SQL queries in order to process data from {{site.data.keyword.cos_full_notm}} and save the {{site.data.keyword.sqlquery_short}} result into {{site.data.keyword.Db2_on_Cloud_short}}.
 
 ## August 2019
 
@@ -58,7 +62,7 @@ to identify trends and to predict future values based on these trends.
 
 - Updates to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference):
   - With [`JOBPREFIX JOBID/NONE`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) you can now specify if you want the jobid appended to the target prefix, or not.
-  - The [`SORT BY`](/docs/services/sql-query?topic=sql-query-sql-reference#sortClause) clause for SQL targets is new, you can use it to sort SQL result sets in many ways, before writing the results to {{site.data.keyword.cos_full}}. It can be used in combination with [`PARTITIONED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause), [`PARTITIONED INTO`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) (to cluster the results), or without the PARTITIONED clause.
+  - The [`SORT BY`](/docs/services/sql-query?topic=sql-query-sql-reference#sortClause) clause for SQL targets is new, you can use it to sort SQL result sets in many ways, before writing the results to {{site.data.keyword.cos_full_notm}}. It can be used in combination with [`PARTITIONED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause), [`PARTITIONED INTO`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) (to cluster the results), or without the PARTITIONED clause.
   - [`PARTITIONED INTO BUCKETS`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) and [`PARTITIONED INTO OBJECTS`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) are now both supported, thus can be used synonymously.
 
 ## April 2019
@@ -83,7 +87,7 @@ This Guide includes examples that can be copied and directly pasted into the Web
 ## November 2018
 
 - Support for controlling the layout of SQL results. Including support for creating hive-style partitioning and paginated result data.
-- Support for extensions in [Python SDK](https://pypi.org/project/ibmcloudsql) for result data partitioning, pagination and exporting SQL job history to {{site.data.keyword.cos_full}}.
+- Support for extensions in [Python SDK](https://pypi.org/project/ibmcloudsql) for result data partitioning, pagination and exporting SQL job history to {{site.data.keyword.cos_full_notm}}.
 
 ## October 2018
 
