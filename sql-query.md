@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2019-12-06"
+lastupdated: "2020-01-08"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -114,43 +114,48 @@ Matching columns need to have compatible data types across all objects where the
 
 ### Database locations
 
-There are two ways to specify database locations, CRN tables, and Db2 table URIs. Which one you choose
+There are two ways to specify database locations, CRN URIs, and Db2 table URIs. Which one you choose
 depends on the target database plan and the access you have to that database:
 
-1. If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and the user can see the credentials for that instance, the database location can be specified using its instance CRN. The access to the database is performed with the "username" and "password" found in the service credentials for this Db2 instance.
-  Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
+#### CRN URI location
 
-  This option is typcially used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full admin access. If the SQL user should only have restricted access to the target database, use the next option (option 2).
+If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and if the SQL user can see the credentials for that instance (this requires the Operator privilege), then the user can specify the database location using its instance CRN. The access to the database is performed with the user name and password found in the service credentials for this Db2 instance. Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
-  The CRN table has the form:
+You can optionally override the user name and password in the credentials with a custom user and password or a custom API key. Store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details.
 
-  **`<db service crn>/<table name>`**
+This option is typically used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full administrator access. If the SQL user should have only restricted access to the target database, use the subsequent "Db2 table URI location" option.
 
-  You can retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. This opens an overlay pane to the right where you find a field labelled `CRN:` with the value and an option to copy it to your clipboard.
+The CRN table has the form:
 
-  The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
-  If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 lite plan, this is the only schema that you have access to.
-  The table name is case-preserving, so use upper case to match database defaults.
+**`<db service crn>/<table name>`**
 
-  An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
+You can retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. This opens an overlay pane to the right where you find a field labelled `CRN:` with the value and an option to copy it to your clipboard.
 
-2. If the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance are not accessible to the SQL user, but the instance has been enabled for IAM authentication, the database location can be specified using a URI with the Db2 database host name. The access to this database will be performed with the IAM identity of the user that has submitted the query.
-  Before using this option, make sure that the IBMid of the SQL user hase been added as a database user. See section "Console User Experience" in the "User management" documentation of the
-  [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html).
+The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
+If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 lite plan, this is the only schema that you have access to.
+The table name is case-preserving, so use upper case to match database defaults.
 
-  This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
+An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
 
-  The Db2 Table URI has the form:
+#### Db2 table URI location
 
-  **`db2://<db2 host name>/<table name>`**
+If the SQL user cannot access the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance (because the user does not have access to the account containing the database instance, or hasn't been granted Operator privilege on the instance), that user can specify the database location using a URI with the Db2 database host name.
 
-  The **`<db2 host name>`** is the host name of the Db2 instance that is used to access the Db2 Web console and is also used for Java database connectivity (JDBC).
+By default the access to this database will be performed with the IAM identity of the user who submitted the query. This default requires that the database is enabled for IAM authentication. Also, before using this option, make sure that the IBMid of the user hase been added as a database user. For more information, see section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
 
-  The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
-  If you omit the **`<schemaname>`** part, the table is created in the schema of database user that has been created for the IBMid of the SQL query user.
-  The table name is case-preserving, so use upper case to match database defaults.
+If you cannot or do not want to use the default mechanism of IAM user authentication, you can instead specify a custom user and password or a custom API key. To do so, store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details. This option lets you connect to *any* Db2 database that is accessible from the IBM public cloud network
 
-  An example for a Db2 table URI is: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
+The Db2 table URI has the form:
+
+**`db2://<db2 host name>/<table name>`**
+
+The **`<db2 host name>`** is the host name of the Db2 instance that is used to access the Db2 Web console and is also used for Java database connectivity (JDBC).
+
+The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
+If you omit the **`<schemaname>`** part, the table is created in the schema of database user that has been created for the IBMid of the SQL user.
+The table name is case-preserving, so use upper case to match database defaults.
+
+An example for a Db2 table URI is: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
 
 ## Object result set
 {: #result}
@@ -173,36 +178,36 @@ If you want to run a query over the combined results of multiple previous querie
 ## Endpoints
 {: #endpoints}
 
-Your Cloud {{site.data.keyword.cos_short}} instance will have one of the endpoints shown in the following tables.
-To save space, you can use the alias shown instead of the full endpoint name.
+Your Cloud {{site.data.keyword.cos_short}} instance will have one of the supported endpoints. {{site.data.keyword.sqlquery_short}} supports all 
+[public and private {{site.data.keyword.cos_short}} endpoints](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-endpoints).
+To save space, you can use the alias shown instead of the full endpoint name. 
 
-**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.
-When interacting with {{site.data.keyword.sqlquery_short}} programmatically through the API, you can use the internal endpoint name to read results instead of the external endpoint name that is returned by the API.
+Aliases to ethering endpoints (specific endpoints within cross region domains, for example, `dal-us-geo`) are considered legacy. They continue to work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the alias of the corresponding cross region endpoint (for example, `us-geo`).
 
-External Cross-Regional Endpoint Name | Alias
+**Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, 
+even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.
+When interacting with {{site.data.keyword.sqlquery_short}} programmatically through the API, you can use the internal endpoint name to read results 
+instead of the external endpoint name that is returned by the API.
+
+The following tables list some examples of currently supported {{site.data.keyword.sqlquery_short}} endpoints:
+
+
+Cross Region Endpoint Name | Alias
 --- | ---
 s3.us.cloud-object-storage.appdomain.cloud     | us-geo
-s3.dal.us.cloud-object-storage.appdomain.cloud | dal-us-geo
-s3.wdc.us.cloud-object-storage.appdomain.cloud | wdc-us-geo
-s3.sjc.us.cloud-object-storage.appdomain.cloud | sjc-us-geo
-s3.eu.cloud-object-storage.appdomain.cloud         | eu-geo
-s3.ams.eu.cloud-object-storage.appdomain.cloud     | ams-eu-geo
-s3.fra.eu.cloud-object-storage.appdomain.cloud     | fra-eu-geo
-s3.mil.eu.cloud-object-storage.appdomain.cloud     | mil-eu-geo
-s3.ap.cloud-object-storage.appdomain.cloud         | ap-geo
-s3.tok.ap.cloud-object-storage.appdomain.cloud     | tok-ap-geo
-s3.seo.ap.cloud-object-storage.appdomain.cloud     | seo-ap-geo
-s3.hkg.ap.cloud-object-storage.appdomain.cloud     | hkg-ap-geo
+s3.eu.cloud-object-storage.appdomain.cloud     | eu-geo
+s3.ap.cloud-object-storage.appdomain.cloud     | ap-geo
 
-External Regional Endpoint Name | Alias
+Regional Endpoint Name | Alias
 --- | ---
 s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
 s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
 s3.us-south.cloud-object-storage.appdomain.cloud | us-south
 s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
+s3.au-syd.cloud-object-storage.appdomain.cloud   | au-syd
 s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok
 
-External Single-Site Endpoint Name | Alias
+Single Data Center Endpoint Name | Alias
 --- | ---
 s3.ams03.cloud-object-storage.appdomain.cloud   | ams03
 s3.che01.cloud-object-storage.appdomain.cloud   | che01
@@ -210,6 +215,14 @@ s3.tor01.cloud-object-storage.appdomain.cloud   | tor01
 s3.osl01.cloud-object-storage.appdomain.cloud   | osl01
 s3.mel01.cloud-object-storage.appdomain.cloud   | mel01
 s3.sao01.cloud-object-storage.appdomain.cloud   | sao01
+s3.hkg02.cloud-object-storage.appdomain.cloud   | hkg02
+s3.mex01.cloud-object-storage.appdomain.cloud   | mex01
+s3.mil01.cloud-object-storage.appdomain.cloud   | mil01
+s3.mon01.cloud-object-storage.appdomain.cloud   | mon01
+s3.par01.cloud-object-storage.appdomain.cloud   | par01
+s3.sjc04.cloud-object-storage.appdomain.cloud   | sjc04
+s3.seo01.cloud-object-storage.appdomain.cloud   | seo01
+s3.sng01.cloud-object-storage.appdomain.cloud   | sng01
 
 ## Programmatic access
 {: #access}

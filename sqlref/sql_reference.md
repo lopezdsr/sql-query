@@ -268,18 +268,38 @@ this can reduce the query processing time significantly.
 
 <div style="overflow-x : auto;">
 <map name="dbResultClauseImgMap">
-	<area alt="section CRN_TABLE" shape="rect" coords="76,40,168,62" href="#CRN_TABLE" />
+	<area alt="section CRN_URI" shape="rect" coords="84,40,160,62" href="#CRN_URI" />
 	<area alt="section DB2_TABLE_URI" shape="rect" coords="60,70,184,92" href="#DB2_TABLE_URI" />
 	<area alt="section unsignedInteger" shape="rect" coords="454,40,594,62" href="#unsignedInteger" />
+	<area alt="section accessSecrets" shape="rect" coords="644,40,768,62" href="#accessSecrets" />
 </map>
-<img style="max-width: 654px;" usemap="#dbResultClauseImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/dbResultClause-864a4af3017cebf15c9ff6fae52e5c18.svg" />
+<img style="max-width: 818px;" usemap="#dbResultClauseImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/dbResultClause-1ba1c1121f626fa0c1bebf53fc3f1234.svg" />
+</div>
+
+<h3 id="accessSecrets">accessSecrets</h3>
+
+By default, the credentials to access the target database are either taken from the credentials object of a `CRN_URI`, or the IAM user
+submitting the statement is used to connect to the `DB2_TABLE_URI`.
+You can override this default by specifying access secrets, either as a combination of `USER` and `PASSWORD` or as an `APIKEY`. However, these secrets
+(password or API key) are **NOT** included in the SQL statement as plain text. Instead, you have to store them as a custom key in a
+{{site.data.keyword.keymanagementservicefull}} instance to which you have access.
+For a description how to store and manage the secrets in {{site.data.keyword.keymanagementserviceshort}},
+see [Setting up custom secrets in Key Protect](/docs/services/sql-query?topic=sql-query-security#kpsetup).
+
+<div style="overflow-x : auto;">
+<map name="accessSecretsImgMap">
+	<area alt="section identifier" shape="rect" coords="142,20,242,42" href="#identifier" />
+	<area alt="section CRN_URI" shape="rect" coords="366,20,442,42" href="#CRN_URI" />
+	<area alt="section CRN_URI" shape="rect" coords="262,50,338,72" href="#CRN_URI" />
+</map>
+<img style="max-width: 502px;" usemap="#accessSecretsImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/accessSecrets-dc576febfe03e74455aab57bda94dd85.svg" />
 </div>
 
 <h3>More Topics</h3>
 
 For further details about clauses used in a *query*, refer to the following topics:
 * [COSURI](#COSURI)
-* [CRN_TABLE](#CRN_TABLE)
+* [CRN_URI](#CRN_URI)
 * [DB2_TABLE_URI](#DB2_TABLE_URI)
 * [fullselect](#fullselect)
 * [identifier](#identifier)
@@ -801,7 +821,7 @@ All single Unicode characters are allowed as delimiters.
 By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify the option `NOHEADER` in the `STORED AS CSV` clause. In this case, the names _C0, _C1, ... are used for the input columns.
 Refer to section [COS URI](#COSURI) for more details.
 
-By default, when the format of the input data is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON. However, if you specify the option `MULTILINE`, {{site.data.keyword.sqlquery_short}} can process JSON input data even when individual data records span multiple lines, such as when the data has been formatted to make it easier to read. Specify this option only when it is truly needed, because it limits input parallelization and can significantly reduce performance when processing large volumes of JSON data. If you need to frequently query large amounts of multiline JSON data, use {{site.data.keyword.sqlquery_short}} to transform the data into single line JSON or into a more performance optimized format such as Parquet before querying the transformed data.
+By default, if the format of the input data is JSON, each line must contain a separate, self-contained, and valid JSON object, also called newline-delimited JSON. However, if you specify the option `MULTILINE`, {{site.data.keyword.sqlquery_short}} can process JSON input data even if individual data records span multiple lines, such as when the data has been formatted to make it easier to read. Only specify this option if you really need it, because it limits input parallelization and can significantly reduce performance when processing large volumes of JSON data. If you need to frequently query large amounts of multiline JSON data, use {{site.data.keyword.sqlquery_short}} to transform the data into single -line JSON, or into a more performance optimized format, such as Parquet, before querying the transformed data.
 
 If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects should be scanned for their schema and the final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have a homogeneous schema.
 
@@ -2968,7 +2988,7 @@ A Cloud {{site.data.keyword.cos_short}} Uniform Resource Identifier (COS URI) is
 
 The syntax of a COS URI is thoroughly described in section [Table unique resource identifier](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
 
-<h3 id ="CRN_TABLE">CRN_TABLE</h3>
+<h3 id ="CRN_URI">CRN_URI</h3>
 
 A database table CRN is a unique identifier consisting of the CRN of a database service instance and a specific table name that instance.
 The user must have access to this service instance and its credentials.
