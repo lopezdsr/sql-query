@@ -195,8 +195,8 @@ The following tables list some examples of currently supported {{site.data.keywo
 Cross Region Endpoint Name | Alias
 --- | ---
 s3.us.cloud-object-storage.appdomain.cloud     | us-geo
-s3.eu.cloud-object-storage.appdomain.cloud         | eu-geo
-s3.ap.cloud-object-storage.appdomain.cloud         | ap-geo
+s3.eu.cloud-object-storage.appdomain.cloud     | eu-geo
+s3.ap.cloud-object-storage.appdomain.cloud     | ap-geo
 
 Regional Endpoint Name | Alias
 --- | ---
@@ -204,7 +204,7 @@ s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
 s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
 s3.us-south.cloud-object-storage.appdomain.cloud | us-south
 s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
-s3.au-syd.cloud-object-storage.appdomain.cloud  | au-syd
+s3.au-syd.cloud-object-storage.appdomain.cloud   | au-syd
 s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok
 
 Single Data Center Endpoint Name | Alias
