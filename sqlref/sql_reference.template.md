@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2018, 2019
-lastupdated: "2019-11-15"
+  years: 2018, 2020
+lastupdated: "2020-01-13"
 
 ---
 
@@ -219,7 +219,7 @@ Currently, {{site.data.keyword.Db2_on_Cloud_long}} is the only supported target 
 
 Storing query results in a database will create a new table with the columns determined by the query result. When writing to Db2,
 the following type mapping rules apply:
- * String types are mapped to CLOB columns.
+ * String types are mapped to VARCHAR(32000) columns.
  * Struct types are not mapped and have to be flattened first. See the `FLATTEN` [table transformation function](#tableTransformer).
  * Arrays, timeseries, and spatial data types are not mapped and have to be converted with appropriate SQL functions.
 
