@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2019
-lastupdated: "2020-01-08"
+lastupdated: "2020-01-15"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -41,6 +41,12 @@ For more information about Cloud {{site.data.keyword.cos_short}}, including how 
 
 ## Running a query
 {: #running}
+
+{% include fig_youtube.html
+           num="1"
+           id="PZAaWSzwo7s"
+           caption="IBM Cloud SQL Query: Run Queries from the Console"
+           alt="This video shows you how to run queries from the UI." %}
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
