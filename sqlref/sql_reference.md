@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2018, 2019
-lastupdated: "2019-11-15"
+  years: 2018, 2020
+lastupdated: "2020-01-13"
 
 ---
 
@@ -254,7 +254,7 @@ Currently, {{site.data.keyword.Db2_on_Cloud_long}} is the only supported target 
 
 Storing query results in a database will create a new table with the columns determined by the query result. When writing to Db2,
 the following type mapping rules apply:
- * String types are mapped to CLOB columns.
+ * String types are mapped to VARCHAR(32000) columns.
  * Struct types are not mapped and have to be flattened first. See the `FLATTEN` [table transformation function](#tableTransformer).
  * Arrays, timeseries, and spatial data types are not mapped and have to be converted with appropriate SQL functions.
 
@@ -278,13 +278,10 @@ this can reduce the query processing time significantly.
 
 <h3 id="accessSecrets">accessSecrets</h3>
 
-By default, the credentials to access the target database are either taken from the credentials object of a `CRN_URI`, or the IAM user
+By default, either the credentials needed to access the target database are taken from the credentials object of a `CRN_URI`, or the IAM user
 submitting the statement is used to connect to the `DB2_TABLE_URI`.
-You can override this default by specifying access secrets, either as a combination of `USER` and `PASSWORD` or as an `APIKEY`. However, these secrets
-(password or API key) are **NOT** included in the SQL statement as plain text. Instead, you have to store them as a custom key in a
-{{site.data.keyword.keymanagementservicefull}} instance to which you have access.
-For a description how to store and manage the secrets in {{site.data.keyword.keymanagementserviceshort}},
-see [Setting up custom secrets in Key Protect](/docs/services/sql-query?topic=sql-query-security#kpsetup).
+You can override this default by specifying either  a combination of `USER` and `PASSWORD` or an `APIKEY`. However, the password or API key is **not** included in the SQL statement as plain text. Instead, you must to store it as a custom key in a {{site.data.keyword.keymanagementservicefull}} instance to which you have access.
+For a description how to store and manage the secrets in {{site.data.keyword.keymanagementserviceshort}}, see [Setting up custom secrets in Key Protect](/docs/services/sql-query?topic=sql-query-security#kpsetup).
 
 <div style="overflow-x : auto;">
 <map name="accessSecretsImgMap">
