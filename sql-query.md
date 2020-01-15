@@ -42,12 +42,6 @@ For more information about Cloud {{site.data.keyword.cos_short}}, including how 
 ## Running a query
 {: #running}
 
-{% include fig_youtube.html
-           num="1"
-           id="TX2GPEkomrI"
-           caption="Streams Flows Overview"
-           alt="This video provides an overview of the streams flows feature." %}
-
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
 1. In the SQL editor field of the {{site.data.keyword.sqlquery_short}} UI, enter a SELECT statement. In this statement:
