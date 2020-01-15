@@ -42,7 +42,7 @@ For more information about Cloud {{site.data.keyword.cos_short}}, including how 
 ## Running a query
 {: #running}
 
-Watch the following video to learn more about {{site.data.keyword.sqlquery_short}} and how you can get started to run a query.
+Watch the following video to learn more about {{site.data.keyword.sqlquery_short}} and how you can get started to run a basic query.
 
 <iframe class="embed-responsive-item" id="youtubeplayer" title="IBM Cloud SQL Query: Run Queries from the Console" type="text/html" width="640" height="390" src="https://www.youtube.com/watch?v=PZAaWSzwo7s&list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA&index=4&t=0s" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
