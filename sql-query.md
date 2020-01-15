@@ -44,9 +44,9 @@ For more information about Cloud {{site.data.keyword.cos_short}}, including how 
 
 {% include fig_youtube.html
            num="1"
-           id="PZAaWSzwo7s"
-           caption="IBM Cloud SQL Query: Run Queries from the Console"
-           alt="This video shows you how to run queries from the UI." %}
+           id="TX2GPEkomrI"
+           caption="Streams Flows Overview"
+           alt="This video provides an overview of the streams flows feature." %}
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
