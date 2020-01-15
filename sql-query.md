@@ -44,6 +44,7 @@ For more information about Cloud {{site.data.keyword.cos_short}}, including how 
 
 <iframe class="embed-responsive-item" id="youtubeplayer" title="IBM Cloud SQL Query: Run Queries from the Console" type="text/html" width="640" height="390" src="//www.youtube.com/watch?v=PZAaWSzwo7s&list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA&index=4&t=0s" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
+
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
 1. In the SQL editor field of the {{site.data.keyword.sqlquery_short}} UI, enter a SELECT statement. In this statement:
