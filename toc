@@ -32,7 +32,6 @@ IBM Cloud SQL Query
     {: .navgroup-end}
 
     {: .navgroup id="howto"}
-    {: .topicgroup}
     video.md
     
     {: .topicgroup}
