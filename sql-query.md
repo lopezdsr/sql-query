@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2018, 2019
-lastupdated: "2020-01-15"
+  years: 2018, 2020
+lastupdated: "2020-01-20"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -23,6 +23,13 @@ subcollection: sql-query
 {:shortdesc}
 
 **Note:** You can use {{site.data.keyword.sqlquery_short}} to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
+
+Watch the following video for an introduction of {{site.data.keyword.sqlquery_short}} and to find out which services to provision to get started.
+
+<iframe width="640" height="390" title="IBM Cloud SQL Query: Provision the IBM Cloud Services"  src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
+frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+
+*Video 1. {{site.data.keyword.sqlquery_full}}: Provision the IBM Cloud Services*
 
 Input data is read from CSV, JSON, ORC, Parquet, or AVRO objects located in one or more {{site.data.keyword.cos_full}} instances.
 Each query result is written to a CSV, JSON, ORC, Parquet, or AVRO object in a Cloud {{site.data.keyword.cos_short}} instance of your choice.
@@ -46,7 +53,7 @@ Watch the following video to learn more about {{site.data.keyword.sqlquery_short
 
 <iframe width="640" height="390" title="IBM Cloud SQL Query: Run Queries from the Console"  src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 1. {{site.data.keyword.sqlquery_full}}: Run queries from the console*
+*Video 2. {{site.data.keyword.sqlquery_full}}: Run queries from the console*
 
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
