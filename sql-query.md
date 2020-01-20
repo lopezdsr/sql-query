@@ -26,7 +26,7 @@ subcollection: sql-query
 
 Watch the following video for an introduction of {{site.data.keyword.sqlquery_short}} and to find out which services to provision to get started.
 
-<iframe width="640" height="390" title="IBM Cloud SQL Query: Provision the IBM Cloud Services"  src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
+<iframe width="640" height="390" title="IBM Cloud SQL Query: Provision the IBM Cloud Services"  src="https://www.youtube.com/embed/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
 *Video 1. {{site.data.keyword.sqlquery_full}}: Provision the IBM Cloud Services*
