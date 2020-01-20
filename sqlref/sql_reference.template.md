@@ -23,7 +23,7 @@ The select statement (or query statement) is used to read object data from {{sit
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
 Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location
-in Cloud {{site.data.keyword.cos_short}}, you can use it as a data transformation service.
+in Cloud like {{site.data.keyword.cos_short}} or DB2 tables, you can use it as a data transformation service.
 It provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
 This includes control over data location, format, layout and partitioning.
 
@@ -31,7 +31,9 @@ A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s we
 either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
-## SQL query statement
+In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}} you could also catalog your data using a Hive Metastore. Within this metastore or catalog you could manage the data like tables, columns or partitions. There are several benefits to catalog this data. It simplifies the SQL select statements and it is easy to return information where your data is stored. Using *ANALYSE TABLE* command provides more information to the Spark runtime for an optimized query plan execution.
+
+## Select
 {: #chapterSQLQueryStatement}
 
 The general syntax of an SQL query statement is outlined below using the `query` clause and the `namedQuery` clause.
@@ -889,7 +891,7 @@ A *values clause* is referenced by the following clauses
 * [fullselect](#fullselect)
 * [relationPrimary](#relationPrimary)
 
-## Lateral Views
+### Lateral Views
 {: #chapterLateralViews}
 
 A lateral view is a component of a *simpleselect*. Lateral views allow to build  *virtual tables* at query execution time
@@ -986,7 +988,7 @@ Note:
 
 A *lateral view* clause is referenced by a [simpleselect](#simpleselect).
 
-## Join Types
+### Join Types
 {: #chapterJoinTypes}
 
 SELECT statements can retrieve and join column values from two or more tables into a single row. The retrieval is based on a specified condition, typically of matching column values.
@@ -1252,7 +1254,7 @@ The result of the example query is shown in the table below.
 
 The *join types* are specified in a [relation](#relation).
 
-## Sort Item Clause
+### Sort Item Clause
 {: #chapterSortItemClause}
 
 *Sort items* are a component of a *fullselect* or a *window specification*.
@@ -1280,7 +1282,7 @@ A *sort item clause* is referenced by the following clauses:
 * [fullselect](#fullselect)
 * [windowSpec](#windowSpec)
 
-## SQL Functions
+### SQL Functions
 {: #chapterSqlFunctions}
 
 The syntax for SQL function invocation is described by the syntax diagram below.
@@ -1307,7 +1309,7 @@ For further details about the clauses used in a *function or aggregate* clause, 
 A *function or aggregate clause* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-## Window Functions
+### Window Functions
 {: #chapterWindowFunctions}
 
 Classic SQL **aggregation functions** like `SUM()`, `MAX()`, or `MIN()` process a group of rows to derive a single value. **Window functions** take this one step further by allowing to process a group of rows and derive a single value for each row in the group. Note that this is not the same as **scalar functions** that return a single value for each row. Scalar functions derive a single value from a single row and not a group of rows.
@@ -1583,7 +1585,7 @@ A *named window clause* is referenced by the following clauses:
 
 Note that the keyword `OVER` lets you define an unnamed window specification in a [functionOrAggregate](#functionOrAggregate).
 
-## SQL Expressions
+### SQL Expressions
 {: #chapterSqlExpressions}
 
 <h3>Expressions</h3>
@@ -2408,7 +2410,7 @@ For further details about the clauses used by a *case expression*, refer to the 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-## Operator
+### Operator
 {: #chapterOperator}
 
 The following types of operators can be used:
@@ -2479,7 +2481,7 @@ The following types of operators can be used:
 
 An *operator* is referenced by [valueExpression](#valueExpression).
 
-## Sampling Table Data
+### Sampling Table Data
 {: #chapterSamplingTableData}
 
 Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
@@ -2537,6 +2539,126 @@ For further details about the clauses used in a *table sample clause*, refer to 
 
 A *table sample clause* is referenced by the following clause:
 * [relationPrimary](#relationPrimary)
+
+## Hive Metastore Commands
+{: #chapterHiveCatalog}
+
+The following commands allows users to catalog their metadata in a Hive Metastore provided by SQL Query. Having the tables, columns and partitioned defined in the catalog allows to use simple table names in the SQL select statements. In addition a user could benefit of a better runtime in case *ANALYZE TABLE* has stored statistic information for the given table and columns. 
+
+### Create Table
+
+<!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table" layout="@break@" -->
+
+Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists an error is returned. 
+In case the *IF NOT EXISTS* clause is specified the statement does not return an error in this case. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning does match to the objects stored in {{site.data.keyword.cos_short}}. 
+For CSV objects the option *(header='true')* should be set if a CSV header is included.
+
+Note: before you could use a new created table definition which has partitions you need to call *ALTER TABLE tablename RECOVER PARTITIONS* otherwise an empty result is returned when doing a select statement on this table. 
+
+```sql
+-- create a definition for the table customer
+CREATE TABLE customer (
+  CUSTOMERID string,
+  COMPANYNAME string,
+  CONTACTNAME string,
+  CITY string
+)
+USING CSV
+PARTITIONED BY (CITY)
+OPTIONS (header='true')
+location cos://us-south/example/custtable
+```
+{: codeblock}
+
+<!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefintion.svg" alt="syntax diagram for column definition" layout="@break@" -->
+
+### Drop Table
+<!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table" layout="@break@" -->
+Drop a table definition from the Hive Metastore. An error is returned if the table does not exist. In case the *IF EXISTS* is specified it returns always without an error. 
+
+```sql
+-- drop a definition for the table customer
+DROP TABLE customer 
+```
+{: codeblock}
+
+### Alter Table Partitions
+<!--include-svg src="./svgfiles/alterTablePartitions.svg" target="./diagrams/alterTablePartitions.svg" alt="syntax diagram for a alter table partitions" layout="@break@" -->
+
+Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
+
+```sql 
+-- alter the table partitiones by scanning the available partitions
+ALTER TABLE customer RECOVER PARTITIONS
+```
+{: codeblock}
+
+
+### Analyze Table
+<!--include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" -->
+
+Analyze table command collect statistic about the specified table and in addition for the specified columns. This information could be used for the optimizer to find a better plan. For example to decide which table is smaller when using a broadcast hash join. Add those columns which are used in the select statements. 
+
+```sql 
+-- analyze statistics for the table customer without scanning each object
+analyze table customer compute STATISTICS NOSCAN
+```
+{: codeblock}
+
+The option *NOSCAN* only collects the bytes of the objects.
+
+### Describe Table
+<!--include-svg src="./svgfiles/describeTables.svg" target="./diagrams/describeTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
+
+Return the column names, data types and comments of a table definition. An error is returned if the table does not exist.
+
+*EXTENDED* returns more detailed information about the table.
+```sql
+-- returns detailed information about the customer table 
+DESC TABLE EXTENDEND customer
+```
+{: codeblock}
+
+
+### Show Tables
+<!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
+
+Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` could be used as wildcard character.
+
+```sql
+-- returns all defined tables in the hive metastore for this instance
+SHOW TABLES
+```
+{: codeblock}
+
+<!-- HIDE START ### Show Table Properties -->
+<!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" -->
+
+<!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" -->
+
+<!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" -->
+
+
+<!-- Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
+
+```sql
+-- returns all specified table options for the table customer
+SHOW TBLPROPERTIES customer
+```
+{: codeblock} HIDE END -->
+
+### Show Partitiones
+<!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones" layout="@break@" -->
+
+List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
+
+<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partition specification" layout="@break@" -->
+
+```sql
+-- returns all partitions for the table customer
+SHOW PARTITIONS customer
+```
+{: codeblock}
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}
