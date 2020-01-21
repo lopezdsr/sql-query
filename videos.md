@@ -86,7 +86,7 @@ frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; pict
 Finally, the last video is a deep dive into {{site.data.keyword.sqlquery_full}}, offering an extensive introduction to the service.
 
 <iframe width="640" height="390" title="IBM Cloud SQL Query"  
-src="https://www.youtube.com/embed/yX-8_jTiAuo?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
+src="https://www.youtube.com/embed/HTcfM0AbAmc" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
 *Video 7. {{site.data.keyword.sqlquery_full}} deep dive*
