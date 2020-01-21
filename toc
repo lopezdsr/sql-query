@@ -33,6 +33,7 @@ IBM Cloud SQL Query
 
     {: .navgroup id="howto"}
     videos.md
+    notebooks.md
     
     {: .topicgroup}
     Guides
