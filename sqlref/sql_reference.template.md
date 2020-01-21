@@ -2543,15 +2543,14 @@ A *table sample clause* is referenced by the following clause:
 ## Hive Metastore Commands
 {: #chapterHiveCatalog}
 
-The following commands allows users to catalog their metadata in a Hive Metastore provided by SQL Query. Having the tables, columns and partitioned defined in the catalog allows to use simple table names in the SQL select statements. In addition a user could benefit of a better runtime in case *ANALYZE TABLE* has stored statistic information for the given table and columns. 
+The following commands allows users to catalog their metadata in a Hive Metastore provided by SQL Query. Having the tables, columns and partitioned defined in the catalog allows to use simple table names in the SQL select statements. 
 
 ### Create Table
-
 <!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table" layout="@break@" -->
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists an error is returned. 
 In case the *IF NOT EXISTS* clause is specified the statement does not return an error in this case. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning does match to the objects stored in {{site.data.keyword.cos_short}}. 
-For CSV objects the option *(header='true')* should be set if a CSV header is included.
+For CSV objects the option *(header='true')* should be set if a CSV header is available in the referenced location.
 
 Note: before you could use a new created table definition which has partitions you need to call *ALTER TABLE tablename RECOVER PARTITIONS* otherwise an empty result is returned when doing a select statement on this table. 
 
@@ -2574,6 +2573,7 @@ location cos://us-south/example/custtable
 
 ### Drop Table
 <!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table" layout="@break@" -->
+
 Drop a table definition from the Hive Metastore. An error is returned if the table does not exist. In case the *IF EXISTS* is specified it returns always without an error. 
 
 ```sql
@@ -2594,8 +2594,8 @@ ALTER TABLE customer RECOVER PARTITIONS
 {: codeblock}
 
 
-### Analyze Table
-<!--include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" -->
+<!-- HIDE START ### Analyze Table 
+*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
 
 Analyze table command collect statistic about the specified table and in addition for the specified columns. This information could be used for the optimizer to find a better plan. For example to decide which table is smaller when using a broadcast hash join. Add those columns which are used in the select statements. 
 
@@ -2605,17 +2605,16 @@ analyze table customer compute STATISTICS NOSCAN
 ```
 {: codeblock}
 
-The option *NOSCAN* only collects the bytes of the objects.
+The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 ### Describe Table
 <!--include-svg src="./svgfiles/describeTables.svg" target="./diagrams/describeTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
 
 Return the column names, data types and comments of a table definition. An error is returned if the table does not exist.
 
-*EXTENDED* returns more detailed information about the table.
 ```sql
 -- returns detailed information about the customer table 
-DESC TABLE EXTENDEND customer
+DESC TABLE  customer
 ```
 {: codeblock}
 
@@ -2631,15 +2630,15 @@ SHOW TABLES
 ```
 {: codeblock}
 
-<!-- HIDE START ### Show Table Properties -->
-<!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" -->
+<!-- HIDE START ### Show Table Properties 
+*!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" --*
 
-<!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" -->
+*!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
-<!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" -->
+*!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
 
-<!-- Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
+Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
 
 ```sql
 -- returns all specified table options for the table customer
