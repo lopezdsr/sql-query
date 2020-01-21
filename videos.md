@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-20"
+lastupdated: "2020-01-21"
 
 keywords: SQL query, tutorial, video, provision, run query, introduction, REST API, command line, object storage
 
@@ -85,11 +85,11 @@ frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; pict
 
 Finally, the last video is a deep dive into {{site.data.keyword.sqlquery_full}}, offering an extensive introduction to the service.
 
-<iframe width="640" height="390" title="IBM Cloud SQL Query"  
+<iframe width="640" height="390" title="IBM Cloud SQL Query: A Complete Overview"  
 src="https://www.youtube.com/embed/HTcfM0AbAmc" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 7. {{site.data.keyword.sqlquery_full}} deep dive*
+*Video 7. {{site.data.keyword.sqlquery_full}}: A complete overview*
 
 
 
