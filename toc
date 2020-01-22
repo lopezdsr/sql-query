@@ -9,6 +9,9 @@ IBM Cloud SQL Query
     getting-started.md
     whatsnew.md
     security.md
+        authentication.md
+        secrets.md
+        keyprotect.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
@@ -43,5 +46,5 @@ IBM Cloud SQL Query
         api_notebook.md
         geospatial_analytics.md
         microservice.md
-    keyprotect.md
+    
     {: .navgroup-end}
