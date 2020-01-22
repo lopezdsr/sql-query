@@ -54,13 +54,13 @@ partitioned by (city)
 location cos://us-south/mycsv/employees.csv
 ```
 
-If you work with a partitioned table, it is required to define the partitions used for this table. The easiest way to do this is to let Hive evaluate it for you by calling *ALTER TABLE*.
+If you work with a partitioned table, you have to define the partitions used for this table. The easiest way to do this is to let Hive evaluate it for you by calling *ALTER TABLE*.
 
 ```sql
 ALTER TABLE employees RECOVER PARTITIONS
 ```
 
-Having done this a quite SELECT statement could be called without the lengthy {{site.data.keyword.cos_short}} URI.
+Having done this, you can call a  SELECT statement without the lengthy {{site.data.keyword.cos_short}} URI.
 
 ```
 SELECT firstName, lastName FROM employees WHERE city = ‘London’
