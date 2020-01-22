@@ -21,11 +21,11 @@ subcollection: sql-query
 # Catalog Data – Hive Metastore
 {: #hivemetastore}
 
-Using {{site.data.keyword.cos_short}} URIs within your select statement allows you to process your data without any preparation steps. An automatic schema inference for JSON or CSV data is done in this case. Also, the partitions of the table are detected automatically during runtime of the query.  
+Using {{site.data.keyword.cos_full}} URIs within your SELECT statements allows you to process data without any preparation steps. You benefit from an automatic schema inference for JSON or CSV data. Also, the partitions of the table are detected automatically during runtime of the query.  
 
-But in case you know always your used objects in the select statement beforehand it is more efficient to catalog your COS objects. SQL Query provides a Hive Metastore with an own database for each instance which allows you to have all metadata for your tables in one place. 
+But if you always know your used objects in the SELECT statement beforehand, it is more efficient to catalog your {{site.data.keyword.cos_short}} objects. {{site.data.keyword.sqlquery_full}} provides a Hive Metastore with an own database for each instance, which allows you to have all metadata for your tables in one place. 
 
-To use the catalog you need to call the *CREATE TABLE* command before you run the select statement like:
+To use the catalog, call the *CREATE TABLE* command before you run the SELECT statement, as in the following example:
 
 ```sql
 create table employees (
@@ -54,34 +54,35 @@ partitioned by (city)
 location cos://us-south/mycsv/employees.csv
 ```
 
-In case you work with a partitioned table it is required to define the partitions used for this table. The easiest way is to let Hive evaluate this for you by calling *ALTER TABLE*.
+If you work with a partitioned table, it is required to define the partitions used for this table. The easiest way to do this is to let Hive evaluate it for you by calling *ALTER TABLE*.
 
 ```sql
 ALTER TABLE employees RECOVER PARTITIONS
 ```
 
-Having done this a quite select statement could be called without the lengthy COS URI.
+Having done this a quite SELECT statement could be called without the lengthy {{site.data.keyword.cos_short}} URI.
+
 ```
 SELECT firstName, lastName FROM employees WHERE city = ‘London’
 ```
 
-In addition, that the query is more readable, and you have a central point where all your tables are cataloged, you get some further benefits: 
-•	First there is no need to do schema inference any longer, as the schema was already specified during *CREATE TABLE* command. This will provide a better performance for JSON and CSV formats. 
-•	Furthermore, the partitions lookup, needed for partitioned tables, is not needed anymore. This helps to speed up the query if there are many different partitions available.
+In addition to the query being more readable and having a central point where all your tables are cataloged, you get some further benefits: 
+-	First, there is no need to do schema inference any longer, as the schema was already specified in the *CREATE TABLE* command. This  provides a better performance for JSON and CSV formats. 
+-	Second, the partitions lookup, needed for partitioned tables, is not needed anymore. This helps to speed up the query if there are many different partitions available.
 
-The command *SHOW TABLES* provide you an overview of the existing tables in your instance. This command provides search filters to not get too much tables back.
+The command *SHOW TABLES* provides you with an overview of the existing tables in your instance. This command provides search filters to avoid getting too many tables back.
 
 ```sql
 SHOW TABLES LIKE '*empl*'
 ```
 
-To get some more information about the definition of the table the command *DESCRIBE TABLE* will provide this. 
+To get some more information about the definition of the table, use the command *DESCRIBE TABLE*. 
 
 ```sql
 DESCRIBE TABLE employees
 ```
 
-Finally, to clean up catalog entries for data not used anymore call DROP TABLE. This command only drops the definition but will not remove the real data on COS.
+Finally, to clean up catalog entries for unused data, call *DROP TABLE*. The *DROP TABLE* command drops the definition without removing the real data on {{site.data.keyword.cos_short}}.
 
 ```sql
 DROP TABLE employees
