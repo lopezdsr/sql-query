@@ -51,7 +51,7 @@ create table employees (
 USING CSV
 OPTIONS (header='true')
 partitioned by (city)
-location cos://us-south/result/empcsv
+location cos://us-south/mycsv/employees.csv
 ```
 
 In case you work with a partitioned table it is required to define the partitions used for this table. The easiest way is to let Hive evaluate this for you by calling *ALTER TABLE*.
@@ -62,7 +62,7 @@ ALTER TABLE employees RECOVER PARTITIONS
 
 Having done this a quite select statement could be called without the lengthy COS URI.
 ```
-Select firstName, lastName from employees where city = ‘London’
+SELECT firstName, lastName FROM employees WHERE city = ‘London’
 ```
 
 In addition, that the query is more readable, and you have a central point where all your tables are cataloged, you get some further benefits: 
@@ -82,3 +82,7 @@ DESCRIBE TABLE employees
 ```
 
 Finally, to clean up catalog entries for data not used anymore call DROP TABLE. This command only drops the definition but will not remove the real data on COS.
+
+```sql
+DROP TABLE employees
+```
