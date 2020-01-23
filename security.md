@@ -44,9 +44,4 @@ agreement with IBM.
 
 {{site.data.keyword.sqlquery_notm}} is ISO 27001/27017/27018 certified. The certificates and the certified cloud products listing can be found in the [IBM Trust Center](https://www.ibm.com/trust) in section [Compliance](https://www.ibm.com/cloud/compliance).
 
-## Terms
-{: #terms}
 
-[The IBM Privacy Policy](https://www.ibm.com/privacy/us/en/)
-
-[The IBM Cloud Notices and Terms of Use](/docs/overview/terms-of-use?topic=overview-terms#terms)
