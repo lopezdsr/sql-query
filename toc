@@ -8,7 +8,8 @@ IBM Cloud SQL Query
     sql-query.md
     getting-started.md
     whatsnew.md
-    security.md
+    Security and compliance
+        security.md
         authentication.md
         secrets.md
         keyprotect.md
