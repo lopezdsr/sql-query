@@ -24,14 +24,21 @@ subcollection: sql-query
 
 **Note:** You can use {{site.data.keyword.sqlquery_short}} to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
 
+![SQL Query Overview](overview.png)
+
 Input data is read from CSV, JSON, ORC, Parquet, or AVRO objects located in one or more {{site.data.keyword.cos_full}} instances.
 Each query result is written to a CSV, JSON, ORC, Parquet, or AVRO object in a Cloud {{site.data.keyword.cos_short}} instance of your choice.
 Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the
 [SQL Query REST API](#restapi) to automate them.
 
-![SQL Query Overview](overview.png)
+<br>
 
-Watch the video [IBM Cloud SQL Query: Provision the IBM Cloud Services](https://youtu.be/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA) for an introduction of {{site.data.keyword.sqlquery_short}} and to find out which services to provision to get started.
+<iframe width="640" height="390" title="IBM Cloud SQL Query: Provision the IBM Cloud Services"  
+src="https://www.youtube.com/embed/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
+frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+
+*Video 1. {{site.data.keyword.sqlquery_full}}: Provision the IBM Cloud Services*
+
 
 ## Where your input data and query results are stored
 {: #stored}
