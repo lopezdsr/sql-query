@@ -8,6 +8,8 @@ IBM Cloud SQL Query
     sql-query.md
     getting-started.md
     whatsnew.md
+    
+    {: .topicgroup}
     Security and compliance
         security.md
         authentication.md
@@ -47,5 +49,4 @@ IBM Cloud SQL Query
         api_notebook.md
         geospatial_analytics.md
         microservice.md
-    
     {: .navgroup-end}
