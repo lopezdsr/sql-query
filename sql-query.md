@@ -37,7 +37,7 @@ Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your
 src="https://www.youtube.com/embed/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 1. {{site.data.keyword.sqlquery_full}}: Provision the IBM Cloud Services*
+*Video 1. {{site.data.keyword.sqlquery_short}}: Provision the IBM Cloud Services*
 
 
 ## Where your input data and query results are stored
@@ -55,7 +55,7 @@ Watch the following video to learn more about {{site.data.keyword.sqlquery_short
 
 <iframe width="640" height="390" title="IBM Cloud SQL Query: Run Queries from the Console"  src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 2. {{site.data.keyword.sqlquery_full}}: Run queries from the console*
+*Video 2. {{site.data.keyword.sqlquery_short}}: Run queries from the console*
 
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
