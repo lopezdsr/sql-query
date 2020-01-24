@@ -2589,9 +2589,33 @@ DROP TABLE customer
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
 
+Use the below *RECOVER PARTITIONS* option to automatically add the available partitions for a table.
 ```sql 
 -- alter the table partitiones by scanning the available partitions
 ALTER TABLE customer RECOVER PARTITIONS
+```
+{: codeblock}
+<!--include-svg src="./svgfiles/partitionSpecLocation.svg" target="./diagrams/partitionSpecLocation.svg" alt="syntax diagram for a partitions location specification " layout="@break@" -->
+
+<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partitions specification" layout="@break@" -->
+
+
+In order to add or remove partitions mnaually use the *ADD* or *DROP* syntax.
+
+```sql 
+-- alter the table partitiones by adding a partiton 
+ALTER TABLE customer ADD  PARTITION ( city = 'Berlin') LOCATION cos://us-south/example/custtable/city=Berlin
+-- alter the table partitiones by dropping a partiton 
+ALTER TABLE customer DROP IF EXISTS PARTITION ( city = 'London')
+```
+{: codeblock}
+
+Use the *EXISTS* options to avoid getting errors during *ADD* or *DROP*.
+
+To change a partition definition use the *SET* option.
+```sql 
+-- alter the table partitiones definition 
+ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/example/custtable/city=London
 ```
 {: codeblock}
 
@@ -2612,6 +2636,8 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 ### Describe Table
 <!--include-svg src="./svgfiles/describeTables.svg" target="./diagrams/describeTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
 
+<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partitions specification" layout="@break@" -->
+
 Return the schema (column names, data types and comments) of a table definition. An error is returned if the table does not exist.
 
 ```sql
@@ -2619,7 +2645,6 @@ Return the schema (column names, data types and comments) of a table definition.
 DESC TABLE  customer
 ```
 {: codeblock}
-
 
 ### Show Tables
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
@@ -2651,13 +2676,14 @@ SHOW TBLPROPERTIES customer
 ### Show Partitiones
 <!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones" layout="@break@" -->
 
+<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partition specification" layout="@break@" -->
+
 List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
 
-<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partition specification" layout="@break@" -->
 
 ```sql
 -- returns all partitions for the table customer
-SHOW PARTITIONS customer
+SHOW PARTITIONS customer PARTITION (city = 'London')
 ```
 {: codeblock}
 
