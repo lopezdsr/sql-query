@@ -2543,12 +2543,12 @@ A *table sample clause* is referenced by the following clause:
 ## Hive Metastore Commands
 {: #chapterHiveCatalog}
 
-The following commands allows users to catalog their metadata in a Hive Metastore provided by SQL Query. Having the tables, columns and partitions defined in the catalog allows to use simple table names in the SQL select statements. Each instance of SQL Query has its own Hive Metastore. 
+The following commands allows users to catalog their metadata in a Hive Metastore provided by SQL Query. Having the tables, columns and partitions defined in the catalog allows to use simple table names in the SQL select statements. Each instance of {{site.data.keyword.sqlquery_full}} has its own Hive Metastore. 
 
 ### Create Table
 <!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table" layout="@break@" -->
 
-Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in this instance of SQL Query an error is returned. 
+Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in this instance of {{site.data.keyword.sqlquery_full}} an error is returned. 
 In case the *IF NOT EXISTS* clause is specified the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning does match to the objects stored in {{site.data.keyword.cos_short}}. 
 For CSV objects the option *(header='true')* has to be set if a header line is existing in the data objects in the referenced location.
 

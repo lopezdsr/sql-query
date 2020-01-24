@@ -17,6 +17,10 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## Fabruary 2020
+
+{{site.data.keyword.sqlquery_full}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hive_metastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.
+
 ## January 2020
 
 {{site.data.keyword.sqlquery_full}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on *.appdomain.cloud, for example *s3.us.cloud-object-storage.appdomain.cloud*), as well as all new single data center endpoints (for example, *sng01*).
