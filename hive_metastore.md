@@ -125,7 +125,7 @@ If your data on {{site.data.keyword.cos_short}} does not adhere to this naming c
 If a partitioned table has been defined, you always must add each partition to it explicitly. You can do this one by one by running the
 `ALTER TABLE` with the `ADD PARTITION` clause for a new partition.
 
-A convenient way to add all partitions that already exist at once on {{site.data.keyword.cos_short}} is to use the `RECOVER PARTITIONS` clause as follows.
+A convenient way to add all partitions that already exist at once on {{site.data.keyword.cos_short}}, is to use the `RECOVER PARTITIONS` clause as follows:
 
 ```sql
 ALTER TABLE employees RECOVER PARTITIONS
@@ -137,8 +137,8 @@ Once you added all your partitions, your partitioned table is set up to be queri
 SELECT firstName, lastName FROM employees WHERE city = Berlin
 ```
 
-The query execution in fact only read the three objects inside the `/employees/region=east/city=Berlin/` folder 
-because the partition definitions were used by the query optimizer to minimize the necessary read I/O accordingly.
+The query execution in fact only reads the three objects inside the `/employees/region=east/city=Berlin/` folder 
+because the partition definitions are used by the query optimizer to minimize the necessary read I/O accordingly.
 
 The command *SHOW TABLES* provides you with an overview of the existing tables in your instance. 
 This command provides search filters to avoid getting too many tables back.
