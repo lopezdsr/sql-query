@@ -18,7 +18,7 @@ subcollection: sql-query
 {:tip: .tip}
 
 
-# Table Catalog – Hive Metastore
+# Catalog Management – Hive Metastore
 {: #hivemetastore}
 
 {{site.data.keyword.sqlquery_full}} includes a full database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. 
