@@ -2593,31 +2593,33 @@ DROP TABLE customer
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
 
 Use the below *RECOVER PARTITIONS* option to automatically add the available partitions for a table.
+
 ```sql 
 -- alter the table partitiones by scanning the available partitions
 ALTER TABLE customer RECOVER PARTITIONS
 ```
 {: codeblock}
-<!--include-svg src="./svgfiles/partitionSpecLocation.svg" target="./diagrams/partitionSpecLocation.svg" alt="syntax diagram for a partitions location specification " layout="@break@" -->
+<!--include-svg src="./svgfiles/partitionSpecLocation.svg" target="./diagrams/partitionSpecLocation.svg" alt="syntax diagram for a partition's location specification " layout="@break@" -->
 
-<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partitions specification" layout="@break@" -->
+<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
 
-In order to add or remove partitions mnaually use the *ADD* or *DROP* syntax.
+In order to add or remove partitions manually, use the *ADD* or *DROP* syntax.
 
 ```sql 
--- alter the table partitiones by adding a partiton 
+-- alter the table partitions by adding a partition 
 ALTER TABLE customer ADD  PARTITION ( city = 'Berlin') LOCATION cos://us-south/example/custtable/city=Berlin
--- alter the table partitiones by dropping a partiton 
+-- alter the table partitions by dropping a partition 
 ALTER TABLE customer DROP IF EXISTS PARTITION ( city = 'London')
 ```
 {: codeblock}
 
 Use the *EXISTS* options to avoid getting errors during *ADD* or *DROP*.
 
-To change a partition definition use the *SET* option.
+To change a partition definition, use the *SET* option.
+
 ```sql 
--- alter the table partitiones definition 
+-- alter the table partitions definition 
 ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/example/custtable/city=London
 ```
 {: codeblock}
