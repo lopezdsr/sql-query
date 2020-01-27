@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-13"
+lastupdated: "2020-01-27"
 
 ---
 
@@ -22,19 +22,20 @@ lastupdated: "2020-01-13"
 The select statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
-Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location
-in Cloud like {{site.data.keyword.cos_short}} or DB2 tables, you can use it as a data transformation service.
+Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location in both, 
+database tables and rectangular data  ({{site.data.keyword.cos_short}} or DB2 tables), you can use it as a data transformation service.
 It provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
-This includes control over data location, format, layout and partitioning.
+This includes control over data location, format, layout, and partitioning.
 
 A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
 either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
-In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}} you could also catalog your data using a Hive Metastore. This metastore is your database catalog, which allows you to register and manage the data on {{site.data.keyword.cos_short}} as tables consisting of columns and partitions. There are several benefits to catalog this data. 
-1. It simplifies the SQL select statements because the SQL author does not have know and specify exactly where and how the data is stored. 
-2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance especially for text based data formats like CSV and JSON where the schema inference requires a full scan of the data before the actual query execution. 
-<!-- Hide 3. With the *ANALYZE TABLE* command you can gather statistics about your data that is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in siginificantly improved query performance for queries on larger data volumes. -->
+In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also catalog your data using a Hive Metastore. Within this metastore or catalog, you can manage the data in {{site.data.keyword.cos_short}} like tables, consisting of columns and partitions. There are several benefits to catalog this data. 
+
+1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored. 
+2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution. 
+<!-- Hide 3. With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
 
 ## Select
 {: #chapterSQLQueryStatement}
@@ -2543,19 +2544,19 @@ For further details about the clauses used in a *table sample clause*, refer to 
 A *table sample clause* is referenced by the following clause:
 * [relationPrimary](#relationPrimary)
 
-## Hive Metastore Commands
+## Catalog Management Commands in a Hive Metastore
 {: #chapterHiveCatalog}
 
-The following commands allows users to catalog their metadata in a Hive Metastore provided by SQL Query. Having the tables, columns and partitions defined in the catalog allows to use simple table names in the SQL select statements. Each instance of {{site.data.keyword.sqlquery_full}} has its own Hive Metastore. 
+The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
 
 ### Create Table
 <!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table" layout="@break@" -->
 
-Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in this instance of {{site.data.keyword.sqlquery_full}} an error is returned. 
-In case the *IF NOT EXISTS* clause is specified the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning does match to the objects stored in {{site.data.keyword.cos_short}}. 
-For CSV objects the option *(header='true')* has to be set if a header line is existing in the data objects in the referenced location.
+Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
+In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
+For CSV objects, you must set the option *(header='true')*, if in the referenced location a header line exists in the data objects.
 
-Note: before you could use a newly created *PARTITIONED* table definition you need to call *ALTER TABLE tablename RECOVER PARTITIONS* otherwise an empty result is returned when doing a select statement on this table. 
+Note: Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
 
 ```sql
 -- create a definition for the table customer
@@ -2577,7 +2578,7 @@ location cos://us-south/example/custtable
 ### Drop Table
 <!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table" layout="@break@" -->
 
-Drop a table definition from the Hive Metastore. An error is returned if the table does not exist. In case the *IF EXISTS* is specified it returns always without an error.
+Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
 
 Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only affects the table definition meta data.
 
@@ -2628,7 +2629,7 @@ ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/ex
 <!-- HIDE START ### Analyze Table 
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
 
-Analyze table command collect statistic about the specified table and in addition for the specified columns. This information will be used by the query optimizer to identify the optimal query plan. For example to decide which table is smaller when using a broadcast hash join. Add those columns which are used in the select statements. 
+The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
 
 ```sql 
 -- analyze statistics for the table customer without scanning each object
@@ -2643,7 +2644,7 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 <!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partitions specification" layout="@break@" -->
 
-Return the schema (column names, data types and comments) of a table definition. An error is returned if the table does not exist.
+Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
 
 ```sql
 -- returns detailed information about the customer table 
@@ -2654,7 +2655,7 @@ DESC TABLE  customer
 ### Show Tables
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
 
-Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` could be used as wildcard character.
+Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
 
 ```sql
 -- returns all defined tables in the hive metastore for this instance
