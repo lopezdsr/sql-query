@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-27"
+lastupdated: "2020-01-28"
 
 ---
 
@@ -23,15 +23,17 @@ The select statement (or query statement) is used to read object data from {{sit
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
 Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location in both, 
-database tables and rectangular data  ({{site.data.keyword.cos_short}} or DB2 tables), you can use it as a data transformation service.
-It provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
+database tables and rectangular data ({{site.data.keyword.cos_short}} or DB2 tables), you can use it as a data transformation service.
+{{site.data.keyword.sqlquery_short}} provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
 This includes control over data location, format, layout, and partitioning.
 
 A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
 either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
-In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also catalog your data using a Hive Metastore. Within this metastore or catalog, you can manage the data in {{site.data.keyword.cos_short}} like tables, consisting of columns and partitions. There are several benefits to catalog this data. 
+In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also catalog your data using a Hive Metastore. Within this metastore or catalog, you can manage the data in {{site.data.keyword.cos_short}} like tables, consisting of columns and partitions. 
+
+There are several benefits to cataloging your data: 
 
 1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored. 
 2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution. 
