@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-01-27"
+lastupdated: "2020-01-31"
 
 keywords: hive metastore,  performance, create table, object storage
 
@@ -72,6 +72,14 @@ You can then proceed and query the table by name instead of specifying the {{sit
 SELECT * FROM employees
 ```
 
+If registering table definitions does not work as expected, it might be caused by improper registration of the table using the CREATE TABLE statement. The column definition that specifies the column names and their data types in your CREATE TABLE statement must match the result of the following query:
+
+```
+SELECT * FROM describe (<data-location> stored as <storage-format>)
+```
+Note that the column names are case-sensitive. Incorrect column name specification results in an empty column, that is, the column seems to contain no data. To solve this, reorder the columns or omit some columns.
+
+
 ## Partitioned Tables
 
 You can manage a table in the catalog that consist of multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects needs to adhere to the Hive-style partitioning naming convention. The object names must include a folder name that has the structure `columm=value`, where `column` must be a column name that is specified in the CREATE TABLE. You can also have combined partition keys, which then need to be existing in the object names as hierachies of folder names, such as `columm1=value/column2=value`. Following is an example list of object names on {{site.data.keyword.cos_short}} that is consistent with the Hive-partitioned naming convention:
@@ -94,7 +102,7 @@ You can manage a table in the catalog that consist of multiple partitions on {{s
 With such a list of objects, you can specify a partitioned table definition, such as in the following example:
 
 ```sql
-create table employees (
+CREATE TABLE employees (
   employeeID int,
   lastName string,
   firstName string,
