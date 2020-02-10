@@ -19,7 +19,7 @@ subcollection: sql-query
 
 ## January 2020
 
-{{site.data.keyword.sqlquery_full}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on *.appdomain.cloud, for example *s3.us.cloud-object-storage.appdomain.cloud*), as well as all new single data center endpoints (for example, *sng01*).
+- {{site.data.keyword.sqlquery_full}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on ".appdomain.cloud", for example, s3.us.cloud-object-storage.appdomain.cloud), as well as all new single data center endpoints (for example, sng01).
 
 ## December 2019
 
