@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-28"
+lastupdated: "2020-02-12"
 
 ---
 
@@ -855,7 +855,7 @@ You can optionally also combine `FLATTEN` with `CLEANCOLS`.
 
 You can wrap your external table definition optionally with the `CLEANCOLS` table transformation function.
 It will preprocess your input table before query compilation by renaming all columns that have characters that are NOT supported by certain target formats, such as Parquet.
-These characters are `, ; ,,, =, (, ), { and }`. They are replaced by the corresponding URL-encoded representation, for example, %20 for space (` `). This allows you to write results, for example, into Parquet without having to provide column by column alias names in your SQL
+These characters are `,`, `;`, `,,,`, `=`, `(`, `)`, `{` and `}`. They are replaced by the corresponding URL-encoded representation, for example, %20 for space (` `). This allows you to write results, for example, into Parquet without having to provide column by column alias names in your SQL
 when your input data has columns with these characters. A typical situation is the existence of space (` `) in input columns.
 
 For example, you can use `SELECT * FROM CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON) INTO cos://us-geo/mybucket/myprefix STORED AS PARQUET` to produce a result set that can be stored as is into Parquet target format.
@@ -2984,7 +2984,7 @@ For further details about the clauses used in a *table sample clause*, refer to 
 A *table sample clause* is referenced by the following clause:
 * [relationPrimary](#relationPrimary)
 
-## Catalog Management Commands in a Hive Metastore
+## Catalog Management Commands in a Hive Metastore ![Beta](images/beta.png)
 {: #chapterHiveCatalog}
 
 The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
@@ -3001,7 +3001,7 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
 In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
-For CSV objects without a header line you must set the option *(header='false')*.
+For CSV objects without a header line, you must set the option *(header='false')*.
 
 Note: Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
 
@@ -3207,7 +3207,7 @@ The syntax of a table CRN is thoroughly described in section [Table unique resou
 
 <h3 id ="DB2_TABLE_URI">DB2_TABLE_URI</h3>
 
-A Db2 table URI is a string of characters that uniquely identifies a table in a {{site.data.keyword.Db2_on_Cloud_long_notm}} instance. The instance must be enabled for IAM and the IBMid of the user must have been added as a database user.
+A Db2 table URI is a string of characters that uniquely identifies a table in an {{site.data.keyword.Db2_on_Cloud_long}} and {{site.data.keyword.dashdblong}} instance. The instance must be enabled for IAM and the IBMid of the user must have been added as a database user.
 
 The syntax of a Db2 Table URI is thoroughly described in section [Table unique resource identifier](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
 
@@ -3218,14 +3218,20 @@ An *identifier* is a name that uniquely identifies an entity. There are two type
 <h4>Unquoted Identifier</h4>
 
 An unquoted identifier is at least one character long. Valid characters that can be used are the following:
-* Digits 0-9
-* Letters a-z, A-Z
+* Digits `0-9`
+* Letters `a-z`, `A-Z`
 * Underscore `_`
 
 <h4>Backquoted Identifier</h4>
 
 This is an identifier that is embraced by grave accent <code>&#96;</code> characters. Backquoted identifier can
 contain any character including the grave accent character that has to be escaped like this <code>&#96;&#96;</code>.
+
+The following example shows how to add a column name containing a special character:
+
+```sql
+SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
+```
 
 <h3 id="number">Number</h3>
 
