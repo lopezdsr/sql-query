@@ -2552,9 +2552,13 @@ A *table sample clause* is referenced by the following clause:
 The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
 
 ### Create Table
+
 <h4 id="createTable">Create Table</h4>
+
 <!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table" layout="@break@" -->
+
 <h4 id="columnDefinition">Column Definition</h4>
+
 <!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefintion.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
@@ -2578,7 +2582,9 @@ location cos://us-south/example/custtable
 {: codeblock}
 
 ### Drop Table
+
 <h4 id="dropTable">Drop Table</h4>
+
 <!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table" layout="@break@" -->
 
 Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
@@ -2592,7 +2598,9 @@ DROP TABLE customer
 {: codeblock}
 
 ### Alter Table Partitions
+
 <h4 id="alterTablePartitions">Alter Table Partitions</h4>
+
 <!--include-svg src="./svgfiles/alterTablePartitions.svg" target="./diagrams/alterTablePartitions.svg" alt="syntax diagram for a alter table partitions" layout="@break@" -->
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
@@ -2604,7 +2612,9 @@ Use the below *RECOVER PARTITIONS* option to automatically add the available par
 ALTER TABLE customer RECOVER PARTITIONS
 ```
 {: codeblock}
+
 <h4 id="partitionSpec">Partition Specification</h4>
+
 <!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
 
@@ -2630,7 +2640,9 @@ ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/ex
 
 
 <!-- HIDE START ### Analyze Table 
+
 <h4 id="analyzeTable">Analyze Table</h4>
+
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
 
 The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
@@ -2644,7 +2656,9 @@ analyze table customer compute STATISTICS NOSCAN
 The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 ### Describe Table
+
 <h4 id="describeTable">Describe Table</h4>
+
 <!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for show tables" layout="@break@" -->
 
 Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
@@ -2656,7 +2670,9 @@ DESC TABLE  customer
 {: codeblock}
 
 ### Show Tables
+
 <h4 id="showTables">showTables</h4>
+
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
 
 Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
@@ -2668,9 +2684,13 @@ SHOW TABLES
 {: codeblock}
 
 <!-- HIDE START ### Show Table Properties 
+
 <h4 id="showTblProperties">Show Table Properties</h4>
+
 *!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" --*
+
 <h4 id="tableProperty">Table Property</h4>
+
 *!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
 *!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
@@ -2685,7 +2705,9 @@ SHOW TBLPROPERTIES customer
 {: codeblock} HIDE END -->
 
 ### Show Partitiones
+
 <h4 id="showPartitions">Show Partitions</h4>
+
 <!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones" layout="@break@" -->
 
 List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
