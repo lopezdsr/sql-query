@@ -2990,6 +2990,7 @@ A *table sample clause* is referenced by the following clause:
 The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
 
 ### Create Table
+<h4 id="createTable">Create Table</h4>
 <div style="overflow-x : auto;">
 <map name="createTableImgMap">
 	<area alt="section identifier" shape="rect" coords="323,402,423,424" href="#identifier" />
@@ -2997,6 +2998,15 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 	<area alt="section STRING" shape="rect" coords="359,506,427,528" href="#STRING" />
 </map>
 <img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table" src="./diagrams/createTable-c745802c53098d9057dc3ffdb73d9117.svg" />
+</div>
+<h4 id="columnDefinition">Column Definition</h4>
+<div style="overflow-x : auto;">
+<map name="columnDefinitionImgMap">
+	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
+	<area alt="section dataType" shape="rect" coords="170,30,254,52" href="#dataType" />
+	<area alt="section STRING" shape="rect" coords="390,30,458,52" href="#STRING" />
+</map>
+<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefintion-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
 </div>
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
@@ -3019,23 +3029,12 @@ location cos://us-south/example/custtable
 ```
 {: codeblock}
 
-<div style="overflow-x : auto;">
-<map name="columnDefinitionImgMap">
-	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
-	<area alt="section dataType" shape="rect" coords="170,30,254,52" href="#dataType" />
-	<area alt="section STRING" shape="rect" coords="390,30,458,52" href="#STRING" />
-</map>
-<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefintion-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
-</div>
-
 ### Drop Table
+<h4 id="dropTable">Drop Table</h4>
 <div style="overflow-x : auto;">
-<map name="createTableImgMap">
-	<area alt="section identifier" shape="rect" coords="323,402,423,424" href="#identifier" />
-	<area alt="section COSURI" shape="rect" coords="155,506,223,528" href="#COSURI" />
-	<area alt="section STRING" shape="rect" coords="359,506,427,528" href="#STRING" />
+<map name="dropTableImgMap">
 </map>
-<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a drop table" src="./diagrams/dropTable-c745802c53098d9057dc3ffdb73d9117.svg" />
+<img style="max-width: 566px;" usemap="#dropTableImgMap" alt="syntax diagram for a drop table" src="./diagrams/dropTable-8b1eb4ecf09c740bf4289738838875e9.svg" />
 </div>
 
 Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
@@ -3049,6 +3048,7 @@ DROP TABLE customer
 {: codeblock}
 
 ### Alter Table Partitions
+<h4 id="alterTablePartitions">Alter Table Partitions</h4>
 <div style="overflow-x : auto;">
 <map name="alterTablePartitionsImgMap">
 	<area alt="section COSURI" shape="rect" coords="990,60,1058,82" href="#COSURI" />
@@ -3066,6 +3066,7 @@ Use the below *RECOVER PARTITIONS* option to automatically add the available par
 ALTER TABLE customer RECOVER PARTITIONS
 ```
 {: codeblock}
+<h4 id="partitionSpec">Partition Specification</h4>
 <div style="overflow-x : auto;">
 <map name="partitionSpecImgMap">
 	<area alt="section identifier" shape="rect" coords="230,20,330,42" href="#identifier" />
@@ -3097,6 +3098,7 @@ ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/ex
 
 
 <!-- HIDE START ### Analyze Table 
+<h4 id="analyzeTable">Analyze Table</h4>
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
 
 The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
@@ -3110,19 +3112,12 @@ analyze table customer compute STATISTICS NOSCAN
 The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 ### Describe Table
+<h4 id="describeTable">Describe Table</h4>
 <div style="overflow-x : auto;">
 <map name="describeTableImgMap">
 	<area alt="section identifier" shape="rect" coords="598,30,698,52" href="#identifier" />
 </map>
 <img style="max-width: 778px;" usemap="#describeTableImgMap" alt="syntax diagram for show tables" src="./diagrams/describeTable-f2c9c78b5d7cc181fb5d9a6b62248083.svg" />
-</div>
-
-<div style="overflow-x : auto;">
-<map name="partitionSpecImgMap">
-	<area alt="section identifier" shape="rect" coords="230,20,330,42" href="#identifier" />
-	<area alt="section constant" shape="rect" coords="398,20,482,42" href="#constant" />
-</map>
-<img style="max-width: 590px;" usemap="#partitionSpecImgMap" alt="syntax diagram for partitions specification" src="./diagrams/partitionSpec-cf88c0bf643262481a5fbc523c5a6636.svg" />
 </div>
 
 Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
@@ -3134,6 +3129,7 @@ DESC TABLE  customer
 {: codeblock}
 
 ### Show Tables
+<h4 id="showTables">showTables</h4>
 <div style="overflow-x : auto;">
 <map name="showTablesImgMap">
 	<area alt="section STRING" shape="rect" coords="322,40,390,62" href="#STRING" />
@@ -3150,8 +3146,9 @@ SHOW TABLES
 {: codeblock}
 
 <!-- HIDE START ### Show Table Properties 
+<h4 id="showTblProperties">Show Table Properties</h4>
 *!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" --*
-
+<h4 id="tableProperty">Table Property</h4>
 *!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
 *!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
@@ -3166,18 +3163,11 @@ SHOW TBLPROPERTIES customer
 {: codeblock} HIDE END -->
 
 ### Show Partitiones
+<h4 id="showPartitions">Show Partitions</h4>
 <div style="overflow-x : auto;">
 <map name="showPartitionsImgMap">
 </map>
 <img style="max-width: 586px;" usemap="#showPartitionsImgMap" alt="syntax diagram for show partitiones" src="./diagrams/showPartitions-2b53d8b9381dea4fe6bfa67e234e5872.svg" />
-</div>
-
-<div style="overflow-x : auto;">
-<map name="partitionSpecImgMap">
-	<area alt="section identifier" shape="rect" coords="230,20,330,42" href="#identifier" />
-	<area alt="section constant" shape="rect" coords="398,20,482,42" href="#constant" />
-</map>
-<img style="max-width: 590px;" usemap="#partitionSpecImgMap" alt="syntax diagram for partition specification" src="./diagrams/partitionSpec-cf88c0bf643262481a5fbc523c5a6636.svg" />
 </div>
 
 List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
