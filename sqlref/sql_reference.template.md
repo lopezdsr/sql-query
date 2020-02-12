@@ -2546,7 +2546,7 @@ For further details about the clauses used in a *table sample clause*, refer to 
 A *table sample clause* is referenced by the following clause:
 * [relationPrimary](#relationPrimary)
 
-## Catalog Management Commands in a Hive Metastore ![Beta](beta.png)
+## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
 
 The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
