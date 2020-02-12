@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-31"
+lastupdated: "2020-02-12"
 
 ---
 
@@ -2567,14 +2567,20 @@ An *identifier* is a name that uniquely identifies an entity. There are two type
 <h4>Unquoted Identifier</h4>
 
 An unquoted identifier is at least one character long. Valid characters that can be used are the following:
-* Digits 0-9
-* Letters a-z, A-Z
+* Digits `0-9`
+* Letters `a-z`, `A-Z`
 * Underscore `_`
 
 <h4>Backquoted Identifier</h4>
 
 This is an identifier that is embraced by grave accent <code>&#96;</code> characters. Backquoted identifier can
 contain any character including the grave accent character that has to be escaped like this <code>&#96;&#96;</code>.
+
+The following example shows how to add a column name containing a special character:
+
+```sql
+SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
+```
 
 <h3 id="number">Number</h3>
 
