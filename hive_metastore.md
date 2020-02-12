@@ -18,7 +18,7 @@ subcollection: sql-query
 {:tip: .tip}
 
 
-# Catalog Management – Hive Metastore ![Beta](images/beta.png)
+# Catalog Management – Hive Metastore ![Beta](beta.png)
 {: #hivemetastore}
 
 Beta support for this feature was introduced in February, 2020.
