@@ -2604,7 +2604,7 @@ ALTER TABLE customer RECOVER PARTITIONS
 <!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
 
-In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. If the specified location is valid will not be checked during the time *ALTER TABLE* is running.
+In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. *ALTER TABLE* does not validate the specified location.
 
 ```sql 
 -- alter the table partitions by adding a partition 
