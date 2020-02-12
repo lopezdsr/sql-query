@@ -2546,7 +2546,7 @@ For further details about the clauses used in a *table sample clause*, refer to 
 A *table sample clause* is referenced by the following clause:
 * [relationPrimary](#relationPrimary)
 
-## Catalog Management Commands in a Hive Metastore
+## Catalog Management Commands in a Hive Metastore ![Beta](images/beta.png)
 {: #chapterHiveCatalog}
 
 The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
@@ -2556,7 +2556,7 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
 In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
-For CSV objects without a header line you must set the option *(header='false')*.
+For CSV objects without a header line, you must set the option *(header='false')*.
 
 Note: Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
 
