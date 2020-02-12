@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-01-31"
+lastupdated: "2020-02-12"
 
 keywords: hive metastore,  performance, create table, object storage
 
@@ -18,8 +18,11 @@ subcollection: sql-query
 {:tip: .tip}
 
 
-# Catalog Management – Hive Metastore
+# Catalog Management – Hive Metastore ![Beta](images/beta.png)
 {: #hivemetastore}
+
+Beta support for this feature was introduced in February, 2020.
+{: note}
 
 {{site.data.keyword.sqlquery_full}} includes a full database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. 
 Each instance of {{site.data.keyword.sqlquery_short}} has its own database catalog namespace. In a fresh instance this catalog is empty and it is up to you to register table definitions in there.
