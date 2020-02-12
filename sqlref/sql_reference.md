@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-13"
+lastupdated: "2020-01-28"
 
 ---
 
@@ -22,16 +22,24 @@ lastupdated: "2020-01-13"
 The select statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
-Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location
-in Cloud {{site.data.keyword.cos_short}}, you can use it as a data transformation service.
-It provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
-This includes control over data location, format, layout and partitioning.
+Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location in both, 
+database tables and rectangular data ({{site.data.keyword.cos_short}} or DB2 tables), you can use it as a data transformation service.
+{{site.data.keyword.sqlquery_short}} provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
+This includes control over data location, format, layout, and partitioning.
 
 A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
 either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
-## SQL query statement
+In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also catalog your data using a Hive Metastore. Within this metastore or catalog, you can manage the data in {{site.data.keyword.cos_short}} like tables, consisting of columns and partitions. 
+
+There are several benefits to cataloging your data: 
+
+1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored. 
+2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution. 
+<!-- Hide 3. With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
+
+## Select
 {: #chapterSQLQueryStatement}
 
 The general syntax of an SQL query statement is outlined below using the `query` clause and the `namedQuery` clause.
@@ -1051,7 +1059,7 @@ A *values clause* is referenced by the following clauses
 * [fullselect](#fullselect)
 * [relationPrimary](#relationPrimary)
 
-## Lateral Views
+### Lateral Views
 {: #chapterLateralViews}
 
 A lateral view is a component of a *simpleselect*. Lateral views allow to build  *virtual tables* at query execution time
@@ -1158,7 +1166,7 @@ Note:
 
 A *lateral view* clause is referenced by a [simpleselect](#simpleselect).
 
-## Join Types
+### Join Types
 {: #chapterJoinTypes}
 
 SELECT statements can retrieve and join column values from two or more tables into a single row. The retrieval is based on a specified condition, typically of matching column values.
@@ -1436,7 +1444,7 @@ The result of the example query is shown in the table below.
 
 The *join types* are specified in a [relation](#relation).
 
-## Sort Item Clause
+### Sort Item Clause
 {: #chapterSortItemClause}
 
 *Sort items* are a component of a *fullselect* or a *window specification*.
@@ -1469,7 +1477,7 @@ A *sort item clause* is referenced by the following clauses:
 * [fullselect](#fullselect)
 * [windowSpec](#windowSpec)
 
-## SQL Functions
+### SQL Functions
 {: #chapterSqlFunctions}
 
 The syntax for SQL function invocation is described by the syntax diagram below.
@@ -1519,7 +1527,7 @@ For further details about the clauses used in a *function or aggregate* clause, 
 A *function or aggregate clause* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-## Window Functions
+### Window Functions
 {: #chapterWindowFunctions}
 
 Classic SQL **aggregation functions** like `SUM()`, `MAX()`, or `MIN()` process a group of rows to derive a single value. **Window functions** take this one step further by allowing to process a group of rows and derive a single value for each row in the group. Note that this is not the same as **scalar functions** that return a single value for each row. Scalar functions derive a single value from a single row and not a group of rows.
@@ -1849,7 +1857,7 @@ A *named window clause* is referenced by the following clauses:
 
 Note that the keyword `OVER` lets you define an unnamed window specification in a [functionOrAggregate](#functionOrAggregate).
 
-## SQL Expressions
+### SQL Expressions
 {: #chapterSqlExpressions}
 
 <h3>Expressions</h3>
@@ -2828,7 +2836,7 @@ For further details about the clauses used by a *case expression*, refer to the 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-## Operator
+### Operator
 {: #chapterOperator}
 
 The following types of operators can be used:
@@ -2904,7 +2912,7 @@ The following types of operators can be used:
 
 An *operator* is referenced by [valueExpression](#valueExpression).
 
-## Sampling Table Data
+### Sampling Table Data
 {: #chapterSamplingTableData}
 
 Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
@@ -2975,6 +2983,211 @@ For further details about the clauses used in a *table sample clause*, refer to 
 
 A *table sample clause* is referenced by the following clause:
 * [relationPrimary](#relationPrimary)
+
+## Catalog Management Commands in a Hive Metastore
+{: #chapterHiveCatalog}
+
+The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
+
+### Create Table
+<div style="overflow-x : auto;">
+<map name="createTableImgMap">
+	<area alt="section identifier" shape="rect" coords="323,402,423,424" href="#identifier" />
+	<area alt="section COSURI" shape="rect" coords="155,506,223,528" href="#COSURI" />
+	<area alt="section STRING" shape="rect" coords="359,506,427,528" href="#STRING" />
+</map>
+<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table" src="./diagrams/createTable-c745802c53098d9057dc3ffdb73d9117.svg" />
+</div>
+
+Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
+In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
+For CSV objects without a header line you must set the option *(header='false')*.
+
+Note: Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
+
+```sql
+-- create a definition for the table customer
+CREATE TABLE customer (
+  CUSTOMERID string,
+  COMPANYNAME string,
+  CONTACTNAME string,
+  CITY string
+)
+USING CSV
+PARTITIONED BY (CITY)
+location cos://us-south/example/custtable
+```
+{: codeblock}
+
+<div style="overflow-x : auto;">
+<map name="columnDefinitionImgMap">
+	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
+	<area alt="section dataType" shape="rect" coords="170,30,254,52" href="#dataType" />
+	<area alt="section STRING" shape="rect" coords="390,30,458,52" href="#STRING" />
+</map>
+<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefintion-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
+</div>
+
+### Drop Table
+<div style="overflow-x : auto;">
+<map name="createTableImgMap">
+	<area alt="section identifier" shape="rect" coords="323,402,423,424" href="#identifier" />
+	<area alt="section COSURI" shape="rect" coords="155,506,223,528" href="#COSURI" />
+	<area alt="section STRING" shape="rect" coords="359,506,427,528" href="#STRING" />
+</map>
+<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a drop table" src="./diagrams/dropTable-c745802c53098d9057dc3ffdb73d9117.svg" />
+</div>
+
+Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
+
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only affects the table definition meta data.
+
+```sql
+-- drop a definition for the table customer
+DROP TABLE customer 
+```
+{: codeblock}
+
+### Alter Table Partitions
+<div style="overflow-x : auto;">
+<map name="alterTablePartitionsImgMap">
+	<area alt="section COSURI" shape="rect" coords="990,60,1058,82" href="#COSURI" />
+	<area alt="section COSURI" shape="rect" coords="876,179,944,201" href="#COSURI" />
+</map>
+<img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions" src="./diagrams/alterTablePartitions-6261c43db22d8b8bc38322d9f903b36b.svg" />
+</div>
+
+Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
+
+Use the below *RECOVER PARTITIONS* option to automatically add the available partitions for a table.
+
+```sql 
+-- alter the table partitiones by scanning the available partitions
+ALTER TABLE customer RECOVER PARTITIONS
+```
+{: codeblock}
+<div style="overflow-x : auto;">
+<map name="partitionSpecImgMap">
+	<area alt="section identifier" shape="rect" coords="230,20,330,42" href="#identifier" />
+	<area alt="section constant" shape="rect" coords="398,20,482,42" href="#constant" />
+</map>
+<img style="max-width: 590px;" usemap="#partitionSpecImgMap" alt="syntax diagram for a partition's specification" src="./diagrams/partitionSpec-cf88c0bf643262481a5fbc523c5a6636.svg" />
+</div>
+
+
+In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. If the specified location is valid will not be checked during the time *ALTER TABLE* is running.
+
+```sql 
+-- alter the table partitions by adding a partition 
+ALTER TABLE customer ADD  PARTITION ( city = 'Berlin') LOCATION cos://us-south/example/custtable/city=Berlin
+-- alter the table partitions by dropping a partition 
+ALTER TABLE customer DROP IF EXISTS PARTITION ( city = 'London')
+```
+{: codeblock}
+
+Use the *EXISTS* options to avoid getting errors during *ADD* or *DROP*.
+
+To change a partition definition, use the *SET* option.
+
+```sql 
+-- alter the table partitions definition 
+ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/example/custtable/city=London
+```
+{: codeblock}
+
+
+<!-- HIDE START ### Analyze Table 
+*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
+
+The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
+
+```sql 
+-- analyze statistics for the table customer without scanning each object
+analyze table customer compute STATISTICS NOSCAN
+```
+{: codeblock}
+
+The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
+
+### Describe Table
+<div style="overflow-x : auto;">
+<map name="describeTableImgMap">
+	<area alt="section identifier" shape="rect" coords="598,30,698,52" href="#identifier" />
+</map>
+<img style="max-width: 778px;" usemap="#describeTableImgMap" alt="syntax diagram for show tables" src="./diagrams/describeTable-f2c9c78b5d7cc181fb5d9a6b62248083.svg" />
+</div>
+
+<div style="overflow-x : auto;">
+<map name="partitionSpecImgMap">
+	<area alt="section identifier" shape="rect" coords="230,20,330,42" href="#identifier" />
+	<area alt="section constant" shape="rect" coords="398,20,482,42" href="#constant" />
+</map>
+<img style="max-width: 590px;" usemap="#partitionSpecImgMap" alt="syntax diagram for partitions specification" src="./diagrams/partitionSpec-cf88c0bf643262481a5fbc523c5a6636.svg" />
+</div>
+
+Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
+
+```sql
+-- returns detailed information about the customer table 
+DESC TABLE  customer
+```
+{: codeblock}
+
+### Show Tables
+<div style="overflow-x : auto;">
+<map name="showTablesImgMap">
+	<area alt="section STRING" shape="rect" coords="322,40,390,62" href="#STRING" />
+</map>
+<img style="max-width: 450px;" usemap="#showTablesImgMap" alt="syntax diagram for show tables" src="./diagrams/showTables-8ece06742e7958194e44a9b019792742.svg" />
+</div>
+
+Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
+
+```sql
+-- returns all defined tables in the hive metastore for this instance
+SHOW TABLES
+```
+{: codeblock}
+
+<!-- HIDE START ### Show Table Properties 
+*!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" --*
+
+*!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" --*
+
+*!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
+
+
+Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
+
+```sql
+-- returns all specified table options for the table customer
+SHOW TBLPROPERTIES customer
+```
+{: codeblock} HIDE END -->
+
+### Show Partitiones
+<div style="overflow-x : auto;">
+<map name="showPartitionsImgMap">
+</map>
+<img style="max-width: 586px;" usemap="#showPartitionsImgMap" alt="syntax diagram for show partitiones" src="./diagrams/showPartitions-2b53d8b9381dea4fe6bfa67e234e5872.svg" />
+</div>
+
+<div style="overflow-x : auto;">
+<map name="partitionSpecImgMap">
+	<area alt="section identifier" shape="rect" coords="230,20,330,42" href="#identifier" />
+	<area alt="section constant" shape="rect" coords="398,20,482,42" href="#constant" />
+</map>
+<img style="max-width: 590px;" usemap="#partitionSpecImgMap" alt="syntax diagram for partition specification" src="./diagrams/partitionSpec-cf88c0bf643262481a5fbc523c5a6636.svg" />
+</div>
+
+List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
+
+
+```sql
+-- returns all partitions for the table customer
+SHOW PARTITIONS customer PARTITION (city = 'London')
+```
+{: codeblock}
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}

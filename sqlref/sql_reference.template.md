@@ -2556,7 +2556,7 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
 In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
-For CSV objects, you must set the option *(header='true')*, if in the referenced location a header line exists in the data objects.
+For CSV objects without a header line you must set the option *(header='false')*.
 
 Note: Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
 
@@ -2570,7 +2570,6 @@ CREATE TABLE customer (
 )
 USING CSV
 PARTITIONED BY (CITY)
-OPTIONS (header='true')
 location cos://us-south/example/custtable
 ```
 {: codeblock}
@@ -2602,12 +2601,10 @@ Use the below *RECOVER PARTITIONS* option to automatically add the available par
 ALTER TABLE customer RECOVER PARTITIONS
 ```
 {: codeblock}
-<!--include-svg src="./svgfiles/partitionSpecLocation.svg" target="./diagrams/partitionSpecLocation.svg" alt="syntax diagram for a partition's location specification " layout="@break@" -->
-
-<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
+<!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
 
-In order to add or remove partitions manually, use the *ADD* or *DROP* syntax.
+In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. If the specified location is valid will not be checked during the time *ALTER TABLE* is running.
 
 ```sql 
 -- alter the table partitions by adding a partition 
@@ -2642,9 +2639,9 @@ analyze table customer compute STATISTICS NOSCAN
 The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 ### Describe Table
-<!--include-svg src="./svgfiles/describeTables.svg" target="./diagrams/describeTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
+<!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for show tables" layout="@break@" -->
 
-<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partitions specification" layout="@break@" -->
+<!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for partitions specification" layout="@break@" -->
 
 Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
 
@@ -2684,7 +2681,7 @@ SHOW TBLPROPERTIES customer
 ### Show Partitiones
 <!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones" layout="@break@" -->
 
-<!--include-svg src="./svgfiles/partitionSpecs.svg" target="./diagrams/partitionSpecs.svg" alt="syntax diagram for partition specification" layout="@break@" -->
+<!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for partition specification" layout="@break@" -->
 
 List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
 
