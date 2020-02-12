@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-28"
+lastupdated: "2020-02-12"
 
 ---
 
@@ -715,7 +715,7 @@ You can optionally also combine `FLATTEN` with `CLEANCOLS`.
 
 You can wrap your external table definition optionally with the `CLEANCOLS` table transformation function.
 It will preprocess your input table before query compilation by renaming all columns that have characters that are NOT supported by certain target formats, such as Parquet.
-These characters are `, ; ,,, =, (, ), { and }`. They are replaced by the corresponding URL-encoded representation, for example, %20 for space (` `). This allows you to write results, for example, into Parquet without having to provide column by column alias names in your SQL
+These characters are `,`, `;`, `,,,`, `=`, `(`, `)`, `{` and `}`. They are replaced by the corresponding URL-encoded representation, for example, %20 for space (` `). This allows you to write results, for example, into Parquet without having to provide column by column alias names in your SQL
 when your input data has columns with these characters. A typical situation is the existence of space (` `) in input columns.
 
 For example, you can use `SELECT * FROM CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON) INTO cos://us-geo/mybucket/myprefix STORED AS PARQUET` to produce a result set that can be stored as is into Parquet target format.
@@ -2710,7 +2710,7 @@ The syntax of a table CRN is thoroughly described in section [Table unique resou
 
 <h3 id ="DB2_TABLE_URI">DB2_TABLE_URI</h3>
 
-A Db2 table URI is a string of characters that uniquely identifies a table in a {{site.data.keyword.Db2_on_Cloud_long_notm}} instance. The instance must be enabled for IAM and the IBMid of the user must have been added as a database user.
+A Db2 table URI is a string of characters that uniquely identifies a table in an {{site.data.keyword.Db2_on_Cloud_long}} and {{site.data.keyword.dashdblong}} instance. The instance must be enabled for IAM and the IBMid of the user must have been added as a database user.
 
 The syntax of a Db2 Table URI is thoroughly described in section [Table unique resource identifier](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
 
@@ -2721,14 +2721,20 @@ An *identifier* is a name that uniquely identifies an entity. There are two type
 <h4>Unquoted Identifier</h4>
 
 An unquoted identifier is at least one character long. Valid characters that can be used are the following:
-* Digits 0-9
-* Letters a-z, A-Z
+* Digits `0-9`
+* Letters `a-z`, `A-Z`
 * Underscore `_`
 
 <h4>Backquoted Identifier</h4>
 
 This is an identifier that is embraced by grave accent <code>&#96;</code> characters. Backquoted identifier can
 contain any character including the grave accent character that has to be escaped like this <code>&#96;&#96;</code>.
+
+The following example shows how to add a column name containing a special character:
+
+```sql
+SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
+```
 
 <h3 id="number">Number</h3>
 

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-06-06"
+  years: 2019, 2020
+lastupdated: "2020-02-10"
 
 keywords: SQL query, time series, SQL, artifact creation, function
 
@@ -246,8 +246,8 @@ Each of these functions creates a *forecasting model* artifact, which is used by
 **TS_FORECAST_BATS(Integer, Boolean)**  
 Output: ForecastingModel  
 Creates a forecasting model with Box-Cox, ARMA, trend, and seasonal (BATS) components. The value of the first parameter specifies the minimum number of training observations. The value of the second parameter specifies whether the Box-Cox transformation is to be used:
-- Specify **1** if the Box-Cox transformation is to be used.
-- Specify **0** if the Box-Cox transformation is not to be used.
+- Specify **true** if the Box-Cox transformation is to be used.
+- Specify **false** if the Box-Cox transformation is not to be used.
 
 **TS_FORECAST_HWS(Integer, Integer)**  
 Output: ForecastingModel  

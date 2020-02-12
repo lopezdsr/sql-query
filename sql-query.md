@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2018, 2019
-lastupdated: "2020-01-15"
+  years: 2018, 2020
+lastupdated: "2020-01-20"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -24,12 +24,21 @@ subcollection: sql-query
 
 **Note:** You can use {{site.data.keyword.sqlquery_short}} to create SELECT statements only; actions such as CREATE, DELETE, INSERT, and UPDATE are not possible.
 
+![SQL Query Overview](overview.png)
+
 Input data is read from CSV, JSON, ORC, Parquet, or AVRO objects located in one or more {{site.data.keyword.cos_full}} instances.
 Each query result is written to a CSV, JSON, ORC, Parquet, or AVRO object in a Cloud {{site.data.keyword.cos_short}} instance of your choice.
 Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your queries and the
 [SQL Query REST API](#restapi) to automate them.
 
-![SQL Query Overview](overview.png)
+<br>
+
+<iframe width="640" height="390" title="IBM Cloud SQL Query: Provision the IBM Cloud Services"  
+src="https://www.youtube.com/embed/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
+frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+
+*Video 1. {{site.data.keyword.sqlquery_short}}: Provision the IBM Cloud Services*
+
 
 ## Where your input data and query results are stored
 {: #stored}
@@ -44,9 +53,9 @@ For more information about Cloud {{site.data.keyword.cos_short}}, including how 
 
 Watch the following video to learn more about {{site.data.keyword.sqlquery_short}} and how you can get started to run a basic query.
 
-<iframe class="embed-responsive-item" id="youtubeplayer" title="IBM Cloud SQL Query: Run Queries from the Console" type="text/html" width="640" height="390" src="https://www.youtube.com/watch?v=PZAaWSzwo7s&list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
+<iframe width="640" height="390" title="IBM Cloud SQL Query: Run Queries from the Console"  src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 1. {{site.data.keyword.sqlquery_full}}: Run queries from the console*
+*Video 2. {{site.data.keyword.sqlquery_short}}: Run queries from the console*
 
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
