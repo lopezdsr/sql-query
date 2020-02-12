@@ -15,6 +15,7 @@ IBM Cloud SQL Query
         authentication.md
         secrets.md
         keyprotect.md
+    hive-metastore.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
