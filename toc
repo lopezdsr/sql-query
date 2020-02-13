@@ -8,7 +8,7 @@ IBM Cloud SQL Query
     sql-query.md
     getting-started.md
     whatsnew.md
-    hive-metastore.md
+    hive_metastore.md
     
     {: .topicgroup}
     Security and compliance
