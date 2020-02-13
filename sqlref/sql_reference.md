@@ -2984,13 +2984,15 @@ For further details about the clauses used in a *table sample clause*, refer to 
 A *table sample clause* is referenced by the following clause:
 * [relationPrimary](#relationPrimary)
 
-## Catalog Management Commands in a Hive Metastore ![Beta](beta.png)
+## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
 
 The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
 
 ### Create Table
+
 <h4 id="createTable">Create Table</h4>
+
 <div style="overflow-x : auto;">
 <map name="createTableImgMap">
 	<area alt="section identifier" shape="rect" coords="323,402,423,424" href="#identifier" />
@@ -2999,7 +3001,9 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 </map>
 <img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table" src="./diagrams/createTable-c745802c53098d9057dc3ffdb73d9117.svg" />
 </div>
+
 <h4 id="columnDefinition">Column Definition</h4>
+
 <div style="overflow-x : auto;">
 <map name="columnDefinitionImgMap">
 	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
@@ -3030,7 +3034,9 @@ location cos://us-south/example/custtable
 {: codeblock}
 
 ### Drop Table
+
 <h4 id="dropTable">Drop Table</h4>
+
 <div style="overflow-x : auto;">
 <map name="dropTableImgMap">
 </map>
@@ -3048,7 +3054,9 @@ DROP TABLE customer
 {: codeblock}
 
 ### Alter Table Partitions
+
 <h4 id="alterTablePartitions">Alter Table Partitions</h4>
+
 <div style="overflow-x : auto;">
 <map name="alterTablePartitionsImgMap">
 	<area alt="section COSURI" shape="rect" coords="990,60,1058,82" href="#COSURI" />
@@ -3066,7 +3074,9 @@ Use the below *RECOVER PARTITIONS* option to automatically add the available par
 ALTER TABLE customer RECOVER PARTITIONS
 ```
 {: codeblock}
+
 <h4 id="partitionSpec">Partition Specification</h4>
+
 <div style="overflow-x : auto;">
 <map name="partitionSpecImgMap">
 	<area alt="section identifier" shape="rect" coords="230,20,330,42" href="#identifier" />
@@ -3098,7 +3108,9 @@ ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/ex
 
 
 <!-- HIDE START ### Analyze Table 
+
 <h4 id="analyzeTable">Analyze Table</h4>
+
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
 
 The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
@@ -3112,7 +3124,9 @@ analyze table customer compute STATISTICS NOSCAN
 The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 ### Describe Table
+
 <h4 id="describeTable">Describe Table</h4>
+
 <div style="overflow-x : auto;">
 <map name="describeTableImgMap">
 	<area alt="section identifier" shape="rect" coords="598,30,698,52" href="#identifier" />
@@ -3129,7 +3143,9 @@ DESC TABLE  customer
 {: codeblock}
 
 ### Show Tables
+
 <h4 id="showTables">showTables</h4>
+
 <div style="overflow-x : auto;">
 <map name="showTablesImgMap">
 	<area alt="section STRING" shape="rect" coords="322,40,390,62" href="#STRING" />
@@ -3146,9 +3162,13 @@ SHOW TABLES
 {: codeblock}
 
 <!-- HIDE START ### Show Table Properties 
+
 <h4 id="showTblProperties">Show Table Properties</h4>
+
 *!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" --*
+
 <h4 id="tableProperty">Table Property</h4>
+
 *!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
 *!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
@@ -3163,7 +3183,9 @@ SHOW TBLPROPERTIES customer
 {: codeblock} HIDE END -->
 
 ### Show Partitiones
+
 <h4 id="showPartitions">Show Partitions</h4>
+
 <div style="overflow-x : auto;">
 <map name="showPartitionsImgMap">
 </map>
