@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-20"
+lastupdated: "2020-02-13"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -75,6 +75,49 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, 
 2. Below the SELECT statement, the **Target** field displays where the result will be stored. A default location is chosen if your query does not specify an `INTO` clause. You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
 3. Click the **Run** button.
 When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a standard plan instance of {{site.data.keyword.sqlquery_short}}.
+
+### Sample queries
+
+What does a typical query look like? The following sample queries give you an idea to get you started:
+
+#### Example of a table exploration query
+
+The following query selects all columns of a table and limits the result to 50 rows.
+Use it to explore a particular table.
+
+```sql
+SELECT *
+FROM cos://us-geo/sql/customers.csv STORED AS CSV
+ORDER BY CustomerID
+LIMIT 50
+```
+
+#### Example of an exact target path specification
+
+The following query writes an SQL result into an exact result path.
+Normally, SQL query always appends jobid=<jobid> to the provided target path to ensure a unique result location with each query execution.
+In the following sample query, however, this suffix is eliminated by adding JOBPREFIX NONE to the path in the INTO clause.
+Note: This overwrites all objects currently stored in the provided result path.
+
+```sql
+SELECT *
+FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET
+INTO cos://us-south/sql-7fb0b44d-2d76-4c5c-af1e-c746c84f9da1/result/employees.csv JOBPREFIX NONE
+```
+
+#### Example of a self join
+
+The following query uses a simple self join to list the employees that are located in the same city as Steven.
+
+```sql
+SELECT e1.firstname employee, e2.firstname colleague, e1.city
+FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET e1,
+     cos://us-geo/sql/employees.parquet STORED AS PARQUET e2
+WHERE e2.city = e1.city
+      AND e1.employeeid <> e2.employeeid
+      AND e1.firstname = 'Steven'
+ORDER BY e1.city , e1.firstname
+```
 
 ## Table unique resource identifier
 
