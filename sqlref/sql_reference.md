@@ -3000,7 +3000,7 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 	<area alt="section COSURI" shape="rect" coords="155,506,223,528" href="#COSURI" />
 	<area alt="section STRING" shape="rect" coords="359,506,427,528" href="#STRING" />
 </map>
-<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table" src="./diagrams/createTable-c745802c53098d9057dc3ffdb73d9117.svg" />
+<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table command" src="./diagrams/createTable-c745802c53098d9057dc3ffdb73d9117.svg" />
 </div>
 
 <h4 id="columnDefinition">columnDefinition</h4>
@@ -3011,7 +3011,7 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 	<area alt="section dataType" shape="rect" coords="170,30,254,52" href="#dataType" />
 	<area alt="section STRING" shape="rect" coords="390,30,458,52" href="#STRING" />
 </map>
-<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefintion-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
+<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefinition-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
 </div>
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
@@ -3042,7 +3042,7 @@ location cos://us-south/example/custtable
 <div style="overflow-x : auto;">
 <map name="dropTableImgMap">
 </map>
-<img style="max-width: 566px;" usemap="#dropTableImgMap" alt="syntax diagram for a drop table" src="./diagrams/dropTable-8b1eb4ecf09c740bf4289738838875e9.svg" />
+<img style="max-width: 566px;" usemap="#dropTableImgMap" alt="syntax diagram for a drop table command" src="./diagrams/dropTable-8b1eb4ecf09c740bf4289738838875e9.svg" />
 </div>
 
 Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
@@ -3068,7 +3068,7 @@ DROP TABLE customer
 	<area alt="section partitionSpec" shape="rect" coords="554,179,678,201" href="#partitionSpec" />
 	<area alt="section COSURI" shape="rect" coords="876,179,944,201" href="#COSURI" />
 </map>
-<img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions" src="./diagrams/alterTablePartitions-6261c43db22d8b8bc38322d9f903b36b.svg" />
+<img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions command" src="./diagrams/alterTablePartitions-6261c43db22d8b8bc38322d9f903b36b.svg" />
 </div>
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
@@ -3117,7 +3117,7 @@ ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/ex
 
 <h4 id="analyzeTable">Analyze Table</h4>
 
-*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
+*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
 
 The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
 
@@ -3139,7 +3139,7 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 	<area alt="section partitionSpec" shape="rect" coords="404,30,528,52" href="#partitionSpec" />
 	<area alt="section identifier" shape="rect" coords="598,30,698,52" href="#identifier" />
 </map>
-<img style="max-width: 778px;" usemap="#describeTableImgMap" alt="syntax diagram for show tables" src="./diagrams/describeTable-f2c9c78b5d7cc181fb5d9a6b62248083.svg" />
+<img style="max-width: 778px;" usemap="#describeTableImgMap" alt="syntax diagram for describe tables command" src="./diagrams/describeTable-f2c9c78b5d7cc181fb5d9a6b62248083.svg" />
 </div>
 
 Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
@@ -3159,7 +3159,7 @@ DESC TABLE  customer
 <map name="showTablesImgMap">
 	<area alt="section STRING" shape="rect" coords="322,40,390,62" href="#STRING" />
 </map>
-<img style="max-width: 450px;" usemap="#showTablesImgMap" alt="syntax diagram for show tables" src="./diagrams/showTables-8ece06742e7958194e44a9b019792742.svg" />
+<img style="max-width: 450px;" usemap="#showTablesImgMap" alt="syntax diagram for show tables command" src="./diagrams/showTables-8ece06742e7958194e44a9b019792742.svg" />
 </div>
 
 Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
@@ -3200,7 +3200,7 @@ SHOW TBLPROPERTIES customer
 <map name="showPartitionsImgMap">
 	<area alt="section partitionSpec" shape="rect" coords="412,30,536,52" href="#partitionSpec" />
 </map>
-<img style="max-width: 586px;" usemap="#showPartitionsImgMap" alt="syntax diagram for show partitiones" src="./diagrams/showPartitions-2b53d8b9381dea4fe6bfa67e234e5872.svg" />
+<img style="max-width: 586px;" usemap="#showPartitionsImgMap" alt="syntax diagram for show partitiones command" src="./diagrams/showPartitions-2b53d8b9381dea4fe6bfa67e234e5872.svg" />
 </div>
 
 List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.

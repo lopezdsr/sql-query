@@ -2556,11 +2556,11 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 
 <h4 id="createTable">createTable</h4>
 
-<!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table" layout="@break@" -->
+<!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table command" layout="@break@" -->
 
 <h4 id="columnDefinition">columnDefinition</h4>
 
-<!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefintion.svg" alt="syntax diagram for column definition" layout="@break@" -->
+<!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefinition.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
 Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
 In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
@@ -2587,7 +2587,7 @@ location cos://us-south/example/custtable
 
 <h4 id="dropTable">dropTable</h4>
 
-<!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table" layout="@break@" -->
+<!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table command" layout="@break@" -->
 
 Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
 
@@ -2604,7 +2604,7 @@ DROP TABLE customer
 
 <h4 id="alterTablePartitions">alterTablePartitions</h4>
 
-<!--include-svg src="./svgfiles/alterTablePartitions.svg" target="./diagrams/alterTablePartitions.svg" alt="syntax diagram for a alter table partitions" layout="@break@" -->
+<!--include-svg src="./svgfiles/alterTablePartitions.svg" target="./diagrams/alterTablePartitions.svg" alt="syntax diagram for a alter table partitions command" layout="@break@" -->
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
 
@@ -2646,7 +2646,7 @@ ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/ex
 
 <h4 id="analyzeTable">Analyze Table</h4>
 
-*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table " layout="@break@" --*
+*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
 
 The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
 
@@ -2663,7 +2663,7 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 <h4 id="describeTable">describeTable</h4>
 
-<!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for show tables" layout="@break@" -->
+<!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for describe tables command" layout="@break@" -->
 
 Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
 
@@ -2678,7 +2678,7 @@ DESC TABLE  customer
 
 <h4 id="showTables">showTables</h4>
 
-<!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables" layout="@break@" -->
+<!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
 
 Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
 
@@ -2714,7 +2714,7 @@ SHOW TBLPROPERTIES customer
 
 <h4 id="showPartitions">showPartitions</h4>
 
-<!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones" layout="@break@" -->
+<!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones command" layout="@break@" -->
 
 List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
 
