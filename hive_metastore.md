@@ -64,9 +64,8 @@ create table employees (
   reportsTo string,
   photoPath string
 )
-USING CSV
-OPTIONS (header='true')
-location cos://us-south/mycsv/employees
+USING PARQUET
+LOCATION cos://us-geo/sql/employees.parquet
 ```
 
 You can then proceed and query the table by name instead of specifying the {{site.data.keyword.cos_short}} URI directly in the SQL statement:
@@ -77,7 +76,7 @@ SELECT * FROM employees
 
 If registering table definitions does not work as expected, it is possibly caused by improper registration of the table using the CREATE TABLE statement. The column definition that specifies the column names and their data types in your CREATE TABLE statement must match the result of the following query:
 
-```
+```sql
 SELECT * FROM describe (<data-location> stored as <storage-format>)
 ```
 Note that the column names are case-sensitive. Incorrect column name specification results in an empty column, that is, the column seems to contain no data. To solve such a problem, reorder the columns or omit some columns.
@@ -88,47 +87,38 @@ Note that the column names are case-sensitive. Incorrect column name specificati
 You can manage a table in the catalog that consists of multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partitioning naming convention. The object names must include a folder name that has the structure `columm=value`, where `column` must be a column name that is specified in the CREATE TABLE. You can also have combined partition keys, that need to be existing in the object names as hierachies of folder names, such as `columm1=value/column2=value`. Following is an example list of object names on {{site.data.keyword.cos_short}} that is consistent with the Hive-partitioned naming convention:
 
 ```
-/employees/region=north/city=Hamburg/emp-1.csv
-/employees/region=north/city=Hamburg/emp-2.csv
-/employees/region=north/city=Kiel/emp-1.csv
-/employees/region=north/city=Rostock/emp-1.csv
-/employees/region=north/city=Rostock/emp-2.csv
-/employees/region=east/city=Berlin/emp-1.csv
-/employees/region=east/city=Berlin/emp-2.csv
-/employees/region=east/city=Berlin/emp-3.csv
-/employees/region=east/city=Leipzig/emp-1.csv
-/employees/region=south/city=Munich/emp-1.csv
-/employees/region=south/city=Munich/emp-2.csv
-/employees/region=south/city=Munich/emp-3.csv
+/customers/region=north/city=Hamburg/cust-1.csv
+/customers/region=north/city=Hamburg/cust-2.csv
+/customers/region=north/city=Kiel/cust-1.csv
+/customers/region=north/city=Rostock/cust-1.csv
+/customers/region=north/city=Rostock/cust-2.csv
+/customers/region=east/city=Berlin/cust-1.csv
+/customers/region=east/city=Berlin/cust-2.csv
+/customers/region=east/city=Berlin/cust-3.csv
+/customers/region=east/city=Leipzig/cust-1.csv
+/customers/region=south/city=Munich/cust-1.csv
+/customers/region=south/city=Munich/cust-2.csv
+/customers/region=south/city=Munich/cust-3.csv
 ```
 
 With such a list of objects, you can specify a partitioned table definition, such as in the following example:
 
 ```sql
-CREATE TABLE employees (
-  employeeID int,
-  lastName string,
-  firstName string,
-  title string,
-  titleOfCourtesy string,
-  birthDate timestamp,
-  hireDate timestamp,
+CREATE TABLE customers (
+  customerID string,
+  companyName string,
+  contactName string,
+  contactTitle string,
   address string,
-  city string,
   region string,
   postalCode string,
   country string,
-  homePhone string,
-  extension int,
-  photo string,
-  notes string,
-  reportsTo string,
-  photoPath string
+  phone string,
+  fax string
 )
 USING CSV
-OPTIONS (header='true')
-PARTITIONED BY (region, city)
-location cos://us-south/mycsv/employees
+PARTITIONED BY (country)
+LOCATION cos://us-geo/sql/customers_partitioned.csv
 ```
 
 If your data on {{site.data.keyword.cos_short}} does not adhere to this naming convention and you still want to build a partitioned table for it, one way to produce Hive-partitioned layout is to use {{site.data.keyword.sqlquery_short}} in a data preparation step and specify [PARTITION BY](https://cloud.ibm.com/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) in the INTO clause.
@@ -139,34 +129,34 @@ If a partitioned table has been defined, you always must add each partition to i
 A convenient way to add all partitions that already exist at once on {{site.data.keyword.cos_short}}, is to use the `RECOVER PARTITIONS` clause as follows:
 
 ```sql
-ALTER TABLE employees RECOVER PARTITIONS
+ALTER TABLE customers RECOVER PARTITIONS
 ```
 
-Once you added all your partitions, your partitioned table is set up to be queried. You get all the Berlin employees' first and last names, if you submit the following SELECT statement:
+Once you added all your partitions, your partitioned table is set up to be queried. You get all the German customer ids, if you submit the following SELECT statement:
 
 ```sql
-SELECT firstName, lastName FROM employees WHERE city = Berlin
+select customerID from customers where country = 'Germany'
 ```
 
-The query execution in fact only reads the three objects inside the `/employees/region=east/city=Berlin/` folder 
+The query execution in fact only reads the  objects inside the `cos://us-geo/sql/customers_partitioned.csv/country=Germany/` folder 
 because the partition definitions are used by the query optimizer to minimize the necessary read I/O accordingly.
 
 The command *SHOW TABLES* provides you with an overview of the existing tables in your instance. 
 This command provides search filters to avoid getting too many tables back.
 
 ```sql
-SHOW TABLES LIKE '*empl*'
+SHOW TABLES LIKE '*cus*'
 ```
 
 To get some more information about the definition of the table, use the command *DESCRIBE TABLE*. 
 
 ```sql
-DESCRIBE TABLE employees
+DESCRIBE TABLE customers
 ```
 
 Finally, to clean up catalog entries for unused data, call *DROP TABLE*. 
 The *DROP TABLE* command drops the definition without removing the real data on {{site.data.keyword.cos_short}}.
 
 ```sql
-DROP TABLE employees
+DROP TABLE customers
 ```
