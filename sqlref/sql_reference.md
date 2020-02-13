@@ -2992,7 +2992,7 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 ### Create Table
 {: #chapterCreateTable}
 
-<h4 id="createTable">Create Table</h4>
+<h4 id="createTable">createTable</h4>
 
 <div style="overflow-x : auto;">
 <map name="createTableImgMap">
@@ -3003,7 +3003,7 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 <img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table" src="./diagrams/createTable-c745802c53098d9057dc3ffdb73d9117.svg" />
 </div>
 
-<h4 id="columnDefinition">Column Definition</h4>
+<h4 id="columnDefinition">columnDefinition</h4>
 
 <div style="overflow-x : auto;">
 <map name="columnDefinitionImgMap">
@@ -3037,7 +3037,7 @@ location cos://us-south/example/custtable
 ### Drop Table
 {: #chapterDropTable}
 
-<h4 id="dropTable">Drop Table</h4>
+<h4 id="dropTable">dropTable</h4>
 
 <div style="overflow-x : auto;">
 <map name="dropTableImgMap">
@@ -3058,11 +3058,14 @@ DROP TABLE customer
 ### Alter Table Partitions
 {: #chapterAlterTable}
 
-<h4 id="alterTablePartitions">Alter Table Partitions</h4>
+<h4 id="alterTablePartitions">alterTablePartitions</h4>
 
 <div style="overflow-x : auto;">
 <map name="alterTablePartitionsImgMap">
+	<area alt="section partitionSpec" shape="rect" coords="722,60,846,82" href="#partitionSpec" />
 	<area alt="section COSURI" shape="rect" coords="990,60,1058,82" href="#COSURI" />
+	<area alt="section partitionSpec" shape="rect" coords="810,109,934,131" href="#partitionSpec" />
+	<area alt="section partitionSpec" shape="rect" coords="554,179,678,201" href="#partitionSpec" />
 	<area alt="section COSURI" shape="rect" coords="876,179,944,201" href="#COSURI" />
 </map>
 <img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions" src="./diagrams/alterTablePartitions-6261c43db22d8b8bc38322d9f903b36b.svg" />
@@ -3078,7 +3081,7 @@ ALTER TABLE customer RECOVER PARTITIONS
 ```
 {: codeblock}
 
-<h4 id="partitionSpec">Partition Specification</h4>
+<h4 id="partitionSpec">partitionSpecification</h4>
 
 <div style="overflow-x : auto;">
 <map name="partitionSpecImgMap">
@@ -3129,10 +3132,11 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 ### Describe Table
 {: #chapterDescribeTable}
 
-<h4 id="describeTable">Describe Table</h4>
+<h4 id="describeTable">describeTable</h4>
 
 <div style="overflow-x : auto;">
 <map name="describeTableImgMap">
+	<area alt="section partitionSpec" shape="rect" coords="404,30,528,52" href="#partitionSpec" />
 	<area alt="section identifier" shape="rect" coords="598,30,698,52" href="#identifier" />
 </map>
 <img style="max-width: 778px;" usemap="#describeTableImgMap" alt="syntax diagram for show tables" src="./diagrams/describeTable-f2c9c78b5d7cc181fb5d9a6b62248083.svg" />
@@ -3190,10 +3194,11 @@ SHOW TBLPROPERTIES customer
 ### Show Partitiones
 {: #chapterShowPartitiones}
 
-<h4 id="showPartitions">Show Partitions</h4>
+<h4 id="showPartitions">showPartitions</h4>
 
 <div style="overflow-x : auto;">
 <map name="showPartitionsImgMap">
+	<area alt="section partitionSpec" shape="rect" coords="412,30,536,52" href="#partitionSpec" />
 </map>
 <img style="max-width: 586px;" usemap="#showPartitionsImgMap" alt="syntax diagram for show partitiones" src="./diagrams/showPartitions-2b53d8b9381dea4fe6bfa67e234e5872.svg" />
 </div>

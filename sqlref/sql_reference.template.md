@@ -2554,11 +2554,11 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 ### Create Table
 {: #chapterCreateTable}
 
-<h4 id="createTable">Create Table</h4>
+<h4 id="createTable">createTable</h4>
 
 <!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table" layout="@break@" -->
 
-<h4 id="columnDefinition">Column Definition</h4>
+<h4 id="columnDefinition">columnDefinition</h4>
 
 <!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefintion.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
@@ -2585,7 +2585,7 @@ location cos://us-south/example/custtable
 ### Drop Table
 {: #chapterDropTable}
 
-<h4 id="dropTable">Drop Table</h4>
+<h4 id="dropTable">dropTable</h4>
 
 <!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table" layout="@break@" -->
 
@@ -2602,7 +2602,7 @@ DROP TABLE customer
 ### Alter Table Partitions
 {: #chapterAlterTable}
 
-<h4 id="alterTablePartitions">Alter Table Partitions</h4>
+<h4 id="alterTablePartitions">alterTablePartitions</h4>
 
 <!--include-svg src="./svgfiles/alterTablePartitions.svg" target="./diagrams/alterTablePartitions.svg" alt="syntax diagram for a alter table partitions" layout="@break@" -->
 
@@ -2616,7 +2616,7 @@ ALTER TABLE customer RECOVER PARTITIONS
 ```
 {: codeblock}
 
-<h4 id="partitionSpec">Partition Specification</h4>
+<h4 id="partitionSpec">partitionSpecification</h4>
 
 <!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
@@ -2661,7 +2661,7 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 ### Describe Table
 {: #chapterDescribeTable}
 
-<h4 id="describeTable">Describe Table</h4>
+<h4 id="describeTable">describeTable</h4>
 
 <!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for show tables" layout="@break@" -->
 
@@ -2712,7 +2712,7 @@ SHOW TBLPROPERTIES customer
 ### Show Partitiones
 {: #chapterShowPartitiones}
 
-<h4 id="showPartitions">Show Partitions</h4>
+<h4 id="showPartitions">showPartitions</h4>
 
 <!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones" layout="@break@" -->
 
