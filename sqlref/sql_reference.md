@@ -3018,19 +3018,37 @@ Create a table definition in the Hive Metastore based on the objects in the spec
 In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
 For CSV objects without a header line, you must set the option *(header='false')*.
 
-Note: Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
-
 ```sql
 -- create a definition for the table customer
-CREATE TABLE customer (
+CREATE TABLE customers (
   CUSTOMERID string,
   COMPANYNAME string,
   CONTACTNAME string,
-  CITY string
+  CITY string,
+  COUNTRY string
 )
 USING CSV
-PARTITIONED BY (CITY)
-location cos://us-south/example/custtable
+location  cos://us-geo/sql/customers.csv 
+```
+{: codeblock}
+
+Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
+
+```sql
+-- create a definition for the table customers_partitioned
+CREATE TABLE customers_partitioned (
+  CUSTOMERID string,
+  COMPANYNAME string,
+  CONTACTNAME string,
+  CITY string,
+  COUNTRY string
+)
+USING CSV
+PARTITIONED BY (COUNTRY)
+location  cos://us-geo/sql/customers_partitioned.csv  
+
+-- call alter table recover partitions
+ALTER TABLE customers_partitioned RECOVER PARTITIONS
 ```
 {: codeblock}
 
@@ -3051,7 +3069,7 @@ Note: This command does not delete any data in {{site.data.keyword.cos_short}}. 
 
 ```sql
 -- drop a definition for the table customer
-DROP TABLE customer 
+DROP TABLE customers 
 ```
 {: codeblock}
 
@@ -3077,7 +3095,7 @@ Use the below *RECOVER PARTITIONS* option to automatically add the available par
 
 ```sql 
 -- alter the table partitiones by scanning the available partitions
-ALTER TABLE customer RECOVER PARTITIONS
+ALTER TABLE customers_partitioned RECOVER PARTITIONS
 ```
 {: codeblock}
 
@@ -3096,9 +3114,9 @@ In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. *
 
 ```sql 
 -- alter the table partitions by adding a partition 
-ALTER TABLE customer ADD  PARTITION ( city = 'Berlin') LOCATION cos://us-south/example/custtable/city=Berlin
+ALTER TABLE customers_partitioned ADD IF NOT EXISTS PARTITION ( COUNTRY = 'Spain') LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
 -- alter the table partitions by dropping a partition 
-ALTER TABLE customer DROP IF EXISTS PARTITION ( city = 'London')
+ALTER TABLE customers_partitioned DROP IF EXISTS PARTITION ( COUNTRY = 'Nowhere')
 ```
 {: codeblock}
 
@@ -3108,7 +3126,7 @@ To change a partition definition, use the *SET* option.
 
 ```sql 
 -- alter the table partitions definition 
-ALTER TABLE customer PARTITION ( city = 'London') SET LOCATION cos://us-south/example/custtable/city=London
+ALTER TABLE customers_partitioned PARTITION ( COUNTRY = 'Spain') SET LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
 ```
 {: codeblock}
 
@@ -3146,7 +3164,7 @@ Return the schema (column names, data types, and comments) of a table definition
 
 ```sql
 -- returns detailed information about the customer table 
-DESC TABLE  customer
+DESCRIBE TABLE  customers_partitioned
 ```
 {: codeblock}
 
@@ -3191,8 +3209,8 @@ SHOW TBLPROPERTIES customer
 ```
 {: codeblock} HIDE END -->
 
-### Show Partitiones
-{: #chapterShowPartitiones}
+### Show Partitions
+{: #chapterShowPartitions}
 
 <h4 id="showPartitions">showPartitions</h4>
 
@@ -3207,8 +3225,8 @@ List the defined partitions of a table when a table has been created as partitio
 
 
 ```sql
--- returns all partitions for the table customer
-SHOW PARTITIONS customer PARTITION (city = 'London')
+-- returns all partitions for the table customers_partitioned
+SHOW PARTITIONS customers_partitioned
 ```
 {: codeblock}
 
