@@ -2990,6 +2990,7 @@ A *table sample clause* is referenced by the following clause:
 The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
 
 ### Create Table
+{: #chapterCreateTable}
 
 <h4 id="createTable">Create Table</h4>
 
@@ -3034,6 +3035,7 @@ location cos://us-south/example/custtable
 {: codeblock}
 
 ### Drop Table
+{: #chapterDropTable}
 
 <h4 id="dropTable">Drop Table</h4>
 
@@ -3054,6 +3056,7 @@ DROP TABLE customer
 {: codeblock}
 
 ### Alter Table Partitions
+{: #chapterAlterTable}
 
 <h4 id="alterTablePartitions">Alter Table Partitions</h4>
 
@@ -3124,6 +3127,7 @@ analyze table customer compute STATISTICS NOSCAN
 The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 ### Describe Table
+{: #chapterDescribeTable}
 
 <h4 id="describeTable">Describe Table</h4>
 
@@ -3143,6 +3147,7 @@ DESC TABLE  customer
 {: codeblock}
 
 ### Show Tables
+{: #chapterShowTables}
 
 <h4 id="showTables">showTables</h4>
 
@@ -3183,6 +3188,7 @@ SHOW TBLPROPERTIES customer
 {: codeblock} HIDE END -->
 
 ### Show Partitiones
+{: #chapterShowPartitiones}
 
 <h4 id="showPartitions">Show Partitions</h4>
 
