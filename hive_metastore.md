@@ -16,6 +16,7 @@ subcollection: sql-query
 {:pre: .pre}
 {:screen: .screen}
 {:tip: .tip}
+{:note: .note}
 
 
 # Catalog Management – Hive Metastore ![Beta](beta.png)
