@@ -8,6 +8,7 @@ IBM Cloud SQL Query
     sql-query.md
     getting-started.md
     whatsnew.md
+    hive-metastore.md
     
     {: .topicgroup}
     Security and compliance
@@ -15,7 +16,6 @@ IBM Cloud SQL Query
         authentication.md
         secrets.md
         keyprotect.md
-    hive-metastore.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
