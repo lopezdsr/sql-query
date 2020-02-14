@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-02-12"
+lastupdated: "2020-02-14"
 
 keywords: hive metastore,  performance, create table, object storage
 
@@ -29,11 +29,11 @@ Beta support for this feature was introduced in February, 2020.
 
 ## Benefits
 
-When you have data on {{site.data.keyword.cos_short}} without a corresponding table definition in the catalog, you can query it by specifying the location and format of the data using {{site.data.keyword.cos_short}} URIs directly within your SELECT statements. This way, you can explore new, changed, and unknown data because all the required metadata is dynamically discovered as part of the SQL compilation process. This inferred meta data comprises column names, data types, as well as the list of partitions and individual objects on {{site.data.keyword.cos_short}} that make up the overall table data.
+If you have data on O{{site.data.keyword.cos_short}} you want to explore, change, or discover, you can create queries with {{site.data.keyword.sqlquery_short}} using SQL syntax. To query data on {{site.data.keyword.cos_short}} without a table definition in the catalog, you need to specify the data location (the corresponding COS URI) and the data format in your SELECT statement. During query execution, all the required metadata is dynamically discovered as part of the SQL compilation process. This inferred metadata comprises column names, data types, the list of partitions, and individual objects on {{site.data.keyword.cos_short}} that together make up the overall table data.
+ 
+Once you are familiar with the data, in particular with the schema and partition structure, it imposes an unnecessary overhead and latency to infer all this information from the data with every query execution. The inference process can take up a significant amount of time, especially for text formats (for example, CSV and JSON), or when there are thousands of objects in different table partitions. In some cases it is even accountable for the largest part of the overall query execution time. 
 
-Once you are familiar with the data, in particular with the schema and partition structure, it imposes an unnecessary overhead and latency for each query to infer all this information from the data with every query execution. Especially for text formats, such as CSV and JSON, and also when you have thousands of objects in different partitions of the table, this inference process can make up a large part and sometimes the largest part of the query execution time.
-
-In addition, it is beneficial if the SQL authors do not have to understand the exact location and format of data on {{site.data.keyword.cos_short}}. Ideally, only data engineers are concerned with it. They then "publish" registered tables with table names to SQL authors to use. This way, you can easily switch a table definition from one location to another without the application or the SQL users having to change anything.
+Registering the table definition in a catalog is a huge benefit and boosts time savings for repetitive query executions. Another advantage is that the table name becomes an abstract layer and is decoupled from the data location, which is then part of the table definition. Ideally, only data engineers are familiar with the data location and they *publish* registered tables under their table names. This eases the work of SQL authors, as in order to compose a SELECT statement, the understanding of the exact location and format of data on {{site.data.keyword.cos_short}} is not required anymore. In case of data location changes, only the table definition has to be updated but the table name can remain. Such updates get simplified and the robustness of SQL statements and applications is increased. 
 
 ## Usage
 
