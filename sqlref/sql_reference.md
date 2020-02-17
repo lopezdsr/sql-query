@@ -3047,10 +3047,21 @@ USING CSV
 PARTITIONED BY (COUNTRY)
 location  cos://us-geo/sql/customers_partitioned.csv  
 
--- call alter table recover partitions
+-- alter the table partitiones by scanning the available partitions
 ALTER TABLE customers_partitioned RECOVER PARTITIONS
 ```
 {: codeblock}
+
+An alternative way to create a table definition is to use the automatic schema detection where you do not need to specify any columns.  
+
+```sql
+-- create a definition for the table shippers with automatic schema detection
+CREATE TABLE shippers  
+USING parquet
+location  cos://us-geo/sql/shippers.parquet
+```
+{: codeblock}
+
 
 ### Drop Table
 {: #chapterDropTable}

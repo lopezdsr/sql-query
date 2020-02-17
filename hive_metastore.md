@@ -79,26 +79,30 @@ If registering table definitions does not work as expected, it is possibly cause
 ```sql
 SELECT * FROM describe (<data-location> stored as <storage-format>)
 ```
-Note that the column names are case-sensitive. Incorrect column name specification results in an empty column, that is, the column seems to contain no data. To solve such a problem, reorder the columns or omit some columns.
+Note that the column names are case-sensitive. Incorrect column name specification results in an empty column, that is, the column seems to contain no data. To solve such a problem use the automatic schema detection, reorder the columns or omit some columns.
 
+Automatic schema detection will be triggert if you do not define the column list. For the above employees table example:
+
+```sql
+create table employees 
+USING PARQUET
+LOCATION cos://us-geo/sql/employees.parquet
+```
 
 ## Partitioned Tables
 
 You can manage a table in the catalog that consists of multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partitioning naming convention. The object names must include a folder name that has the structure `columm=value`, where `column` must be a column name that is specified in the CREATE TABLE. You can also have combined partition keys, that need to be existing in the object names as hierachies of folder names, such as `columm1=value/column2=value`. Following is an example list of object names on {{site.data.keyword.cos_short}} that is consistent with the Hive-partitioned naming convention:
 
 ```
-/customers/region=north/city=Hamburg/cust-1.csv
-/customers/region=north/city=Hamburg/cust-2.csv
-/customers/region=north/city=Kiel/cust-1.csv
-/customers/region=north/city=Rostock/cust-1.csv
-/customers/region=north/city=Rostock/cust-2.csv
-/customers/region=east/city=Berlin/cust-1.csv
-/customers/region=east/city=Berlin/cust-2.csv
-/customers/region=east/city=Berlin/cust-3.csv
-/customers/region=east/city=Leipzig/cust-1.csv
-/customers/region=south/city=Munich/cust-1.csv
-/customers/region=south/city=Munich/cust-2.csv
-/customers/region=south/city=Munich/cust-3.csv
+/customers/country=Germany/cust-1.csv
+/customers/country=Germany/cust-2.csv
+/customers/country=Spain/cust-1.csv
+/customers/country=Austria/cust-1.csv
+/customers/country=Austria/cust-2.csv
+/customers/country=USA/cust-1.csv
+/customers/country=USA/cust-2.csv
+/customers/country=USA/cust-3.csv
+/customers/country=Sweden/cust-1.csv
 ```
 
 With such a list of objects, you can specify a partitioned table definition, such as in the following example:
@@ -132,7 +136,7 @@ A convenient way to add all partitions that already exist at once on {{site.data
 ALTER TABLE customers RECOVER PARTITIONS
 ```
 
-Once you added all your partitions, your partitioned table is set up to be queried. You get all the German customer ids, if you submit the following SELECT statement:
+Once you added all your partitions, your partitioned table is set up to be queried. You get all the German customers, if you submit the following SELECT statement:
 
 ```sql
 select customerID from customers where country = 'Germany'
