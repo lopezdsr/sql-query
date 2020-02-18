@@ -25,7 +25,7 @@ subcollection: sql-query
 Beta support for this feature was introduced in February, 2020.
 {: note}
 
-{{site.data.keyword.sqlquery_full}} includes a full database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. Each instance of {{site.data.keyword.sqlquery_short}} has its own database catalog namespace. In a fresh instance, this catalog is empty, and it is up to you to register table definitions in there.
+{{site.data.keyword.sqlquery_full}} includes a full database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. See below how to register and work with your tables.
 
 ## Benefits
 
