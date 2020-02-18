@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-12"
+lastupdated: "2020-02-18"
 
 ---
 
@@ -19,7 +19,7 @@ lastupdated: "2020-02-12"
 
 {{site.data.keyword.sqlquery_full}} allows you to analyze and transform open data with SQL. It supports the various types of SELECT statements from the ANSI SQL standard.
 
-The select statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
+The SELECT statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
 Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location in both, 
