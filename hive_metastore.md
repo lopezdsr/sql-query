@@ -66,7 +66,7 @@ You can then query the table by name instead of specifying the {{site.data.keywo
 SELECT * FROM employees LIMIT 10
 ```
 
-If you want to use more specific data types than those inferred by automatic schema detection, you can also specify the tabe schema explicitly:
+If you want to use more specific data types than those inferred by automatic schema detection, you can also specify the table schema explicitly:
 
 ```sql
 CREATE TABLE employees (
