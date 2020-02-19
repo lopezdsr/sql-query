@@ -119,9 +119,9 @@ DROP TABLE customers
 ## Partitioned tables
 {: #partitioned}
 
-You can manage a table in the catalog that references data organized in multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partitioning naming convention: The object names must include the structure `/columm=value/`. The `column` must be a column name that is included in the schema definition of the `CREATE TABLE` statement. You can also have more than one partitioning columns in the object names, such as `/columm1=value/column2=value/`.
+You can manage a table in the catalog that references data organized in multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partition naming convention: The object names must include the structure `/columm=value/`. The `column` must be a column name that is included in the schema definition of the `CREATE TABLE` statement. You can also have more than one partitioning columns in the object names, such as `/columm1=value/column2=value/`.
 
-Following is an example list of object names on {{site.data.keyword.cos_short}} that is partitioned on the `country` column following the Hive-style partitioning naming convention:
+Following is an example list of object names on {{site.data.keyword.cos_short}} that is partitioned on the `country` column following the Hive-style partition naming convention:
 
 ```
 customers_partitioned.csv/country=Germany/cust-1.csv
