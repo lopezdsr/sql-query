@@ -4,7 +4,7 @@ copyright:
   year:  2020
 lastupdated: "2020-02-18"
 
-keywords: hive metastore,  performance, create table, object storage
+keywords: hive, metastore, catalog, performance, create table, object storage
 
 subcollection: sql-query
 
@@ -25,26 +25,48 @@ subcollection: sql-query
 Beta support for this feature was introduced in February, 2020.
 {: note}
 
-{{site.data.keyword.sqlquery_full}} includes a full database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. See below how to register and work with your tables.
+Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. See below how to work with the catalog.
 
 ## Benefits
 
 If you have data on [Cloud Object Storage](/docs/services/cloud-object-storage/getting-started.html#getting-started-console) you want to explore, change, or discover, you can create queries with {{site.data.keyword.sqlquery_short}} using SQL syntax. To query data on {{site.data.keyword.cos_short}} without a table definition in the catalog, you need to specify the data location (the corresponding COS URI) and the data format in your SELECT statement. During query execution, all the required metadata is dynamically discovered as part of the SQL compilation process. This inferred metadata comprises column names, data types, the list of partitions, and individual objects on {{site.data.keyword.cos_short}} that together make up the overall table data.
  
-Once you are familiar with the data, in particular with the schema and partition structure, it imposes an unnecessary overhead and latency to infer all this information from the data with every query execution. The inference process can take up a significant amount of time, especially for text formats (for example, CSV and JSON), or when there are thousands of objects in different table partitions. In some cases it is even accountable for the largest part of the overall query execution time. 
+Inferring all this information with every query execution imposes overhead and latency. The inference process can take up a significant amount of time, especially for text formats (for example, CSV and JSON), or when there are thousands of objects in different table partitions. In some cases it even accounts for the largest part of the overall query execution time. Once you are familiar with the data, in particular with the schema and partition structure, you can choose a tablename to register that metadata in the catalog, improving performance for repeated query executions.
 
-Registering the table definition in a catalog is a huge benefit and boosts time savings for repetitive query executions. Another adavantage is that the table name is an abstract layer and is decoupled from the data location, which is now part of the table definition. Ideally, only data engineers deal with the data location and they *publish* registered tables under their table names. This eases the work of SQL authors, as in order to compose a SELECT statement, the understanding of the exact location and format of data on {{site.data.keyword.cos_short}} is not required anymore. In case of data location changes, only the table definition has to be updated but the table name can remain. Such updates get simplified and the robustness of SQL statements and applications is increased. 
+Another adavantage is that the table name forms a reference that is decoupled from the data location. This allows to separate the tasks of data engineers and SQL authors: Data engineers deal with the data location and *publish* registered tables in the catalog using descriptive table names. This allows SQL authors to compose queries without having to know the exact location and format of data on {{site.data.keyword.cos_short}}. If the data location changes, only the table definition has to be updated but the table name remains unchanged.  Updates of the physical data structure get simplified and the robustness of SQL statements and applications is increased.
 
 ## Usage
 
-The database catalog in {{site.data.keyword.sqlquery_short}} is a Hive Metastore. You manage the catalog content via Database Definition Language (DDL) commands that you can submit just like any other SQL query statement.
+You manage the database catalog in {{site.data.keyword.sqlquery_short}} via Database Definition Language (DDL) statements that you submit just like any other SQL query statement.
 
-Note: No data is written to {{site.data.keyword.cos_short}} when you create or change table definitions, and no data is deleted from {{site.data.keyword.cos_short}} when you drop a table definition.
+The catalog is stored independently of {{site.data.keyword.cos_short}}: No data is written to {{site.data.keyword.cos_short}} when you create or change table definitions, and no data is deleted from {{site.data.keyword.cos_short}} when you drop a table definition.
 
-To register a new table in the catalog, call the *CREATE TABLE* command, as in the following example:
+To register a new table in the catalog, use the `CREATE TABLE` statement, as in the following example:
 
 ```sql
-create table employees (
+CREATE TABLE employees
+USING PARQUET
+LOCATION cos://us-geo/sql/employees.parquet
+```
+
+This will automatically detect the schema of the data at the given location. Use the `DESCRIBE TABLE` statement to verify the detected table schema:
+
+```sql
+DESCRIBE TABLE employees
+```
+
+If the `DESCRIBE TABLE` output shows partition information, you need to execute an `ALTER TABLE ... RECOVER PARTITIONS` statement to attach the partitions. See the section on partitioned tables below for more information.
+
+You can then query the table by name instead of specifying the {{site.data.keyword.cos_short}} URI directly in the SQL statement:
+
+```sql
+SELECT * FROM employees LIMIT 10
+```
+
+If you want to use more specific data types than those inferred by automatic schema detection, you can also specify the tabe schema explicitly:
+
+```sql
+CREATE TABLE employees (
   employeeID int,
   lastName string,
   firstName string,
@@ -68,44 +90,52 @@ USING PARQUET
 LOCATION cos://us-geo/sql/employees.parquet
 ```
 
-You can then proceed and query the table by name instead of specifying the {{site.data.keyword.cos_short}} URI directly in the SQL statement:
-
-```sql
-SELECT * FROM employees
-```
-
-If registering table definitions does not work as expected, it is possibly caused by improper registration of the table using the CREATE TABLE statement. The column definition that specifies the column names and their data types in your CREATE TABLE statement must match the result of the following query:
+If accessing the table in a SELECT statement does not work as expected, it is possibly caused by improper specification of the table schema in the `CREATE TABLE` statement. The column names and their data types in your CREATE TABLE statement must match the result of the following query:
 
 ```sql
 SELECT * FROM describe (<data-location> stored as <storage-format>)
 ```
+
 Note that the column names are case-sensitive. Incorrect column name specification results in an empty column, that is, the column seems to contain no data. To solve such a problem use the automatic schema detection, reorder the columns or omit some columns.
 
-Automatic schema detection will be triggert if you do not define the column list. For the above employees table example:
+The `SHOW TABLES` statement provides you with an overview of the existing tables in your instance.
+This statement allows an optional search filter to limit the number of results.
 
 ```sql
-create table employees 
-USING PARQUET
-LOCATION cos://us-geo/sql/employees.parquet
+SHOW TABLES LIKE '*cus*'
 ```
+
+To clean up catalog entries for unused data, use the `DROP TABLE` statement.
+This statement removes the table definition from the catalog without affecting the actual data on {{site.data.keyword.cos_short}}.
+
+```sql
+DROP TABLE customers
+```
+
 
 ## Partitioned Tables
 
-You can manage a table in the catalog that consists of multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partitioning naming convention. The object names must include a folder name that has the structure `columm=value`, where `column` must be a column name that is specified in the CREATE TABLE. You can also have combined partition keys, that need to be existing in the object names as hierachies of folder names, such as `columm1=value/column2=value`. Following is an example list of object names on {{site.data.keyword.cos_short}} that is consistent with the Hive-partitioned naming convention:
+You can manage a table in the catalog which references data organized in multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partition naming convention: The object names must include the structure `/columm=value/`. The `column` must be a column name that is included in the schema definition of the `CREATE TABLE` statement. You can also have more than one partitioning column in the object names like `/columm1=value/column2=value/`.
+
+Following is an example list of object names on {{site.data.keyword.cos_short}} that is partitioned on the `country` column following the Hive-style partition naming convention:
 
 ```
-/customers/country=Germany/cust-1.csv
-/customers/country=Germany/cust-2.csv
-/customers/country=Spain/cust-1.csv
-/customers/country=Austria/cust-1.csv
-/customers/country=Austria/cust-2.csv
-/customers/country=USA/cust-1.csv
-/customers/country=USA/cust-2.csv
-/customers/country=USA/cust-3.csv
-/customers/country=Sweden/cust-1.csv
+customers_partitioned.csv/country=Germany/cust-1.csv
+customers_partitioned.csv/country=Germany/cust-2.csv
+customers_partitioned.csv/country=Spain/cust-1.csv
+customers_partitioned.csv/country=Austria/cust-1.csv
+customers_partitioned.csv/country=Austria/cust-2.csv
+customers_partitioned.csv/country=USA/cust-1.csv
+customers_partitioned.csv/country=USA/cust-2.csv
+customers_partitioned.csv/country=USA/cust-3.csv
+customers_partitioned.csv/country=Sweden/cust-1.csv
 ```
 
-With such a list of objects, you can specify a partitioned table definition, such as in the following example:
+In order to query partitioned tables, you must perform two mandatory steps:
+
+### Step 1: Register the Table
+
+This data partiitoning is reflected in the PARTITIONED BY clause of the following CREATE TABLE statement:
 
 ```sql
 CREATE TABLE customers (
@@ -125,42 +155,37 @@ PARTITIONED BY (country)
 LOCATION cos://us-geo/sql/customers_partitioned.csv
 ```
 
-If your data on {{site.data.keyword.cos_short}} does not adhere to this naming convention and you still want to build a partitioned table for it, one way to produce Hive-partitioned layout is to use {{site.data.keyword.sqlquery_short}} in a data preparation step and specify [PARTITION BY](https://cloud.ibm.com/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) in the INTO clause.
+Automatic schema detection will also recognize paritioned tables from the structure of the object names, so the same table definition is created from the following statement:
 
-If a partitioned table has been defined, you always must add each partition to it explicitly. You can do this one by one by running the
-`ALTER TABLE` with the `ADD PARTITION` clause for a new partition.
+```sql
+CREATE TABLE customers
+USING CSV
+LOCATION cos://us-geo/sql/customers_partitioned.csv
+```
 
-A convenient way to add all partitions that already exist at once on {{site.data.keyword.cos_short}}, is to use the `RECOVER PARTITIONS` clause as follows:
+If your data on {{site.data.keyword.cos_short}} does not adhere to this naming convention, you can convert it to a Hive-partitioned layout by using {{site.data.keyword.sqlquery_short}} in a data preparation step: Use `SELECT *` to copy the data to a new location and specify [PARTITION BY](https://cloud.ibm.com/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) in the INTO clause:
+
+```sql
+SELECT * FROM cos://us-geo/sql/customers.csv
+INTO cos://us-geo/mybucket/customers_partitioned.csv
+PARTITIONED BY (country)
+```
+
+### Step 2: Attach Table Partitions
+
+After you have defined a partitioned table, it is initially empty and you must attach the partitions to it explicitly.
+A convenient way to add all partitions that already exist on {{site.data.keyword.cos_short}}, is to use the `RECOVER PARTITIONS` clause as follows:
 
 ```sql
 ALTER TABLE customers RECOVER PARTITIONS
 ```
 
-Once you added all your partitions, your partitioned table is set up to be queried. You get all the German customers, if you submit the following SELECT statement:
+This will overwrite the current partition definitions for the table with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table. You can also update partition definitions selectively with the `ADD PARTITION` and `DROP PARTITION` clauses of the `ALTER TABLE` statement, e.g. to attach additional data to a table that has been uploaded recently.
+
+Once you have added all partitions, the partitioned table is set up to be queried. You get all the German customers, if you submit the following query:
 
 ```sql
-select customerID from customers where country = 'Germany'
+SELECT customerID FROM customers WHERE country = 'Germany'
 ```
 
-The query execution in fact only reads the  objects inside the `cos://us-geo/sql/customers_partitioned.csv/country=Germany/` folder 
-because the partition definitions are used by the query optimizer to minimize the necessary read I/O accordingly.
-
-The command *SHOW TABLES* provides you with an overview of the existing tables in your instance. 
-This command provides search filters to avoid getting too many tables back.
-
-```sql
-SHOW TABLES LIKE '*cus*'
-```
-
-To get some more information about the definition of the table, use the command *DESCRIBE TABLE*. 
-
-```sql
-DESCRIBE TABLE customers
-```
-
-Finally, to clean up catalog entries for unused data, call *DROP TABLE*. 
-The *DROP TABLE* command drops the definition without removing the real data on {{site.data.keyword.cos_short}}.
-
-```sql
-DROP TABLE customers
-```
+The query execution only reads the objects under the `cos://us-geo/sql/customers_partitioned.csv/country=Germany/` prefix because the partition definitions are used by the query optimizer to minimize the necessary data transfer.
