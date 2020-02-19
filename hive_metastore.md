@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-02-18"
+lastupdated: "2020-02-19"
 
 keywords: hive, metastore, catalog, performance, create table, object storage
 
@@ -19,26 +19,27 @@ subcollection: sql-query
 {:note: .note}
 
 
-# Catalog Management ![Beta](beta.png)
+# Catalog management ![Beta](beta.png)
 {: #hivemetastore}
 
 Beta support for this feature was introduced in February, 2020.
 {: note}
 
-Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. See below how to work with the catalog.
+Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. See below how to [work with the catalog](#usage).
 
 ## Benefits
+{: #benefits}
 
-If you have data on [Cloud Object Storage](/docs/services/cloud-object-storage/getting-started.html#getting-started-console) you want to explore, change, or discover, you can create queries with {{site.data.keyword.sqlquery_short}} using SQL syntax. To query data on {{site.data.keyword.cos_short}} without a table definition in the catalog, you need to specify the data location (the corresponding COS URI) and the data format in your SELECT statement. During query execution, all the required metadata is dynamically discovered as part of the SQL compilation process. This inferred metadata comprises column names, data types, the list of partitions, and individual objects on {{site.data.keyword.cos_short}} that together make up the overall table data.
+If you have data on [Cloud Object Storage](/docs/services/cloud-object-storage/getting-started.html#getting-started-console) that you want to explore, change, or discover, you can create queries with {{site.data.keyword.sqlquery_short}} using SQL syntax. To query data on {{site.data.keyword.cos_short}} without a table definition in the catalog, you need to specify the data location (the corresponding COS URI) and the data format in your SELECT statement. During query execution, all the required metadata is dynamically discovered as part of the SQL compilation process. This inferred metadata comprises column names, data types, the list of partitions, and individual objects on {{site.data.keyword.cos_short}} that together make up the overall table data.
  
-Inferring all this information with every query execution imposes overhead and latency. The inference process can take up a significant amount of time, especially for text formats (for example, CSV and JSON), or when there are thousands of objects in different table partitions. In some cases it even accounts for the largest part of the overall query execution time. Once you are familiar with the data, in particular with the schema and partition structure, you can choose a tablename to register that metadata in the catalog, improving performance for repeated query executions.
+Inferring all this information with every query execution imposes overhead and latency. The inference process can take up a significant amount of time, especially for text formats (for example, CSV and JSON), or when there are thousands of objects in different table partitions. In some cases, the inference process even accounts for the largest part of the overall query execution time. Once you are familiar with the data, in particular with the schema and partition structure, you can choose a table name to register that metadata in the catalog, improving performance for repeated query executions.
 
-Another adavantage is that the table name forms a reference that is decoupled from the data location. This allows to separate the tasks of data engineers and SQL authors: Data engineers deal with the data location and *publish* registered tables in the catalog using descriptive table names. This allows SQL authors to compose queries without having to know the exact location and format of data on {{site.data.keyword.cos_short}}. If the data location changes, only the table definition has to be updated but the table name remains unchanged.  Updates of the physical data structure get simplified and the robustness of SQL statements and applications is increased.
+Another adavantage is that the table name forms a reference that is decoupled from the data location. This allows to separate the tasks of data engineers and SQL authors. Data engineers deal with the data location and *publish* registered tables in the catalog using descriptive table names. This allows SQL authors to compose queries without having to know the exact location and format of data on {{site.data.keyword.cos_short}}. If the data location changes, only the table definition has to be updated but the table name remains unchanged. Updates of the physical data structure are simplified and the robustness of SQL statements and applications is increased.
 
 ## Usage
+{: #usage}
 
 You manage the database catalog in {{site.data.keyword.sqlquery_short}} via Database Definition Language (DDL) statements that you submit just like any other SQL query statement.
-
 The catalog is stored independently of {{site.data.keyword.cos_short}}: No data is written to {{site.data.keyword.cos_short}} when you create or change table definitions, and no data is deleted from {{site.data.keyword.cos_short}} when you drop a table definition.
 
 To register a new table in the catalog, use the `CREATE TABLE` statement, as in the following example:
@@ -49,13 +50,15 @@ USING PARQUET
 LOCATION cos://us-geo/sql/employees.parquet
 ```
 
-This will automatically detect the schema of the data at the given location. Use the `DESCRIBE TABLE` statement to verify the detected table schema:
+The query automatically detects the schema of the data at the given location. 
+
+Use the `DESCRIBE TABLE` statement to verify the detected table schema:
 
 ```sql
 DESCRIBE TABLE employees
 ```
 
-If the `DESCRIBE TABLE` output shows partition information, you need to execute an `ALTER TABLE ... RECOVER PARTITIONS` statement to attach the partitions. See the section on partitioned tables below for more information.
+If the `DESCRIBE TABLE` output shows partition information, you must execute an `ALTER TABLE ... RECOVER PARTITIONS` statement to attach the partitions. See the section on [partitioned tables](#partitioned) below for more information.
 
 You can then query the table by name instead of specifying the {{site.data.keyword.cos_short}} URI directly in the SQL statement:
 
@@ -96,28 +99,29 @@ If accessing the table in a SELECT statement does not work as expected, it is po
 SELECT * FROM describe (<data-location> stored as <storage-format>)
 ```
 
-Note that the column names are case-sensitive. Incorrect column name specification results in an empty column, that is, the column seems to contain no data. To solve such a problem use the automatic schema detection, reorder the columns or omit some columns.
+Note that column names are case-sensitive. Incorrect column name specification results in an empty column, that is, the column seems to contain no data. To solve such a problem, use the automatic schema detection, reorder the columns, or omit some columns.
 
 The `SHOW TABLES` statement provides you with an overview of the existing tables in your instance.
-This statement allows an optional search filter to limit the number of results.
+This statement allows an optional search filter to limit the number of results:
 
 ```sql
 SHOW TABLES LIKE '*cus*'
 ```
 
 To clean up catalog entries for unused data, use the `DROP TABLE` statement.
-This statement removes the table definition from the catalog without affecting the actual data on {{site.data.keyword.cos_short}}.
+This statement removes the table definition from the catalog without affecting the actual data on {{site.data.keyword.cos_short}}:
 
 ```sql
 DROP TABLE customers
 ```
 
 
-## Partitioned Tables
+## Partitioned tables
+{: #partitioned}
 
-You can manage a table in the catalog which references data organized in multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partition naming convention: The object names must include the structure `/columm=value/`. The `column` must be a column name that is included in the schema definition of the `CREATE TABLE` statement. You can also have more than one partitioning column in the object names like `/columm1=value/column2=value/`.
+You can manage a table in the catalog that references data organized in multiple partitions on {{site.data.keyword.cos_short}}. The naming of the objects must adhere to the Hive-style partitioning naming convention: The object names must include the structure `/columm=value/`. The `column` must be a column name that is included in the schema definition of the `CREATE TABLE` statement. You can also have more than one partitioning columns in the object names, such as `/columm1=value/column2=value/`.
 
-Following is an example list of object names on {{site.data.keyword.cos_short}} that is partitioned on the `country` column following the Hive-style partition naming convention:
+Following is an example list of object names on {{site.data.keyword.cos_short}} that is partitioned on the `country` column following the Hive-style partitioning naming convention:
 
 ```
 customers_partitioned.csv/country=Germany/cust-1.csv
@@ -133,9 +137,10 @@ customers_partitioned.csv/country=Sweden/cust-1.csv
 
 In order to query partitioned tables, you must perform two mandatory steps:
 
-### Step 1: Register the Table
+### Step 1: Register the table
+{: #step1}
 
-This data partiitoning is reflected in the PARTITIONED BY clause of the following CREATE TABLE statement:
+This data partitioning is reflected in the PARTITIONED BY clause of the following CREATE TABLE statement:
 
 ```sql
 CREATE TABLE customers (
@@ -155,7 +160,7 @@ PARTITIONED BY (country)
 LOCATION cos://us-geo/sql/customers_partitioned.csv
 ```
 
-Automatic schema detection will also recognize paritioned tables from the structure of the object names, so the same table definition is created from the following statement:
+Automatic schema detection also recognizes paritioned tables from the structure of the object names, so the same table definition is created from the following statement:
 
 ```sql
 CREATE TABLE customers
@@ -163,7 +168,8 @@ USING CSV
 LOCATION cos://us-geo/sql/customers_partitioned.csv
 ```
 
-If your data on {{site.data.keyword.cos_short}} does not adhere to this naming convention, you can convert it to a Hive-partitioned layout by using {{site.data.keyword.sqlquery_short}} in a data preparation step: Use `SELECT *` to copy the data to a new location and specify [PARTITION BY](https://cloud.ibm.com/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) in the INTO clause:
+If your data on {{site.data.keyword.cos_short}} does not adhere to this naming convention, you can convert it to a Hive-partitioned layout by using {{site.data.keyword.sqlquery_short}} in a data preparation step.
+Use `SELECT *` to copy the data to a new location and specify [PARTITION BY](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) in the INTO clause:
 
 ```sql
 SELECT * FROM cos://us-geo/sql/customers.csv
@@ -171,16 +177,17 @@ INTO cos://us-geo/mybucket/customers_partitioned.csv
 PARTITIONED BY (country)
 ```
 
-### Step 2: Attach Table Partitions
+### Step 2: Attach table partitions
+{: #step2}
 
-After you have defined a partitioned table, it is initially empty and you must attach the partitions to it explicitly.
+After you defined a partitioned table, it is initially empty and you must attach the partitions to it explicitly.
 A convenient way to add all partitions that already exist on {{site.data.keyword.cos_short}}, is to use the `RECOVER PARTITIONS` clause as follows:
 
 ```sql
 ALTER TABLE customers RECOVER PARTITIONS
 ```
 
-This will overwrite the current partition definitions for the table with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table. You can also update partition definitions selectively with the `ADD PARTITION` and `DROP PARTITION` clauses of the `ALTER TABLE` statement, e.g. to attach additional data to a table that has been uploaded recently.
+This overwrites the current partition definitions for the table with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table. You can also update partition definitions selectively with the `ADD PARTITION` and `DROP PARTITION` clauses of the `ALTER TABLE` statement, for example, to attach additional data to a table that has been uploaded recently.
 
 Once you have added all partitions, the partitioned table is set up to be queried. You get all the German customers, if you submit the following query:
 
