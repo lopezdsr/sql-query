@@ -2762,7 +2762,7 @@ SHOW TBLPROPERTIES customer
 
 <!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones command" layout="@break@" -->
 
-List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the `partitionSpec` option.
+List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the *partitionSpec* option.
 
 
 ```sql
