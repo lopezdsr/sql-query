@@ -63,7 +63,7 @@ The general syntax of an SQL query statement is outlined below using the `query`
 <img style="max-width: 453px;" usemap="#namedQueryImgMap" alt="syntax diagram for a named query" src="./diagrams/namedQuery-beec800aa07e29e3b789bcbfabeefedd.svg" />
 </div>
 
-<h3 id="intoClause">namedQuery</h3>
+<h3 id="intoClause">intoClause</h3>
 
 <div style="overflow-x : auto;">
 <map name="intoClauseImgMap">

@@ -50,7 +50,7 @@ The general syntax of an SQL query statement is outlined below using the `query`
 
 <!--include-svg src="./svgfiles/namedQuery.svg" target="./diagrams/namedQuery.svg" alt="syntax diagram for a named query" layout="" -->
 
-<h3 id="intoClause">namedQuery</h3>
+<h3 id="intoClause">intoClause</h3>
 
 <!--include-svg src="./svgfiles/intoClause.svg" target="./diagrams/intoClause.svg" alt="syntax diagram for an INTO clause" layout="" -->
 
