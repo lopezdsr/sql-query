@@ -644,6 +644,34 @@ A *simpleselect* is referenced by the following clause:
 
 * [fullselect](#fullselect)
 
+### Sort Item Clause
+{: #chapterSortItemClause}
+
+*Sort items* are a component of a *fullselect* or a *window specification*.
+
+<h3 id="sortItem">sortItem</h3>
+
+<!--include-svg src="./svgfiles/sortItem.svg" target="./diagrams/sortItem.svg" alt="syntax diagram for a sort item"  layout="" -->
+
+The semantics of the *sort item* components are as follows:
+* `expression`: The expression represents a *sort key*. The value of the sort key is used to order the rows of the result.
+* `ASC`: Uses the values of the sort key in ascending order. ASC is the default.
+* `DESC`: Uses the values of the sort key in descending order.
+* `NULLS`:
+    * `FIRST`: Specifies that `NULL` values appear first in the order.
+    * `LAST`: Specifies that `NULL` values appear last in the order.
+
+<h3>More Topics</h3>
+
+For further details about the clauses used in a *expression* clause, refer to the following topic:
+* [expression](#expression)
+
+<h3>Related References</h3>
+
+A *sort item clause* is referenced by the following clauses:
+* [fullselect](#fullselect)
+* [windowSpec](#windowSpec)
+
 ## Relations
 {: #chapterRelations}
 
@@ -854,7 +882,7 @@ references a single value and does not contain any join with other relations or 
 
 ```sql
 -- values statement with single column result set with 3 rows
-VALUES 1, 2 , 3
+VALUES 1, 2, 3
 ```
 {: codeblock}
 
@@ -1262,33 +1290,64 @@ The result of the example query is shown in the table below.
 
 The *join types* are specified in a [relation](#relation).
 
-### Sort Item Clause
-{: #chapterSortItemClause}
+### Sampling Table Data
+{: #chapterSamplingTableData}
 
-*Sort items* are a component of a *fullselect* or a *window specification*.
+Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
+The table sample clause defines how to retrieve a subset of rows from the underlying table (object stored on Cloud {{site.data.keyword.cos_short}}). This lets you write queries for samples of the data, for example, for the purpose of interactive data exploration, data mining, and so on.
 
-<h3 id="sortItem">sortItem</h3>
+The general syntax of a table sample clause is described by the syntax diagram below.
 
-<!--include-svg src="./svgfiles/sortItem.svg" target="./diagrams/sortItem.svg" alt="syntax diagram for a sort item"  layout="" -->
+<h3 id="sample">sample</h3>
 
-The semantics of the *sort item* components are as follows:
-* `expression`: The expression represents a *sort key*. The value of the sort key is used to order the rows of the result.
-* `ASC`: Uses the values of the sort key in ascending order. ASC is the default.
-* `DESC`: Uses the values of the sort key in descending order.
-* `NULLS`:
-    * `FIRST`: Specifies that `NULL` values appear first in the order.
-    * `LAST`: Specifies that `NULL` values appear last in the order.
+<!--include-svg src="./svgfiles/sample.svg" target="./diagrams/sample.svg" alt="syntax diagram for a sample" layout="" -->
+
+<h3 id="bucketSampleClause">bucketSampleClause</h3>
+
+<!--include-svg src="./svgfiles/bucketSampleClause.svg" target="./diagrams/bucketSampleClause.svg" alt="syntax diagram for a bucket sample clause" layout="@break@" -->
+
+Three sampling types are supported:
+
+* `TABLESAMPLE <number> PERCENT` lets you sample a certain percentage of rows from the underlying table.
+* `TABLESAMPLE <expression> ROWS` lets you sample a certain number of rows from the underlying table.
+* `TABLESAMPLE BUCKET x OUT OF y` lets you bucketize the underlying data into `y` buckets and returns rows from bucket `x`. Buckets are numbered from `1`to `y`.
+
+<h3>Examples</h3>
+
+The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}.
+Note that the object referenced is accessible from the web UI as part of the provided sample queries.
+
+```sql
+-- retrieve 10 percent of employee data
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 PERCENT)
+```
+{: codeblock}
+
+```sql
+-- retrieve 10 rows from the employee data object
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 ROWS)
+```
+{: codeblock}
+
+```sql
+-- bucketize the employee data in 10 buckets and retrieve data from 2 buckets
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (BUCKET 2 OUT OF 10)
+```
+{: codeblock}
 
 <h3>More Topics</h3>
 
-For further details about the clauses used in a *expression* clause, refer to the following topic:
-* [expression](#expression)
+For further details about the clauses used in a *table sample clause*, refer to the following topics:
+ * [expression](#expression)
+ * [identifier](#identifier)
+ * [qualifiedName](#qualifiedName)
+ * [unsignedInteger](#unsignedInteger)
+ * [unsignedNumber](#unsignedNumber)
 
 <h3>Related References</h3>
 
-A *sort item clause* is referenced by the following clauses:
-* [fullselect](#fullselect)
-* [windowSpec](#windowSpec)
+A *table sample clause* is referenced by the following clause:
+* [relationPrimary](#relationPrimary)
 
 ## SQL Functions
 {: #chapterSqlFunctions}
@@ -2489,65 +2548,6 @@ The following types of operators can be used:
 
 An *operator* is referenced by [valueExpression](#valueExpression).
 
-### Sampling Table Data
-{: #chapterSamplingTableData}
-
-Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
-The table sample clause defines how to retrieve a subset of rows from the underlying table (object stored on Cloud {{site.data.keyword.cos_short}}). This lets you write queries for samples of the data, for example, for the purpose of interactive data exploration, data mining, and so on.
-
-The general syntax of a table sample clause is described by the syntax diagram below.
-
-<h3 id="sample">sample</h3>
-
-<!--include-svg src="./svgfiles/sample.svg" target="./diagrams/sample.svg" alt="syntax diagram for a sample" layout="" -->
-
-<h3 id="bucketSampleClause">bucketSampleClause</h3>
-
-<!--include-svg src="./svgfiles/bucketSampleClause.svg" target="./diagrams/bucketSampleClause.svg" alt="syntax diagram for a bucket sample clause" layout="@break@" -->
-
-Three sampling types are supported:
-
-* `TABLESAMPLE <number> PERCENT` lets you sample a certain percentage of rows from the underlying table.
-* `TABLESAMPLE <expression> ROWS` lets you sample a certain number of rows from the underlying table.
-* `TABLESAMPLE BUCKET x OUT OF y` lets you bucketize the underlying data into `y` buckets and returns rows from bucket `x`. Buckets are numbered from `1`to `y`.
-
-<h3>Examples</h3>
-
-The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}.
-Note that the object referenced is accessible from the web UI as part of the provided sample queries.
-
-```sql
--- retrieve 10 percent of employee data
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 PERCENT)
-```
-{: codeblock}
-
-```sql
--- retrieve 10 rows from the employee data object
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 ROWS)
-```
-{: codeblock}
-
-```sql
--- bucketize the employee data in 10 buckets and retrieve data from 2 buckets
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (BUCKET 2 OUT OF 10)
-```
-{: codeblock}
-
-<h3>More Topics</h3>
-
-For further details about the clauses used in a *table sample clause*, refer to the following topics:
- * [expression](#expression)
- * [identifier](#identifier)
- * [qualifiedName](#qualifiedName)
- * [unsignedInteger](#unsignedInteger)
- * [unsignedNumber](#unsignedNumber)
-
-<h3>Related References</h3>
-
-A *table sample clause* is referenced by the following clause:
-* [relationPrimary](#relationPrimary)
-
 ## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
 
@@ -2814,6 +2814,13 @@ The following example shows how to add a column name containing a special charac
 ```sql
 SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
 ```
+
+<h3 id="tableIdentifier">Table Identifier</h3>
+
+A *table identifier* uniquely identifies a table in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
+* Digits `0-9`
+* Letters `a-z`, `A-Z`
+* Underscore `_`
 
 <h3 id="number">Number</h3>
 

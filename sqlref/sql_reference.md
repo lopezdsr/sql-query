@@ -749,6 +749,39 @@ A *simpleselect* is referenced by the following clause:
 
 * [fullselect](#fullselect)
 
+### Sort Item Clause
+{: #chapterSortItemClause}
+
+*Sort items* are a component of a *fullselect* or a *window specification*.
+
+<h3 id="sortItem">sortItem</h3>
+
+<div style="overflow-x : auto;">
+<map name="sortItemImgMap">
+	<area alt="section expression" shape="rect" coords="50,30,150,52" href="#expression" />
+</map>
+<img style="max-width: 553px;" usemap="#sortItemImgMap" alt="syntax diagram for a sort item" src="./diagrams/sortItem-fadbca33912f89cf5de1290288475982.svg" />
+</div>
+
+The semantics of the *sort item* components are as follows:
+* `expression`: The expression represents a *sort key*. The value of the sort key is used to order the rows of the result.
+* `ASC`: Uses the values of the sort key in ascending order. ASC is the default.
+* `DESC`: Uses the values of the sort key in descending order.
+* `NULLS`:
+    * `FIRST`: Specifies that `NULL` values appear first in the order.
+    * `LAST`: Specifies that `NULL` values appear last in the order.
+
+<h3>More Topics</h3>
+
+For further details about the clauses used in a *expression* clause, refer to the following topic:
+* [expression](#expression)
+
+<h3>Related References</h3>
+
+A *sort item clause* is referenced by the following clauses:
+* [fullselect](#fullselect)
+* [windowSpec](#windowSpec)
+
 ## Relations
 {: #chapterRelations}
 
@@ -1019,7 +1052,7 @@ references a single value and does not contain any join with other relations or 
 
 ```sql
 -- values statement with single column result set with 3 rows
-VALUES 1, 2 , 3
+VALUES 1, 2, 3
 ```
 {: codeblock}
 
@@ -1451,38 +1484,77 @@ The result of the example query is shown in the table below.
 
 The *join types* are specified in a [relation](#relation).
 
-### Sort Item Clause
-{: #chapterSortItemClause}
+### Sampling Table Data
+{: #chapterSamplingTableData}
 
-*Sort items* are a component of a *fullselect* or a *window specification*.
+Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
+The table sample clause defines how to retrieve a subset of rows from the underlying table (object stored on Cloud {{site.data.keyword.cos_short}}). This lets you write queries for samples of the data, for example, for the purpose of interactive data exploration, data mining, and so on.
 
-<h3 id="sortItem">sortItem</h3>
+The general syntax of a table sample clause is described by the syntax diagram below.
+
+<h3 id="sample">sample</h3>
 
 <div style="overflow-x : auto;">
-<map name="sortItemImgMap">
-	<area alt="section expression" shape="rect" coords="50,30,150,52" href="#expression" />
+<map name="sampleImgMap">
+	<area alt="section unsignedNumber" shape="rect" coords="246,20,378,42" href="#unsignedNumber" />
+	<area alt="section expression" shape="rect" coords="264,60,364,82" href="#expression" />
+	<area alt="section bucketSampleClause" shape="rect" coords="278,90,442,112" href="#bucketSampleClause" />
 </map>
-<img style="max-width: 553px;" usemap="#sortItemImgMap" alt="syntax diagram for a sort item" src="./diagrams/sortItem-fadbca33912f89cf5de1290288475982.svg" />
+<img style="max-width: 593px;" usemap="#sampleImgMap" alt="syntax diagram for a sample" src="./diagrams/sample-e92e783b9f1b4065daa9d32cc8b61ee3.svg" />
 </div>
 
-The semantics of the *sort item* components are as follows:
-* `expression`: The expression represents a *sort key*. The value of the sort key is used to order the rows of the result.
-* `ASC`: Uses the values of the sort key in ascending order. ASC is the default.
-* `DESC`: Uses the values of the sort key in descending order.
-* `NULLS`:
-    * `FIRST`: Specifies that `NULL` values appear first in the order.
-    * `LAST`: Specifies that `NULL` values appear last in the order.
+<h3 id="bucketSampleClause">bucketSampleClause</h3>
+
+<div style="overflow-x : auto;">
+<map name="bucketSampleClauseImgMap">
+	<area alt="section unsignedInteger" shape="rect" coords="138,20,278,42" href="#unsignedInteger" />
+	<area alt="section unsignedInteger" shape="rect" coords="418,20,558,42" href="#unsignedInteger" />
+</map>
+<img style="max-width: 598px;" usemap="#bucketSampleClauseImgMap" alt="syntax diagram for a bucket sample clause" src="./diagrams/bucketSampleClause-453a7c8c5c3dbf96d68b30e18628517f.svg" />
+</div>
+
+Three sampling types are supported:
+
+* `TABLESAMPLE <number> PERCENT` lets you sample a certain percentage of rows from the underlying table.
+* `TABLESAMPLE <expression> ROWS` lets you sample a certain number of rows from the underlying table.
+* `TABLESAMPLE BUCKET x OUT OF y` lets you bucketize the underlying data into `y` buckets and returns rows from bucket `x`. Buckets are numbered from `1`to `y`.
+
+<h3>Examples</h3>
+
+The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}.
+Note that the object referenced is accessible from the web UI as part of the provided sample queries.
+
+```sql
+-- retrieve 10 percent of employee data
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 PERCENT)
+```
+{: codeblock}
+
+```sql
+-- retrieve 10 rows from the employee data object
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 ROWS)
+```
+{: codeblock}
+
+```sql
+-- bucketize the employee data in 10 buckets and retrieve data from 2 buckets
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (BUCKET 2 OUT OF 10)
+```
+{: codeblock}
 
 <h3>More Topics</h3>
 
-For further details about the clauses used in a *expression* clause, refer to the following topic:
-* [expression](#expression)
+For further details about the clauses used in a *table sample clause*, refer to the following topics:
+ * [expression](#expression)
+ * [identifier](#identifier)
+ * [qualifiedName](#qualifiedName)
+ * [unsignedInteger](#unsignedInteger)
+ * [unsignedNumber](#unsignedNumber)
 
 <h3>Related References</h3>
 
-A *sort item clause* is referenced by the following clauses:
-* [fullselect](#fullselect)
-* [windowSpec](#windowSpec)
+A *table sample clause* is referenced by the following clause:
+* [relationPrimary](#relationPrimary)
 
 ## SQL Functions
 {: #chapterSqlFunctions}
@@ -2919,78 +2991,6 @@ The following types of operators can be used:
 
 An *operator* is referenced by [valueExpression](#valueExpression).
 
-### Sampling Table Data
-{: #chapterSamplingTableData}
-
-Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
-The table sample clause defines how to retrieve a subset of rows from the underlying table (object stored on Cloud {{site.data.keyword.cos_short}}). This lets you write queries for samples of the data, for example, for the purpose of interactive data exploration, data mining, and so on.
-
-The general syntax of a table sample clause is described by the syntax diagram below.
-
-<h3 id="sample">sample</h3>
-
-<div style="overflow-x : auto;">
-<map name="sampleImgMap">
-	<area alt="section unsignedNumber" shape="rect" coords="246,20,378,42" href="#unsignedNumber" />
-	<area alt="section expression" shape="rect" coords="264,60,364,82" href="#expression" />
-	<area alt="section bucketSampleClause" shape="rect" coords="278,90,442,112" href="#bucketSampleClause" />
-</map>
-<img style="max-width: 593px;" usemap="#sampleImgMap" alt="syntax diagram for a sample" src="./diagrams/sample-e92e783b9f1b4065daa9d32cc8b61ee3.svg" />
-</div>
-
-<h3 id="bucketSampleClause">bucketSampleClause</h3>
-
-<div style="overflow-x : auto;">
-<map name="bucketSampleClauseImgMap">
-	<area alt="section unsignedInteger" shape="rect" coords="138,20,278,42" href="#unsignedInteger" />
-	<area alt="section unsignedInteger" shape="rect" coords="418,20,558,42" href="#unsignedInteger" />
-</map>
-<img style="max-width: 598px;" usemap="#bucketSampleClauseImgMap" alt="syntax diagram for a bucket sample clause" src="./diagrams/bucketSampleClause-453a7c8c5c3dbf96d68b30e18628517f.svg" />
-</div>
-
-Three sampling types are supported:
-
-* `TABLESAMPLE <number> PERCENT` lets you sample a certain percentage of rows from the underlying table.
-* `TABLESAMPLE <expression> ROWS` lets you sample a certain number of rows from the underlying table.
-* `TABLESAMPLE BUCKET x OUT OF y` lets you bucketize the underlying data into `y` buckets and returns rows from bucket `x`. Buckets are numbered from `1`to `y`.
-
-<h3>Examples</h3>
-
-The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}.
-Note that the object referenced is accessible from the web UI as part of the provided sample queries.
-
-```sql
--- retrieve 10 percent of employee data
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 PERCENT)
-```
-{: codeblock}
-
-```sql
--- retrieve 10 rows from the employee data object
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 ROWS)
-```
-{: codeblock}
-
-```sql
--- bucketize the employee data in 10 buckets and retrieve data from 2 buckets
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (BUCKET 2 OUT OF 10)
-```
-{: codeblock}
-
-<h3>More Topics</h3>
-
-For further details about the clauses used in a *table sample clause*, refer to the following topics:
- * [expression](#expression)
- * [identifier](#identifier)
- * [qualifiedName](#qualifiedName)
- * [unsignedInteger](#unsignedInteger)
- * [unsignedNumber](#unsignedNumber)
-
-<h3>Related References</h3>
-
-A *table sample clause* is referenced by the following clause:
-* [relationPrimary](#relationPrimary)
-
 ## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
 
@@ -3004,6 +3004,8 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 
 <div style="overflow-x : auto;">
 <map name="createTableImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="51,104,191,126" href="#tableIdentifier" />
+	<area alt="section columnDefinition" shape="rect" coords="299,104,447,126" href="#columnDefinition" />
 	<area alt="section identifier" shape="rect" coords="323,372,423,394" href="#identifier" />
 	<area alt="section COSURI" shape="rect" coords="155,467,223,489" href="#COSURI" />
 </map>
@@ -3088,6 +3090,7 @@ location  cos://us-geo/sql/shippers.parquet
 
 <div style="overflow-x : auto;">
 <map name="dropTableImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="386,30,526,52" href="#tableIdentifier" />
 </map>
 <img style="max-width: 566px;" usemap="#dropTableImgMap" alt="syntax diagram for a drop table command" src="./diagrams/dropTable-8b1eb4ecf09c740bf4289738838875e9.svg" />
 </div>
@@ -3109,6 +3112,7 @@ DROP TABLE customers
 
 <div style="overflow-x : auto;">
 <map name="alterTablePartitionsImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="210,20,350,42" href="#tableIdentifier" />
 	<area alt="section partitionSpec" shape="rect" coords="722,60,846,82" href="#partitionSpec" />
 	<area alt="section COSURI" shape="rect" coords="990,60,1058,82" href="#COSURI" />
 	<area alt="section partitionSpec" shape="rect" coords="810,109,934,131" href="#partitionSpec" />
@@ -3183,6 +3187,7 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 
 <div style="overflow-x : auto;">
 <map name="describeTableImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="234,30,374,52" href="#tableIdentifier" />
 	<area alt="section partitionSpec" shape="rect" coords="404,30,528,52" href="#partitionSpec" />
 	<area alt="section identifier" shape="rect" coords="598,30,698,52" href="#identifier" />
 </map>
@@ -3245,6 +3250,7 @@ SHOW TBLPROPERTIES customer
 
 <div style="overflow-x : auto;">
 <map name="showPartitionsImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="242,30,382,52" href="#tableIdentifier" />
 	<area alt="section partitionSpec" shape="rect" coords="412,30,536,52" href="#partitionSpec" />
 </map>
 <img style="max-width: 586px;" usemap="#showPartitionsImgMap" alt="syntax diagram for show partitiones command" src="./diagrams/showPartitions-2b53d8b9381dea4fe6bfa67e234e5872.svg" />
@@ -3302,6 +3308,13 @@ The following example shows how to add a column name containing a special charac
 ```sql
 SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
 ```
+
+<h3 id="tableIdentifier">Table Identifier</h3>
+
+A *table identifier* uniquely identifies a table in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
+* Digits `0-9`
+* Letters `a-z`, `A-Z`
+* Underscore `_`
 
 <h3 id="number">Number</h3>
 
