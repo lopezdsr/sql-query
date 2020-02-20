@@ -50,7 +50,7 @@ USING PARQUET
 LOCATION cos://us-geo/sql/employees.parquet
 ```
 
-The query automatically detects the schema of the data at the given location. 
+The statement automatically detects the schema of the data at the given location.
 
 Use the `DESCRIBE TABLE` statement to verify the detected table schema:
 

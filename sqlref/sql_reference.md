@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-12"
+lastupdated: "2020-02-19"
 
 ---
 
@@ -19,24 +19,22 @@ lastupdated: "2020-02-12"
 
 {{site.data.keyword.sqlquery_full}} allows you to analyze and transform open data with SQL. It supports the various types of SELECT statements from the ANSI SQL standard.
 
-The select statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
+The SELECT statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
-Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location in both, 
-database tables and rectangular data ({{site.data.keyword.cos_short}} or DB2 tables), you can use it as a data transformation service.
-{{site.data.keyword.sqlquery_short}} provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
-This includes control over data location, format, layout, and partitioning.
+You can use {{site.data.keyword.sqlquery_short}} as a data transformation service, as it always writes the results of a query to a given location in either {{site.data.keyword.cos_short}} or DB2 tables.
+{{site.data.keyword.sqlquery_short}} provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically. This includes control over data location, format, layout, and partitioning.
 
 A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
 either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
-In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also catalog your data using a Hive Metastore. Within this metastore or catalog, you can manage the data in {{site.data.keyword.cos_short}} like tables, consisting of columns and partitions. 
+In addition to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also register and manage your data in a catalog as tables, consisting of columns and partitions.
 
-There are several benefits to cataloging your data: 
+There are several benefits to cataloging your data:
 
-1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored. 
-2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution. 
+1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored.
+2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
 <!-- Hide 3. With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
 
 ## Select
@@ -49,11 +47,10 @@ The general syntax of an SQL query statement is outlined below using the `query`
 <div style="overflow-x : auto;">
 <map name="queryImgMap">
 	<area alt="section namedQuery" shape="rect" coords="162,30,262,52" href="#namedQuery" />
-	<area alt="section fullselect" shape="rect" coords="322,30,422,52" href="#fullselect" />
-	<area alt="section cosResultClause" shape="rect" coords="153,134,293,156" href="#cosResultClause" />
-	<area alt="section dbResultClause" shape="rect" coords="157,164,289,186" href="#dbResultClause" />
+	<area alt="section fullselect" shape="rect" coords="51,134,151,156" href="#fullselect" />
+	<area alt="section intoClause" shape="rect" coords="181,134,281,156" href="#intoClause" />
 </map>
-<img style="max-width: 517px;" usemap="#queryImgMap" alt="syntax diagram for a query" src="./diagrams/query-9ad4317bb66b46b2ed86858b8dd87b9d.svg" />
+<img style="max-width: 397px;" usemap="#queryImgMap" alt="syntax diagram for a query" src="./diagrams/query-b3304d447c1c6a648677c061d930028f.svg" />
 </div>
 
 <h3 id="namedQuery">namedQuery</h3>
@@ -64,6 +61,16 @@ The general syntax of an SQL query statement is outlined below using the `query`
 	<area alt="section query" shape="rect" coords="294,30,354,52" href="#query" />
 </map>
 <img style="max-width: 453px;" usemap="#namedQueryImgMap" alt="syntax diagram for a named query" src="./diagrams/namedQuery-beec800aa07e29e3b789bcbfabeefedd.svg" />
+</div>
+
+<h3 id="intoClause">namedQuery</h3>
+
+<div style="overflow-x : auto;">
+<map name="intoClauseImgMap">
+	<area alt="section cosResultClause" shape="rect" coords="132,20,272,42" href="#cosResultClause" />
+	<area alt="section dbResultClause" shape="rect" coords="136,50,268,72" href="#dbResultClause" />
+</map>
+<img style="max-width: 333px;" usemap="#intoClauseImgMap" alt="syntax diagram for an INTO clause" src="./diagrams/intoClause-00b5a9276ebd0fbb555ad5830e34f698.svg" />
 </div>
 
 The query statement supports *common table expressions*. A common table expression permits defining a result table with a table name
@@ -177,10 +184,10 @@ the query result is stored in a single partition on Cloud {{site.data.keyword.co
 <div style="overflow-x : auto;">
 <map name="cosResultClauseImgMap">
 	<area alt="section COSURI" shape="rect" coords="50,30,118,52" href="#COSURI" />
-	<area alt="section partitionedClause" shape="rect" coords="361,134,517,156" href="#partitionedClause" />
-	<area alt="section sortClause" shape="rect" coords="557,134,657,156" href="#sortClause" />
+	<area alt="section partitionedClause" shape="rect" coords="377,134,533,156" href="#partitionedClause" />
+	<area alt="section sortClause" shape="rect" coords="573,134,673,156" href="#sortClause" />
 </map>
-<img style="max-width: 707px;" usemap="#cosResultClauseImgMap" alt="syntax diagram for a COS result clause" src="./diagrams/cosResultClause-da1a504521200320b114b8e1d72e2a24.svg" />
+<img style="max-width: 723px;" usemap="#cosResultClauseImgMap" alt="syntax diagram for a COS result clause" src="./diagrams/cosResultClause-a33385733356a8d18144cf014a1b520d.svg" />
 </div>
 
 <h3 id="partitionedClause">partitionedClause</h3>
@@ -278,10 +285,10 @@ this can reduce the query processing time significantly.
 <map name="dbResultClauseImgMap">
 	<area alt="section CRN_URI" shape="rect" coords="84,40,160,62" href="#CRN_URI" />
 	<area alt="section DB2_TABLE_URI" shape="rect" coords="60,70,184,92" href="#DB2_TABLE_URI" />
-	<area alt="section unsignedInteger" shape="rect" coords="454,40,594,62" href="#unsignedInteger" />
-	<area alt="section accessSecrets" shape="rect" coords="644,40,768,62" href="#accessSecrets" />
+	<area alt="section unsignedInteger" shape="rect" coords="291,153,431,175" href="#unsignedInteger" />
+	<area alt="section accessSecrets" shape="rect" coords="61,227,185,249" href="#accessSecrets" />
 </map>
-<img style="max-width: 818px;" usemap="#dbResultClauseImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/dbResultClause-1ba1c1121f626fa0c1bebf53fc3f1234.svg" />
+<img style="max-width: 546px;" usemap="#dbResultClauseImgMap" alt="syntax diagram for a Db2 result clause" src="./diagrams/dbResultClause-687859024ab59f595cc367d0e52ca2b1.svg" />
 </div>
 
 <h3 id="accessSecrets">accessSecrets</h3>
@@ -320,7 +327,7 @@ A *query* is referenced by the following clauses:
 * [primaryExpression](#primaryExpression)
 
 
-## Fullselect Clause
+### Fullselect Clause
 {: #chapterFullSelectClause}
 
 <h3 id="fullselect">fullselect</h3>
@@ -497,7 +504,7 @@ A *fullselect* is referenced by the following clauses
 * [query](#query)
 * [relationPrimary](#relationPrimary)
 
-## Simpleselect Clause
+### Simpleselect Clause
 {: #chapterSimpleSelectClause}
 
 A *simpleselect* is a component of a *fullselect*. Its syntax is defined by the syntax diagram below.
@@ -835,7 +842,7 @@ If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to 
 	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
 	<area alt="section STRING" shape="rect" coords="750,70,818,92" href="#STRING" />
 </map>
-<img style="max-width: 1073px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-dbd6fb3d78cdffdecf33e67ecd256edb.svg" />
+<img style="max-width: 1389px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-a7bb7c757c6d4d12205c60f35f5af0e5.svg" />
 </div>
 
 <h3 id="tableTransformer">tableTransformer</h3>
@@ -908,7 +915,7 @@ A *relation* is referenced by the following clause:
 
 * [simpleselect](#simpleselect)
 
-## Values Clause
+### Values Clause
 {: #chapterValuesClause}
 
 A *values clause* is a component of a *fullselect* or represents a *primary relation*. Its syntax is defined by the syntax diagram below.
@@ -1002,7 +1009,7 @@ The result of the example query is shown in the table below.
 {: caption="Table 13. Query result for example 'joining two multi column result sets using their identifier'" caption-side="top"}
 
 
-## Values Statement
+### Values Statement
 {: #chapterValuesStatement}
 
 A *values statement* is a standalone statement on its own. It can be used instead of a *fullselect* if your statement only
@@ -1477,7 +1484,7 @@ A *sort item clause* is referenced by the following clauses:
 * [fullselect](#fullselect)
 * [windowSpec](#windowSpec)
 
-### SQL Functions
+## SQL Functions
 {: #chapterSqlFunctions}
 
 The syntax for SQL function invocation is described by the syntax diagram below.
@@ -1857,7 +1864,7 @@ A *named window clause* is referenced by the following clauses:
 
 Note that the keyword `OVER` lets you define an unnamed window specification in a [functionOrAggregate](#functionOrAggregate).
 
-### SQL Expressions
+## SQL Expressions
 {: #chapterSqlExpressions}
 
 <h3>Expressions</h3>
@@ -2987,7 +2994,8 @@ A *table sample clause* is referenced by the following clause:
 ## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
 
-The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
+The following commands allow users to store table metadata catalog in the {{site.data.keyword.sqlquery_short}} catalog. Having the tables, columns, and partitions defined in the catalog allows you to use short table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own catalog, and table definitions are not visible from other instances.
+Refer to the section about [Catalog Management (/docs/services/sql-query?topic=sql-query-hivemetastore) for more details.
 
 ### Create Table
 {: #chapterCreateTable}
@@ -2996,39 +3004,44 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 
 <div style="overflow-x : auto;">
 <map name="createTableImgMap">
-	<area alt="section identifier" shape="rect" coords="323,402,423,424" href="#identifier" />
-	<area alt="section COSURI" shape="rect" coords="155,506,223,528" href="#COSURI" />
-	<area alt="section STRING" shape="rect" coords="359,506,427,528" href="#STRING" />
+	<area alt="section identifier" shape="rect" coords="323,372,423,394" href="#identifier" />
+	<area alt="section COSURI" shape="rect" coords="155,467,223,489" href="#COSURI" />
 </map>
-<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table command" src="./diagrams/createTable-c745802c53098d9057dc3ffdb73d9117.svg" />
+<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table command" src="./diagrams/createTable-4889c1a7a5bb13c8466137b678683eca.svg" />
 </div>
 
 <h4 id="columnDefinition">columnDefinition</h4>
 
 <div style="overflow-x : auto;">
 <map name="columnDefinitionImgMap">
-	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
-	<area alt="section dataType" shape="rect" coords="170,30,254,52" href="#dataType" />
-	<area alt="section STRING" shape="rect" coords="390,30,458,52" href="#STRING" />
+	<area alt="section identifier" shape="rect" coords="50,20,150,42" href="#identifier" />
+	<area alt="section dataType" shape="rect" coords="170,20,254,42" href="#dataType" />
 </map>
-<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefinition-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
+<img style="max-width: 294px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefinition-47efc1f94c49f7cc57555711ce5a1192.svg" />
 </div>
 
-Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
-In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
-For CSV objects without a header line, you must set the option *(header='false')*.
+Create a table definition in the catalogbased on the objects in the specified {{site.data.keyword.cos_short}} location. The *LOCATION* option is mandatory.
+If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the *IF NOT EXISTS* clause is specified.
+
+The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
+If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
 
 ```sql
 -- create a definition for the table customer
 CREATE TABLE customers (
-  CUSTOMERID string,
-  COMPANYNAME string,
-  CONTACTNAME string,
-  CITY string,
-  COUNTRY string
+  customerID string,
+  companyName string,
+  contactName string,
+  contactTitle string,
+  address string,
+  region string,
+  postalCode string,
+  country string,
+  phone string,
+  fax string
 )
 USING CSV
-location  cos://us-geo/sql/customers.csv 
+location  cos://us-geo/sql/customers.csv
 ```
 {: codeblock}
 
@@ -3037,26 +3050,31 @@ Before you can use a newly created *PARTITIONED* table definition, you have to c
 ```sql
 -- create a definition for the table customers_partitioned
 CREATE TABLE customers_partitioned (
-  CUSTOMERID string,
-  COMPANYNAME string,
-  CONTACTNAME string,
-  CITY string,
-  COUNTRY string
+  customerID string,
+  companyName string,
+  contactName string,
+  contactTitle string,
+  address string,
+  region string,
+  postalCode string,
+  country string,
+  phone string,
+  fax string
 )
 USING CSV
 PARTITIONED BY (COUNTRY)
-location  cos://us-geo/sql/customers_partitioned.csv  
+location  cos://us-geo/sql/customers_partitioned.csv
 
--- alter the table partitiones by scanning the available partitions
+-- attach table partitions by scanning the location of the table
 ALTER TABLE customers_partitioned RECOVER PARTITIONS
 ```
 {: codeblock}
 
-An alternative way to create a table definition is to use the automatic schema detection where you do not need to specify any columns.  
+An alternative way to create a table definition is to use the automatic schema detection where you do not need to specify any columns.
 
 ```sql
 -- create a definition for the table shippers with automatic schema detection
-CREATE TABLE shippers  
+CREATE TABLE shippers
 USING parquet
 location  cos://us-geo/sql/shippers.parquet
 ```
@@ -3074,13 +3092,13 @@ location  cos://us-geo/sql/shippers.parquet
 <img style="max-width: 566px;" usemap="#dropTableImgMap" alt="syntax diagram for a drop table command" src="./diagrams/dropTable-8b1eb4ecf09c740bf4289738838875e9.svg" />
 </div>
 
-Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
+Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the *IF EXISTS* options is specified.
 
-Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only affects the table definition meta data.
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
 
 ```sql
 -- drop a definition for the table customer
-DROP TABLE customers 
+DROP TABLE customers
 ```
 {: codeblock}
 
@@ -3094,18 +3112,16 @@ DROP TABLE customers
 	<area alt="section partitionSpec" shape="rect" coords="722,60,846,82" href="#partitionSpec" />
 	<area alt="section COSURI" shape="rect" coords="990,60,1058,82" href="#COSURI" />
 	<area alt="section partitionSpec" shape="rect" coords="810,109,934,131" href="#partitionSpec" />
-	<area alt="section partitionSpec" shape="rect" coords="554,179,678,201" href="#partitionSpec" />
-	<area alt="section COSURI" shape="rect" coords="876,179,944,201" href="#COSURI" />
 </map>
-<img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions command" src="./diagrams/alterTablePartitions-6261c43db22d8b8bc38322d9f903b36b.svg" />
+<img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions command" src="./diagrams/alterTablePartitions-32f13737699b1dfd261f2188b38c9ed0.svg" />
 </div>
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
 
-Use the below *RECOVER PARTITIONS* option to automatically add the available partitions for a table.
+Use the below *RECOVER PARTITIONS* option to automatically replace the table partition metadata with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table.
 
-```sql 
--- alter the table partitiones by scanning the available partitions
+```sql
+-- replace the table partitions by scanning the location of the table
 ALTER TABLE customers_partitioned RECOVER PARTITIONS
 ```
 {: codeblock}
@@ -3123,34 +3139,36 @@ ALTER TABLE customers_partitioned RECOVER PARTITIONS
 
 In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. *ALTER TABLE* does not validate the specified location.
 
-```sql 
--- alter the table partitions by adding a partition 
+```sql
+-- alter the table partitions by adding a partition
 ALTER TABLE customers_partitioned ADD IF NOT EXISTS PARTITION ( COUNTRY = 'Spain') LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
--- alter the table partitions by dropping a partition 
+-- alter the table partitions by dropping a partition
 ALTER TABLE customers_partitioned DROP IF EXISTS PARTITION ( COUNTRY = 'Nowhere')
 ```
 {: codeblock}
 
 Use the *EXISTS* options to avoid getting errors during *ADD* or *DROP*.
 
+<!-- HIDE START ### Set partition location
+
 To change a partition definition, use the *SET* option.
 
-```sql 
--- alter the table partitions definition 
+```sql
+-- alter the table partitions definition
 ALTER TABLE customers_partitioned PARTITION ( COUNTRY = 'Spain') SET LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
 ```
 {: codeblock}
+HIDE END -->
 
-
-<!-- HIDE START ### Analyze Table 
+<!-- HIDE START ### Analyze Table
 
 <h4 id="analyzeTable">Analyze Table</h4>
 
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
 
-The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
+The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
 
-```sql 
+```sql
 -- analyze statistics for the table customer without scanning each object
 analyze table customer compute STATISTICS NOSCAN
 ```
@@ -3174,7 +3192,7 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
 
 ```sql
--- returns detailed information about the customer table 
+-- returns detailed information about the customer table
 DESCRIBE TABLE  customers_partitioned
 ```
 {: codeblock}
@@ -3191,15 +3209,15 @@ DESCRIBE TABLE  customers_partitioned
 <img style="max-width: 450px;" usemap="#showTablesImgMap" alt="syntax diagram for show tables command" src="./diagrams/showTables-8ece06742e7958194e44a9b019792742.svg" />
 </div>
 
-Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables in the catalog. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
 
 ```sql
--- returns all defined tables in the hive metastore for this instance
+-- returns all defined tables in the catalogfor this instance
 SHOW TABLES
 ```
 {: codeblock}
 
-<!-- HIDE START ### Show Table Properties 
+<!-- HIDE START ### Show Table Properties
 
 <h4 id="showTblProperties">Show Table Properties</h4>
 
@@ -3232,7 +3250,7 @@ SHOW TBLPROPERTIES customer
 <img style="max-width: 586px;" usemap="#showPartitionsImgMap" alt="syntax diagram for show partitiones command" src="./diagrams/showPartitions-2b53d8b9381dea4fe6bfa67e234e5872.svg" />
 </div>
 
-List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
+List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the *partitionSpec* option.
 
 
 ```sql

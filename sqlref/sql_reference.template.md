@@ -22,19 +22,19 @@ lastupdated: "2020-02-19"
 The SELECT statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
-You can use {{site.data.keyword.sqlquery_short}} as a data transformation service, as it always writes the results of a query to a given location in either {{site.data.keyword.cos_short}} or DB2 tables. 
+You can use {{site.data.keyword.sqlquery_short}} as a data transformation service, as it always writes the results of a query to a given location in either {{site.data.keyword.cos_short}} or DB2 tables.
 {{site.data.keyword.sqlquery_short}} provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically. This includes control over data location, format, layout, and partitioning.
 
 A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
 either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
-In contrast to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also catalog your data using a Hive Metastore. Within this metastore or catalog, you can manage the data in {{site.data.keyword.cos_short}} like tables, consisting of columns and partitions. 
+In addition to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also register and manage your data in a catalog as tables, consisting of columns and partitions.
 
-There are several benefits to cataloging your data: 
+There are several benefits to cataloging your data:
 
-1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored. 
-2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution. 
+1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored.
+2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
 <!-- Hide 3. With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
 
 ## Select
@@ -49,6 +49,10 @@ The general syntax of an SQL query statement is outlined below using the `query`
 <h3 id="namedQuery">namedQuery</h3>
 
 <!--include-svg src="./svgfiles/namedQuery.svg" target="./diagrams/namedQuery.svg" alt="syntax diagram for a named query" layout="" -->
+
+<h3 id="intoClause">namedQuery</h3>
+
+<!--include-svg src="./svgfiles/intoClause.svg" target="./diagrams/intoClause.svg" alt="syntax diagram for an INTO clause" layout="" -->
 
 The query statement supports *common table expressions*. A common table expression permits defining a result table with a table name
 that can be specified as a table name in any FROM clause of the fullselect that follows.
@@ -268,7 +272,7 @@ A *query* is referenced by the following clauses:
 * [primaryExpression](#primaryExpression)
 
 
-## Fullselect Clause
+### Fullselect Clause
 {: #chapterFullSelectClause}
 
 <h3 id="fullselect">fullselect</h3>
@@ -428,7 +432,7 @@ A *fullselect* is referenced by the following clauses
 * [query](#query)
 * [relationPrimary](#relationPrimary)
 
-## Simpleselect Clause
+### Simpleselect Clause
 {: #chapterSimpleSelectClause}
 
 A *simpleselect* is a component of a *fullselect*. Its syntax is defined by the syntax diagram below.
@@ -755,7 +759,7 @@ A *relation* is referenced by the following clause:
 
 * [simpleselect](#simpleselect)
 
-## Values Clause
+### Values Clause
 {: #chapterValuesClause}
 
 A *values clause* is a component of a *fullselect* or represents a *primary relation*. Its syntax is defined by the syntax diagram below.
@@ -840,7 +844,7 @@ The result of the example query is shown in the table below.
 |4  |Scotty|4000    |
 <!--table-caption title="Query result for example 'joining two multi column result sets using their identifier'"-->
 
-## Values Statement
+### Values Statement
 {: #chapterValuesStatement}
 
 A *values statement* is a standalone statement on its own. It can be used instead of a *fullselect* if your statement only
@@ -1286,7 +1290,7 @@ A *sort item clause* is referenced by the following clauses:
 * [fullselect](#fullselect)
 * [windowSpec](#windowSpec)
 
-### SQL Functions
+## SQL Functions
 {: #chapterSqlFunctions}
 
 The syntax for SQL function invocation is described by the syntax diagram below.
@@ -1589,7 +1593,7 @@ A *named window clause* is referenced by the following clauses:
 
 Note that the keyword `OVER` lets you define an unnamed window specification in a [functionOrAggregate](#functionOrAggregate).
 
-### SQL Expressions
+## SQL Expressions
 {: #chapterSqlExpressions}
 
 <h3>Expressions</h3>
@@ -2547,7 +2551,8 @@ A *table sample clause* is referenced by the following clause:
 ## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
 
-The following commands allow users to catalog their metadata in a Hive Metastore provided by {{site.data.keyword.sqlquery_short}}. Having the tables, columns, and partitions defined in the catalog allows you to use simple table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own Hive Metastore. 
+The following commands allow users to store table metadata catalog in the {{site.data.keyword.sqlquery_short}} catalog. Having the tables, columns, and partitions defined in the catalog allows you to use short table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own catalog, and table definitions are not visible from other instances.
+Refer to the section about [Catalog Management (/docs/services/sql-query?topic=sql-query-hivemetastore) for more details.
 
 ### Create Table
 {: #chapterCreateTable}
@@ -2560,21 +2565,28 @@ The following commands allow users to catalog their metadata in a Hive Metastore
 
 <!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefinition.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
-Create a table definition in the Hive Metastore based on the objects in the specified {{site.data.keyword.cos_short}} location. If a table with the same name already exists in the same instance of {{site.data.keyword.sqlquery_short}}, an error is returned. 
-In case the *IF NOT EXISTS* clause is specified, the statement does not return an error. The *LOCATION* option is mandatary. Ensure that the specified column definition and the partitioning match the objects stored in {{site.data.keyword.cos_short}}. 
-For CSV objects without a header line, you must set the option *(header='false')*.
+Create a table definition in the catalogbased on the objects in the specified {{site.data.keyword.cos_short}} location. The *LOCATION* option is mandatory.
+If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the *IF NOT EXISTS* clause is specified.
+
+The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
+If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
 
 ```sql
 -- create a definition for the table customer
 CREATE TABLE customers (
-  CUSTOMERID string,
-  COMPANYNAME string,
-  CONTACTNAME string,
-  CITY string,
-  COUNTRY string
+  customerID string,
+  companyName string,
+  contactName string,
+  contactTitle string,
+  address string,
+  region string,
+  postalCode string,
+  country string,
+  phone string,
+  fax string
 )
 USING CSV
-location  cos://us-geo/sql/customers.csv 
+location  cos://us-geo/sql/customers.csv
 ```
 {: codeblock}
 
@@ -2583,26 +2595,31 @@ Before you can use a newly created *PARTITIONED* table definition, you have to c
 ```sql
 -- create a definition for the table customers_partitioned
 CREATE TABLE customers_partitioned (
-  CUSTOMERID string,
-  COMPANYNAME string,
-  CONTACTNAME string,
-  CITY string,
-  COUNTRY string
+  customerID string,
+  companyName string,
+  contactName string,
+  contactTitle string,
+  address string,
+  region string,
+  postalCode string,
+  country string,
+  phone string,
+  fax string
 )
 USING CSV
 PARTITIONED BY (COUNTRY)
-location  cos://us-geo/sql/customers_partitioned.csv  
+location  cos://us-geo/sql/customers_partitioned.csv
 
--- alter the table partitiones by scanning the available partitions
+-- attach table partitions by scanning the location of the table
 ALTER TABLE customers_partitioned RECOVER PARTITIONS
 ```
 {: codeblock}
 
-An alternative way to create a table definition is to use the automatic schema detection where you do not need to specify any columns.  
+An alternative way to create a table definition is to use the automatic schema detection where you do not need to specify any columns.
 
 ```sql
 -- create a definition for the table shippers with automatic schema detection
-CREATE TABLE shippers  
+CREATE TABLE shippers
 USING parquet
 location  cos://us-geo/sql/shippers.parquet
 ```
@@ -2616,13 +2633,13 @@ location  cos://us-geo/sql/shippers.parquet
 
 <!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table command" layout="@break@" -->
 
-Drop a table definition from the Hive Metastore. If the table does not exist, you receive an error. In case the *IF EXISTS* is specified, you do not receive an error.
+Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the *IF EXISTS* options is specified.
 
-Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only affects the table definition meta data.
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
 
 ```sql
 -- drop a definition for the table customer
-DROP TABLE customers 
+DROP TABLE customers
 ```
 {: codeblock}
 
@@ -2635,10 +2652,10 @@ DROP TABLE customers
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
 
-Use the below *RECOVER PARTITIONS* option to automatically add the available partitions for a table.
+Use the below *RECOVER PARTITIONS* option to automatically replace the table partition metadata with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table.
 
-```sql 
--- alter the table partitiones by scanning the available partitions
+```sql
+-- replace the table partitions by scanning the location of the table
 ALTER TABLE customers_partitioned RECOVER PARTITIONS
 ```
 {: codeblock}
@@ -2650,34 +2667,36 @@ ALTER TABLE customers_partitioned RECOVER PARTITIONS
 
 In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. *ALTER TABLE* does not validate the specified location.
 
-```sql 
--- alter the table partitions by adding a partition 
+```sql
+-- alter the table partitions by adding a partition
 ALTER TABLE customers_partitioned ADD IF NOT EXISTS PARTITION ( COUNTRY = 'Spain') LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
--- alter the table partitions by dropping a partition 
+-- alter the table partitions by dropping a partition
 ALTER TABLE customers_partitioned DROP IF EXISTS PARTITION ( COUNTRY = 'Nowhere')
 ```
 {: codeblock}
 
 Use the *EXISTS* options to avoid getting errors during *ADD* or *DROP*.
 
+<!-- HIDE START ### Set partition location
+
 To change a partition definition, use the *SET* option.
 
-```sql 
--- alter the table partitions definition 
+```sql
+-- alter the table partitions definition
 ALTER TABLE customers_partitioned PARTITION ( COUNTRY = 'Spain') SET LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
 ```
 {: codeblock}
+HIDE END -->
 
-
-<!-- HIDE START ### Analyze Table 
+<!-- HIDE START ### Analyze Table
 
 <h4 id="analyzeTable">Analyze Table</h4>
 
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
 
-The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements. 
+The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
 
-```sql 
+```sql
 -- analyze statistics for the table customer without scanning each object
 analyze table customer compute STATISTICS NOSCAN
 ```
@@ -2695,7 +2714,7 @@ The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
 Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
 
 ```sql
--- returns detailed information about the customer table 
+-- returns detailed information about the customer table
 DESCRIBE TABLE  customers_partitioned
 ```
 {: codeblock}
@@ -2707,15 +2726,15 @@ DESCRIBE TABLE  customers_partitioned
 
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
 
-Returns the list of the defined tables in the Hive Metastore. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables in the catalog. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
 
 ```sql
--- returns all defined tables in the hive metastore for this instance
+-- returns all defined tables in the catalogfor this instance
 SHOW TABLES
 ```
 {: codeblock}
 
-<!-- HIDE START ### Show Table Properties 
+<!-- HIDE START ### Show Table Properties
 
 <h4 id="showTblProperties">Show Table Properties</h4>
 
@@ -2743,7 +2762,7 @@ SHOW TBLPROPERTIES customer
 
 <!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones command" layout="@break@" -->
 
-List the defined partitions of a table when a table has been created as partitioned. You could filter the returned partitions using the *partitionSpec* option.
+List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the *partitionSpec* option.
 
 
 ```sql

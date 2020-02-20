@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram" width="1073" height="282" viewBox="0 0 1073 282">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram" width="1389" height="342" viewBox="0 0 1389 342">
 
 <defs><style type="text/css"><![CDATA[ svg.railroad-diagram {
   background-color: #ffffff;
@@ -36,11 +36,11 @@ svg.railroad-diagram rect {
 <path d="M 20 31 v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path>
 <g>
 <path d="M40 41h0"></path>
-<path d="M1032 41h0"></path>
+<path d="M1348 41h0"></path>
 <path d="M40 41h20"></path>
 <g>
 <path d="M60 41h0"></path>
-<path d="M1012 41h0"></path>
+<path d="M1328 41h0"></path>
 <path d="M60 41h10"></path>
 <g>
 <path d="M70 41h0"></path>
@@ -262,21 +262,62 @@ svg.railroad-diagram rect {
 </g>
 </g>
 <path d="M972 221a10 10 0 0 0 10 -10v-160a10 10 0 0 1 10 -10"></path>
+<path d="M312 41a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M332 251h282"></path>
+<path d="M690 251h282"></path>
+<rect x="614" y="240" width="76" height="22" rx="10" ry="10"></rect>
+<text x="652" y="255">GEOJSON</text>
+</g>
+<path d="M972 251a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path>
+<path d="M312 41a10 10 0 0 1 10 10v220a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M332 281h274"></path>
+<path d="M698 281h274"></path>
+<rect x="606" y="270" width="92" height="22" rx="10" ry="10"></rect>
+<text x="652" y="285">SHAPEFILE</text>
+</g>
+<path d="M972 281a10 10 0 0 0 10 -10v-220a10 10 0 0 1 10 -10"></path>
 </g>
 </g>
 <path d="M992 41h20"></path>
 </g>
-</g>
-<path d="M1012 41h20"></path>
-<path d="M40 41a10 10 0 0 1 10 10v190a10 10 0 0 0 10 10"></path>
+<path d="M1012 41h10"></path>
 <g>
-<path d="M60 251h402"></path>
-<path d="M610 251h402"></path>
-<rect x="462" y="240" width="148" height="22"></rect>
-<text x="536" y="255">tableTransformer</text>
+<path d="M1022 41h0"></path>
+<path d="M1098 41h0"></path>
+<rect x="1022" y="30" width="76" height="22" rx="10" ry="10"></rect>
+<text x="1060" y="45">@break@</text>
 </g>
-<path d="M1012 251a10 10 0 0 0 10 -10v-190a10 10 0 0 1 10 -10"></path>
+<path d="M1098 41h10"></path>
+<g>
+<path d="M1108 41h0"></path>
+<path d="M1328 41h0"></path>
+<path d="M1108 41a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<g>
+<path d="M1128 21h180"></path>
 </g>
-<path d="M 1032 41 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
+<path d="M1308 21a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M1108 41h20"></path>
+<g>
+<path d="M1128 41h0"></path>
+<path d="M1308 41h0"></path>
+<rect x="1128" y="30" width="180" height="22"></rect>
+<text x="1218" y="45">timeSeriesProperties</text>
+</g>
+<path d="M1308 41h20"></path>
+</g>
+</g>
+<path d="M1328 41h20"></path>
+<path d="M40 41a10 10 0 0 1 10 10v250a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M60 311h560"></path>
+<path d="M768 311h560"></path>
+<rect x="620" y="300" width="148" height="22"></rect>
+<text x="694" y="315">tableTransformer</text>
+</g>
+<path d="M1328 311a10 10 0 0 0 10 -10v-250a10 10 0 0 1 10 -10"></path>
+</g>
+<path d="M 1348 41 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
 </g>
 </svg>

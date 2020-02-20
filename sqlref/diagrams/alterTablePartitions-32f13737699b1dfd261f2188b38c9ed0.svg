@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram"  width="1158" height="221" viewBox="0 0 1158 221" >
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram"  width="1158" height="181" viewBox="0 0 1158 181" >
 <defs><style type="text/css"><![CDATA[ svg.railroad-diagram {
   background-color: #ffffff;
 }
@@ -273,53 +273,6 @@ svg.railroad-diagram rect {
 <path d="M954 120h10"></path>
 </g>
 <path d="M1108 120a10 10 0 0 0 10 -10v-69a10 10 0 0 1 10 -10"></path>
-<path d="M360 31a10 10 0 0 1 10 10v139a10 10 0 0 0 10 10"></path>
-<g>
-<path d="M380 190h154"></path>
-<path d="M954 190h154"></path>
-<g>
-<path d="M534 190h0"></path>
-<path d="M698 190h0"></path>
-<path d="M534 190a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
-<g>
-<path d="M554 170h124"></path>
-</g>
-<path d="M678 170a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M534 190h20"></path>
-<g>
-<path d="M554 190h0"></path>
-<path d="M678 190h0"></path>
-<rect x="554" y="179" width="124" height="22"></rect>
-<text x="616" y="194">partitionSpec</text>
-</g>
-<path d="M678 190h20"></path>
-</g>
-<path d="M698 190h10"></path>
-<g>
-<path d="M708 190h0"></path>
-<path d="M752 190h0"></path>
-<rect x="708" y="179" width="44" height="22" rx="10" ry="10"></rect>
-<text x="730" y="194">SET</text>
-</g>
-<path d="M752 190h10"></path>
-<path d="M762 190h10"></path>
-<g>
-<path d="M772 190h0"></path>
-<path d="M856 190h0"></path>
-<rect x="772" y="179" width="84" height="22" rx="10" ry="10"></rect>
-<text x="814" y="194">LOCATION</text>
-</g>
-<path d="M856 190h10"></path>
-<path d="M866 190h10"></path>
-<g>
-<path d="M876 190h0"></path>
-<path d="M944 190h0"></path>
-<rect x="876" y="179" width="68" height="22"></rect>
-<text x="910" y="194">COSURI</text>
-</g>
-<path d="M944 190h10"></path>
-</g>
-<path d="M1108 190a10 10 0 0 0 10 -10v-139a10 10 0 0 1 10 -10"></path>
 </g>
 </g>
 <path d="M 1128 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
