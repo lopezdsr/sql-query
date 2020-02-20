@@ -2565,8 +2565,8 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 
 <!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefinition.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
-Create a table definition in the catalogbased on the objects in the specified {{site.data.keyword.cos_short}} location. The *LOCATION* option is mandatory.
-If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the *IF NOT EXISTS* clause is specified.
+Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
+If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
 
 The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
 If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
@@ -2590,7 +2590,7 @@ location  cos://us-geo/sql/customers.csv
 ```
 {: codeblock}
 
-Before you can use a newly created *PARTITIONED* table definition, you have to call *ALTER TABLE tablename RECOVER PARTITIONS*. Otherwise, an empty result is returned when doing a SELECT statement on this table.
+Before you can use a newly created partitioned table, you have to call `ALTER TABLE tablename RECOVER PARTITIONS`. Otherwise, querying the table returns an empty result.
 
 ```sql
 -- create a definition for the table customers_partitioned
@@ -2633,7 +2633,7 @@ location  cos://us-geo/sql/shippers.parquet
 
 <!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table command" layout="@break@" -->
 
-Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the *IF EXISTS* options is specified.
+Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the `IF EXISTS` option is specified.
 
 Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
 
@@ -2652,7 +2652,7 @@ DROP TABLE customers
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
 
-Use the below *RECOVER PARTITIONS* option to automatically replace the table partition metadata with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table.
+Use the `RECOVER PARTITIONS` option to automatically replace the table partition metadata with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table.
 
 ```sql
 -- replace the table partitions by scanning the location of the table
@@ -2665,7 +2665,7 @@ ALTER TABLE customers_partitioned RECOVER PARTITIONS
 <!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
 
-In order to add or remove partitions manually, use the *ADD* or *DROP* syntax. *ALTER TABLE* does not validate the specified location.
+In order to add or remove partitions manually, use the `ADD PARTITION` or `DROP PARTITION`options. `ALTER TABLE` does not validate the specified location.
 
 ```sql
 -- alter the table partitions by adding a partition
@@ -2675,11 +2675,11 @@ ALTER TABLE customers_partitioned DROP IF EXISTS PARTITION ( COUNTRY = 'Nowhere'
 ```
 {: codeblock}
 
-Use the *EXISTS* options to avoid getting errors during *ADD* or *DROP*.
+Use the `EXISTS` option to avoid getting errors during `ADD` or `DROP`.
 
 <!-- HIDE START ### Set partition location
 
-To change a partition definition, use the *SET* option.
+To change a partition definition, use the `SET LOCATION` option.
 
 ```sql
 -- alter the table partitions definition
@@ -2694,7 +2694,7 @@ HIDE END -->
 
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
 
-The ANALYZE TABLE command collect statistics about the specified table and for the specified columns. This information can be used for the query optimizer to identify the optimal query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
+The `ANALYZE TABLE`statement collects statistics about the specified table and for the specified columns. This information can be used by the query optimizer to improve the query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
 
 ```sql
 -- analyze statistics for the table customer without scanning each object
@@ -2702,7 +2702,7 @@ analyze table customer compute STATISTICS NOSCAN
 ```
 {: codeblock}
 
-The option *NOSCAN* only collects the bytes of the objects. HIDE END -->
+The option `NOSCAN` only collects the sizes of the objects. HIDE END -->
 
 ### Describe Table
 {: #chapterDescribeTable}
@@ -2726,7 +2726,7 @@ DESCRIBE TABLE  customers_partitioned
 
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
 
-Returns the list of the defined tables in the catalog. *LIKE STRING* allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables in the catalog. The `LIKE`option allows to filter for a given pattern. `*` can be used as wildcard character.
 
 ```sql
 -- returns all defined tables in the catalogfor this instance
@@ -2762,7 +2762,7 @@ SHOW TBLPROPERTIES customer
 
 <!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones command" layout="@break@" -->
 
-List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the *partitionSpec* option.
+List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the `partitionSpec` option.
 
 
 ```sql
