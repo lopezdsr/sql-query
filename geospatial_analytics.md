@@ -35,6 +35,6 @@ how to use {{site.data.keyword.sqlquery_short}}'s geospatial capabilites to anal
 shows you how to create and run geospatial queries with {{site.data.keyword.sqlquery_short}} on bicycle location data stored in {{site.data.keyword.cos_full}} using IBM® Watson Studio and PixieDust.
  
 A series of articles explaining the key highlights of the geospatial functions of {{site.data.keyword.sqlquery_short}}:
- - Part 1: [Geospatial functions of IBM Cloud SQL Query]https://www.ibm.com/cloud/blog/geospatial-without-projections-in-ibm-cloud-sql-query) covers the Full Earth feature of the geospatial functions in {{site.data.keyword.sqlquery_short}}.
+ - Part 1: [Geospatial functions of IBM Cloud SQL Query](https://www.ibm.com/cloud/blog/geospatial-without-projections-in-ibm-cloud-sql-query) covers the Full Earth feature of the geospatial functions in {{site.data.keyword.sqlquery_short}}.
  - More to come soon
  
