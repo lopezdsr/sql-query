@@ -3194,7 +3194,7 @@ The option `NOSCAN` only collects the sizes of the objects. HIDE END -->
 <img style="max-width: 778px;" usemap="#describeTableImgMap" alt="syntax diagram for describe tables command" src="./diagrams/describeTable-f2c9c78b5d7cc181fb5d9a6b62248083.svg" />
 </div>
 
-Return the schema (column names, data types, and comments) of a table definition. If the table does not exist, an error is returned.
+Return the schema (column names and data types) of a table definition. If the table does not exist, an error is returned.
 
 ```sql
 -- returns detailed information about the customer table
