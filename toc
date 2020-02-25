@@ -49,4 +49,5 @@ IBM Cloud SQL Query
         api_notebook.md
         geospatial_analytics.md
         microservice.md
+        db2.md
     {: .navgroup-end}
