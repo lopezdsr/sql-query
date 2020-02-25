@@ -23,4 +23,4 @@ subcollection: sql-query
 {: #loganalysis}
 
 Learn how to use the Aspera high-speed upload feature of {{site.data.keyword.cos_full}} and how to analyze police logs in CSV format with
-[Build a data lake using object storage](/docs/tutorials/smart-data-lake.html#build-a-data-lake-using-object-storage).
+[Build a data lake using Object Storage](/docs/tutorials/smart-data-lake.html#build-a-data-lake-using-object-storage).
