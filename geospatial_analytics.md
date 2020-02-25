@@ -19,7 +19,7 @@ subcollection: sql-query
 
 
 
-# Geospatial Analytics
+# Geospatial analytics
 {: #geospatial_analytics}
 
 Geospatial SQL functions allow developers to efficiently index and perform calculations on geospatial data. 
