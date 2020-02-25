@@ -2,7 +2,7 @@
 
 copyright:
   year: 2020
-lastupdated: "2020-02-025"
+lastupdated: "2020-02-25"
 
 keywords: data, transport, object storage, db2, serverless, automation
 
