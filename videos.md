@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-21"
+lastupdated: "2020-02-26"
 
 keywords: SQL query, tutorial, video, provision, run query, introduction, REST API, command line, object storage
 
@@ -43,7 +43,7 @@ frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; pict
 <br>
 
 The next video gives a broader introduction to the service, introduces some of the sample queries in the UI, shows the use of
-real-life data, as well as notebebooks, and REST API.
+real-life data, as well as notebooks, and REST API.
 
 <iframe width="640" height="390" title="IBM Cloud SQL Query Introduction"  
 src="https://www.youtube.com/embed/s-FznfHJpoU?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXAA" 
