@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-19"
+lastupdated: "2020-02-26"
 
 ---
 
@@ -802,7 +802,7 @@ Each `expression` in the list of expressions represents a row of the result set 
 
 In case of a single-column result set, each expression represents the value of this column in a row.
 
-In case of a multi-column result set, each expression represents a list of *n* expressions enclosed by parantheses, where *n* is the number of columns in the result set.
+In case of a multi-column result set, each expression represents a list of *n* expressions enclosed by parentheses, where *n* is the number of columns in the result set.
 
 To join a *values clause* with other types of result sets, specify an `identifier` that acts as an **alias** for the values clause.
 
@@ -825,7 +825,7 @@ The result of the example query is shown in the table below.
 <!--table-caption title="Query result for example 'single column result set with 3 rows'"-->
 
 ```sql
--- single column result set with 3 rows specifying parantheses for row expressions
+-- single column result set with 3 rows specifying parentheses for row expressions
 SELECT * FROM VALUES (1), (2) , (3)
 ```
 {: codeblock}
@@ -838,7 +838,7 @@ The result of the example query is shown in the table below.
 |1   |
 |2   |
 |3   |
-<!--table-caption title="Query result for example 'single column result set with 3 rows specifying parantheses for row expressions'"-->
+<!--table-caption title="Query result for example 'single column result set with 3 rows specifying parentheses for row expressions'"-->
 
 ```sql
 --- joining two multi column result sets using their identifier
@@ -1595,7 +1595,7 @@ This example uses a table containing transaction information. The layout is as f
 * Column 2: account number
 * Column 3: transaction amount
 
-The example shows how to retrieve the *total balanace* of each account at the time of each transaction.
+The example shows how to retrieve the *total balance* of each account at the time of each transaction.
 
 ```sql
 --- total balance of each account at the time of each transaction
@@ -2131,7 +2131,7 @@ The result of the example query is shown in the table below.
 <h5><code>LIKE</code> Examples</h5>
 
 ```sql
--- all employess that work in a department that starts with letter C
+-- all employees that work in a department that starts with letter C
 SELECT
     emp.col1 AS emp_id,
     emp.col2 AS emp_dept
@@ -2482,7 +2482,7 @@ A *case expression* is referenced by the following clause:
 
 The following types of operators can be used:
 * [Unary](#unaryOperator)
-* [Aithmetic](#arithmeticOperator)
+* [Arithmetic](#arithmeticOperator)
 * [String](#stringOperator)
 * [Comparison](#comparisonOperator)
 * [Boolean](#booleanOperator)
@@ -2665,7 +2665,7 @@ ALTER TABLE customers_partitioned RECOVER PARTITIONS
 <!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
 
-In order to add or remove partitions manually, use the `ADD PARTITION` or `DROP PARTITION`options. `ALTER TABLE` does not validate the specified location.
+In order to add or remove partitions manually, use the `ADD PARTITION` or `DROP PARTITION` options. `ALTER TABLE` does not validate the specified location.
 
 ```sql
 -- alter the table partitions by adding a partition
@@ -2694,7 +2694,7 @@ HIDE END -->
 
 *!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
 
-The `ANALYZE TABLE`statement collects statistics about the specified table and for the specified columns. This information can be used by the query optimizer to improve the query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
+The `ANALYZE TABLE` statement collects statistics about the specified table and for the specified columns. This information can be used by the query optimizer to improve the query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
 
 ```sql
 -- analyze statistics for the table customer without scanning each object
@@ -2726,10 +2726,10 @@ DESCRIBE TABLE  customers_partitioned
 
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
 
-Returns the list of the defined tables in the catalog. The `LIKE`option allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables in the catalog. The `LIKE` option allows to filter for a given pattern. `*` can be used as wildcard character.
 
 ```sql
--- returns all defined tables in the catalogfor this instance
+-- returns all defined tables in the catalog for this instance
 SHOW TABLES
 ```
 {: codeblock}
@@ -2760,7 +2760,7 @@ SHOW TBLPROPERTIES customer
 
 <h4 id="showPartitions">showPartitions</h4>
 
-<!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitiones command" layout="@break@" -->
+<!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitions command" layout="@break@" -->
 
 List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the *partitionSpec* option.
 
