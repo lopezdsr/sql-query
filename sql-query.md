@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-13"
+lastupdated: "2020-02-26"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -234,7 +234,7 @@ By default, three objects are written to Cloud {{site.data.keyword.cos_short}} a
 2. `<target>/jobid=<job_id>/_SUCCESS`
 3. `<target>/jobid=<job_id>/<part-number>`
 
-Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names will include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO`clause.
+Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names will include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO` clause.
 
 Note that you can use the result set from one query as input data for further SQL queries.
 If you want to specify a result of a single query execution as input in your SQL query, specify the first (`<target>/jobid=<job_id>`) or the third one (`<target>/jobid=<job_id>/<part-number>`). You can also use the [partitioning clause](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. Either the entire result set or individual objects can then serve as input for further queries.
@@ -250,7 +250,7 @@ Your Cloud {{site.data.keyword.cos_short}} instance will have one of the support
 [public and private {{site.data.keyword.cos_short}} endpoints](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-endpoints).
 To save space, you can use the alias shown instead of the full endpoint name. 
 
-Aliases to ethering endpoints (specific endpoints within cross region domains, for example, `dal-us-geo`) are considered legacy. They continue to work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the alias of the corresponding cross region endpoint (for example, `us-geo`).
+Aliases to tethering endpoints (specific endpoints within cross region domains, for example, `dal-us-geo`) are considered legacy. They continue to work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the alias of the corresponding cross region endpoint (for example, `us-geo`).
 
 **Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, 
 even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.
