@@ -47,6 +47,7 @@
                         "partitionedClause",
                         "predicate",
                         "primaryExpression",
+                        "primitiveType",
                         "qualifiedName",
                         "query",
                         "relation",

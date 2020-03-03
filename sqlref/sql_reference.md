@@ -2696,7 +2696,7 @@ Note that in case an expression cannot be cast to the data type specified in the
 For further details about the clauses used by a *cast expression*, refer to the following topics:
 * [dataType](#dataType)
 * [expression](#expression)
-* [identifier](#identifier),
+* [identifier](#identifier)
 
 <h4>Related References</h4>
 
@@ -2898,6 +2898,7 @@ An *operator* is referenced by [valueExpression](#valueExpression).
 
 <div style="overflow-x : auto;">
 <map name="dataTypeImgMap">
+	<area alt="section primitiveType" shape="rect" coords="286,20,410,42" href="#primitiveType" />
 	<area alt="section dataType" shape="rect" coords="346,50,430,72" href="#dataType" />
 	<area alt="section dataType" shape="rect" coords="262,80,346,102" href="#dataType" />
 	<area alt="section dataType" shape="rect" coords="414,80,498,102" href="#dataType" />
@@ -2907,9 +2908,37 @@ An *operator* is referenced by [valueExpression](#valueExpression).
 <img style="max-width: 697px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-d07e6a1e59b3b984d80f9f588301d975.svg" />
 </div>
 
-Data types
+Data types can be either primitive types like numeric or string types, or they can be composite types that are built from other
+primitive or composite types. Composite types can have the following structure:
+
+* *Struct* types describe types that are built from a fixed number of named fields
+* *Array* types describe a sequence of elements that can have an arbitrary length
+* *Map* types describe a mapping from keys to values
+
+Composite types can be nested, as in the following example:
+```sql
+STRUCT<
+    firstName: STRING,
+    lastName: STRING,
+    age: INTEGER,
+    addresses: ARRAY<
+        STRUCT<
+            streetAddress: STRING,
+            city: STRING,
+            postalCode: STRING,
+            country: STRING,
+        >
+    >
+>
+```
+{: codeblock}
+
+Note that some data formats, particularly CSV, do not support composite types. When your query result contains data with a composite type,
+use an [INTO clause](#intoClause) to specify an appropriate target format, like JSON.
 
 <h3 id="primitiveType">primitiveType</h3>
+
+The following primitive types are supported in {{site.data.keyword.sqlquery_short}}:
 
 <h4>Numeric Types</h4>
 
