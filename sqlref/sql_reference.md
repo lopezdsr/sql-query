@@ -2985,9 +2985,7 @@ The result of the example query is shown in the table below.
 {: caption="Table 57. Query result for example 'cast string values to TIMESTAMP and DATE types'" caption-side="top"}
 
 
-<h4>Misc Types</h4>
-
-<h5>Boolean Type</h5>
+<h4>Boolean Type</h4>
 
 The `BOOLEAN` type represents a domain with two values, `true` or `false`.
 
@@ -2997,7 +2995,7 @@ Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 214
 
 The string value `'0'` can be cast to `false` and `'1'` can be cast to `true`, respectively. Any other string value is cast to `false`.
 
-<h5>Binary Type</h5>
+<h4>Binary Type</h4>
 
 A `BINARY` type represents an array of byte values. Thus, string values can be cast to type `BINARY`.
 
