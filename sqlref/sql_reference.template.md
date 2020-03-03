@@ -2293,88 +2293,14 @@ If the specified data type is not supported, an error is returned.
 
 <!--include-svg src="./svgfiles/castExpression.svg" target="./diagrams/castExpression.svg" alt="syntax diagram for a cast expression" layout="" -->
 
-Note that in case an expression cannot be casted to the data type specified in the cast expression, the expression result is `null`.
-
-<h4 id="dataType">dataType</h4>
-
-<!--include-svg src="./svgfiles/dataType.svg" target="./diagrams/dataType.svg" alt="syntax diagram for a data type" layout="" -->
-
-An `identifier` in a cast expression can have the values listed below.
-
-<h5>Numeric Types</h5>
-
-Numeric data types are summarized in the table below.
-
-| Identifier | Type | Bytes | Minimum Value | Maximum Value |
-| :---- | :----: | :----: | :----: | :----: |
-| `TINYINT` | signed integer | 1 | -128 | 127 |
-| `SMALLINT` | signed integer | 2 | -32768 | 32767 |
-| `INT` | signed integer | 4 | -2147483648 | 2147483647 |
-| `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
-| `BIGINT` | signed integer | 8 | -9223372036854775808 | 9223372036854775807 |
-| `FLOAT` | single precision floating point number | 4 | n/a | n/a |
-| `DOUBLE` | double precision floating point number | 8 | n/a | n/a |
-| `DOUBLE PRECISION` | double precision floating point number | 8 | n/a | n/a |
-| `DECIMAL` | precision of 38 digits | n/a | -10e37+1 | 10e37-1 |
-<!--table-caption title="Numeric Data Types"-->
-
-<h5>String Types</h5>
-
-Supported string type identifiers are `VARCHAR` and `CHAR`.
-
-<h5>Date and Time Types</h5>
-
-String values with appropriate formats can be converted to a timestamp or date, using data type `TIMESTAMP` or `DATE`, respectively.
-
-```sql
--- cast string values to timestamp and date types
-SELECT
-    CAST('2018-10-31 23:55:00' AS TIMESTAMP),
-    CAST('2018-10-31 23:55:00' AS DATE),
-    CAST('HELLO' AS TIMESTAMP)
-FROM VALUES ('dummy')
-```
-{: codeblock}
-
-
-The result of the example query is shown in the table below.
-
-|CAST(2018-10-31 23:55:00 AS TIMESTAMP)|CAST(2018-2-28 23:55:00 AS DATE)|CAST(HELLO AS TIMESTAMP)|
-|--------------------------------------|--------------------------------|------------------------|
-|2018-10-31 23:55:00.0                 |2018-02-28                      |null                    |
-<!--table-caption title="Query result for example 'cast string values to TIMESTAMP and DATE types'"-->
-
-<h5>Misc Types</h5>
-
-<h6>Boolean Type</h6>
-
-The `BOOLEAN` type represents a domain with two values, `true` or `false`.
-
-Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be casted to `false`.
-
-Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 21474.83648 can be casted to `true`.
-
-The string value `'0'` can be casted to `false` and `'1'` can be casted to `true`, respectively. Any other string value is casted to `false`.
-
-<h6>Binary Type</h6>
-
-A `BINARY` type represents an array of byte values. Thus, string values can be casted to type `BINARY`.
-
-<h4 id="complexColTypeList">complexColTypeList</h4>
-
-<!--include-svg src="./svgfiles/complexColTypeList.svg" target="./diagrams/complexColTypeList.svg" alt="syntax diagram for a complex column type list" layout="" -->
-
-<h4 id="complexColType">complexColType</h4>
-
-<!--include-svg src="./svgfiles/complexColType.svg" target="./diagrams/complexColType.svg" alt="syntax diagram for a complex column type" layout="" -->
+Note that in case an expression cannot be cast to the data type specified in the cast expression, the expression result is `null`.
 
 <h4>More Topics</h4>
 
 For further details about the clauses used by a *cast expression*, refer to the following topics:
+* [dataType](#dataType)
 * [expression](#expression)
 * [identifier](#identifier),
-* [STRING](#STRING)
-* [unsignedInteger](#unsignedInteger)
 
 <h4>Related References</h4>
 
@@ -2548,6 +2474,81 @@ The following types of operators can be used:
 
 An *operator* is referenced by [valueExpression](#valueExpression).
 
+## Data Types
+{: dataType}
+
+<!--include-svg src="./svgfiles/dataType.svg" target="./diagrams/dataType.svg" alt="syntax diagram for a data type" layout="" -->
+
+Data types
+
+<h3 id="primitiveType">primitiveType</h3>
+
+<h4>Numeric Types</h4>
+
+Numeric data types are summarized in the table below.
+
+| Identifier | Type | Bytes | Minimum Value | Maximum Value |
+| :---- | :----: | :----: | :----: | :----: |
+| `TINYINT` | signed integer | 1 | -128 | 127 |
+| `SMALLINT` | signed integer | 2 | -32768 | 32767 |
+| `INT` or `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
+| `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
+| `BIGINT` or `LONG` | signed integer | 8 | -9223372036854775808 | 9223372036854775807 |
+| `FLOAT` | single precision floating point number | 4 | n/a | n/a |
+| `DOUBLE` | double precision floating point number | 8 | n/a | n/a |
+| `DECIMAL` | precision of 38 digits | n/a | -10e37+1 | 10e37-1 |
+<!--table-caption title="Numeric Data Types"-->
+
+<h4>String Types</h4>
+
+Strings are represented as `STRING` data type. The type definitions `VARCHAR(n)` and `CHAR(n)` can be used as aliases for `STRING`.
+The syntax requires that you specify a maximum length for these, but there is no length restriction enforced.
+
+<h4>Date and Time Types</h4>
+
+String values with appropriate formats can be converted to a timestamp or date, using data types `TIMESTAMP` or `DATE`, respectively.
+
+```sql
+-- cast string values to timestamp and date types
+SELECT
+    CAST('2018-10-31 23:55:00' AS TIMESTAMP),
+    CAST('2018-10-31 23:55:00' AS DATE),
+    CAST('HELLO' AS TIMESTAMP)
+FROM VALUES ('dummy')
+```
+{: codeblock}
+
+
+The result of the example query is shown in the table below.
+
+|CAST(2018-10-31 23:55:00 AS TIMESTAMP)|CAST(2018-2-28 23:55:00 AS DATE)|CAST(HELLO AS TIMESTAMP)|
+|--------------------------------------|--------------------------------|------------------------|
+|2018-10-31 23:55:00.0                 |2018-02-28                      |null                    |
+<!--table-caption title="Query result for example 'cast string values to TIMESTAMP and DATE types'"-->
+
+<h4>Misc Types</h4>
+
+<h5>Boolean Type</h5>
+
+The `BOOLEAN` type represents a domain with two values, `true` or `false`.
+
+Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be cast to `false`.
+
+Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 21474.83648 can be cast to `true`.
+
+The string value `'0'` can be cast to `false` and `'1'` can be cast to `true`, respectively. Any other string value is cast to `false`.
+
+<h5>Binary Type</h5>
+
+A `BINARY` type represents an array of byte values. Thus, string values can be cast to type `BINARY`.
+
+<h4>Related References</h4>
+
+A *dataType* is referenced by the following clauses:
+* [castExpression](#castExpression)
+* [createTable](#createTable)
+
+
 ## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
 
@@ -2570,6 +2571,7 @@ If a table with the same name already exists in the same {{site.data.keyword.sql
 
 The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
 If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
+See [data types](#dataType) for details on the supported column types.
 
 ```sql
 -- create a definition for the table customer

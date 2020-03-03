@@ -366,7 +366,7 @@ svg.railroad-diagram rect {
 <path d="M2178 71h0"></path>
 <path d="M2206 71h0"></path>
 <rect x="2178" y="60" width="28" height="22" rx="10" ry="10"></rect>
-<text x="2192" y="75">.</text>
+<text x="2192" y="75">,</text>
 </g>
 <path d="M2206 71h10"></path>
 </g>

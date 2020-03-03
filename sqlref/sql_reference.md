@@ -2689,112 +2689,14 @@ If the specified data type is not supported, an error is returned.
 <img style="max-width: 529px;" usemap="#castExpressionImgMap" alt="syntax diagram for a cast expression" src="./diagrams/castExpression-c6b81951a7fd212d6e033d4f27dc8f5c.svg" />
 </div>
 
-Note that in case an expression cannot be casted to the data type specified in the cast expression, the expression result is `null`.
-
-<h4 id="dataType">dataType</h4>
-
-<div style="overflow-x : auto;">
-<map name="dataTypeImgMap">
-	<area alt="section dataType" shape="rect" coords="286,20,370,42" href="#dataType" />
-	<area alt="section dataType" shape="rect" coords="202,50,286,72" href="#dataType" />
-	<area alt="section dataType" shape="rect" coords="354,50,438,72" href="#dataType" />
-	<area alt="section complexColTypeList" shape="rect" coords="250,90,414,112" href="#complexColTypeList" />
-	<area alt="section identifier" shape="rect" coords="70,160,170,182" href="#identifier" />
-	<area alt="section unsignedInteger" shape="rect" coords="278,160,418,182" href="#unsignedInteger" />
-</map>
-<img style="max-width: 577px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-090159e01ccdc5a4add2755801f13403.svg" />
-</div>
-
-An `identifier` in a cast expression can have the values listed below.
-
-<h5>Numeric Types</h5>
-
-Numeric data types are summarized in the table below.
-
-| Identifier | Type | Bytes | Minimum Value | Maximum Value |
-| :---- | :----: | :----: | :----: | :----: |
-| `TINYINT` | signed integer | 1 | -128 | 127 |
-| `SMALLINT` | signed integer | 2 | -32768 | 32767 |
-| `INT` | signed integer | 4 | -2147483648 | 2147483647 |
-| `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
-| `BIGINT` | signed integer | 8 | -9223372036854775808 | 9223372036854775807 |
-| `FLOAT` | single precision floating point number | 4 | n/a | n/a |
-| `DOUBLE` | double precision floating point number | 8 | n/a | n/a |
-| `DOUBLE PRECISION` | double precision floating point number | 8 | n/a | n/a |
-| `DECIMAL` | precision of 38 digits | n/a | -10e37+1 | 10e37-1 |
-{: caption="Table 48. Numeric Data Types" caption-side="top"}
-
-
-<h5>String Types</h5>
-
-Supported string type identifiers are `VARCHAR` and `CHAR`.
-
-<h5>Date and Time Types</h5>
-
-String values with appropriate formats can be converted to a timestamp or date, using data type `TIMESTAMP` or `DATE`, respectively.
-
-```sql
--- cast string values to timestamp and date types
-SELECT
-    CAST('2018-10-31 23:55:00' AS TIMESTAMP),
-    CAST('2018-10-31 23:55:00' AS DATE),
-    CAST('HELLO' AS TIMESTAMP)
-FROM VALUES ('dummy')
-```
-{: codeblock}
-
-
-The result of the example query is shown in the table below.
-
-|CAST(2018-10-31 23:55:00 AS TIMESTAMP)|CAST(2018-2-28 23:55:00 AS DATE)|CAST(HELLO AS TIMESTAMP)|
-|--------------------------------------|--------------------------------|------------------------|
-|2018-10-31 23:55:00.0                 |2018-02-28                      |null                    |
-{: caption="Table 49. Query result for example 'cast string values to TIMESTAMP and DATE types'" caption-side="top"}
-
-
-<h5>Misc Types</h5>
-
-<h6>Boolean Type</h6>
-
-The `BOOLEAN` type represents a domain with two values, `true` or `false`.
-
-Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be casted to `false`.
-
-Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 21474.83648 can be casted to `true`.
-
-The string value `'0'` can be casted to `false` and `'1'` can be casted to `true`, respectively. Any other string value is casted to `false`.
-
-<h6>Binary Type</h6>
-
-A `BINARY` type represents an array of byte values. Thus, string values can be casted to type `BINARY`.
-
-<h4 id="complexColTypeList">complexColTypeList</h4>
-
-<div style="overflow-x : auto;">
-<map name="complexColTypeListImgMap">
-	<area alt="section complexColType" shape="rect" coords="70,20,202,42" href="#complexColType" />
-</map>
-<img style="max-width: 273px;" usemap="#complexColTypeListImgMap" alt="syntax diagram for a complex column type list" src="./diagrams/complexColTypeList-99e872d1012653f885c43d1a90023f3a.svg" />
-</div>
-
-<h4 id="complexColType">complexColType</h4>
-
-<div style="overflow-x : auto;">
-<map name="complexColTypeImgMap">
-	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
-	<area alt="section dataType" shape="rect" coords="218,30,302,52" href="#dataType" />
-	<area alt="section STRING" shape="rect" coords="438,30,506,52" href="#STRING" />
-</map>
-<img style="max-width: 577px;" usemap="#complexColTypeImgMap" alt="syntax diagram for a complex column type" src="./diagrams/complexColType-5915caae4b2aa7eecfb31e54c4ee1728.svg" />
-</div>
+Note that in case an expression cannot be cast to the data type specified in the cast expression, the expression result is `null`.
 
 <h4>More Topics</h4>
 
 For further details about the clauses used by a *cast expression*, refer to the following topics:
+* [dataType](#dataType)
 * [expression](#expression)
 * [identifier](#identifier),
-* [STRING](#STRING)
-* [unsignedInteger](#unsignedInteger)
 
 <h4>Related References</h4>
 
@@ -2865,7 +2767,7 @@ The result of the example query is shown in the table below.
 |2     |Development   |
 |3     |null          |
 |4     |null          |
-{: caption="Table 50. Query result for example 'simple case expression with no ELSE clause'" caption-side="top"}
+{: caption="Table 48. Query result for example 'simple case expression with no ELSE clause'" caption-side="top"}
 
 
 ```sql
@@ -2892,7 +2794,7 @@ The result of the example query is shown in the table below.
 |2     |Development   |
 |3     |UNKOWN        |
 |4     |UNKOWN        |
-{: caption="Table 51. Query result for example 'simple case expression with ELSE clause'" caption-side="top"}
+{: caption="Table 49. Query result for example 'simple case expression with ELSE clause'" caption-side="top"}
 
 
 There are two scalar functions, `NULLIF()` and `COALESCE()`, that are specialized to handle a subset of the functionality provided by `CASE`.
@@ -2902,7 +2804,7 @@ There are two scalar functions, `NULLIF()` and `COALESCE()`, that are specialize
 | CASE WHEN e1=e2 THEN NULL ELSE e1 END | NULLIF(e1,e2) |
 | CASE WHEN e1 IS NOT NULL THEN e1 ELSE e2 END| COALESCE(e1,e2) |
 | CASE WHEN e1 IS NOT NULL THEN e1 ELSE COALESCE(e2,...,eN) END| COALESCE(e1,e2,...,eN)|
-{: caption="Table 52. CASE, NULLIF(), and COALESCE()" caption-side="top"}
+{: caption="Table 50. CASE, NULLIF(), and COALESCE()" caption-side="top"}
 
 
 Refer to the section about [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for more details.
@@ -2932,7 +2834,7 @@ The following types of operators can be used:
 | `-A` | All number types | Unary negative operator. The type of the result is the same as the type of A. |
 | `+A` | All number types | Unary positive operator. The type of the result is the same as the type of A. |
 | `~A` | All number types | Bitwise NOT operator. The type of the result is the same as the type of A. |
-{: caption="Table 53. Unary operators" caption-side="top"}
+{: caption="Table 51. Unary operators" caption-side="top"}
 
 
 <h3 id="arithmeticOperator">Arithmetic operators</h3>
@@ -2948,7 +2850,7 @@ The following types of operators can be used:
 | `A & B`   | All number types | Returns the result of bitwise AND of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
 | <code>A &#124; B</code> | All number types | Returns the result of bitwise OR of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
 | `A ^ B`  | All number types | Returns the result of bitwise XOR of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
-{: caption="Table 54. Arithmetic operators" caption-side="top"}
+{: caption="Table 52. Arithmetic operators" caption-side="top"}
 
 
 <h3 id="stringOperator">String operator</h3>
@@ -2956,7 +2858,7 @@ The following types of operators can be used:
 | Operator | Operand types | Description |
 | :----: | ---- | ---- |
 | <code>A &#124;&#124; B</code> |  All types | Returns the concatenation of A and B. If A or B is not a string, it is first converted into a string type. The result is a string. |
-{: caption="Table 55. String operator" caption-side="top"}
+{: caption="Table 53. String operator" caption-side="top"}
 
 
 <h3 id="comparisonOperator">Comparison operators</h3>
@@ -2974,7 +2876,7 @@ The following types of operators can be used:
 | `A >= B` |All primitive types | Returns NULL if A or B is NULL; TRUE if A is greater than or equal to B; FALSE otherwise. |
 | `A !< B` | All primitive types| Returns NULL if A or B is NULL; TRUE if A is not less than B; FALSE otherwise.|
 | `A <=> B` | All primitive types| Returns the same result as the equal (=) operator if both A and B are not NULL; TRUE if both A and B are NULL; FALSE if A or B (but not both) is NULL.|
-{: caption="Table 56. Comparison operators" caption-side="top"}
+{: caption="Table 54. Comparison operators" caption-side="top"}
 
 
 <h3 id="booleanOperator">Boolean operators</h3>
@@ -2984,12 +2886,98 @@ The following types of operators can be used:
 | `NOT A` | Boolean expressions | TRUE if A is FALSE; FALSE otherwise. |
 | `A AND B` | Boolean expressions | TRUE if A and B are both TRUE; FALSE otherwise. |
 | `A OR B` | Boolean expressions | FALSE if A and B are both FALSE; TRUE otherwise. |
-{: caption="Table 57. Boolean operators" caption-side="top"}
+{: caption="Table 55. Boolean operators" caption-side="top"}
 
 
 <h3>Related References</h3>
 
 An *operator* is referenced by [valueExpression](#valueExpression).
+
+## Data Types
+{: dataType}
+
+<div style="overflow-x : auto;">
+<map name="dataTypeImgMap">
+	<area alt="section dataType" shape="rect" coords="346,50,430,72" href="#dataType" />
+	<area alt="section dataType" shape="rect" coords="262,80,346,102" href="#dataType" />
+	<area alt="section dataType" shape="rect" coords="414,80,498,102" href="#dataType" />
+	<area alt="section identifier" shape="rect" coords="266,120,366,142" href="#identifier" />
+	<area alt="section dataType" shape="rect" coords="434,120,518,142" href="#dataType" />
+</map>
+<img style="max-width: 697px;" usemap="#dataTypeImgMap" alt="syntax diagram for a data type" src="./diagrams/dataType-d07e6a1e59b3b984d80f9f588301d975.svg" />
+</div>
+
+Data types
+
+<h3 id="primitiveType">primitiveType</h3>
+
+<h4>Numeric Types</h4>
+
+Numeric data types are summarized in the table below.
+
+| Identifier | Type | Bytes | Minimum Value | Maximum Value |
+| :---- | :----: | :----: | :----: | :----: |
+| `TINYINT` | signed integer | 1 | -128 | 127 |
+| `SMALLINT` | signed integer | 2 | -32768 | 32767 |
+| `INT` or `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
+| `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
+| `BIGINT` or `LONG` | signed integer | 8 | -9223372036854775808 | 9223372036854775807 |
+| `FLOAT` | single precision floating point number | 4 | n/a | n/a |
+| `DOUBLE` | double precision floating point number | 8 | n/a | n/a |
+| `DECIMAL` | precision of 38 digits | n/a | -10e37+1 | 10e37-1 |
+{: caption="Table 56. Numeric Data Types" caption-side="top"}
+
+
+<h4>String Types</h4>
+
+Strings are represented as `STRING` data type. The type definitions `VARCHAR(n)` and `CHAR(n)` can be used as aliases for `STRING`.
+The syntax requires that you specify a maximum length for these, but there is no length restriction enforced.
+
+<h4>Date and Time Types</h4>
+
+String values with appropriate formats can be converted to a timestamp or date, using data types `TIMESTAMP` or `DATE`, respectively.
+
+```sql
+-- cast string values to timestamp and date types
+SELECT
+    CAST('2018-10-31 23:55:00' AS TIMESTAMP),
+    CAST('2018-10-31 23:55:00' AS DATE),
+    CAST('HELLO' AS TIMESTAMP)
+FROM VALUES ('dummy')
+```
+{: codeblock}
+
+
+The result of the example query is shown in the table below.
+
+|CAST(2018-10-31 23:55:00 AS TIMESTAMP)|CAST(2018-2-28 23:55:00 AS DATE)|CAST(HELLO AS TIMESTAMP)|
+|--------------------------------------|--------------------------------|------------------------|
+|2018-10-31 23:55:00.0                 |2018-02-28                      |null                    |
+{: caption="Table 57. Query result for example 'cast string values to TIMESTAMP and DATE types'" caption-side="top"}
+
+
+<h4>Misc Types</h4>
+
+<h5>Boolean Type</h5>
+
+The `BOOLEAN` type represents a domain with two values, `true` or `false`.
+
+Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be cast to `false`.
+
+Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 21474.83648 can be cast to `true`.
+
+The string value `'0'` can be cast to `false` and `'1'` can be cast to `true`, respectively. Any other string value is cast to `false`.
+
+<h5>Binary Type</h5>
+
+A `BINARY` type represents an array of byte values. Thus, string values can be cast to type `BINARY`.
+
+<h4>Related References</h4>
+
+A *dataType* is referenced by the following clauses:
+* [castExpression](#castExpression)
+* [createTable](#createTable)
+
 
 ## Catalog Management ![Beta](beta.png)
 {: #chapterHiveCatalog}
@@ -3009,7 +2997,7 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 	<area alt="section identifier" shape="rect" coords="323,372,423,394" href="#identifier" />
 	<area alt="section COSURI" shape="rect" coords="155,467,223,489" href="#COSURI" />
 </map>
-<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table command" src="./diagrams/createTable-4889c1a7a5bb13c8466137b678683eca.svg" />
+<img style="max-width: 738px;" usemap="#createTableImgMap" alt="syntax diagram for a create table command" src="./diagrams/createTable-0ac7414fa6f01507ffe90168c35d3a12.svg" />
 </div>
 
 <h4 id="columnDefinition">columnDefinition</h4>
@@ -3027,6 +3015,7 @@ If a table with the same name already exists in the same {{site.data.keyword.sql
 
 The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
 If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
+See [data types](#dataType) for details on the supported column types.
 
 ```sql
 -- create a definition for the table customer
