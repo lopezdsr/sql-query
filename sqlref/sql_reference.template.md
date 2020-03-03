@@ -2482,9 +2482,9 @@ An *operator* is referenced by [valueExpression](#valueExpression).
 Data types can be either primitive types like numeric or string types, or they can be composite types that are built from other
 primitive or composite types. Composite types can have the following structure:
 
-* *Struct* types describe types that are built from a fixed number of named fields
-* *Array* types describe a sequence of elements that can have an arbitrary length
-* *Map* types describe a mapping from keys to values
+* *Struct* types describe types that are built from a fixed number of named fields. Each field can have its own type.
+* *Array* types describe a sequence of elements that can have an arbitrary length, but must all have the same type.
+* *Map* types describe a mapping from keys to values.
 
 Composite types can be nested, as in the following example:
 ```sql
@@ -2497,7 +2497,7 @@ STRUCT<
             streetAddress: STRING,
             city: STRING,
             postalCode: STRING,
-            country: STRING,
+            country: STRING
         >
     >
 >
@@ -2530,7 +2530,7 @@ Numeric data types are summarized in the table below.
 <h4>String Types</h4>
 
 Strings are represented as `STRING` data type. The type definitions `VARCHAR(n)` and `CHAR(n)` can be used as aliases for `STRING`.
-The syntax requires that you specify a maximum length for these, but there is no length restriction enforced.
+The syntax requires that you specify a maximum length for these, but no length restriction is enforced.
 
 <h4>Date and Time Types</h4>
 
