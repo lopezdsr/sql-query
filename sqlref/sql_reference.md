@@ -2894,7 +2894,7 @@ The following types of operators can be used:
 An *operator* is referenced by [valueExpression](#valueExpression).
 
 ## Data Types
-{: dataType}
+{: #dataType}
 
 <div style="overflow-x : auto;">
 <map name="dataTypeImgMap">
