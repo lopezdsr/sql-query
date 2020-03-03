@@ -2475,7 +2475,7 @@ The following types of operators can be used:
 An *operator* is referenced by [valueExpression](#valueExpression).
 
 ## Data Types
-{: dataType}
+{: #dataType}
 
 <!--include-svg src="./svgfiles/dataType.svg" target="./diagrams/dataType.svg" alt="syntax diagram for a data type" layout="" -->
 
