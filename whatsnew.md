@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2020
-lastupdated: "2020-02-13"
+lastupdated: "2020-03-04"
 
 keywords: what's new, support, release, beta
 
@@ -17,7 +17,7 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
-## February 2020
+## March 2020
 
 - {{site.data.keyword.sqlquery_full}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hive_metastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.![Beta](beta.png)
 
