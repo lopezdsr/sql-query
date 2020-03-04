@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram"  width="517" height="207" viewBox="0 0 517 207" >
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram"  width="397" height="177" viewBox="0 0 397 177" >
 <defs><style type="text/css"><![CDATA[ svg.railroad-diagram {
   background-color: #ffffff;
 }
@@ -35,7 +35,7 @@ svg.railroad-diagram rect {
 <path d="M20 31  v 20 m 10 -20 v 20 m -10 -10 h 20.5"></path>
 <g>
 <path d="M40 41 h0"></path>
-<path d="M820 41 h0"></path>
+<path d="M668 41 h0"></path>
 <g>
 <path d="M40 41 h0"></path>
 <path d="M312 41 h0"></path>
@@ -94,65 +94,39 @@ svg.railroad-diagram rect {
 <path d="M292 41 h20"></path>
 </g>
 <path d="M312 41 h10"></path>
-<g>
-<path d="M322 41 h0"></path>
-<path d="M422 41 h0"></path>
-<rect x="322" y="30" width="100" height="22" ></rect>
-<text x="372" y="45">fullselect</text>
-</g>
-<path d="M422 41 h10"></path>
-<path d="M432 41 h10"></path>
 <g id="eol">
-<path d="M442 41 h0"></path>
-<path d="M442 41 a 10 10 0 0 1 10 10 V 90 a 10 10 0 0 1 -10 10 h -411 a 10 10 0 0 0 -10 10 V 135 a 10 10 0 0 0 10 10"></path>
-<path d="M442 41 h0"></path>
-<path d="M442 41 h0"></path>
+<path d="M322 41 h0"></path>
+<path d="M322 41 a 10 10 0 0 1 10 10 V 90 a 10 10 0 0 1 -10 10 h -291 a 10 10 0 0 0 -10 10 V 135 a 10 10 0 0 0 10 10"></path>
+<path d="M322 41 h0"></path>
+<path d="M322 41 h0"></path>
 </g>
 <path d="M31 145 h10"></path>
+<path d="M41 145 h10"></path>
 <g>
-<path d="M41 145 h0"></path>
-<path d="M333 145 h0"></path>
-<path d="M41 145 a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
+<path d="M51 145 h0"></path>
+<path d="M151 145 h0"></path>
+<rect x="51" y="134" width="100" height="22" ></rect>
+<text x="101" y="149">fullselect</text>
+</g>
+<path d="M151 145 h10"></path>
 <g>
-<path d="M61 125 h252"></path>
-</g>
-<path d="M313 125 a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
-<path d="M41 145 h20"></path>
+<path d="M161 145 h0"></path>
+<path d="M301 145 h0"></path>
+<path d="M161 145 a10 10 0 0 0 10 -10v0a10 10 0 0 1 10 -10"></path>
 <g>
-<path d="M61 145 h0"></path>
-<path d="M313 145 h0"></path>
-<path d="M61 145 h10"></path>
+<path d="M181 125 h100"></path>
+</g>
+<path d="M281 125 a10 10 0 0 1 10 10v0a10 10 0 0 0 10 10"></path>
+<path d="M161 145 h20"></path>
 <g>
-<path d="M71 145 h0"></path>
-<path d="M123 145 h0"></path>
-<rect x="71" y="134" width="52" height="22"  rx="10" ry="10"></rect>
-<text x="97" y="149">INTO</text>
+<path d="M181 145 h0"></path>
+<path d="M281 145 h0"></path>
+<rect x="181" y="134" width="100" height="22" ></rect>
+<text x="231" y="149">intoClause</text>
 </g>
-<path d="M123 145 h10"></path>
-<g>
-<path d="M133 145 h0"></path>
-<path d="M313 145 h0"></path>
-<path d="M133 145 h20"></path>
-<g>
-<path d="M153 145 h0"></path>
-<path d="M293 145 h0"></path>
-<rect x="153" y="134" width="140" height="22" ></rect>
-<text x="223" y="149">cosResultClause</text>
-</g>
-<path d="M293 145 h20"></path>
-<path d="M133 145 a10 10 0 0 1 10 10v10a10 10 0 0 0 10 10"></path>
-<g>
-<path d="M153 175 h4"></path>
-<path d="M289 175 h4"></path>
-<rect x="157" y="164" width="132" height="22" ></rect>
-<text x="223" y="179">dbResultClause</text>
-</g>
-<path d="M293 175 a10 10 0 0 0 10 -10v-10a10 10 0 0 1 10 -10"></path>
+<path d="M281 145 h20"></path>
 </g>
 </g>
-<path d="M313 145 h20"></path>
-</g>
-</g>
-<path d="M333 145  h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
+<path d="M301 145  h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
 </g>
 </svg>

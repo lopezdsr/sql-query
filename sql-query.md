@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-20"
+lastupdated: "2020-02-26"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -76,13 +76,62 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, 
 3. Click the **Run** button.
 When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a standard plan instance of {{site.data.keyword.sqlquery_short}}.
 
+### Sample queries
+{: #sample}
+
+What does a typical query look like? The following sample queries give you an idea to get you started:
+
+#### Example of a table exploration query
+{: #exploration}
+
+The following query selects all columns of a table and limits the result to 50 rows.
+Use it to explore a particular table.
+
+```sql
+SELECT *
+FROM cos://us-geo/sql/customers.csv STORED AS CSV
+ORDER BY CustomerID
+LIMIT 50
+```
+
+#### Example of an exact target path specification
+{: #path}
+
+The following query writes an SQL result into an exact result path.
+Normally, SQL query always appends jobid=<jobid> to the provided target path to ensure a unique result location with each query execution.
+In the following sample query, however, this suffix is eliminated by adding JOBPREFIX NONE to the path in the INTO clause.
+Note: This overwrites all objects currently stored in the provided result path.
+
+```sql
+SELECT *
+FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET
+INTO cos://us-south/sql-7fb0b44d-2d76-4c5c-af1e-c746c84f9da1/result/employees.csv JOBPREFIX NONE
+```
+
+#### Example of a self join
+{: #self-join}
+
+The following query uses a simple self join to list the employees that are located in the same city as Steven.
+
+```sql
+SELECT e1.firstname employee, e2.firstname colleague, e1.city
+FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET e1,
+     cos://us-geo/sql/employees.parquet STORED AS PARQUET e2
+WHERE e2.city = e1.city
+      AND e1.employeeid <> e2.employeeid
+      AND e1.firstname = 'Steven'
+ORDER BY e1.city , e1.firstname
+```
+
 ## Table unique resource identifier
+{: #unique}
 
 There are different types of table unique resource identifiers, depending on the type of target service used.
 You can either specify Cloud {{site.data.keyword.cos_short}} locations or database locations.
 The latter is currently only supported for target locations of an SQL query, and only for {{site.data.keyword.Db2_on_Cloud_long}} and {{site.data.keyword.dashdblong}} database services.
 
 ### Cloud Object Storage locations
+{: #cos-location}
 
 This identifier points to a location on Cloud {{site.data.keyword.cos_short}} with a URI format. The access to this Cloud {{site.data.keyword.cos_short}} bucket is performed with the {{site.data.keyword.iamlong}} (IAM) identity
 of the user that has submitted the SQL statement to {{site.data.keyword.sqlquery_short}}. So, make sure that the user's IAM identity has the necessary access rights granted on the Cloud {{site.data.keyword.cos_short}} bucket.
@@ -129,11 +178,13 @@ As noted above, the URI for an input table on Cloud {{site.data.keyword.cos_shor
 Matching columns need to have compatible data types across all objects where they appear. If a column does not appear in some of the input objects, it is padded with NULL values in the composite input.
 
 ### Database locations
+{: #db-location}
 
 There are two ways to specify database locations, CRN URIs, and Db2 table URIs. Which one you choose
 depends on the target database plan and the access you have to that database:
 
 #### CRN URI location
+{: #crn-uri}
 
 If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and if the SQL user can see the credentials for that instance (this requires the Operator privilege), then the user can specify the database location using its instance CRN. The access to the database is performed with the user name and password found in the service credentials for this Db2 instance. Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
@@ -154,6 +205,7 @@ The table name is case-preserving, so use upper case to match database defaults.
 An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
 
 #### Db2 table URI location
+{: #db2-table-uri}
 
 If the SQL user cannot access the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance (because the user does not have access to the account containing the database instance, or hasn't been granted Operator privilege on the instance), that user can specify the database location using a URI with the Db2 database host name.
 
@@ -182,7 +234,7 @@ By default, three objects are written to Cloud {{site.data.keyword.cos_short}} a
 2. `<target>/jobid=<job_id>/_SUCCESS`
 3. `<target>/jobid=<job_id>/<part-number>`
 
-Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names will include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO`clause.
+Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names will include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO` clause.
 
 Note that you can use the result set from one query as input data for further SQL queries.
 If you want to specify a result of a single query execution as input in your SQL query, specify the first (`<target>/jobid=<job_id>`) or the third one (`<target>/jobid=<job_id>/<part-number>`). You can also use the [partitioning clause](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. Either the entire result set or individual objects can then serve as input for further queries.
@@ -198,7 +250,7 @@ Your Cloud {{site.data.keyword.cos_short}} instance will have one of the support
 [public and private {{site.data.keyword.cos_short}} endpoints](https://cloud.ibm.com/docs/services/cloud-object-storage?topic=cloud-object-storage-endpoints).
 To save space, you can use the alias shown instead of the full endpoint name. 
 
-Aliases to ethering endpoints (specific endpoints within cross region domains, for example, `dal-us-geo`) are considered legacy. They continue to work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the alias of the corresponding cross region endpoint (for example, `us-geo`).
+Aliases to tethering endpoints (specific endpoints within cross region domains, for example, `dal-us-geo`) are considered legacy. They continue to work until further notice but will be deprecated sometime in the future. To be prepared, update your applications to use the alias of the corresponding cross region endpoint (for example, `us-geo`).
 
 **Note:** {{site.data.keyword.sqlquery_short}} will always use the internal endpoint to interact with {{site.data.keyword.cos_short}}, 
 even if an external endpoint has been specified in the query. The result location for a query will always indicate the external endpoint name.

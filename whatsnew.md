@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2020
-lastupdated: "2020-01-08"
+lastupdated: "2020-03-04"
 
 keywords: what's new, support, release, beta
 
@@ -16,6 +16,10 @@ subcollection: sql-query
   When you add new bullets at the top, prefix your commit message with "whatsnew: "
   to trigger an update of the UI build that will make users aware of the new information
 -->
+
+## March 2020
+
+- {{site.data.keyword.sqlquery_full}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hive_metastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.![Beta](beta.png)
 
 ## January 2020
 
@@ -47,7 +51,7 @@ subcollection: sql-query
 ## July 2019
 
 - JSON preview:
-  You can now directly preview query results in JSON format in the SQL console. Simply add `INTO <COS URI> STORED AS JSON` to your SQL     statement to produce JSON output and preview it in the web console.
+  You can now directly preview query results in JSON format in the SQL console. Simply add `INTO <COS URI> STORED AS JSON` to your SQL statement to produce JSON output and preview it in the web console.
 - Support for Parquet schema evolution via the [`MERGE SCHEMA`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) sub clause for `STORED AS PARQUET` input data. Check out the new samples in the UI.
 - Support for [`CLEANCOLS`](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that generically cleanses all input column names from characters that are not supported by the Parquet target format. Check out the new Samples.
 - Support for [`FLATTEN`](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that generically flattens all nested input columns into a flat hierarchy, allowing to easily work with, for example, JSON input data and write the results out to flat CSV files. Check out the new samples in the UI.

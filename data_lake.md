@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2019
-lastupdated: "2019-04-04"
+lastupdated: "2020-02-28"
 
 keywords: aspera, data lake, object storage, csv
 
@@ -23,4 +23,6 @@ subcollection: sql-query
 {: #loganalysis}
 
 Learn how to use the Aspera high-speed upload feature of {{site.data.keyword.cos_full}} and how to analyze police logs in CSV format with
-[Build a data lake using object storage](/docs/tutorials/smart-data-lake.html#build-a-data-lake-using-object-storage).
+[Build a data lake using Object Storage](/docs/tutorials/smart-data-lake.html#build-a-data-lake-using-object-storage).
+
+Learn how to revive your archives, allowing you to work on log data from {{site.data.keyword.la_full}} using {{site.data.keyword.sqlquery_full}} with [Analyze LogDNA Log Data on IBM Cloud Object Storage Using IBM Cloud SQL Query](https://www.ibm.com/cloud/blog/analyze-logdna-log-data-on-ibm-cloud-object-storage-using-ibm-cloud-sql-query).

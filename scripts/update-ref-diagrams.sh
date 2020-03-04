@@ -2,7 +2,7 @@
 #set -x
 
 # Get the latest diagram files and copy them into the SQL reference
-# Assumes that the sparksql-parser project hasbeen checked out into the same source directory
+# Assumes that the sparksql-parser project has been checked out into the same parent directory
 # or clones it there if it does not already exist
 
 if [ ! -d ../sparksql-parser ]; then

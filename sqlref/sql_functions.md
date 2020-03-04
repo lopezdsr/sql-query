@@ -125,7 +125,7 @@ expr1 &lt; expr2 - Returns true if <code>expr1</code> is less than <code>expr2</
 **Arguments:**
 
 <ul>
-<li>expr1, expr2 - the two expressions must be same type or can be casted to a common type,
+<li>expr1, expr2 - the two expressions must be same type or can be cast to a common type,
     and must be a type that can be ordered. For example, map type is not orderable, so it
     is not supported. For complex types such array/struct, the data types of fields must
     be orderable.</li>
@@ -179,7 +179,7 @@ expr1 &lt;= expr2 - Returns true if <code>expr1</code> is less than or equal to 
 **Arguments:**
 
 <ul>
-<li>expr1, expr2 - the two expressions must be same type or can be casted to a common type,
+<li>expr1, expr2 - the two expressions must be same type or can be cast to a common type,
     and must be a type that can be ordered. For example, map type is not orderable, so it
     is not supported. For complex types such array/struct, the data types of fields must
     be orderable.</li>
@@ -235,7 +235,7 @@ but returns true if both are null, false if one of the them is null.
 **Arguments:**
 
 <ul>
-<li>expr1, expr2 - the two expressions must be same type or can be casted to a common type,
+<li>expr1, expr2 - the two expressions must be same type or can be cast to a common type,
     and must be a type that can be used in equality comparison. Map type is not supported.
     For complex types such array/struct, the data types of fields must be orderable.</li>
 </ul>
@@ -281,7 +281,7 @@ expr1 = expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, or
 **Arguments:**
 
 <ul>
-<li>expr1, expr2 - the two expressions must be same type or can be casted to a common type,
+<li>expr1, expr2 - the two expressions must be same type or can be cast to a common type,
     and must be a type that can be used in equality comparison. Map type is not supported.
     For complex types such array/struct, the data types of fields must be orderable.</li>
 </ul>
@@ -326,7 +326,7 @@ expr1 == expr2 - Returns true if <code>expr1</code> equals <code>expr2</code>, o
 **Arguments:**
 
 <ul>
-<li>expr1, expr2 - the two expressions must be same type or can be casted to a common type,
+<li>expr1, expr2 - the two expressions must be same type or can be cast to a common type,
     and must be a type that can be used in equality comparison. Map type is not supported.
     For complex types such array/struct, the data types of fields must be orderable.</li>
 </ul>
@@ -371,7 +371,7 @@ expr1 &gt; expr2 - Returns true if <code>expr1</code> is greater than <code>expr
 **Arguments:**
 
 <ul>
-<li>expr1, expr2 - the two expressions must be same type or can be casted to a common type,
+<li>expr1, expr2 - the two expressions must be same type or can be cast to a common type,
     and must be a type that can be ordered. For example, map type is not orderable, so it
     is not supported. For complex types such array/struct, the data types of fields must
     be orderable.</li>
@@ -426,7 +426,7 @@ expr1 &gt;= expr2 - Returns true if <code>expr1</code> is greater than or equal 
 **Arguments:**
 
 <ul>
-<li>expr1, expr2 - the two expressions must be same type or can be casted to a common type,
+<li>expr1, expr2 - the two expressions must be same type or can be cast to a common type,
     and must be a type that can be ordered. For example, map type is not orderable, so it
     is not supported. For complex types such array/struct, the data types of fields must
     be orderable.</li>
@@ -2049,7 +2049,7 @@ length(expr) - Returns the character length of string data or number of bytes of
 <pre><code> 10</code></pre>
 
 **Example of an SQL function usage fragment:**
- 
+
 <pre><code>&gt; SELECT CHAR_LENGTH('Spark SQL ')</code></pre>
 
 **Result value:**
@@ -2656,7 +2656,7 @@ percentage array.
 <pre><code> [10.0,10.0,10.0]</code></pre>
 
 **Example of an SQL function usage fragment:**
- 
+
 <pre><code>&gt; SELECT percentile_approx(10.0, 0.5, 100)</code></pre>
 
 **Result value:**
@@ -2711,7 +2711,7 @@ posexplode(expr) - Separates the elements of array <code>expr</code> into multip
 
 **Result value:**
 
-<pre><code> 0  10   
+<pre><code> 0  10
  1  20</code></pre>
 
 
@@ -2743,7 +2743,7 @@ The given <code>pos</code> and return value are 1-based.
 <pre><code> 4</code></pre>
 
  **Example of an SQL function usage fragment:**
- 
+
 <pre><code>&gt; SELECT position('bar', 'foobarbar', 5)</code></pre>
 
 **Result value:**
@@ -2751,7 +2751,7 @@ The given <code>pos</code> and return value are 1-based.
 <pre><code> 7</code></pre>
 
  **Example of an SQL function usage fragment:**
- 
+
 <pre><code>&gt; SELECT POSITION('bar' IN 'foobarbar')</code></pre>
 
 **Result value:**

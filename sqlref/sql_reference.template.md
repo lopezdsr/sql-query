@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-01-31"
+lastupdated: "2020-02-26"
 
 ---
 
@@ -19,19 +19,25 @@ lastupdated: "2020-01-31"
 
 {{site.data.keyword.sqlquery_full}} allows you to analyze and transform open data with SQL. It supports the various types of SELECT statements from the ANSI SQL standard.
 
-The select statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
+The SELECT statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
-Because {{site.data.keyword.sqlquery_short}} always writes the results of a query to a given location
-in Cloud {{site.data.keyword.cos_short}}, you can use it as a data transformation service.
-It provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically.
-This includes control over data location, format, layout and partitioning.
+You can use {{site.data.keyword.sqlquery_short}} as a data transformation service, as it always writes the results of a query to a given location in either {{site.data.keyword.cos_short}} or DB2 tables.
+{{site.data.keyword.sqlquery_short}} provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically. This includes control over data location, format, layout, and partitioning.
 
 A query statement can be submitted via {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
 either by using the service's REST API, or by using the Python or Node.JS SDK. You can also use {{site.data.keyword.DSX_full}}
 and the Python SDK in order to use {{site.data.keyword.sqlquery_short}} interactively with Jupyter Notebooks. In addition, you can submit SQL queries using {{site.data.keyword.openwhisk}}.
 
-## SQL query statement
+In addition to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you can also register and manage your data in a catalog as tables, consisting of columns and partitions.
+
+There are several benefits to cataloging your data:
+
+1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored.
+2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
+<!-- Hide 3. With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
+
+## Select
 {: #chapterSQLQueryStatement}
 
 The general syntax of an SQL query statement is outlined below using the `query` clause and the `namedQuery` clause.
@@ -43,6 +49,10 @@ The general syntax of an SQL query statement is outlined below using the `query`
 <h3 id="namedQuery">namedQuery</h3>
 
 <!--include-svg src="./svgfiles/namedQuery.svg" target="./diagrams/namedQuery.svg" alt="syntax diagram for a named query" layout="" -->
+
+<h3 id="intoClause">intoClause</h3>
+
+<!--include-svg src="./svgfiles/intoClause.svg" target="./diagrams/intoClause.svg" alt="syntax diagram for an INTO clause" layout="" -->
 
 The query statement supports *common table expressions*. A common table expression permits defining a result table with a table name
 that can be specified as a table name in any FROM clause of the fullselect that follows.
@@ -262,7 +272,7 @@ A *query* is referenced by the following clauses:
 * [primaryExpression](#primaryExpression)
 
 
-## Fullselect Clause
+### Fullselect Clause
 {: #chapterFullSelectClause}
 
 <h3 id="fullselect">fullselect</h3>
@@ -422,7 +432,7 @@ A *fullselect* is referenced by the following clauses
 * [query](#query)
 * [relationPrimary](#relationPrimary)
 
-## Simpleselect Clause
+### Simpleselect Clause
 {: #chapterSimpleSelectClause}
 
 A *simpleselect* is a component of a *fullselect*. Its syntax is defined by the syntax diagram below.
@@ -634,6 +644,34 @@ A *simpleselect* is referenced by the following clause:
 
 * [fullselect](#fullselect)
 
+### Sort Item Clause
+{: #chapterSortItemClause}
+
+*Sort items* are a component of a *fullselect* or a *window specification*.
+
+<h3 id="sortItem">sortItem</h3>
+
+<!--include-svg src="./svgfiles/sortItem.svg" target="./diagrams/sortItem.svg" alt="syntax diagram for a sort item"  layout="" -->
+
+The semantics of the *sort item* components are as follows:
+* `expression`: The expression represents a *sort key*. The value of the sort key is used to order the rows of the result.
+* `ASC`: Uses the values of the sort key in ascending order. ASC is the default.
+* `DESC`: Uses the values of the sort key in descending order.
+* `NULLS`:
+    * `FIRST`: Specifies that `NULL` values appear first in the order.
+    * `LAST`: Specifies that `NULL` values appear last in the order.
+
+<h3>More Topics</h3>
+
+For further details about the clauses used in a *expression* clause, refer to the following topic:
+* [expression](#expression)
+
+<h3>Related References</h3>
+
+A *sort item clause* is referenced by the following clauses:
+* [fullselect](#fullselect)
+* [windowSpec](#windowSpec)
+
 ## Relations
 {: #chapterRelations}
 
@@ -749,7 +787,7 @@ A *relation* is referenced by the following clause:
 
 * [simpleselect](#simpleselect)
 
-## Values Clause
+### Values Clause
 {: #chapterValuesClause}
 
 A *values clause* is a component of a *fullselect* or represents a *primary relation*. Its syntax is defined by the syntax diagram below.
@@ -764,7 +802,7 @@ Each `expression` in the list of expressions represents a row of the result set 
 
 In case of a single-column result set, each expression represents the value of this column in a row.
 
-In case of a multi-column result set, each expression represents a list of *n* expressions enclosed by parantheses, where *n* is the number of columns in the result set.
+In case of a multi-column result set, each expression represents a list of *n* expressions enclosed by parentheses, where *n* is the number of columns in the result set.
 
 To join a *values clause* with other types of result sets, specify an `identifier` that acts as an **alias** for the values clause.
 
@@ -787,7 +825,7 @@ The result of the example query is shown in the table below.
 <!--table-caption title="Query result for example 'single column result set with 3 rows'"-->
 
 ```sql
--- single column result set with 3 rows specifying parantheses for row expressions
+-- single column result set with 3 rows specifying parentheses for row expressions
 SELECT * FROM VALUES (1), (2) , (3)
 ```
 {: codeblock}
@@ -800,7 +838,7 @@ The result of the example query is shown in the table below.
 |1   |
 |2   |
 |3   |
-<!--table-caption title="Query result for example 'single column result set with 3 rows specifying parantheses for row expressions'"-->
+<!--table-caption title="Query result for example 'single column result set with 3 rows specifying parentheses for row expressions'"-->
 
 ```sql
 --- joining two multi column result sets using their identifier
@@ -834,7 +872,7 @@ The result of the example query is shown in the table below.
 |4  |Scotty|4000    |
 <!--table-caption title="Query result for example 'joining two multi column result sets using their identifier'"-->
 
-## Values Statement
+### Values Statement
 {: #chapterValuesStatement}
 
 A *values statement* is a standalone statement on its own. It can be used instead of a *fullselect* if your statement only
@@ -844,7 +882,7 @@ references a single value and does not contain any join with other relations or 
 
 ```sql
 -- values statement with single column result set with 3 rows
-VALUES 1, 2 , 3
+VALUES 1, 2, 3
 ```
 {: codeblock}
 
@@ -889,7 +927,7 @@ A *values clause* is referenced by the following clauses
 * [fullselect](#fullselect)
 * [relationPrimary](#relationPrimary)
 
-## Lateral Views
+### Lateral Views
 {: #chapterLateralViews}
 
 A lateral view is a component of a *simpleselect*. Lateral views allow to build  *virtual tables* at query execution time
@@ -986,7 +1024,7 @@ Note:
 
 A *lateral view* clause is referenced by a [simpleselect](#simpleselect).
 
-## Join Types
+### Join Types
 {: #chapterJoinTypes}
 
 SELECT statements can retrieve and join column values from two or more tables into a single row. The retrieval is based on a specified condition, typically of matching column values.
@@ -1252,33 +1290,64 @@ The result of the example query is shown in the table below.
 
 The *join types* are specified in a [relation](#relation).
 
-## Sort Item Clause
-{: #chapterSortItemClause}
+### Sampling Table Data
+{: #chapterSamplingTableData}
 
-*Sort items* are a component of a *fullselect* or a *window specification*.
+Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
+The table sample clause defines how to retrieve a subset of rows from the underlying table (object stored on Cloud {{site.data.keyword.cos_short}}). This lets you write queries for samples of the data, for example, for the purpose of interactive data exploration, data mining, and so on.
 
-<h3 id="sortItem">sortItem</h3>
+The general syntax of a table sample clause is described by the syntax diagram below.
 
-<!--include-svg src="./svgfiles/sortItem.svg" target="./diagrams/sortItem.svg" alt="syntax diagram for a sort item"  layout="" -->
+<h3 id="sample">sample</h3>
 
-The semantics of the *sort item* components are as follows:
-* `expression`: The expression represents a *sort key*. The value of the sort key is used to order the rows of the result.
-* `ASC`: Uses the values of the sort key in ascending order. ASC is the default.
-* `DESC`: Uses the values of the sort key in descending order.
-* `NULLS`:
-    * `FIRST`: Specifies that `NULL` values appear first in the order.
-    * `LAST`: Specifies that `NULL` values appear last in the order.
+<!--include-svg src="./svgfiles/sample.svg" target="./diagrams/sample.svg" alt="syntax diagram for a sample" layout="" -->
+
+<h3 id="bucketSampleClause">bucketSampleClause</h3>
+
+<!--include-svg src="./svgfiles/bucketSampleClause.svg" target="./diagrams/bucketSampleClause.svg" alt="syntax diagram for a bucket sample clause" layout="@break@" -->
+
+Three sampling types are supported:
+
+* `TABLESAMPLE <number> PERCENT` lets you sample a certain percentage of rows from the underlying table.
+* `TABLESAMPLE <expression> ROWS` lets you sample a certain number of rows from the underlying table.
+* `TABLESAMPLE BUCKET x OUT OF y` lets you bucketize the underlying data into `y` buckets and returns rows from bucket `x`. Buckets are numbered from `1`to `y`.
+
+<h3>Examples</h3>
+
+The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}.
+Note that the object referenced is accessible from the web UI as part of the provided sample queries.
+
+```sql
+-- retrieve 10 percent of employee data
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 PERCENT)
+```
+{: codeblock}
+
+```sql
+-- retrieve 10 rows from the employee data object
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 ROWS)
+```
+{: codeblock}
+
+```sql
+-- bucketize the employee data in 10 buckets and retrieve data from 2 buckets
+SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (BUCKET 2 OUT OF 10)
+```
+{: codeblock}
 
 <h3>More Topics</h3>
 
-For further details about the clauses used in a *expression* clause, refer to the following topic:
-* [expression](#expression)
+For further details about the clauses used in a *table sample clause*, refer to the following topics:
+ * [expression](#expression)
+ * [identifier](#identifier)
+ * [qualifiedName](#qualifiedName)
+ * [unsignedInteger](#unsignedInteger)
+ * [unsignedNumber](#unsignedNumber)
 
 <h3>Related References</h3>
 
-A *sort item clause* is referenced by the following clauses:
-* [fullselect](#fullselect)
-* [windowSpec](#windowSpec)
+A *table sample clause* is referenced by the following clause:
+* [relationPrimary](#relationPrimary)
 
 ## SQL Functions
 {: #chapterSqlFunctions}
@@ -1307,7 +1376,7 @@ For further details about the clauses used in a *function or aggregate* clause, 
 A *function or aggregate clause* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-## Window Functions
+### Window Functions
 {: #chapterWindowFunctions}
 
 Classic SQL **aggregation functions** like `SUM()`, `MAX()`, or `MIN()` process a group of rows to derive a single value. **Window functions** take this one step further by allowing to process a group of rows and derive a single value for each row in the group. Note that this is not the same as **scalar functions** that return a single value for each row. Scalar functions derive a single value from a single row and not a group of rows.
@@ -1526,7 +1595,7 @@ This example uses a table containing transaction information. The layout is as f
 * Column 2: account number
 * Column 3: transaction amount
 
-The example shows how to retrieve the *total balanace* of each account at the time of each transaction.
+The example shows how to retrieve the *total balance* of each account at the time of each transaction.
 
 ```sql
 --- total balance of each account at the time of each transaction
@@ -2062,7 +2131,7 @@ The result of the example query is shown in the table below.
 <h5><code>LIKE</code> Examples</h5>
 
 ```sql
--- all employess that work in a department that starts with letter C
+-- all employees that work in a department that starts with letter C
 SELECT
     emp.col1 AS emp_id,
     emp.col2 AS emp_dept
@@ -2224,88 +2293,14 @@ If the specified data type is not supported, an error is returned.
 
 <!--include-svg src="./svgfiles/castExpression.svg" target="./diagrams/castExpression.svg" alt="syntax diagram for a cast expression" layout="" -->
 
-Note that in case an expression cannot be casted to the data type specified in the cast expression, the expression result is `null`.
-
-<h4 id="dataType">dataType</h4>
-
-<!--include-svg src="./svgfiles/dataType.svg" target="./diagrams/dataType.svg" alt="syntax diagram for a data type" layout="" -->
-
-An `identifier` in a cast expression can have the values listed below.
-
-<h5>Numeric Types</h5>
-
-Numeric data types are summarized in the table below.
-
-| Identifier | Type | Bytes | Minimum Value | Maximum Value |
-| :---- | :----: | :----: | :----: | :----: |
-| `TINYINT` | signed integer | 1 | -128 | 127 |
-| `SMALLINT` | signed integer | 2 | -32768 | 32767 |
-| `INT` | signed integer | 4 | -2147483648 | 2147483647 |
-| `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
-| `BIGINT` | signed integer | 8 | -9223372036854775808 | 9223372036854775807 |
-| `FLOAT` | single precision floating point number | 4 | n/a | n/a |
-| `DOUBLE` | double precision floating point number | 8 | n/a | n/a |
-| `DOUBLE PRECISION` | double precision floating point number | 8 | n/a | n/a |
-| `DECIMAL` | precision of 38 digits | n/a | -10e37+1 | 10e37-1 |
-<!--table-caption title="Numeric Data Types"-->
-
-<h5>String Types</h5>
-
-Supported string type identifiers are `VARCHAR` and `CHAR`.
-
-<h5>Date and Time Types</h5>
-
-String values with appropriate formats can be converted to a timestamp or date, using data type `TIMESTAMP` or `DATE`, respectively.
-
-```sql
--- cast string values to timestamp and date types
-SELECT
-    CAST('2018-10-31 23:55:00' AS TIMESTAMP),
-    CAST('2018-10-31 23:55:00' AS DATE),
-    CAST('HELLO' AS TIMESTAMP)
-FROM VALUES ('dummy')
-```
-{: codeblock}
-
-
-The result of the example query is shown in the table below.
-
-|CAST(2018-10-31 23:55:00 AS TIMESTAMP)|CAST(2018-2-28 23:55:00 AS DATE)|CAST(HELLO AS TIMESTAMP)|
-|--------------------------------------|--------------------------------|------------------------|
-|2018-10-31 23:55:00.0                 |2018-02-28                      |null                    |
-<!--table-caption title="Query result for example 'cast string values to TIMESTAMP and DATE types'"-->
-
-<h5>Misc Types</h5>
-
-<h6>Boolean Type</h6>
-
-The `BOOLEAN` type represents a domain with two values, `true` or `false`.
-
-Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be casted to `false`.
-
-Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 21474.83648 can be casted to `true`.
-
-The string value `'0'` can be casted to `false` and `'1'` can be casted to `true`, respectively. Any other string value is casted to `false`.
-
-<h6>Binary Type</h6>
-
-A `BINARY` type represents an array of byte values. Thus, string values can be casted to type `BINARY`.
-
-<h4 id="complexColTypeList">complexColTypeList</h4>
-
-<!--include-svg src="./svgfiles/complexColTypeList.svg" target="./diagrams/complexColTypeList.svg" alt="syntax diagram for a complex column type list" layout="" -->
-
-<h4 id="complexColType">complexColType</h4>
-
-<!--include-svg src="./svgfiles/complexColType.svg" target="./diagrams/complexColType.svg" alt="syntax diagram for a complex column type" layout="" -->
+Note that in case an expression cannot be cast to the data type specified in the cast expression, the expression result is `null`.
 
 <h4>More Topics</h4>
 
 For further details about the clauses used by a *cast expression*, refer to the following topics:
+* [dataType](#dataType)
 * [expression](#expression)
-* [identifier](#identifier),
-* [STRING](#STRING)
-* [unsignedInteger](#unsignedInteger)
+* [identifier](#identifier)
 
 <h4>Related References</h4>
 
@@ -2408,12 +2403,12 @@ For further details about the clauses used by a *case expression*, refer to the 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-## Operator
+### Operator
 {: #chapterOperator}
 
 The following types of operators can be used:
 * [Unary](#unaryOperator)
-* [Aithmetic](#arithmeticOperator)
+* [Arithmetic](#arithmeticOperator)
 * [String](#stringOperator)
 * [Comparison](#comparisonOperator)
 * [Boolean](#booleanOperator)
@@ -2479,64 +2474,330 @@ The following types of operators can be used:
 
 An *operator* is referenced by [valueExpression](#valueExpression).
 
-## Sampling Table Data
-{: #chapterSamplingTableData}
+## Data Types
+{: #dataType}
 
-Any table, that is, object stored on Cloud {{site.data.keyword.cos_short}}, used in a *from clause*, can be associated with a *table sample clause*.
-The table sample clause defines how to retrieve a subset of rows from the underlying table (object stored on Cloud {{site.data.keyword.cos_short}}). This lets you write queries for samples of the data, for example, for the purpose of interactive data exploration, data mining, and so on.
+<!--include-svg src="./svgfiles/dataType.svg" target="./diagrams/dataType.svg" alt="syntax diagram for a data type" layout="" -->
 
-The general syntax of a table sample clause is described by the syntax diagram below.
+Data types can be either primitive types like numeric or string types, or they can be composite types that are built from other
+primitive or composite types. Composite types can have the following structure:
 
-<h3 id="sample">sample</h3>
+* *Struct* types describe types that are built from a fixed number of named fields. Each field can have its own type.
+* *Array* types describe a sequence of elements that can have an arbitrary length, but must all have the same type.
+* *Map* types describe a mapping from keys to values.
 
-<!--include-svg src="./svgfiles/sample.svg" target="./diagrams/sample.svg" alt="syntax diagram for a sample" layout="" -->
-
-<h3 id="bucketSampleClause">bucketSampleClause</h3>
-
-<!--include-svg src="./svgfiles/bucketSampleClause.svg" target="./diagrams/bucketSampleClause.svg" alt="syntax diagram for a bucket sample clause" layout="@break@" -->
-
-Three sampling types are supported:
-
-* `TABLESAMPLE <number> PERCENT` lets you sample a certain percentage of rows from the underlying table.
-* `TABLESAMPLE <expression> ROWS` lets you sample a certain number of rows from the underlying table.
-* `TABLESAMPLE BUCKET x OUT OF y` lets you bucketize the underlying data into `y` buckets and returns rows from bucket `x`. Buckets are numbered from `1`to `y`.
-
-<h3>Examples</h3>
-
-The following examples demonstrate how to sample a subset of data from a Parquet object on Cloud {{site.data.keyword.cos_short}}.
-Note that the object referenced is accessible from the web UI as part of the provided sample queries.
-
+Composite types can be nested, as in the following example:
 ```sql
--- retrieve 10 percent of employee data
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 PERCENT)
+STRUCT<
+    firstName: STRING,
+    lastName: STRING,
+    age: INTEGER,
+    addresses: ARRAY<
+        STRUCT<
+            streetAddress: STRING,
+            city: STRING,
+            postalCode: STRING,
+            country: STRING
+        >
+    >
+>
 ```
 {: codeblock}
 
+Note that some data formats, particularly CSV, do not support composite types. When your query result contains data with a composite type,
+use an [INTO clause](#intoClause) to specify an appropriate target format, like JSON.
+
+<h3 id="primitiveType">primitiveType</h3>
+
+The following primitive types are supported in {{site.data.keyword.sqlquery_short}}:
+
+<h4>Numeric Types</h4>
+
+Numeric data types are summarized in the table below.
+
+| Identifier | Type | Bytes | Minimum Value | Maximum Value |
+| :---- | :----: | :----: | :----: | :----: |
+| `TINYINT` | signed integer | 1 | -128 | 127 |
+| `SMALLINT` | signed integer | 2 | -32768 | 32767 |
+| `INT` or `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
+| `INTEGER` | signed integer | 4 | -2147483648 | 2147483647 |
+| `BIGINT` or `LONG` | signed integer | 8 | -9223372036854775808 | 9223372036854775807 |
+| `FLOAT` | single precision floating point number | 4 | n/a | n/a |
+| `DOUBLE` | double precision floating point number | 8 | n/a | n/a |
+| `DECIMAL` | precision of 38 digits | n/a | -10e37+1 | 10e37-1 |
+<!--table-caption title="Numeric Data Types"-->
+
+<h4>String Types</h4>
+
+Strings are represented as `STRING` data type. The type definitions `VARCHAR(n)` and `CHAR(n)` can be used as aliases for `STRING`.
+The syntax requires that you specify a maximum length for these, but no length restriction is enforced.
+
+<h4>Date and Time Types</h4>
+
+String values with appropriate formats can be converted to a timestamp or date, using data types `TIMESTAMP` or `DATE`, respectively.
+
 ```sql
--- retrieve 10 rows from the employee data object
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (10 ROWS)
+-- cast string values to timestamp and date types
+SELECT
+    CAST('2018-10-31 23:55:00' AS TIMESTAMP),
+    CAST('2018-10-31 23:55:00' AS DATE),
+    CAST('HELLO' AS TIMESTAMP)
+FROM VALUES ('dummy')
 ```
 {: codeblock}
 
+
+The result of the example query is shown in the table below.
+
+|CAST(2018-10-31 23:55:00 AS TIMESTAMP)|CAST(2018-2-28 23:55:00 AS DATE)|CAST(HELLO AS TIMESTAMP)|
+|--------------------------------------|--------------------------------|------------------------|
+|2018-10-31 23:55:00.0                 |2018-02-28                      |null                    |
+<!--table-caption title="Query result for example 'cast string values to TIMESTAMP and DATE types'"-->
+
+<h4>Boolean Type</h4>
+
+The `BOOLEAN` type represents a domain with two values, `true` or `false`.
+
+Any numeric value representing zero, for example, `0`, `0.0`, or `0.0E10`, can be cast to `false`.
+
+Numeric values representing a nonzero value, for example, 1, 1.0, 1.0E10, or 21474.83648 can be cast to `true`.
+
+The string value `'0'` can be cast to `false` and `'1'` can be cast to `true`, respectively. Any other string value is cast to `false`.
+
+<h4>Binary Type</h4>
+
+A `BINARY` type represents an array of byte values. Thus, string values can be cast to type `BINARY`.
+
+<h4>Related References</h4>
+
+A *dataType* is referenced by the following clauses:
+* [castExpression](#castExpression)
+* [createTable](#createTable)
+
+
+## Catalog Management ![Beta](beta.png)
+{: #chapterHiveCatalog}
+
+The following commands allow users to store table metadata catalog in the {{site.data.keyword.sqlquery_short}} catalog. Having the tables, columns, and partitions defined in the catalog allows you to use short table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own catalog, and table definitions are not visible from other instances.
+Refer to the section about [Catalog Management (/docs/services/sql-query?topic=sql-query-hivemetastore) for more details.
+
+### Create Table
+{: #chapterCreateTable}
+
+<h4 id="createTable">createTable</h4>
+
+<!--include-svg src="./svgfiles/createTable.svg" target="./diagrams/createTable.svg" alt="syntax diagram for a create table command" layout="@break@" -->
+
+<h4 id="columnDefinition">columnDefinition</h4>
+
+<!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefinition.svg" alt="syntax diagram for column definition" layout="@break@" -->
+
+Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
+If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
+
+The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
+If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
+See [data types](#dataType) for details on the supported column types.
+
 ```sql
--- bucketize the employee data in 10 buckets and retrieve data from 2 buckets
-SELECT * FROM cos://us-geo/sql/employees.parquet STORED AS PARQUET TABLESAMPLE (BUCKET 2 OUT OF 10)
+-- create a definition for the table customer
+CREATE TABLE customers (
+  customerID string,
+  companyName string,
+  contactName string,
+  contactTitle string,
+  address string,
+  region string,
+  postalCode string,
+  country string,
+  phone string,
+  fax string
+)
+USING CSV
+location  cos://us-geo/sql/customers.csv
 ```
 {: codeblock}
 
-<h3>More Topics</h3>
+Before you can use a newly created partitioned table, you have to call `ALTER TABLE tablename RECOVER PARTITIONS`. Otherwise, querying the table returns an empty result.
 
-For further details about the clauses used in a *table sample clause*, refer to the following topics:
- * [expression](#expression)
- * [identifier](#identifier)
- * [qualifiedName](#qualifiedName)
- * [unsignedInteger](#unsignedInteger)
- * [unsignedNumber](#unsignedNumber)
+```sql
+-- create a definition for the table customers_partitioned
+CREATE TABLE customers_partitioned (
+  customerID string,
+  companyName string,
+  contactName string,
+  contactTitle string,
+  address string,
+  region string,
+  postalCode string,
+  country string,
+  phone string,
+  fax string
+)
+USING CSV
+PARTITIONED BY (COUNTRY)
+location  cos://us-geo/sql/customers_partitioned.csv
 
-<h3>Related References</h3>
+-- attach table partitions by scanning the location of the table
+ALTER TABLE customers_partitioned RECOVER PARTITIONS
+```
+{: codeblock}
 
-A *table sample clause* is referenced by the following clause:
-* [relationPrimary](#relationPrimary)
+An alternative way to create a table definition is to use the automatic schema detection where you do not need to specify any columns.
+
+```sql
+-- create a definition for the table shippers with automatic schema detection
+CREATE TABLE shippers
+USING parquet
+location  cos://us-geo/sql/shippers.parquet
+```
+{: codeblock}
+
+
+### Drop Table
+{: #chapterDropTable}
+
+<h4 id="dropTable">dropTable</h4>
+
+<!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table command" layout="@break@" -->
+
+Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the `IF EXISTS` option is specified.
+
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
+
+```sql
+-- drop a definition for the table customer
+DROP TABLE customers
+```
+{: codeblock}
+
+### Alter Table Partitions
+{: #chapterAlterTable}
+
+<h4 id="alterTablePartitions">alterTablePartitions</h4>
+
+<!--include-svg src="./svgfiles/alterTablePartitions.svg" target="./diagrams/alterTablePartitions.svg" alt="syntax diagram for a alter table partitions command" layout="@break@" -->
+
+Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
+
+Use the `RECOVER PARTITIONS` option to automatically replace the table partition metadata with the structure detected from {{site.data.keyword.cos_short}} data using the location prefix specified for the table.
+
+```sql
+-- replace the table partitions by scanning the location of the table
+ALTER TABLE customers_partitioned RECOVER PARTITIONS
+```
+{: codeblock}
+
+<h4 id="partitionSpec">partitionSpecification</h4>
+
+<!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
+
+
+In order to add or remove partitions manually, use the `ADD PARTITION` or `DROP PARTITION` options. `ALTER TABLE` does not validate the specified location.
+
+```sql
+-- alter the table partitions by adding a partition
+ALTER TABLE customers_partitioned ADD IF NOT EXISTS PARTITION ( COUNTRY = 'Spain') LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
+-- alter the table partitions by dropping a partition
+ALTER TABLE customers_partitioned DROP IF EXISTS PARTITION ( COUNTRY = 'Nowhere')
+```
+{: codeblock}
+
+Use the `EXISTS` option to avoid getting errors during `ADD` or `DROP`.
+
+<!-- HIDE START ### Set partition location
+
+To change a partition definition, use the `SET LOCATION` option.
+
+```sql
+-- alter the table partitions definition
+ALTER TABLE customers_partitioned PARTITION ( COUNTRY = 'Spain') SET LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
+```
+{: codeblock}
+HIDE END -->
+
+<!-- HIDE START ### Analyze Table
+
+<h4 id="analyzeTable">Analyze Table</h4>
+
+*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
+
+The `ANALYZE TABLE` statement collects statistics about the specified table and for the specified columns. This information can be used by the query optimizer to improve the query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
+
+```sql
+-- analyze statistics for the table customer without scanning each object
+analyze table customer compute STATISTICS NOSCAN
+```
+{: codeblock}
+
+The option `NOSCAN` only collects the sizes of the objects. HIDE END -->
+
+### Describe Table
+{: #chapterDescribeTable}
+
+<h4 id="describeTable">describeTable</h4>
+
+<!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for describe tables command" layout="@break@" -->
+
+Return the schema (column names and data types) of a table definition. If the table does not exist, an error is returned.
+
+```sql
+-- returns detailed information about the customer table
+DESCRIBE TABLE  customers_partitioned
+```
+{: codeblock}
+
+### Show Tables
+{: #chapterShowTables}
+
+<h4 id="showTables">showTables</h4>
+
+<!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
+
+Returns the list of the defined tables in the catalog. The `LIKE` option allows to filter for a given pattern. `*` can be used as wildcard character.
+
+```sql
+-- returns all defined tables in the catalog for this instance
+SHOW TABLES
+```
+{: codeblock}
+
+<!-- HIDE START ### Show Table Properties
+
+<h4 id="showTblProperties">Show Table Properties</h4>
+
+*!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" --*
+
+<h4 id="tableProperty">Table Property</h4>
+
+*!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" --*
+
+*!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
+
+
+Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
+
+```sql
+-- returns all specified table options for the table customer
+SHOW TBLPROPERTIES customer
+```
+{: codeblock} HIDE END -->
+
+### Show Partitions
+{: #chapterShowPartitions}
+
+<h4 id="showPartitions">showPartitions</h4>
+
+<!--include-svg src="./svgfiles/showPartitions.svg" target="./diagrams/showPartitions.svg" alt="syntax diagram for show partitions command" layout="@break@" -->
+
+List the defined partitions of a table when a table has been created as partitioned. You can filter the returned partitions using the *partitionSpec* option.
+
+
+```sql
+-- returns all partitions for the table customers_partitioned
+SHOW PARTITIONS customers_partitioned
+```
+{: codeblock}
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}
@@ -2567,14 +2828,27 @@ An *identifier* is a name that uniquely identifies an entity. There are two type
 <h4>Unquoted Identifier</h4>
 
 An unquoted identifier is at least one character long. Valid characters that can be used are the following:
-* Digits 0-9
-* Letters a-z, A-Z
+* Digits `0-9`
+* Letters `a-z`, `A-Z`
 * Underscore `_`
 
 <h4>Backquoted Identifier</h4>
 
 This is an identifier that is embraced by grave accent <code>&#96;</code> characters. Backquoted identifier can
 contain any character including the grave accent character that has to be escaped like this <code>&#96;&#96;</code>.
+
+The following example shows how to add a column name containing a special character:
+
+```sql
+SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
+```
+
+<h3 id="tableIdentifier">Table Identifier</h3>
+
+A *table identifier* uniquely identifies a table in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
+* Digits `0-9`
+* Letters `a-z`, `A-Z`
+* Underscore `_`
 
 <h3 id="number">Number</h3>
 
