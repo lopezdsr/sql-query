@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-02-19"
+lastupdated: "2020-03-04"
 
 keywords: hive, metastore, catalog, performance, create table, object storage
 
@@ -30,11 +30,11 @@ Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog
 ## Benefits
 {: #benefits}
 
-If you have data on [Cloud Object Storage](/docs/services/cloud-object-storage/getting-started.html#getting-started-console) that you want to explore, change, or discover, you can create queries with {{site.data.keyword.sqlquery_short}} using SQL syntax. To query data on {{site.data.keyword.cos_short}} without a table definition in the catalog, you need to specify the data location (the corresponding COS URI) and the data format in your SELECT statement. During query execution, all the required metadata is dynamically discovered as part of the SQL compilation process. This inferred metadata comprises column names, data types, the list of partitions, and individual objects on {{site.data.keyword.cos_short}} that together make up the overall table data.
+You can explore, change, or discover structured data on [Cloud Object Storage](/docs/services/cloud-object-storage/getting-started.html#getting-started-console) by {{site.data.keyword.sqlquery_short}} using SQL syntax. To query data on {{site.data.keyword.cos_short}} without a table in the catalog, you need to specify the data location (the corresponding COS URI) and the data format in your SELECT statement. During query execution, data and schema are dynamically discovered as part of the SQL compilation process. This process, called inference, derives column names, data types, the list of partitions, and individual objects on {{site.data.keyword.cos_short}} that together make up the table data.
  
-Inferring all this information with every query execution imposes overhead and latency. The inference process can take up a significant amount of time, especially for text formats (for example, CSV and JSON), or when there are thousands of objects in different table partitions. In some cases, the inference process even accounts for the largest part of the overall query execution time. Once you are familiar with the data, in particular with the schema and partition structure, you can choose a table name to register that metadata in the catalog, improving performance for repeated query executions.
+Inferring all this information and doing it repetitively with every query imposes latency to your queries. The inference process can take up a significant amount of time, especially for text formats (for example, CSV and JSON), or when there are thousands of objects in different table partitions. In some cases, the inference process even accounts for the largest part of the overall query execution time. So, if you are either familiar with the schema, or want to repetitively use the data for queries, create a table in the catalog. Such a table improves performance for repeated query executions.
 
-Another advantage is that the table name forms a reference that is decoupled from the data location. This allows to separate the tasks of data engineers and SQL authors. Data engineers deal with the data location and *publish* registered tables in the catalog using descriptive table names. This allows SQL authors to compose queries without having to know the exact location and format of data on {{site.data.keyword.cos_short}}. If the data location changes, only the table definition has to be updated but the table name remains unchanged. Updates of the physical data structure are simplified and the robustness of SQL statements and applications is increased.
+Another advantage of creating a table in the catalog is that the table name serves as an alias and is decoupled from the data location. This allows to separate the tasks of data engineers and SQL authors. Data engineers deal with the data location and publish registered tables in the catalog using descriptive table names. Hence, SQL authors are able to compose queries without having to know the exact location and format of data on {{site.data.keyword.cos_short}}. If the data location changes, only the table in the catalog must be updated, but the table name remains unchanged. Updates of the physical data structure are simplified and the robustness of SQL statements and applications is increased.
 
 ## Usage
 {: #usage}
