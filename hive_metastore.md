@@ -22,7 +22,7 @@ subcollection: sql-query
 # Catalog management ![Beta](beta.png)
 {: #hivemetastore}
 
-Beta support for this feature was introduced in February, 2020.
+Beta support for this feature was introduced in March, 2020.
 {: note}
 
 Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. Catalog syntax is compatible with Hive Metastore syntax. See below how to [work with the catalog](#usage).
