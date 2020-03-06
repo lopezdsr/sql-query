@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-26"
+lastupdated: "2020-03-06"
 
 ---
 
@@ -15,6 +15,8 @@ lastupdated: "2020-02-26"
 # SQL reference
 
 ## Table of Content
+{: #toc}
+
 [Introduction](#chapterIntroduction)
 [SELECT](#chapterSQLQueryStatement)
 [Relations](#chapterRelations)
@@ -22,7 +24,7 @@ lastupdated: "2020-02-26"
 [SQL Expressions](#chapterSqlExpressions)
 [Data Types](#dataType)
 [Database Catalog](#chapterHiveCatalog)
-[Misceleneous](#chapterMiscDefinitions)
+[Miscellaneous](#chapterMiscDefinitions)
 
 ## Introduction
 {: #chapterIntroduction}
