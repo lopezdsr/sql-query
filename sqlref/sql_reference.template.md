@@ -14,6 +14,16 @@ lastupdated: "2020-02-26"
 
 # SQL reference
 
+## Table of Content
+[Introduction](#chapterIntroduction)
+[SELECT](#chapterSQLQueryStatement)
+[Relations](#chapterRelations)
+[SQL Functions](#chapterSqlFunctions)
+[SQL Expressions](#chapterSqlExpressions)
+[Data Types](#dataType)
+[Database Catalog](#chapterHiveCatalog)
+[Misceleneous](#chapterMiscDefinitions)
+
 ## Introduction
 {: #chapterIntroduction}
 
