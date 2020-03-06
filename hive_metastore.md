@@ -25,7 +25,7 @@ subcollection: sql-query
 Beta support for this feature was introduced in March, 2020.
 {: note}
 
-Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. Catalog syntax is compatible with Hive Metastore syntax. See below how to [work with the catalog](#usage) and refer to section [Database Catalog](/docs/services/sql-query?topic=sql-query-sql-reference#chapterHiveCatalog) of SQL Reference.
+Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. Catalog syntax is compatible with Hive Metastore syntax. See below how to [work with the catalog](#usage) and refer to the [Catalog Management](/docs/services/sql-query?topic=sql-query-sql-reference#chapterHiveCatalog) section of the SQL reference.
 
 ## Benefits
 {: #benefits}
