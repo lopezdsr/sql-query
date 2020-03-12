@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-26"
+lastupdated: "2020-03-06"
 
 ---
 
@@ -13,6 +13,18 @@ lastupdated: "2020-02-26"
 {:pre: .pre}
 
 # SQL reference
+
+## Table of Content
+{: #toc}
+
+[Introduction](#chapterIntroduction)
+[SELECT](#chapterSQLQueryStatement)
+[Relations](#chapterRelations)
+[SQL Functions](#chapterSqlFunctions)
+[SQL Expressions](#chapterSqlExpressions)
+[Data Types](#dataType)
+[Database Catalog](#chapterHiveCatalog)
+[Miscellaneous](#chapterMiscDefinitions)
 
 ## Introduction
 {: #chapterIntroduction}
@@ -2607,6 +2619,7 @@ CREATE TABLE customers (
   contactName string,
   contactTitle string,
   address string,
+  city string,
   region string,
   postalCode string,
   country string,
@@ -2628,6 +2641,7 @@ CREATE TABLE customers_partitioned (
   contactName string,
   contactTitle string,
   address string,
+  city string,
   region string,
   postalCode string,
   country string,
