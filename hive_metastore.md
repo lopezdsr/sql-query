@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-03-04"
+lastupdated: "2020-03-16"
 
 keywords: hive, metastore, catalog, performance, create table, object storage
 
