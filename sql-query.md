@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-26"
+lastupdated: "2020-03-20"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -341,6 +341,21 @@ Description | Service Action | API Endpoint | Required User Roles
 Submit an SQL query | sql-query.api.submit | POST/v2/sql_jobs/ | Manager or Writer
 Get info for all submitted jobs | sql-query.api.getalljobs | GET/v2/sql_jobs/ | Manager, Writer, or Reader
 Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2/sql_jobs/{job_id} | Manager, Writer, or Reader
+
+## Data scanned behavior
+{: #data-scanned}
+
+{{site.data.keyword.sqlquery_short}} reads as little data as possible based on your query. The amount of data scanned depends on the amount of data that {{site.data.keyword.sqlquery_short}} has to read to execute your query, and not on the actual size of your data. Several factors play a role when it comes to how much data needs to be accessed to execute a query. First, data layout is very important. Columnar formats, such as Parquet, lead to less data scanned, as {{site.data.keyword.sqlquery_short}} can selectively read ranges and single columns. Furthermore, the actual object layout determines how many objects need to be scanned. Read [How to layout big data in IBM Cloud Object Storage for Spark SQL](https://www.ibm.com/cloud/blog/big-data-layout) for more details on how to lay out big data on Cloud {{site.data.keyword.cos_short}} to improve cost and performance of SQL queries.
+
+### Example:
+{: #data-scanned-example}
+
+Let's assume you have 1 PB of data stored on Cloud {{site.data.keyword.cos_short}} that is laid out as described in the 
+[blog post](https://www.ibm.com/cloud/blog/big-data-layout) and is optimized for the queries you want to execute. 
+If you run a single query, the most expensive query possible is SELECT * FROM, as reading 1 PB of data is essentially required. Any other query will be much cheaper and faster. For example, a 1 PB data set consists of audit events for users of a system (user A performed action B in system X at time T) and the data is laid out in a way that it is partitioned by time (one file per day and system). So to answer a query like SELECT DISTINCT user FROM WHERE System='X' AND Day >= (TODAY - 30), {{site.data.keyword.sqlquery_short}} has to access all objects for system X that contain data for the last 30 days. The sum of the size of these objects is the upper bound estimate of data scanned you would be charged for. But as {{site.data.keyword.sqlquery_short}} only accesses one field, and data is stored as Parquet, it is actually much less. Calculating the precise price of the query is not possible in advance, because much of it depends on the data itself. Parquet, for example, stores compressed columns, so if the column can be compressed effectively, even less data needs to be read. You also find some further details in the blog post 
+[SQL Query releases serverless transformation and partitioning of data in open formats]
+(https://www.ibm.com/cloud/blog/announcements/sql-query-releases-serverless-transformation-and-partitioning-of-data-in-open-formats) 
+about {{site.data.keyword.sqlquery_short}} ETL capabilities and how they affect data scanned.
 
 ## Limitations
 {: #limitations}
