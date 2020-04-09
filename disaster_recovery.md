@@ -19,8 +19,7 @@ subcollection: sql-query
 {: #disaster}
 
 {{site.data.keyword.sqlquery_full}} stores information about the submitted jobs, such as the SQL statement, the status of the job, or 
-the job ID. In case of a disaster, you might lose the information of the jobs that you submitted between the last backup and the time 
-of the disaster. Backups are done in a frequency of four hours. The job results are stored in {{site.data.keyword.cos_full}} 
-and are independent of any {{site.data.keyword.sqlquery_short}} disaster recovery.
+the job ID. Backups are performed on a regular basis, therefore, in case of a disaster, you can lose information of the last eight ours at the most. Hence, you can lose information of the jobs that you submitted in the last eight hours before the disaster. 
+The job results are stored in {{site.data.keyword.cos_full}} and are independent of any {{site.data.keyword.sqlquery_short}} disaster recovery.
 
-If you want to store information of {{site.data.keyword.sqlquery_short}} jobs outside of SQL {{site.data.keyword.sqlquery_short}} to be able to have a larger job history available (currently only 30 jobs are available), there is a method to do so in the {{site.data.keyword.sqlquery_short}} Python SDK available "export_job_history(cos_url)" that stores all new queries on the specified Cloud {{site.data.keyword.cos_short}} path in Parquet format.
+If you want to store information of {{site.data.keyword.sqlquery_short}} jobs outside of SQL {{site.data.keyword.sqlquery_short}} to be able to have a larger job history available, you can do that in the {{site.data.keyword.sqlquery_short}} Python SDK available "export_job_history(cos_url)". It stores all new queries on the specified Cloud {{site.data.keyword.cos_short}} path in Parquet format.
