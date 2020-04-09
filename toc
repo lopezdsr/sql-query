@@ -41,7 +41,7 @@ IBM Cloud SQL Query
     {: .navgroup id="howto"}
     videos.md
     notebooks.md
-    disaster-recovery.md  
+    
     {: .topicgroup}
     Guides
         big_data.md
@@ -52,4 +52,5 @@ IBM Cloud SQL Query
         geospatial_analytics.md
         microservice.md
         db2.md  
+    disaster_recovery.md  
     {: .navgroup-end}
