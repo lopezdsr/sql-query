@@ -2912,7 +2912,7 @@ regexp_extract(str, regexp[, idx]) - Extracts a group that matches <code>regexp<
 
 **Example of an SQL function usage fragment:**
 
-<pre><code>&gt; SELECT regexp_extract('100-200', '(\d+)-(\d+)', 1)</code></pre>
+<pre><code>&gt; SELECT regexp_extract('100-200', '(\\d+)-(\\d+)', 1)</code></pre>
 
 **Result value:**
 
@@ -2926,7 +2926,7 @@ regexp_replace(str, regexp, rep) - Replaces all substrings of <code>str</code> t
 
 **Example of an SQL function usage fragment:**
 
-<pre><code>&gt; SELECT regexp_replace('100-200', '(\d+)', 'num')</code></pre>
+<pre><code>&gt; SELECT regexp_replace('100-200', '(\\d+)', 'num')</code></pre>
 
 **Result value:**
 
