@@ -79,7 +79,7 @@ A command including a path, looks like the following:
 
 ### Creating data skipping indexes
 
-When creating a data skipping index on a data set, you first have to decide which columns to index and then you chose an index type for each column. 
+When creating a data skipping index on a data set, you first have to decide which columns to index and then you choose an index type for each column. 
 Your choices depend on your workload and data. In general, you index columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter. 
 
 The following example creates a data skipping index on the `metergen` data set:
@@ -119,6 +119,48 @@ The UI shows the percentage of objects skipped. You also find examples in the UI
 
 ### Geospatial data skipping
 
+Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html) from the {{site.data.keyword.ibm}} geospatial toolkit. 
 
+The list of supported geospatial functions includes the following:
 
+- ST_Distance
+- ST_Intersects
+- ST_Contains
+- ST_Equals
+- ST_Crosses
+- ST_Touches
+- ST_Within
+- ST_Overlaps
+- ST_EnvelopesIntersect
+- ST_IntersectsInterior
+
+### Choosing data formats
+
+You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}. 
+Best practices for data layout advise using a column-based format, such as Parquet. 
+CSV and JSON require the entire data set to be scanned as a first step in order to infer the schema, prior to running any query. 
+To avoid having to do this, create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from 
+data skipping.
+
+### Refreshing data skipping indexes
+
+If data is added to a data set, or if there are modifications to a data set after a data skipping index is created, the new or changed data 
+is not skipped during queries. Once the amount of new data becomes significant, refresh the index incrementally, as follows:
+
+```
+REFRESH METAINDEX
+ON cos://us-geo/sql/metergen STORED AS parquet
+```
+
+### Deleting data skipping indexes 
+
+To delete a data skipping index, use the following query:
+
+```
+DROP METAINDEX
+ON cos://us-geo/sql/metergen STORED AS parquet
+
+```
+
+## Limitations
 
