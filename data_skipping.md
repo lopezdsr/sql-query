@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-04-19"
+lastupdated: "2020-04-20"
 
 keywords: data, skipping, performance, cost, data format, indexes, sample data
 
@@ -78,7 +78,7 @@ A command including a path, looks like the following:
 
 ### Creating data skipping indexes
 
-When creating a data skipping index on a data set, you first have to decide which columns to index and then you choose an index type for each column.
+When creating a data skipping index on a data set, you have to decide which columns to index, and you have to choose an index type for each column.
 Your choices depend on your workload and data. In general, you index columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter.
 
 The following example creates a data skipping index on the `metergen` data set:
@@ -135,8 +135,8 @@ The list of supported geospatial functions includes the following:
 
 You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}.
 Best practices for data layout advise using a column-based format, such as Parquet.
-CSV and JSON require the entire data set to be scanned as a first step in order to infer the schema, prior to running any query.
-To avoid having to do this, create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
+CSV and JSON require the entire data set to first be scanned in order to infer the schema, prior to running any query.
+This is not necessary if you create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
 
 ### Refreshing data skipping indexes
 
