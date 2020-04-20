@@ -59,15 +59,14 @@ Indexes, or data skipping metadata, are stored in a location you specify. Note t
 
 ### Sample data
 
-The sample data set used in this documentation originates from the **meter_gen** [data generator](https://github.com/gridpocket/project-iostack/tree/master/meter_gen) that was developed by [Gridpocket](https://www.gridpocket.com/en/) in the context of the [IOStack project](http://iostack.eu/).
+The sample data set used in this documentation originates from the *meter_gen* [data generator](https://github.com/gridpocket/project-iostack/tree/master/meter_gen) that was developed by [Gridpocket](https://www.gridpocket.com/en/) in the context of the [IOStack project](http://iostack.eu/).
 It generates electricity, water, and gas meter readings, along with their associated timestamps, geospatial locations, and additional information.
 The data set is in Parquet format, has 18 GB, and is publicly available to use with {{site.data.keyword.sqlquery_short}} at `cos:\\us-geo\sql\metergen`.
 The queries listed in the examples are also available in the UI under **Samples** > **Data Skipping**. 
 
 ### Assigning a base location for data skipping indexes
 
-Data skipping indexes are stored in Cloud {{site.data.keyword.cos_short}}. Before creating indexes, you first have to define the base location 
-in Cloud {{site.data.keyword.cos_short}} where you want to store them.
+Data skipping indexes are stored in Cloud {{site.data.keyword.cos_short}}. Before creating indexes, you first have to define the base location in Cloud {{site.data.keyword.cos_short}} where you want to store them.
 
 To assign your base location, use the following command:
 
@@ -96,9 +95,7 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 
 In the COS URL, specify the top level (the root) of the data set. 
 
-Note that it is possible to share indexes across {{site.data.keyword.sqlquery_short}} accounts. Users having READ access to the base location 
-of an index can use it by setting their base location accordingly. However, it is important to avoid multiple users writing indexes 
-for the same data set to the same base location. Users can avoid sharing indexes by using different base locations.
+Note that it is possible to share indexes across {{site.data.keyword.sqlquery_short}} accounts. Users having READ access to the base location of an index can use it by setting their base location accordingly. However, it is important to avoid multiple users writing indexes for the same data set to the same base location. Users can avoid sharing indexes by using different base locations.
 
 ### Describing an index
 
@@ -119,7 +116,7 @@ The UI shows the percentage of objects skipped. You also find examples in the UI
 
 ### Geospatial data skipping
 
-Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html) from the {{site.data.keyword.ibm}} geospatial toolkit. 
+Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html) from the {{site.data.keyword.ibm_notm}} geospatial toolkit. 
 
 The list of supported geospatial functions includes the following:
 
@@ -139,13 +136,11 @@ The list of supported geospatial functions includes the following:
 You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}. 
 Best practices for data layout advise using a column-based format, such as Parquet. 
 CSV and JSON require the entire data set to be scanned as a first step in order to infer the schema, prior to running any query. 
-To avoid having to do this, create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from 
-data skipping.
+To avoid having to do this, create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
 
 ### Refreshing data skipping indexes
 
-If data is added to a data set, or if there are modifications to a data set after a data skipping index is created, the new or changed data 
-is not skipped during queries. Once the amount of new data becomes significant, refresh the index incrementally, as follows:
+If data is added to a data set, or if there are modifications to a data set after a data skipping index is created, the new or changed data is not skipped during queries. Once the amount of new data becomes significant, refresh the index incrementally, as follows:
 
 ```
 REFRESH METAINDEX
