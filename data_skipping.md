@@ -116,7 +116,7 @@ The UI shows the percentage of objects skipped. You also find examples in the UI
 
 ### Geospatial data skipping
 
-Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html) from the {{site.data.keyword.ibm_notm}} geospatial toolkit. 
+Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html). 
 
 The list of supported geospatial functions includes the following:
 
@@ -159,3 +159,25 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 
 ## Limitations
 
+Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a min/max index on a column with 
+a short data type, the following query does not benefit from data skipping:
+
+```
+select * from table where shortType > 1
+```
+
+{{site.data.keyword.sparks}} evaluates the query as `(cast(shortType#3 as int) > 1)` because the constant 1 is of type *integer*.
+
+Note that in some cases {{site.data.keyword.sparks}} automatically casts the literal to the right type. 
+For example, the previous query works for all other numerical types, except for the byte type, as it requires casting, as well.
+To benefit from data skipping in such cases, ensure that the literal has the same type as the column type, as in the following example:
+
+```
+select * from table where shortType > cast(1 as short)
+```
+
+## References
+
+- [Data skipping demo at Think 2019](https://www.ibm.com/cloud/blog/ibm-cloud-sql-query-at-think-2019) for the [Danaos use case](https://www.danaos.com/home/default.aspx) of [BigDataStack](https://bigdatastack.eu/?utm_source=IBM-Ta-Shma)
+- [How to Layout Big Data in IBM Cloud Object Storage for Spark SQL](https://www.ibm.com/cloud/blog/big-data-layout)
+- [Querying Geospatial Data using IBM SQL Query](https://www.ibm.com/cloud/blog/new-builders/querying-geospatial-data-using-ibm-sql-query)
