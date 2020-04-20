@@ -27,7 +27,7 @@ Beta support for this feature was introduced in May, 2020.
 
 Data skipping can significantly boost performance and reduce cost of SQL queries by skipping over irrelevant data objects, based on a summary metadata associated with each object.
 Data skipping indexes apply to structured data sets in {{site.data.keyword.cos_full}} and they store summary metadata for each object in the data set.
-The summary metadata is significantly smaller than the data itself and it can be indexed. SQL queries benefit from an index by skipping over all objects whose does not overlap with the summary metadata in the index.
+The summary metadata is significantly smaller than the data itself and can be indexed. SQL queries benefit from an index by skipping over all objects whose metadata does not overlap with the summary metadata in the index.
 
 ## Benefits
 
@@ -41,7 +41,7 @@ For each of the columns in the object, the summary metadata can include minimum 
 As {{site.data.keyword.sqlquery_full}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while improving performance. For data skipping to work well, as well as for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
 Data skipping complements these best practices and provides significant additional cost savings and performance benefits.
 
-To use this feature, you have to create indexes on one or more columns of the data set. Start by indexing those columns that you query most often in the `WHERE` clause.
+To use this feature, you have to create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause.
 
 The following three index types are supported:
 
@@ -62,7 +62,7 @@ Indexes, or data skipping metadata, are stored in a location you specify. Note t
 The sample data set used in this documentation originates from the *meter_gen* [data generator](https://github.com/gridpocket/project-iostack/tree/master/meter_gen) that was developed by [Gridpocket](https://www.gridpocket.com/en/) in the context of the [IOStack project](http://iostack.eu/).
 It generates electricity, water, and gas meter readings, along with their associated timestamps, geospatial locations, and additional information.
 The data set is in Parquet format, has 18 GB, and is publicly available to use with {{site.data.keyword.sqlquery_short}} at `cos:\\us-geo\sql\metergen`.
-The queries listed in the examples are also available in the UI under **Samples** > **Data Skipping**. 
+The queries listed in the examples are also available in the UI under **Samples** > **Data Skipping**.
 
 ### Assigning a base location for data skipping indexes
 
@@ -78,8 +78,8 @@ A command including a path, looks like the following:
 
 ### Creating data skipping indexes
 
-When creating a data skipping index on a data set, you first have to decide which columns to index and then you choose an index type for each column. 
-Your choices depend on your workload and data. In general, you index columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter. 
+When creating a data skipping index on a data set, you first have to decide which columns to index and then you choose an index type for each column.
+Your choices depend on your workload and data. In general, you index columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter.
 
 The following example creates a data skipping index on the `metergen` data set:
 
@@ -91,9 +91,9 @@ MINMAX FOR lng,
 BLOOMFILTER FOR vid,
 VALUELIST FOR city
 ON cos://us-geo/sql/metergen STORED AS parquet
-``` 
+```
 
-In the COS URL, specify the top level (the root) of the data set. 
+In the COS URL, specify the top level (the root) of the data set.
 
 Note that it is possible to share indexes across {{site.data.keyword.sqlquery_short}} accounts. Users having READ access to the base location of an index can use it by setting their base location accordingly. However, it is important to avoid multiple users writing indexes for the same data set to the same base location. Users can avoid sharing indexes by using different base locations.
 
@@ -106,17 +106,17 @@ DESCRIBE METAINDEX
 ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 
-The result includes how many objects were indexed, whether the index is up-to-date, as well as the base location of the indexes and the 
-index types that were generated. 
+The result includes how many objects were indexed, whether the index is up-to-date, as well as the base location of the indexes and the
+index types that were generated.
 
-### Using data skipping indexes 
+### Using data skipping indexes
 
-Once you create a data skipping index, {{site.data.keyword.sqlquery_short}} automatically uses it when running queries. 
+Once you create a data skipping index, {{site.data.keyword.sqlquery_short}} automatically uses it when running queries.
 The UI shows the percentage of objects skipped. You also find examples in the UI of queries benefiting from data skipping.
 
 ### Geospatial data skipping
 
-Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html). 
+Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html).
 
 The list of supported geospatial functions includes the following:
 
@@ -133,9 +133,9 @@ The list of supported geospatial functions includes the following:
 
 ### Choosing data formats
 
-You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}. 
-Best practices for data layout advise using a column-based format, such as Parquet. 
-CSV and JSON require the entire data set to be scanned as a first step in order to infer the schema, prior to running any query. 
+You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}.
+Best practices for data layout advise using a column-based format, such as Parquet.
+CSV and JSON require the entire data set to be scanned as a first step in order to infer the schema, prior to running any query.
 To avoid having to do this, create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
 
 ### Refreshing data skipping indexes
@@ -147,7 +147,7 @@ REFRESH METAINDEX
 ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 
-### Deleting data skipping indexes 
+### Deleting data skipping indexes
 
 To delete a data skipping index, use the following query:
 
@@ -159,7 +159,7 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 
 ## Limitations
 
-Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a min/max index on a column with 
+Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a min/max index on a column with
 a short data type, the following query does not benefit from data skipping:
 
 ```
@@ -168,7 +168,7 @@ select * from table where shortType > 1
 
 {{site.data.keyword.sparks}} evaluates the query as `(cast(shortType#3 as int) > 1)` because the constant 1 is of type *integer*.
 
-Note that in some cases {{site.data.keyword.sparks}} automatically casts the literal to the right type. 
+Note that in some cases {{site.data.keyword.sparks}} automatically casts the literal to the right type.
 For example, the previous query works for all other numerical types, except for the byte type, as it requires casting, as well.
 To benefit from data skipping in such cases, ensure that the literal has the same type as the column type, as in the following example:
 
