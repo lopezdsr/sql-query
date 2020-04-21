@@ -9,7 +9,7 @@ IBM Cloud SQL Query
     getting-started.md
     whatsnew.md
     hive_metastore.md
-    data_skipping.md
+    index_management.md
     
     {: .topicgroup}
     Security and compliance
