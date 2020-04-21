@@ -19,13 +19,13 @@ subcollection: sql-query
 {:note: .note}
 
 
-# Data skipping ![Beta](beta.png)
+# Index management ![Beta](beta.png)
 {: #dataskipping}
 
 Beta support for this feature was introduced in May, 2020.
 {: note}
 
-Data skipping can significantly boost performance and reduce cost of SQL queries by skipping over irrelevant data objects, based on a summary metadata associated with each object.
+Index management, also referred to as data skipping, can significantly boost performance and reduce cost of SQL queries by skipping over irrelevant data objects, based on a summary metadata associated with each object.
 Data skipping indexes apply to structured data sets in {{site.data.keyword.cos_full}} and they store summary metadata for each object in the data set.
 The summary metadata is significantly smaller than the data itself and can be indexed. SQL queries benefit from an index by skipping over all objects whose metadata does not overlap with the summary metadata in the index.
 
