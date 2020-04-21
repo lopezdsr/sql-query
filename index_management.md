@@ -2,9 +2,9 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-04-20"
+lastupdated: "2020-04-21"
 
-keywords: data, skipping, performance, cost, data format, indexes, sample data
+keywords: data skipping, performance, cost, data format, indexes, sample data, index management
 
 subcollection: sql-query
 
@@ -30,11 +30,13 @@ Data skipping indexes apply to structured data sets in {{site.data.keyword.cos_f
 The summary metadata is significantly smaller than the data itself and can be indexed. SQL queries benefit from an index by skipping over all objects whose metadata does not overlap with the summary metadata in the index.
 
 ## Benefits
+{: #benefits_ds}
 
 - Boosts performance of your queries
 - Lowers cost of your queries
 
 ## Overview
+{: #overview_ds}
 
 For each of the columns in the object, the summary metadata can include minimum and maximum values, a list or bloom filter of the appearing values, or other metadata that concisely represents the data in that column. The summary metadata is then used during query evaluation to skip over objects that do not contain any relevant data. All formats are supported, including Parquet, ORC, CSV, JSON, and Avro. Data skipping is for performance optimization, using it does not affect the content of query results.
 
@@ -56,6 +58,7 @@ Use ValueList for a column if the number of distinct values for that column per 
 Indexes, or data skipping metadata, are stored in a location you specify. Note that metadata is much smaller than the data itself. If changes are made to some of the objects in the data set after index creation, refresh the indexes. Otherwise, data skipping still works correctly, however it cannot skip the changed objects.
 
 ## Usage
+{: #usage_ds}
 
 ### Sample data
 
@@ -93,7 +96,7 @@ VALUELIST FOR city
 ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 
-In the COS URL, specify the top level (the root) of the data set.
+In the [COS URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI), specify the top level (the root) of the data set.
 
 Note that it is possible to share indexes across {{site.data.keyword.sqlquery_short}} accounts. Users having READ access to the base location of an index can use it by setting their base location accordingly. However, it is important to avoid multiple users writing indexes for the same data set to the same base location. Users can avoid sharing indexes by using different base locations.
 
@@ -131,6 +134,14 @@ The list of supported geospatial functions includes the following:
 - ST_EnvelopesIntersect
 - ST_IntersectsInterior
 
+The following example will get all of the points in 1 km around the point POINT(6.433881 43.422323).
+For data skipping to work, min/max index on the `lat` and `lng` columns is required.
+
+```
+SELECT * FROM cos://us-geo/sql/metergen STORED AS PARQUET WHERE
+ST_Distance(ST_Point(lng,lat),ST_WKTToSQL('POINT(6.433881 43.422323)')) < 1000.0
+```
+
 ### Choosing data formats
 
 You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}.
@@ -157,7 +168,50 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 
 ```
 
+## Data skipping on catalog tables
+{: #ds_catalog}
+
+Data skipping also supports indexing and skipping on [partitioned tables](/docs/services/sql-query?topic=sql-query-hivemetastore#partitioned).
+All of the query examples above are also supported for partitioned tables, you only need to replace the [COS URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI) with `ON TABLE <table>`, as in the following example (where metergen is the table name):
+
+```
+CREATE METAINDEX
+MINMAX FOR temp,
+MINMAX FOR lat,
+MINMAX FOR lng,
+BLOOMFILTER FOR vid,
+VALUELIST FOR city
+ON TABLE metergen
+```
+
+Refer to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference) for all the other query statements.
+
+By default, the metadata is saved under the base location you defined. However, if you want to set a custom location for the metadata, use the following query:
+
+```
+ALTER TABLE metergen SET METAINDEX LOCATION <target-location>
+```
+
+If the metadata already exists in the location that was set, no indexing is needed.
+If the index does not exist and you run this query before running the CREATE INDEX query, the index will be stored under the configured location, instead of the base location.
+
+The location of the metadata for a table is saved in the table properties under the parameter *spark.ibm.metaindex.parquet.mdlocation*. 
+If this parameter does not exist, there is a fallback to the base location. Automatic indexing updates the table parameter with the index location.
+
+To remove the parameter from the table, use the following query:
+
+```
+ALTER TABLE metergen DROP METAINDEX LOCATION
+```
+
+### Notes
+
+-	The metadata for a partitioned table is different from the metadata on the physical location (the location that was defined in the LOCATION clause of the CREATE TABLE query) because the table can possibly contain partitions that are not located under the physical location. 
+-	Data skipping on non-partitioned tables is supported by indexing the physical location directly. In this case, the location is not saved in the table parameters and the same index is used for the table and the physical location.
+
+
 ## Limitations
+{: #limitations_ds}
 
 Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a min/max index on a column with
 a short data type, the following query does not benefit from data skipping:
@@ -177,6 +231,7 @@ select * from table where shortType > cast(1 as short)
 ```
 
 ## References
+{: #references_ds}
 
 - [Data skipping demo at Think 2019](https://www.ibm.com/cloud/blog/ibm-cloud-sql-query-at-think-2019) for the [Danaos use case](https://www.danaos.com/home/default.aspx) of [BigDataStack](https://bigdatastack.eu/?utm_source=IBM-Ta-Shma)
 - [How to Layout Big Data in IBM Cloud Object Storage for Spark SQL](https://www.ibm.com/cloud/blog/big-data-layout)
