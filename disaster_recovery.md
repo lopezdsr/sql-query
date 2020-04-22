@@ -22,6 +22,6 @@ subcollection: sql-query
 
 During the time of disaster and recovery, the service at that location is not available, which means that you cannot use your instance(s) that had been created in the affected location. Once the phase of disaster recovery is over, you can access your service instances and submit new jobs, even before data recovery completes. Once data recovery completes, job history will be available for the instances again.
 
-If you want to store information of {{site.data.keyword.sqlquery_short}} jobs outside of {{site.data.keyword.sqlquery_short}}, to be able to have a larger job history available, you can do so in the {{site.data.keyword.sqlquery_short}} Python SDK *export_job_history(cos_url* It stores all new queries in the specified {{site.data.keyword.cos_full}} path in Parquet format.
+If you want to store information of {{site.data.keyword.sqlquery_short}} jobs outside of {{site.data.keyword.sqlquery_short}}, to be able to have a larger job history available, you can do so in the {{site.data.keyword.sqlquery_short}} Python SDK *export_job_history(cos_url)* It stores all new queries in the specified {{site.data.keyword.cos_full}} path in Parquet format.
 
 The job results are stored in Cloud {{site.data.keyword.cos_short}} and are independent of any {{site.data.keyword.sqlquery_short}} disaster recovery.
