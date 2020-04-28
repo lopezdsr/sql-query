@@ -24,6 +24,7 @@ lastupdated: "2020-03-06"
 [SQL Expressions](#chapterSqlExpressions)
 [Data Types](#dataType)
 [Database Catalog](#chapterHiveCatalog)
+[Index Management](#chapterIndexManagement)
 [Miscellaneous](#chapterMiscDefinitions)
 
 ## Introduction
@@ -2812,6 +2813,146 @@ List the defined partitions of a table when a table has been created as partitio
 SHOW PARTITIONS customers_partitioned
 ```
 {: codeblock}
+
+## Index Management ![Beta](beta.png)
+{: #chapterIndexManagement}
+
+The following commands allow users to create an indexes for your table data stored on {{site.data.keyword.cos_short}} to improve performance and lower the costs of your SQL queries. The index store summary metadata for each partition of your table to avoid scanning data which is not needed for the query execution.
+Refer to the section about [Index Management (/docs/services/sql-query?topic=sql-query-indexManagement) for more details.
+
+### Create Metaindex
+{: #chapterCreateMetaindex}
+
+<h4 id="createMetaindex">createMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexCreateCommand.svg" target="./diagrams/metaindexCreateCommand.svg" alt="syntax diagram for create metaindex command" layout="@break@" -->
+Create a metaindex on the objects in the specified {{site.data.keyword.cos_short}} location or on a table. You need to specify the required metaindex type for each column you like to create the metaindex information. Create the index on columns which are used for predicates in the SQL statements.
+
+<!--include-svg src="./svgfiles/metaindexIndextype.svg" target="./diagrams/metaindexIndextype.svg" alt="syntax diagram for the different index types" layout="@break@" -->
+* MINMAX : Stores minimum or maximum values for a column for orderable types
+* VALUELIST : Stores the list of unique values for the column for all types
+* BLOOMFILTER : Using bloom filter technique for set membership for byte, string, long, integer or short types
+
+```sql
+-- create an index on the columns temp, lat, lng, vid and city of the metergen sample table
+CREATE METAINDEX
+MINMAX FOR temp,
+MINMAX FOR lat,
+MINMAX FOR lng,
+BLOOMFILTER FOR vid,
+VALUELIST FOR city
+ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+Before you start using the index management commands ensure that the {{site.data.keyword.cos_short}} location is set where the index shoud be stored using:
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+### Drop Metaindex
+{: #chapterDropMetaindex}
+
+<h4 id="dropMetaindex">dropMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexDropCommand.svg" target="./diagrams/metaindexDropCommand.svg" alt="syntax diagram for drop metaindex command" layout="@break@" -->
+
+Drop an existing metaindex based on the objects in the specified {{site.data.keyword.cos_short}} location or on a table. Use this command when the index is no longer needed.
+
+```sql
+-- drop the index based on the metergen sample dataset
+DROP METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Refresh Metaindex
+{: #chapterRefreshMetaindex}
+
+<h4 id="refreshMetaindex">refreshMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexRefreshCommand.svg" target="./diagrams/metaindexRefreshCommand.svg" alt="syntax diagram for refresh metaindex command" layout="@break@" -->
+
+Refresh an existing metaindex based on the objects in specified {{site.data.keyword.cos_short}} location or on a table. Use this command when the data has changed and you need to update the index.
+
+```sql
+-- refresh the index based on metergen sample dataset
+REFRESH METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Describe Metaindex
+{: #chapterDescribeMetaindex}
+
+<h4 id="describeMetaindex">describeMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexDescribeCommand.svg" target="./diagrams/metaindexDescribeCommand.svg" alt="syntax diagram for describe metaindex command" layout="@break@" -->
+
+Describe an existing metaindex based on the objects in specified {{site.data.keyword.cos_short}} location or on a table. Use this command when you like to get infomation of the metaindex like the index status, the types used, the location where it has been stored or the number of objects.
+
+```sql
+-- describe the index based on the metergen sample dataset
+DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet 
+```
+{: codeblock}
+
+### Alter Metaindex
+{: #chapterAlterMetaindex}
+
+<h4 id="alterMetaindex">alterMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexLocationCommand.svg" target="./diagrams/metaindexLocationCommand.svg" alt="syntax diagram for alter metaindex command" layout="@break@" -->
+
+Alter the {{site.data.keyword.cos_short}} location for all metaindex indexes. This call needs to be done once to define the default location. In case you change it later on SQL Query will not find the indexes anymore which has been created on a COSURI. Existing index data on previous location will not get dropped therefore you are able to switch back to the old location when needed. 
+
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
+```
+{: codeblock}
+
+
+### Alter Table Set Location
+{: #chapterAlterTableSetLocation}
+
+<h4 id="alterTableSetLocation">alterTableSetLocation</h4>
+
+<!--include-svg src="./svgfiles/hiveMetaindexLocationCommand.svg" target="./diagrams/hiveMetaindexLocationCommand.svg" alt="syntax diagram for alter table set location command" layout="@break@" -->
+
+This command allows you to define a location for this specified table. In case you change it later on SQL Query will not find the index anymore. Existing index data on previous location will not get dropped therefore you are able to switch back to the old location when needed. 
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED SET METAINDEX LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+
+### Alter Table Drop Location
+{: #chapterAlterTableDropLocation}
+
+<h4 id="alterTableDropLocation">alterTableDropLocation</h4>
+
+<!--include-svg src="./svgfiles/hiveMetaindexDropLocationCommand.svg" target="./diagrams/hiveMetaindexDropLocationCommand.svg" alt="syntax diagram for alter table drop location command" layout="@break@" -->
+
+This command allows you to drop a location for the specified table. Use this command when the index is no longer needed. The objects for the index stored in {{site.data.keyword.cos_short}} will not be dropped and need to be cleaned up manually. 
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
+```
+{: codeblock}
+
+### MetaindexAsset
+{: #chapterMetaindexAsset}
+
+<h4 id="metaindexAsset">metaindexAsset</h4>
+
+The metaindexAsset is an subset of the [externalTableSpec](#externalTableSpec) details could be found there.
+
+<!--include-svg src="./svgfiles/metaindexAsset.svg" target="./diagrams/metaindexAsset.svg" alt="syntax diagram for metaindex asset" layout="@break@" -->
+
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}
