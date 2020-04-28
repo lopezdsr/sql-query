@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-04-21"
+lastupdated: "2020-04-28"
 
 keywords: data skipping, performance, cost, data format, indexes, sample data, index management
 
@@ -27,7 +27,8 @@ Beta support for this feature was introduced in May, 2020.
 
 Index management, also referred to as data skipping, can significantly boost performance and reduce cost of SQL queries by skipping over irrelevant data objects, based on a summary metadata associated with each object.
 Data skipping indexes apply to structured data sets in {{site.data.keyword.cos_full}} and they store summary metadata for each object in the data set.
-The summary metadata is significantly smaller than the data itself and can be indexed. SQL queries benefit from an index by skipping over all objects whose metadata does not overlap with the summary metadata in the index.
+The indexes are stored on Cloud {{site.data.keyword.cos_short}} on a user provided bucket, just as the indexed data itself.
+SQL queries benefit from an index by skipping over all objects whose metadata indicate that they are not relevant for the given query. 
 
 ## Benefits
 {: #benefits_ds}
@@ -69,7 +70,9 @@ The queries listed in the examples are also available in the UI under **Samples*
 
 ### Assigning a base location for data skipping indexes
 
-Data skipping indexes are stored in Cloud {{site.data.keyword.cos_short}}. Before creating indexes, you first have to define the base location in Cloud {{site.data.keyword.cos_short}} where you want to store them.
+Indexes are stored in Cloud {{site.data.keyword.cos_short}} in a bucket of your choice. 
+Before starting to create indexes, first configure the default location, called base location, for indexes created in your {{site.data.keyword.sqlquery_short}} instance.
+When using Hive tables, you can additionally or alternatively also configure the index location per Hive table. 
 
 To assign your base location, use the following command:
 
