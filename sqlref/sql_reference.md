@@ -3299,7 +3299,7 @@ SHOW PARTITIONS customers_partitioned
 ## Index Management ![Beta](beta.png)
 {: #chapterIndexManagement}
 
-The following commands allow you to create indexes for your table data stored in {{site.data.keyword.cos_short}}, in order to improve performance and lower the costs of your SQL queries. 
+The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
 The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
 Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-indexManagement) for more details.
 
@@ -3313,7 +3313,7 @@ Refer to the section about [Index Management](/docs/services/sql-query?topic=sql
 </map>
 <img style="max-width: 702px;" usemap="#metaindexCreateCommandImgMap" alt="syntax diagram for create metaindex command" src="./diagrams/metaindexCreateCommand-147d224ef7be4ba82820b55ce0788827.svg" />
 </div>
-Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on a table. Specify the required index type for each column that you want to create the metaindex information for. Create the index on columns that are used for predicates in the SQL statements.
+Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
 
 <div style="overflow-x : auto;">
 <map name="metaindexIndextypeImgMap">
@@ -3324,8 +3324,8 @@ Create an index on the objects in the specified {{site.data.keyword.cos_short}} 
 <img style="max-width: 422px;" usemap="#metaindexIndextypeImgMap" alt="syntax diagram for the different index types" src="./diagrams/metaindexIndextype-e8503d1efa7b58347dec342965985b39.svg" />
 </div>
 * MINMAX: Stores minimum or maximum values for a column for orderable types.
-* VALUELIST: Stores the list of unique values for the column for all types.
-* BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types.
+* VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
+* BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
 
 ```sql
 -- create an index on the columns temp, lat, lng, vid and city of the metergen sample table
@@ -3339,7 +3339,16 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
-Before you start using index management commands, ensure that you set the {{site.data.keyword.cos_short}} location, where the index data should be stored. Use the following command:
+```sql
+-- create an index on the columns  customerID and city of the sample table CUSTOMERS_PARTITIONED
+CREATE METAINDEX 
+VALUELIST for city,
+BLOOMFILTER for customerID
+ON TABLE CUSTOMERS_PARTITIONED 
+```
+{: codeblock}
+
+Before you start using data skipping index management commands, ensure that you set the base location in {{site.data.keyword.cos_short}}, where the metadata should be stored. Use the following command:
 ```sql
 -- set the default location for all indexes
 ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
@@ -3415,9 +3424,9 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 <img style="max-width: 582px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter metaindex command" src="./diagrams/metaindexLocationCommand-bf219801c1f129a92bfab707ba857513.svg" />
 </div>
 
-You only have to alter the {{site.data.keyword.cos_short}} location for all indexes once to define the default location. 
-If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index anymore for indexes created directly on a [COS URI](#COSURI) location and for indexes on tables without an explicit index location (see [Alter Table Set Location](#chapterAlterTableSetLocation) ).   
-Existing index data on previous location is not dropped, therefore you can always switch back to the old location when needed. 
+You only have to alter the {{site.data.keyword.cos_short}} location for all indexes once to define the base location. 
+If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
+Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed. 
 
 ```sql
 -- set the default location for all indexes
@@ -3438,7 +3447,7 @@ ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
 <img style="max-width: 822px;" usemap="#hiveMetaindexLocationCommandImgMap" alt="syntax diagram for alter table set location command" src="./diagrams/hiveMetaindexLocationCommand-0fa866519493283c8b015bf81264bdfa.svg" />
 </div>
 
-This command lets you to define a location for this specified table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index anymore. Existing index data on previous location is not dropped, therefore you can always switch back to the old location when needed.  
+This command lets you to define a location for this specified Hive table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index metadata anymore. Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.  
 
 ```sql
 -- set the index location for the table CUSTOMERS_PARTITIONED
@@ -3459,8 +3468,8 @@ ALTER TABLE CUSTOMERS_PARTITIONED SET METAINDEX LOCATION cos://us-south/<mybucke
 <img style="max-width: 678px;" usemap="#hiveMetaindexDropLocationCommandImgMap" alt="syntax diagram for alter table drop location command" src="./diagrams/hiveMetaindexDropLocationCommand-ff5e159f235a538851a231ed5c54221a.svg" />
 </div>
 
-This command allows you to drop a location for the specified table. Use this command if the index is no longer needed. 
-The objects for the index stored in {{site.data.keyword.cos_short}} are not dropped and have to be cleaned up manually.
+This command allows you to drop a location for the specified table. Use this command if the index metadata should be fetched from the base location. 
+The metadata for the index stored in {{site.data.keyword.cos_short}} is not dropped and have to be cleaned up manually.
 
 ```sql
 -- set the index location for the table CUSTOMERS_PARTITIONED
