@@ -2827,9 +2827,11 @@ Refer to the section about [Index Management](/docs/services/sql-query?topic=sql
 <h4 id="createMetaindex">createMetaindex</h4>
 
 <!--include-svg src="./svgfiles/metaindexCreateCommand.svg" target="./diagrams/metaindexCreateCommand.svg" alt="syntax diagram for create metaindex command" layout="@break@" -->
+
 Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
 
 <!--include-svg src="./svgfiles/metaindexIndextype.svg" target="./diagrams/metaindexIndextype.svg" alt="syntax diagram for the different index types" layout="@break@" -->
+
 * MINMAX: Stores minimum or maximum values for a column for orderable types.
 * VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
 * BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.

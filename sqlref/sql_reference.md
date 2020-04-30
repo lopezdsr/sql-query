@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-04-29"
+lastupdated: "2020-04-30"
 
 ---
 
@@ -3311,9 +3311,12 @@ Refer to the section about [Index Management](/docs/services/sql-query?topic=sql
 
 <div style="overflow-x : auto;">
 <map name="metaindexCreateCommandImgMap">
+	<area alt="section metaindexIndextype" shape="rect" coords="270,20,434,42" href="#metaindexIndextype" />
+	<area alt="section metaindexAsset" shape="rect" coords="530,20,662,42" href="#metaindexAsset" />
 </map>
 <img style="max-width: 702px;" usemap="#metaindexCreateCommandImgMap" alt="syntax diagram for create metaindex command" src="./diagrams/metaindexCreateCommand-147d224ef7be4ba82820b55ce0788827.svg" />
 </div>
+
 Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
 
 <div style="overflow-x : auto;">
@@ -3324,6 +3327,7 @@ Create an index on the objects in the specified {{site.data.keyword.cos_short}} 
 </map>
 <img style="max-width: 422px;" usemap="#metaindexIndextypeImgMap" alt="syntax diagram for the different index types" src="./diagrams/metaindexIndextype-e8503d1efa7b58347dec342965985b39.svg" />
 </div>
+
 * MINMAX: Stores minimum or maximum values for a column for orderable types.
 * VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
 * BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
@@ -3363,6 +3367,7 @@ ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
 
 <div style="overflow-x : auto;">
 <map name="metaindexDropCommandImgMap">
+	<area alt="section metaindexAsset" shape="rect" coords="290,20,422,42" href="#metaindexAsset" />
 </map>
 <img style="max-width: 462px;" usemap="#metaindexDropCommandImgMap" alt="syntax diagram for drop metaindex command" src="./diagrams/metaindexDropCommand-7c9ceb0a8ebc8fc640d0e9bcd411bcde.svg" />
 </div>
@@ -3382,6 +3387,7 @@ DROP METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 
 <div style="overflow-x : auto;">
 <map name="metaindexRefreshCommandImgMap">
+	<area alt="section metaindexAsset" shape="rect" coords="314,20,446,42" href="#metaindexAsset" />
 </map>
 <img style="max-width: 486px;" usemap="#metaindexRefreshCommandImgMap" alt="syntax diagram for refresh metaindex command" src="./diagrams/metaindexRefreshCommand-fe7e1ada42e0cb1281cabe0090a22afb.svg" />
 </div>
@@ -3401,6 +3407,7 @@ REFRESH METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 
 <div style="overflow-x : auto;">
 <map name="metaindexDescribeCommandImgMap">
+	<area alt="section metaindexAsset" shape="rect" coords="322,30,454,52" href="#metaindexAsset" />
 	<area alt="section intoClause" shape="rect" coords="484,30,584,52" href="#intoClause" />
 </map>
 <img style="max-width: 634px;" usemap="#metaindexDescribeCommandImgMap" alt="syntax diagram for describe metaindex command" src="./diagrams/metaindexDescribeCommand-cd582a9aa24fa0b7102de9804db08535.svg" />
@@ -3425,7 +3432,7 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 <img style="max-width: 270px;" usemap="#metaindexShowCommandImgMap" alt="syntax diagram for show metaindexes command" src="./diagrams/mmetaindexShowCommand-41c5db29aba1c9307b063c0e989c1065.svg" />
 </div>
 
-List all indexes that have been stored in the base location. Tables with a different metaindex location will not show up here.
+List all stored indexes in the base location. Tables with a different metaindex location are not displayed in the list.
 
 ```sql
 -- list all Metaindexes in the base location
@@ -3440,6 +3447,7 @@ SHOW METAINDEXES
 
 <div style="overflow-x : auto;">
 <map name="metaindexLocationCommandImgMap">
+	<area alt="section metaindexAsset" shape="rect" coords="410,20,542,42" href="#metaindexAsset" />
 </map>
 <img style="max-width: 582px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter metaindex command" src="./diagrams/metaindexLocationCommand-bf219801c1f129a92bfab707ba857513.svg" />
 </div>
@@ -3463,6 +3471,7 @@ ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
 <div style="overflow-x : auto;">
 <map name="hiveMetaindexLocationCommandImgMap">
 	<area alt="section tableIdentifier" shape="rect" coords="210,20,350,42" href="#tableIdentifier" />
+	<area alt="section metaindexAsset" shape="rect" coords="650,20,782,42" href="#metaindexAsset" />
 </map>
 <img style="max-width: 822px;" usemap="#hiveMetaindexLocationCommandImgMap" alt="syntax diagram for alter table set location command" src="./diagrams/hiveMetaindexLocationCommand-0fa866519493283c8b015bf81264bdfa.svg" />
 </div>
@@ -3506,11 +3515,11 @@ The metaindexAsset is an subset of the [externalTableSpec](#externalTableSpec).
 
 <div style="overflow-x : auto;">
 <map name="metaindexAssetImgMap">
-	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
-	<area alt="section STRING" shape="rect" coords="750,70,818,92" href="#STRING" />
-	<area alt="section tableIdentifier" shape="rect" coords="554,240,694,262" href="#tableIdentifier" />
+	<area alt="section COSURI" shape="rect" coords="70,40,138,62" href="#COSURI" />
+	<area alt="section STRING" shape="rect" coords="750,40,818,62" href="#STRING" />
+	<area alt="section tableIdentifier" shape="rect" coords="506,210,646,232" href="#tableIdentifier" />
 </map>
-<img style="max-width: 1097px;" usemap="#metaindexAssetImgMap" alt="syntax diagram for metaindex asset" src="./diagrams/metaindexAsset-6d01c8702a23680dd839f0cc13439f43.svg" />
+<img style="max-width: 1062px;" usemap="#metaindexAssetImgMap" alt="syntax diagram for metaindex asset" src="./diagrams/metaindexAsset-8c15762c08988fb3470dc20546c8f4dc.svg" />
 </div>
 
 

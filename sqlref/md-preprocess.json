@@ -38,6 +38,8 @@
                         "joinClause",
                         "joinType",
                         "lateralView",
+                        "metaindexAsset",
+                        "metaindexIndextype",
                         "naturalJoinClause",
                         "namedQuery",
                         "namedWindow",
