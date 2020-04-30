@@ -3044,10 +3044,11 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 
 <div style="overflow-x : auto;">
 <map name="columnDefinitionImgMap">
-	<area alt="section identifier" shape="rect" coords="50,20,150,42" href="#identifier" />
-	<area alt="section dataType" shape="rect" coords="170,20,254,42" href="#dataType" />
+	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
+	<area alt="section dataType" shape="rect" coords="170,30,254,52" href="#dataType" />
+	<area alt="section STRING" shape="rect" coords="390,30,458,52" href="#STRING" />
 </map>
-<img style="max-width: 294px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefinition-47efc1f94c49f7cc57555711ce5a1192.svg" />
+<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefinition-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
 </div>
 
 Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
