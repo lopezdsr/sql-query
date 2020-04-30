@@ -20,7 +20,7 @@ subcollection: sql-query
 
 
 # Index management ![Beta](beta.png)
-{: #dataskipping}
+{: #index_management}
 
 Beta support for this feature was introduced in May, 2020.
 {: note}
@@ -160,6 +160,17 @@ If data is added to a data set, or if there are modifications to a data set afte
 REFRESH METAINDEX
 ON cos://us-geo/sql/metergen STORED AS parquet
 ```
+
+### Showing data skipping indexes
+
+To retrieve existing data skipping indexes under the currently configured metadata base location, use the SHOW operation, as in the following example:
+
+```
+SHOW METAINDEXES
+```
+
+The result includes the currently set metadata base location and a list of indexed data sets.
+
 
 ### Deleting data skipping indexes
 
