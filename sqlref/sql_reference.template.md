@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-04-29"
+lastupdated: "2020-04-30"
 
 ---
 
@@ -2914,7 +2914,7 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 
 <!--include-svg src="./svgfiles/metaindexShowCommand.svg" target="./diagrams/mmetaindexShowCommand.svg" alt="syntax diagram for show metaindexes command" layout="@break@" -->
 
-List all indexes that have been stored in the base location. Tables with a different metaindex location will not show up here.
+List all stored indexes in the base location. Tables with a different metaindex location are not displayed in the list.
 
 ```sql
 -- list all Metaindexes in the base location
