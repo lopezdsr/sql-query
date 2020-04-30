@@ -2903,7 +2903,7 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 
 <!--include-svg src="./svgfiles/metaindexShowCommand.svg" target="./diagrams/mmetaindexShowCommand.svg" alt="syntax diagram for show metaindexes command" layout="@break@" -->
 
-List all stored indexes in the base location. Tables with a different metaindex location are not displayed in the list.
+List all stored indexes in the base location. Note that tables with a different metaindex location are not displayed in the list.
 
 ```sql
 -- list all Metaindexes in the base location
@@ -2918,7 +2918,7 @@ SHOW METAINDEXES
 
 <!--include-svg src="./svgfiles/metaindexLocationCommand.svg" target="./diagrams/metaindexLocationCommand.svg" alt="syntax diagram for alter metaindex command" layout="@break@" -->
 
-You only have to alter the {{site.data.keyword.cos_short}} location for all indexes once to define the base location. 
+You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location. 
 If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
 Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed. 
 
