@@ -22,7 +22,7 @@ subcollection: sql-query
 
 The job results are stored in {{site.data.keyword.cos_full}} and are independent of any {{site.data.keyword.sqlquery_short}} disaster recovery.
 
-If a region becomes unavailable due to a disaster, {{site.data.keyword.bluemix}} will automatically replicate the service to another region in the same geography as part of the recovery. The recovery region for *us-south* is *us-east*. The recovery region for *eu-de* is *eu-gb*. You do not need to perform specific actions to replicate the service to another region in the case of a disaster.
+If a region becomes unavailable due to a disaster, {{site.data.keyword.Bluemix}} will automatically replicate the service to another region in the same geography as part of the recovery. The recovery region for *us-south* is *us-east*. The recovery region for *eu-de* is *eu-gb*. You do not need to perform specific actions to replicate the service to another region in the case of a disaster.
 
 During the time of disaster and recovery, the service at that location is not available, which means that you cannot use your instance(s) that had been created in the affected location. Once the phase of disaster recovery is over, you can access your service instances and submit new jobs, even before data recovery completes. Once data recovery completes, job history will be available for the instances again.
 
