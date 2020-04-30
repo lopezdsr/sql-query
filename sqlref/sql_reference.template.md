@@ -2806,7 +2806,7 @@ SHOW PARTITIONS customers_partitioned
 
 The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
 The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
-Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-indexManagement) for more details.
+Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-dataskipping) for more details.
 
 ### Create Metaindex
 {: #chapterCreateMetaindex}
