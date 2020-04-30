@@ -2907,6 +2907,21 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
+### Show Metaindexes
+{: #chapterShowMetaindexes}
+
+<h4 id="showMetaindexes">showMetaindexes</h4>
+
+<!--include-svg src="./svgfiles/metaindexShowCommand.svg" target="./diagrams/mmetaindexShowCommand.svg" alt="syntax diagram for show metaindexes command" layout="@break@" -->
+
+List all indexes that have been stored in the base location. Tables with a different metaindex location will not show up here.
+
+```sql
+-- list all Metaindexes in the base location
+SHOW METAINDEXES 
+```
+{: codeblock}
+
 ### Alter Metaindex
 {: #chapterAlterMetaindex}
 
