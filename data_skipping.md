@@ -39,7 +39,7 @@ SQL queries benefit from an index by skipping over all objects whose metadata in
 ## Overview
 {: #overview_ds}
 
-For each of the columns in the object, the summary metadata can include minimum and maximum values, a list or bloom filter of the appearing values, or other metadata that concisely represents the data in that column. The summary metadata is then used during query evaluation to skip over objects that do not contain any relevant data. All formats are supported, including Parquet, ORC, CSV, JSON, and Avro. Data skipping is for performance optimization, using it does not affect the content of query results.
+For each of the columns in the object, the summary metadata can include minimum and maximum values, a list or bloom filter of the appearing values, or other metadata that concisely represents the data in that column. The summary metadata is then used during query evaluation to skip over objects that do not contain any relevant data. All formats are supported, including Parquet, ORC, CSV, and JSON. Data skipping is for performance optimization, using it does not affect the content of query results.
 
 As {{site.data.keyword.sqlquery_full}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while improving performance. For data skipping to work well, as well as for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
 Data skipping complements these best practices and provides significant additional cost savings and performance benefits.
@@ -50,7 +50,7 @@ The following three index types are supported:
 
 Index type | Description | Applicable to predicates in `WHERE` clause | Column types
 --- | --- | --- | ---
-MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> | [Orderable types](https://spark.apache.org/docs/latest/api/sql/index.html)
+MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> | [Orderable types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
 ValueList | Stores the list of unique values for the column | =,IN,LIKE | All types
 BloomFilter | Using bloom filter technique for set membership | =,IN | Byte, string, long, integer, short
 
