@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-03-06"
+lastupdated: "2020-04-30"
 
 ---
 
@@ -24,6 +24,7 @@ lastupdated: "2020-03-06"
 [SQL Expressions](#chapterSqlExpressions)
 [Data Types](#dataType)
 [Database Catalog](#chapterHiveCatalog)
+[Index Management](#chapterIndexManagement)
 [Miscellaneous](#chapterMiscDefinitions)
 
 ## Introduction
@@ -2812,6 +2813,174 @@ List the defined partitions of a table when a table has been created as partitio
 SHOW PARTITIONS customers_partitioned
 ```
 {: codeblock}
+
+## Index Management ![Beta](beta.png)
+{: #chapterIndexManagement}
+
+The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
+The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
+Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-indexManagement) for more details.
+
+### Create Metaindex
+{: #chapterCreateMetaindex}
+
+<h4 id="createMetaindex">createMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexCreateCommand.svg" target="./diagrams/metaindexCreateCommand.svg" alt="syntax diagram for create metaindex command" layout="@break@" -->
+Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
+
+<!--include-svg src="./svgfiles/metaindexIndextype.svg" target="./diagrams/metaindexIndextype.svg" alt="syntax diagram for the different index types" layout="@break@" -->
+* MINMAX: Stores minimum or maximum values for a column for orderable types.
+* VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
+* BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
+
+```sql
+-- create an index on the columns temp, lat, lng, vid and city of the metergen sample table
+CREATE METAINDEX
+MINMAX FOR temp,
+MINMAX FOR lat,
+MINMAX FOR lng,
+BLOOMFILTER FOR vid,
+VALUELIST FOR city
+ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+```sql
+-- create an index on the columns  customerID and city of the sample table CUSTOMERS_PARTITIONED
+CREATE METAINDEX 
+VALUELIST for city,
+BLOOMFILTER for customerID
+ON TABLE CUSTOMERS_PARTITIONED 
+```
+{: codeblock}
+
+Before you start using data skipping index management commands, ensure that you set the base location in {{site.data.keyword.cos_short}}, where the metadata should be stored. Use the following command:
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+### Drop Metaindex
+{: #chapterDropMetaindex}
+
+<h4 id="dropMetaindex">dropMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexDropCommand.svg" target="./diagrams/metaindexDropCommand.svg" alt="syntax diagram for drop metaindex command" layout="@break@" -->
+
+Drop an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the index is no longer needed:
+
+```sql
+-- drop the index based on the metergen sample data set
+DROP METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Refresh Metaindex
+{: #chapterRefreshMetaindex}
+
+<h4 id="refreshMetaindex">refreshMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexRefreshCommand.svg" target="./diagrams/metaindexRefreshCommand.svg" alt="syntax diagram for refresh metaindex command" layout="@break@" -->
+
+Refresh an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the data has changed and you need to update the index:
+
+```sql
+-- refresh the index based on metergen sample data set
+REFRESH METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Describe Metaindex
+{: #chapterDescribeMetaindex}
+
+<h4 id="describeMetaindex">describeMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexDescribeCommand.svg" target="./diagrams/metaindexDescribeCommand.svg" alt="syntax diagram for describe metaindex command" layout="@break@" -->
+
+Describe an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command to receive information of the index, such as index status, types used, location where it is stored, or number of objects processed.
+
+```sql
+-- describe the index based on the metergen sample data set
+DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet 
+```
+{: codeblock}
+
+### Show Metaindexes
+{: #chapterShowMetaindexes}
+
+<h4 id="showMetaindexes">showMetaindexes</h4>
+
+<!--include-svg src="./svgfiles/metaindexShowCommand.svg" target="./diagrams/mmetaindexShowCommand.svg" alt="syntax diagram for show metaindexes command" layout="@break@" -->
+
+List all stored indexes in the base location. Tables with a different metaindex location are not displayed in the list.
+
+```sql
+-- list all Metaindexes in the base location
+SHOW METAINDEXES 
+```
+{: codeblock}
+
+### Alter Metaindex
+{: #chapterAlterMetaindex}
+
+<h4 id="alterMetaindex">alterMetaindex</h4>
+
+<!--include-svg src="./svgfiles/metaindexLocationCommand.svg" target="./diagrams/metaindexLocationCommand.svg" alt="syntax diagram for alter metaindex command" layout="@break@" -->
+
+You only have to alter the {{site.data.keyword.cos_short}} location for all indexes once to define the base location. 
+If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
+Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed. 
+
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
+```
+{: codeblock}
+
+
+### Alter Table Set Location
+{: #chapterAlterTableSetLocation}
+
+<h4 id="alterTableSetLocation">alterTableSetLocation</h4>
+
+<!--include-svg src="./svgfiles/hiveMetaindexLocationCommand.svg" target="./diagrams/hiveMetaindexLocationCommand.svg" alt="syntax diagram for alter table set location command" layout="@break@" -->
+
+This command lets you to define a location for this specified Hive table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index metadata anymore. Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.  
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED SET METAINDEX LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+
+### Alter Table Drop Location
+{: #chapterAlterTableDropLocation}
+
+<h4 id="alterTableDropLocation">alterTableDropLocation</h4>
+
+<!--include-svg src="./svgfiles/hiveMetaindexDropLocationCommand.svg" target="./diagrams/hiveMetaindexDropLocationCommand.svg" alt="syntax diagram for alter table drop location command" layout="@break@" -->
+
+This command allows you to drop a location for the specified table. Use this command if the index metadata should be fetched from the base location. 
+The metadata for the index stored in {{site.data.keyword.cos_short}} is not dropped and have to be cleaned up manually.
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
+```
+{: codeblock}
+
+### MetaindexAsset
+{: #chapterMetaindexAsset}
+
+<h4 id="metaindexAsset">metaindexAsset</h4>
+
+The metaindexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+
+<!--include-svg src="./svgfiles/metaindexAsset.svg" target="./diagrams/metaindexAsset.svg" alt="syntax diagram for metaindex asset" layout="@break@" -->
+
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-02-26"
+lastupdated: "2020-04-29"
 
 ---
 
@@ -13,6 +13,19 @@ lastupdated: "2020-02-26"
 {:pre: .pre}
 
 # SQL reference
+
+## Table of Content
+{: #toc}
+
+[Introduction](#chapterIntroduction)
+[SELECT](#chapterSQLQueryStatement)
+[Relations](#chapterRelations)
+[SQL Functions](#chapterSqlFunctions)
+[SQL Expressions](#chapterSqlExpressions)
+[Data Types](#dataType)
+[Database Catalog](#chapterHiveCatalog)
+[Index Management](#chapterIndexManagement)
+[Miscellaneous](#chapterMiscDefinitions)
 
 ## Introduction
 {: #chapterIntroduction}
@@ -3031,10 +3044,11 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 
 <div style="overflow-x : auto;">
 <map name="columnDefinitionImgMap">
-	<area alt="section identifier" shape="rect" coords="50,20,150,42" href="#identifier" />
-	<area alt="section dataType" shape="rect" coords="170,20,254,42" href="#dataType" />
+	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
+	<area alt="section dataType" shape="rect" coords="170,30,254,52" href="#dataType" />
+	<area alt="section STRING" shape="rect" coords="390,30,458,52" href="#STRING" />
 </map>
-<img style="max-width: 294px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefinition-47efc1f94c49f7cc57555711ce5a1192.svg" />
+<img style="max-width: 518px;" usemap="#columnDefinitionImgMap" alt="syntax diagram for column definition" src="./diagrams/columnDefinition-321ad8bb0c7cd98313f14a4484b2de1c.svg" />
 </div>
 
 Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
@@ -3052,6 +3066,7 @@ CREATE TABLE customers (
   contactName string,
   contactTitle string,
   address string,
+  city string,
   region string,
   postalCode string,
   country string,
@@ -3073,6 +3088,7 @@ CREATE TABLE customers_partitioned (
   contactName string,
   contactTitle string,
   address string,
+  city string,
   region string,
   postalCode string,
   country string,
@@ -3280,6 +3296,223 @@ List the defined partitions of a table when a table has been created as partitio
 SHOW PARTITIONS customers_partitioned
 ```
 {: codeblock}
+
+## Index Management ![Beta](beta.png)
+{: #chapterIndexManagement}
+
+The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
+The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
+Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-indexManagement) for more details.
+
+### Create Metaindex
+{: #chapterCreateMetaindex}
+
+<h4 id="createMetaindex">createMetaindex</h4>
+
+<div style="overflow-x : auto;">
+<map name="metaindexCreateCommandImgMap">
+</map>
+<img style="max-width: 702px;" usemap="#metaindexCreateCommandImgMap" alt="syntax diagram for create metaindex command" src="./diagrams/metaindexCreateCommand-147d224ef7be4ba82820b55ce0788827.svg" />
+</div>
+Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
+
+<div style="overflow-x : auto;">
+<map name="metaindexIndextypeImgMap">
+	<area alt="section identifier" shape="rect" coords="242,20,342,42" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="254,50,354,72" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="262,80,362,102" href="#identifier" />
+</map>
+<img style="max-width: 422px;" usemap="#metaindexIndextypeImgMap" alt="syntax diagram for the different index types" src="./diagrams/metaindexIndextype-e8503d1efa7b58347dec342965985b39.svg" />
+</div>
+* MINMAX: Stores minimum or maximum values for a column for orderable types.
+* VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
+* BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
+
+```sql
+-- create an index on the columns temp, lat, lng, vid and city of the metergen sample table
+CREATE METAINDEX
+MINMAX FOR temp,
+MINMAX FOR lat,
+MINMAX FOR lng,
+BLOOMFILTER FOR vid,
+VALUELIST FOR city
+ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+```sql
+-- create an index on the columns  customerID and city of the sample table CUSTOMERS_PARTITIONED
+CREATE METAINDEX 
+VALUELIST for city,
+BLOOMFILTER for customerID
+ON TABLE CUSTOMERS_PARTITIONED 
+```
+{: codeblock}
+
+Before you start using data skipping index management commands, ensure that you set the base location in {{site.data.keyword.cos_short}}, where the metadata should be stored. Use the following command:
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+### Drop Metaindex
+{: #chapterDropMetaindex}
+
+<h4 id="dropMetaindex">dropMetaindex</h4>
+
+<div style="overflow-x : auto;">
+<map name="metaindexDropCommandImgMap">
+</map>
+<img style="max-width: 462px;" usemap="#metaindexDropCommandImgMap" alt="syntax diagram for drop metaindex command" src="./diagrams/metaindexDropCommand-7c9ceb0a8ebc8fc640d0e9bcd411bcde.svg" />
+</div>
+
+Drop an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the index is no longer needed:
+
+```sql
+-- drop the index based on the metergen sample data set
+DROP METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Refresh Metaindex
+{: #chapterRefreshMetaindex}
+
+<h4 id="refreshMetaindex">refreshMetaindex</h4>
+
+<div style="overflow-x : auto;">
+<map name="metaindexRefreshCommandImgMap">
+</map>
+<img style="max-width: 486px;" usemap="#metaindexRefreshCommandImgMap" alt="syntax diagram for refresh metaindex command" src="./diagrams/metaindexRefreshCommand-fe7e1ada42e0cb1281cabe0090a22afb.svg" />
+</div>
+
+Refresh an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the data has changed and you need to update the index:
+
+```sql
+-- refresh the index based on metergen sample data set
+REFRESH METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Describe Metaindex
+{: #chapterDescribeMetaindex}
+
+<h4 id="describeMetaindex">describeMetaindex</h4>
+
+<div style="overflow-x : auto;">
+<map name="metaindexDescribeCommandImgMap">
+	<area alt="section intoClause" shape="rect" coords="484,30,584,52" href="#intoClause" />
+</map>
+<img style="max-width: 634px;" usemap="#metaindexDescribeCommandImgMap" alt="syntax diagram for describe metaindex command" src="./diagrams/metaindexDescribeCommand-cd582a9aa24fa0b7102de9804db08535.svg" />
+</div>
+
+Describe an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command to receive information of the index, such as index status, types used, location where it is stored, or number of objects processed.
+
+```sql
+-- describe the index based on the metergen sample data set
+DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet 
+```
+{: codeblock}
+
+### Show Metaindexes
+{: #chapterShowMetaindexes}
+
+<h4 id="showMetaindexes">showMetaindexes</h4>
+
+<div style="overflow-x : auto;">
+<map name="metaindexShowCommandImgMap">
+</map>
+<img style="max-width: 270px;" usemap="#metaindexShowCommandImgMap" alt="syntax diagram for show metaindexes command" src="./diagrams/mmetaindexShowCommand-41c5db29aba1c9307b063c0e989c1065.svg" />
+</div>
+
+List all indexes that have been stored in the base location. Tables with a different metaindex location will not show up here.
+
+```sql
+-- list all Metaindexes in the base location
+SHOW METAINDEXES 
+```
+{: codeblock}
+
+### Alter Metaindex
+{: #chapterAlterMetaindex}
+
+<h4 id="alterMetaindex">alterMetaindex</h4>
+
+<div style="overflow-x : auto;">
+<map name="metaindexLocationCommandImgMap">
+</map>
+<img style="max-width: 582px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter metaindex command" src="./diagrams/metaindexLocationCommand-bf219801c1f129a92bfab707ba857513.svg" />
+</div>
+
+You only have to alter the {{site.data.keyword.cos_short}} location for all indexes once to define the base location. 
+If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
+Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed. 
+
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
+```
+{: codeblock}
+
+
+### Alter Table Set Location
+{: #chapterAlterTableSetLocation}
+
+<h4 id="alterTableSetLocation">alterTableSetLocation</h4>
+
+<div style="overflow-x : auto;">
+<map name="hiveMetaindexLocationCommandImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="210,20,350,42" href="#tableIdentifier" />
+</map>
+<img style="max-width: 822px;" usemap="#hiveMetaindexLocationCommandImgMap" alt="syntax diagram for alter table set location command" src="./diagrams/hiveMetaindexLocationCommand-0fa866519493283c8b015bf81264bdfa.svg" />
+</div>
+
+This command lets you to define a location for this specified Hive table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index metadata anymore. Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.  
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED SET METAINDEX LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+
+### Alter Table Drop Location
+{: #chapterAlterTableDropLocation}
+
+<h4 id="alterTableDropLocation">alterTableDropLocation</h4>
+
+<div style="overflow-x : auto;">
+<map name="hiveMetaindexDropLocationCommandImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="210,20,350,42" href="#tableIdentifier" />
+</map>
+<img style="max-width: 678px;" usemap="#hiveMetaindexDropLocationCommandImgMap" alt="syntax diagram for alter table drop location command" src="./diagrams/hiveMetaindexDropLocationCommand-ff5e159f235a538851a231ed5c54221a.svg" />
+</div>
+
+This command allows you to drop a location for the specified table. Use this command if the index metadata should be fetched from the base location. 
+The metadata for the index stored in {{site.data.keyword.cos_short}} is not dropped and have to be cleaned up manually.
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
+```
+{: codeblock}
+
+### MetaindexAsset
+{: #chapterMetaindexAsset}
+
+<h4 id="metaindexAsset">metaindexAsset</h4>
+
+The metaindexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+
+<div style="overflow-x : auto;">
+<map name="metaindexAssetImgMap">
+	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
+	<area alt="section STRING" shape="rect" coords="750,70,818,92" href="#STRING" />
+	<area alt="section tableIdentifier" shape="rect" coords="554,240,694,262" href="#tableIdentifier" />
+</map>
+<img style="max-width: 1097px;" usemap="#metaindexAssetImgMap" alt="syntax diagram for metaindex asset" src="./diagrams/metaindexAsset-6d01c8702a23680dd839f0cc13439f43.svg" />
+</div>
+
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}
