@@ -14,19 +14,6 @@ lastupdated: "2020-04-30"
 
 # SQL reference
 
-## Table of Content
-{: #toc}
-
-[Introduction](#chapterIntroduction)
-[SELECT](#chapterSQLQueryStatement)
-[Relations](#chapterRelations)
-[SQL Functions](#chapterSqlFunctions)
-[SQL Expressions](#chapterSqlExpressions)
-[Data Types](#dataType)
-[Database Catalog](#chapterHiveCatalog)
-[Index Management](#chapterIndexManagement)
-[Miscellaneous](#chapterMiscDefinitions)
-
 ## Introduction
 {: #chapterIntroduction}
 
@@ -3302,7 +3289,7 @@ SHOW PARTITIONS customers_partitioned
 
 The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
 The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
-Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-indexManagement) for more details.
+Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-index_management) for more details.
 
 ### Create Metaindex
 {: #chapterCreateMetaindex}
@@ -3432,7 +3419,7 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 <img style="max-width: 270px;" usemap="#metaindexShowCommandImgMap" alt="syntax diagram for show metaindexes command" src="./diagrams/mmetaindexShowCommand-41c5db29aba1c9307b063c0e989c1065.svg" />
 </div>
 
-List all stored indexes in the base location. Tables with a different metaindex location are not displayed in the list.
+List all stored indexes in the base location. Note that tables with a different metaindex location are not displayed in the list.
 
 ```sql
 -- list all Metaindexes in the base location
@@ -3452,7 +3439,7 @@ SHOW METAINDEXES
 <img style="max-width: 582px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter metaindex command" src="./diagrams/metaindexLocationCommand-bf219801c1f129a92bfab707ba857513.svg" />
 </div>
 
-You only have to alter the {{site.data.keyword.cos_short}} location for all indexes once to define the base location. 
+You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location. 
 If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
 Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed. 
 
