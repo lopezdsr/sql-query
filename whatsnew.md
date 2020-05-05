@@ -17,13 +17,17 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## May 2020
+
+- {{site.data.keyword.sqlquery_full}} supports index management, also referred to as data skipping. Index management can significatly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.
+
 ## March 2020
 
-- {{site.data.keyword.sqlquery_full}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.![Beta](beta.png)
+- {{site.data.keyword.sqlquery_short}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.![Beta](beta.png)
 
 ## January 2020
 
-- {{site.data.keyword.sqlquery_full}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on ".appdomain.cloud", for example, s3.us.cloud-object-storage.appdomain.cloud), as well as all new single data center endpoints (for example, sng01).
+- {{site.data.keyword.sqlquery_short}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on ".appdomain.cloud", for example, s3.us.cloud-object-storage.appdomain.cloud), as well as all new single data center endpoints (for example, sng01).
 
 ## December 2019
 
