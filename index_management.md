@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-04-30"
+lastupdated: "2020-05-05"
 
 keywords: data skipping, performance, cost, data format, indexes, sample data, index management
 
@@ -25,10 +25,10 @@ subcollection: sql-query
 Beta support for this feature was introduced in May, 2020.
 {: note}
 
-Index management, also referred to as data skipping, can significantly boost performance and reduce cost of SQL queries by skipping over irrelevant data objects, based on a summary metadata associated with each object.
-Data skipping indexes apply to structured data sets in {{site.data.keyword.cos_full}} and they store summary metadata for each object in the data set.
-The indexes are stored on Cloud {{site.data.keyword.cos_short}} on a user provided bucket, just as the indexed data itself.
-SQL queries benefit from an index by skipping over all objects whose metadata indicate that they are not relevant for the given query. 
+Index management, also referred to as data skipping, can significantly boost performance and reduce cost of SQL queries by skipping over irrelevant data.
+Data skipping indexes apply to structured data sets in {{site.data.keyword.cos_full}} and store summary metadata for each object in the data set.
+The indexes are stored in Cloud {{site.data.keyword.cos_short}} in a user-provided bucket, similarly to the data.
+SQL queries benefit from an index by skipping over all objects whose metadata indicates that they are not relevant to the given query.
 
 ## Benefits
 {: #benefits_ds}
@@ -39,12 +39,12 @@ SQL queries benefit from an index by skipping over all objects whose metadata in
 ## Overview
 {: #overview_ds}
 
-For each of the columns in the object, the summary metadata can include minimum and maximum values, a list or bloom filter of the appearing values, or other metadata that concisely represents the data in that column. The summary metadata is then used during query evaluation to skip over objects that do not contain any relevant data. All formats are supported, including Parquet, ORC, CSV, and JSON. Data skipping is for performance optimization, using it does not affect the content of query results.
+For each of the columns in an object, summary metadata can include minimum and maximum values, a list or bloom filter of the appearing values, or other metadata that concisely represents the data in that column. The summary metadata is then used during query evaluation to skip over objects that do not contain any relevant data. All formats are supported, including Parquet, ORC, CSV, and JSON. Data skipping is for performance optimization, using it does not affect the content of query results.
 
 As {{site.data.keyword.sqlquery_full}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while improving performance. For data skipping to work well, as well as for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
 Data skipping complements these best practices and provides significant additional cost savings and performance benefits.
 
-To use this feature, you have to create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause.
+To use this feature, you must create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause.
 
 The following three index types are supported:
 
@@ -54,9 +54,9 @@ MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> | [Orderabl
 ValueList | Stores the list of unique values for the column | =,IN,LIKE | All types
 BloomFilter | Using bloom filter technique for set membership | =,IN | Byte, string, long, integer, short
 
-Use ValueList for a column if the number of distinct values for that column per object is typically much smaller than the total number of values for that column per object (otherwise, the index could be as big as that column of the data set). Use BloomFilter if the number of distinct column values per object is high.
+Use ValueList for a column if the number of distinct values for that column per object is typically much smaller than the total number of values for that column per object (otherwise, the index could be undesirably large). Use BloomFilter if the number of distinct column values per object is high.
 
-Indexes, or data skipping metadata, are stored in a location you specify. Note that metadata is much smaller than the data itself. If changes are made to some of the objects in the data set after index creation, refresh the indexes. Otherwise, data skipping still works correctly, however it cannot skip the changed objects.
+Indexes, or data skipping metadata, are stored in a location you specify. Note that metadata is typically much smaller than the data itself. If changes are made to some of the objects in the data set after index creation, refresh the indexes. Otherwise, data skipping still works correctly, but it cannot skip the changed objects.
 
 ## Usage
 {: #usage_ds}
@@ -70,9 +70,9 @@ The queries listed in the examples are also available in the UI under **Samples*
 
 ### Assigning a base location for data skipping indexes
 
-Indexes are stored in Cloud {{site.data.keyword.cos_short}} in a bucket of your choice. 
+Indexes are stored in Cloud {{site.data.keyword.cos_short}} in a bucket of your choice.
 Before starting to create indexes, first configure the default location, called base location, for indexes created in your {{site.data.keyword.sqlquery_short}} instance.
-When using Hive tables, you can additionally or alternatively also configure the index location per Hive table. 
+When using Hive tables, you can additionally or alternatively also configure the index location per Hive table.
 
 To assign your base location, use the following command:
 
@@ -84,8 +84,8 @@ A command including a path, looks like the following:
 
 ### Creating data skipping indexes
 
-When creating a data skipping index on a data set, you have to decide which columns to index, and you have to choose an index type for each column.
-Your choices depend on your workload and data. In general, you index columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter.
+When you create a data skipping index on a data set, decide which columns to index, and choose an index type for each column.
+Your choices depend on your workload and data. In general, index those columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter.
 
 The following example creates a data skipping index on the `metergen` data set:
 
@@ -138,7 +138,7 @@ The list of supported geospatial functions includes the following:
 - ST_IntersectsInterior
 
 The following example will get all of the points in 1 km around the point POINT(6.433881 43.422323).
-For data skipping to work, min/max index on the `lat` and `lng` columns is required.
+For data skipping to work, a MinMax index on the `lat` and `lng` columns is required.
 
 ```
 SELECT * FROM cos://us-geo/sql/metergen STORED AS PARQUET WHERE
@@ -200,19 +200,19 @@ ON TABLE metergen
 
 Refer to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference) for all the other query statements.
 
-By default, the metadata is saved under the base location you defined. However, if you want to set a custom location for the metadata, use the following query:
+By default, the metadata is saved under the base location you defined. However, if you want to set a custom location for the metadata, use the following command:
 
 ```
 ALTER TABLE metergen SET METAINDEX LOCATION <target-location>
 ```
 
 If the metadata already exists in the location that was set, no indexing is needed.
-If the index does not exist and you run this query before running the CREATE INDEX query, the index will be stored under the configured location, instead of the base location.
+If the index does not exist and you run this command before running the CREATE INDEX query, the index will be stored under the configured location, instead of the base location.
 
 The location of the metadata for a table is saved in the table properties under the parameter *spark.ibm.metaindex.parquet.mdlocation*.
 If this parameter does not exist, there is a fallback to the base location. Automatic indexing updates the table parameter with the index location.
 
-To remove the parameter from the table, use the following query:
+To remove the parameter from the table, use the following command:
 
 ```
 ALTER TABLE metergen DROP METAINDEX LOCATION
@@ -227,16 +227,16 @@ ALTER TABLE metergen DROP METAINDEX LOCATION
 ## Limitations
 {: #limitations_ds}
 
-Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a min/max index on a column with
+Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a MinMax index on a column with
 a short data type, the following query does not benefit from data skipping:
 
 ```
 select * from table where shortType > 1
 ```
 
-{{site.data.keyword.sparks}} evaluates the query as `(cast(shortType#3 as int) > 1)` because the constant 1 is of type *integer*.
+Apache Spark evaluates the query as `(cast(shortType#3 as int) > 1)` because the constant 1 is of type *integer*.
 
-Note that in some cases {{site.data.keyword.sparks}} automatically casts the literal to the right type.
+Note that in some cases Apache Spark automatically casts the literal to the right type.
 For example, the previous query works for all other numerical types, except for the byte type, as it requires casting, as well.
 To benefit from data skipping in such cases, ensure that the literal has the same type as the column type, as in the following example:
 
@@ -247,6 +247,7 @@ select * from table where shortType > cast(1 as short)
 ## References
 {: #references_ds}
 
+- [Data skipping for IBM SQL Query](https://www.ibm.com/cloud/blog/data-skipping-for-ibm-cloud-sql-query)
 - [Data skipping demo at Think 2019](https://www.ibm.com/cloud/blog/ibm-cloud-sql-query-at-think-2019) for the [Danaos use case](https://www.danaos.com/home/default.aspx) of [BigDataStack](https://bigdatastack.eu/?utm_source=IBM-Ta-Shma)
 - [How to Layout Big Data in IBM Cloud Object Storage for Spark SQL](https://www.ibm.com/cloud/blog/big-data-layout)
 - [Querying Geospatial Data using IBM SQL Query](https://www.ibm.com/cloud/blog/new-builders/querying-geospatial-data-using-ibm-sql-query)
