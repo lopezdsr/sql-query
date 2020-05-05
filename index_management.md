@@ -182,11 +182,14 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 
 ```
 
+Note that dropping a table, does not also drop the table indexes.
+
 ## Data skipping on catalog tables
 {: #ds_catalog}
 
-Data skipping also supports indexing and skipping on [partitioned tables](/docs/services/sql-query?topic=sql-query-hivemetastore#partitioned).
-All of the query examples above are also supported for partitioned tables, you only need to replace the [COS URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI) with `ON TABLE <table>`, as in the following example (where metergen is the table name):
+Data skipping also supports indexing and skipping on [catalog tables](/docs/services/sql-query?topic=sql-query-hivemetastore#partitioned).
+All command and query examples above are also supported for partitioned tables, by replacing the [COS URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI)
+referring to a data set location, with the table name using the `ON TABLE <table>` clause, as in the following example (where *metergen* is the table name):
 
 ```
 CREATE METAINDEX
@@ -198,9 +201,11 @@ VALUELIST FOR city
 ON TABLE metergen
 ```
 
-Refer to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference) for all the other query statements.
+Refer to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference) for the full list of query statements and commands.
 
-By default, the metadata is saved under the base location you defined. However, if you want to set a custom location for the metadata, use the following command:
+For non-partitioned tables, indexing should be done using the COS URI and not by using the table name (unlike the example above for partitioned tables). In this case, the location is not saved in the table parameters and the same metadata is used when referring to the table name or the physical location referred to by the COS URI.
+
+For partitioned tables, by default, the metadata is saved under the base location you defined. However, if you want to set a custom location for the metadata, use the following command:
 
 ```
 ALTER TABLE metergen SET METAINDEX LOCATION <target-location>
@@ -220,8 +225,7 @@ ALTER TABLE metergen DROP METAINDEX LOCATION
 
 ### Notes
 
--	The metadata for a partitioned table is different from the metadata on the physical location (the location that was defined in the LOCATION clause of the CREATE TABLE query) because the table can possibly contain partitions that are not located under the physical location.
--	Data skipping on non-partitioned tables is supported by indexing the physical location directly. In this case, the location is not saved in the table parameters and the same index is used for the table and the physical location.
+-	The metadata for a partitioned table has to be different from the metadata on the physical location (the location that was defined in the LOCATION clause of the CREATE TABLE query) because the table can possibly contain partitions that are not located under the physical location. Therefore, depending on what data skipping metadata was generated for each case, using the table name can give different results than using the COS URI.  
 
 
 ## Limitations
