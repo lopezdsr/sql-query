@@ -19,7 +19,7 @@ subcollection: sql-query
 
 ## May 2020
 
-- {{site.data.keyword.sqlquery_full}} supports index management, also referred to as data skipping. Index management can significatly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
+- {{site.data.keyword.sqlquery_full}} supports index management, also referred to as data skipping. Index management can significantly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
 
 ## March 2020
 
