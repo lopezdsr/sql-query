@@ -1,8 +1,9 @@
+
 ---
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-04-30"
+lastupdated: "2020-05-11"
 
 ---
 
@@ -2677,7 +2678,7 @@ The syntax of a *cast expression* is described by the syntax diagrams below.
 
 The cast specification returns the cast operand (the first operand) cast to the type specified by the data type.
 
-If the specified data type is not supported, an error is returned.
+If the specified data type is not supported, you receive an error.
 
 <h4 id="castExpression">castExpression</h4>
 
@@ -3039,7 +3040,7 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 </div>
 
 Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
-If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
 
 The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
 If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
@@ -3101,6 +3102,42 @@ location  cos://us-geo/sql/shippers.parquet
 ```
 {: codeblock}
 
+### Create View
+{: #chapterCreateView}
+<h4 id="createView">createView</h4>
+
+<div style="overflow-x : auto;">
+<map name="createViewImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="650,30,790,52" href="#tableIdentifier" />
+	<area alt="section STRING" shape="rect" coords="1278,30,1346,52" href="#STRING" />
+	<area alt="section query" shape="rect" coords="1906,30,1966,52" href="#query" />
+</map>
+<img style="max-width: 2006px;" usemap="#createViewImgMap" alt="syntax diagram for a create view command" src="./diagrams/createView-f309f7720f30f11b31a3b13851a3019b.svg" />
+</div>
+
+<h4 id="identifierComment">identifierComment</h4>
+<div style="overflow-x : auto;">
+<map name="identifierCommentImgMap">
+	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
+	<area alt="section STRING" shape="rect" coords="286,30,354,52" href="#STRING" />
+</map>
+<img style="max-width: 414px;" usemap="#identifierCommentImgMap" alt="syntax diagram for identifier comment definition" src="./diagrams/identifierComment-f638204f2e2324239f309aecc75598be.svg" />
+</div>
+
+Create a view definition in the catalog, based on existing table and view definitions. 
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
+
+The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
+```sql
+-- create a view on top of table customer
+CREATE VIEW CUSTOMER_STATISTICS AS
+    SELECT country, region, count(*) customers
+        FROM CUSTOMERS
+        WHERE region is NOT NULL
+        GROUP BY country, region
+
+```
+{: codeblock}
 
 ### Drop Table
 {: #chapterDropTable}
@@ -3121,6 +3158,28 @@ Note: This command does not delete any data in {{site.data.keyword.cos_short}}. 
 ```sql
 -- drop a definition for the table customer
 DROP TABLE customers
+```
+{: codeblock}
+
+### Drop View
+{: #chapterDropView}
+
+<h4 id="dropView">dropView</h4>
+
+<div style="overflow-x : auto;">
+<map name="dropViewImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="378,30,518,52" href="#tableIdentifier" />
+</map>
+<img style="max-width: 558px;" usemap="#dropViewImgMap" alt="syntax diagram for a drop view command" src="./diagrams/dropView-88ed4f9ce5bf736f1a9ffeb4a74baf68.svg" />
+</div>
+
+Drop a view definition from the catalog. If the view does not exist, you receive an error, unless the `IF EXISTS` option is specified.
+
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the view definition from the catalog.
+
+```sql
+-- drop a view definition for the vierw customer_statistics
+DROP VIEW customer_statistics
 ```
 {: codeblock}
 
@@ -3213,7 +3272,7 @@ The option `NOSCAN` only collects the sizes of the objects. HIDE END -->
 <img style="max-width: 778px;" usemap="#describeTableImgMap" alt="syntax diagram for describe tables command" src="./diagrams/describeTable-f2c9c78b5d7cc181fb5d9a6b62248083.svg" />
 </div>
 
-Return the schema (column names and data types) of a table definition. If the table does not exist, an error is returned.
+Return the schema (column names and data types) of a table or view definition. If the table or view does not exist, you receive an error.
 
 ```sql
 -- returns detailed information about the customer table
@@ -3233,7 +3292,7 @@ DESCRIBE TABLE  customers_partitioned
 <img style="max-width: 450px;" usemap="#showTablesImgMap" alt="syntax diagram for show tables command" src="./diagrams/showTables-8ece06742e7958194e44a9b019792742.svg" />
 </div>
 
-Returns the list of the defined tables in the catalog. The `LIKE` option allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables and views in the catalog. The `LIKE` option allows to filter for a given pattern. Use `*` as wildcard character.
 
 ```sql
 -- returns all defined tables in the catalog for this instance
@@ -3254,7 +3313,7 @@ SHOW TABLES
 *!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
 
-Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
+Return either all properties of a table definition or a specific property. You receive an error if the table does not exist.
 
 ```sql
 -- returns all specified table options for the table customer
@@ -3556,7 +3615,7 @@ SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
 
 <h3 id="tableIdentifier">Table Identifier</h3>
 
-A *table identifier* uniquely identifies a table in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
+A *table identifier* uniquely identifies a table or view in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
 * Digits `0-9`
 * Letters `a-z`, `A-Z`
 * Underscore `_`
