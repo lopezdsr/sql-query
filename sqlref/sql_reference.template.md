@@ -1,8 +1,9 @@
+
 ---
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-04-30"
+lastupdated: "2020-05-11"
 
 ---
 
@@ -2287,7 +2288,7 @@ The syntax of a *cast expression* is described by the syntax diagrams below.
 
 The cast specification returns the cast operand (the first operand) cast to the type specified by the data type.
 
-If the specified data type is not supported, an error is returned.
+If the specified data type is not supported, you receive an error.
 
 <h4 id="castExpression">castExpression</h4>
 
@@ -2593,7 +2594,7 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 <!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefinition.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
 Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
-If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
 
 The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
 If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
@@ -2664,12 +2665,10 @@ location  cos://us-geo/sql/shippers.parquet
 <h4 id="identifierComment">identifierComment</h4>
 <!--include-svg src="./svgfiles/identifierComment.svg" target="./diagrams/identifierComment.svg" alt="syntax diagram for identifier comment definition" layout="@break@" -->
 
-Create a view definition in the catalog based on top of existing table and view definitions. 
-If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
+Create a view definition in the catalog, based on existing table and view definitions. 
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
 
-The query definition is mandatory. It specifies the SQL query that is used automatically under the hood
-whenever the view is used in a FROM clause of a query. You can hide some complexity of your data model
-by creating views on top of your tables. It is also possibe to define views on top of other views.
+The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
 ```sql
 -- create a view on top of table customer
 CREATE VIEW CUSTOMER_STATISTICS AS
@@ -2783,7 +2782,7 @@ The option `NOSCAN` only collects the sizes of the objects. HIDE END -->
 
 <!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for describe tables command" layout="@break@" -->
 
-Return the schema (column names and data types) of a table or view definition. If the table or view does not exist, an error is returned.
+Return the schema (column names and data types) of a table or view definition. If the table or view does not exist, you receive an error.
 
 ```sql
 -- returns detailed information about the customer table
@@ -2798,7 +2797,7 @@ DESCRIBE TABLE  customers_partitioned
 
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
 
-Returns the list of the defined tables and views in the catalog. The `LIKE` option allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables and views in the catalog. The `LIKE` option allows to filter for a given pattern. Use `*` as wildcard character.
 
 ```sql
 -- returns all defined tables in the catalog for this instance
@@ -2819,7 +2818,7 @@ SHOW TABLES
 *!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
 
-Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
+Return either all properties of a table definition or a specific property. You receive an error if the table does not exist.
 
 ```sql
 -- returns all specified table options for the table customer
