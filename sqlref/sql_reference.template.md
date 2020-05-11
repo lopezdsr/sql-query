@@ -2593,7 +2593,7 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 <!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefinition.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
 Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
-If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
 
 The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
 If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
@@ -2655,6 +2655,31 @@ location  cos://us-geo/sql/shippers.parquet
 ```
 {: codeblock}
 
+### Create View
+{: #chapterCreateView}
+<h4 id="createView">createView</h4>
+
+<!--include-svg src="./svgfiles/createView.svg" target="./diagrams/createView.svg" alt="syntax diagram for a create view command" layout="@break@" -->
+
+<h4 id="identifierComment">identifierComment</h4>
+<!--include-svg src="./svgfiles/identifierComment.svg" target="./diagrams/identifierComment.svg" alt="syntax diagram for identifier comment definition" layout="@break@" -->
+
+Create a view definition in the catalog based on top of existing table and view definitions. 
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
+
+The query definition is mandatory. It specifies the SQL query that is used automatically under the hood
+whenever the view is used in a FROM clause of a query. You can hide some complexity of your data model
+by creating views on top of your tables. It is also possibe to define views on top of other views.
+```sql
+-- create a view on top of table customer
+CREATE VIEW CUSTOMER_STATISTICS AS
+    SELECT country, region, count(*) customers
+        FROM CUSTOMERS
+        WHERE region is NOT NULL
+        GROUP BY country, region
+
+```
+{: codeblock}
 
 ### Drop Table
 {: #chapterDropTable}
@@ -2670,6 +2695,23 @@ Note: This command does not delete any data in {{site.data.keyword.cos_short}}. 
 ```sql
 -- drop a definition for the table customer
 DROP TABLE customers
+```
+{: codeblock}
+
+### Drop View
+{: #chapterDropView}
+
+<h4 id="dropView">dropView</h4>
+
+<!--include-svg src="./svgfiles/dropView.svg" target="./diagrams/dropView.svg" alt="syntax diagram for a drop view command" layout="@break@" -->
+
+Drop a view definition from the catalog. If the view does not exist, you receive an error, unless the `IF EXISTS` option is specified.
+
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the view definition from the catalog.
+
+```sql
+-- drop a view definition for the vierw customer_statistics
+DROP VIEW customer_statistics
 ```
 {: codeblock}
 
@@ -2741,7 +2783,7 @@ The option `NOSCAN` only collects the sizes of the objects. HIDE END -->
 
 <!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for describe tables command" layout="@break@" -->
 
-Return the schema (column names and data types) of a table definition. If the table does not exist, an error is returned.
+Return the schema (column names and data types) of a table or view definition. If the table or view does not exist, an error is returned.
 
 ```sql
 -- returns detailed information about the customer table
@@ -2756,7 +2798,7 @@ DESCRIBE TABLE  customers_partitioned
 
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
 
-Returns the list of the defined tables in the catalog. The `LIKE` option allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables and views in the catalog. The `LIKE` option allows to filter for a given pattern. `*` can be used as wildcard character.
 
 ```sql
 -- returns all defined tables in the catalog for this instance
@@ -3017,7 +3059,7 @@ SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
 
 <h3 id="tableIdentifier">Table Identifier</h3>
 
-A *table identifier* uniquely identifies a table in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
+A *table identifier* uniquely identifies a table or view in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
 * Digits `0-9`
 * Letters `a-z`, `A-Z`
 * Underscore `_`

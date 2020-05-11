@@ -20,6 +20,11 @@ subcollection: sql-query
 ## May 2020
 
 - {{site.data.keyword.sqlquery_full}} supports index management, also referred to as data skipping. Index management can significantly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
+- {{site.data.keyword.sqlquery_full}} database catalog support has been extended to support [views](/docs/services/sql-query?topic=sql-query-sql-reference#createView).
+
+## April 2020
+
+- {{site.data.keyword.sqlquery_short}} support for [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore) has been made generally available with full production support.
 
 ## March 2020
 
