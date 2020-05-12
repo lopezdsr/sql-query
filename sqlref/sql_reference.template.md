@@ -2852,12 +2852,12 @@ The following commands allow you to create indexes for data skipping during SQL 
 The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
 Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-index_management) for more details.
 
-### Create Metaindex
-{: #chapterCreateMetaindex}
+### Create Index
+{: #chapterCreateIndex}
 
-<h4 id="createMetaindex">createMetaindex</h4>
+<h4 id="createIndex">createIndex</h4>
 
-<!--include-svg src="./svgfiles/metaindexCreateCommand.svg" target="./diagrams/metaindexCreateCommand.svg" alt="syntax diagram for create metaindex command" layout="@break@" -->
+<!--include-svg src="./svgfiles/metaindexCreateCommand.svg" target="./diagrams/metaindexCreateCommand.svg" alt="syntax diagram for create index command" layout="@break@" -->
 
 Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
 
@@ -2895,12 +2895,12 @@ ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
 ```
 {: codeblock}
 
-### Drop Metaindex
-{: #chapterDropMetaindex}
+### Drop Index
+{: #chapterDropIndex}
 
-<h4 id="dropMetaindex">dropMetaindex</h4>
+<h4 id="dropIndex">dropIndex</h4>
 
-<!--include-svg src="./svgfiles/metaindexDropCommand.svg" target="./diagrams/metaindexDropCommand.svg" alt="syntax diagram for drop metaindex command" layout="@break@" -->
+<!--include-svg src="./svgfiles/metaindexDropCommand.svg" target="./diagrams/metaindexDropCommand.svg" alt="syntax diagram for drop index command" layout="@break@" -->
 
 Drop an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the index is no longer needed:
 
@@ -2910,12 +2910,12 @@ DROP METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
-### Refresh Metaindex
-{: #chapterRefreshMetaindex}
+### Refresh Index
+{: #chapterRefreshIndex}
 
-<h4 id="refreshMetaindex">refreshMetaindex</h4>
+<h4 id="refreshIndex">refreshIndex</h4>
 
-<!--include-svg src="./svgfiles/metaindexRefreshCommand.svg" target="./diagrams/metaindexRefreshCommand.svg" alt="syntax diagram for refresh metaindex command" layout="@break@" -->
+<!--include-svg src="./svgfiles/metaindexRefreshCommand.svg" target="./diagrams/metaindexRefreshCommand.svg" alt="syntax diagram for refresh index command" layout="@break@" -->
 
 Refresh an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the data has changed and you need to update the index:
 
@@ -2925,12 +2925,12 @@ REFRESH METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
-### Describe Metaindex
-{: #chapterDescribeMetaindex}
+### Describe Index
+{: #chapterDescribeIndex}
 
-<h4 id="describeMetaindex">describeMetaindex</h4>
+<h4 id="describeIndex">describeIndex</h4>
 
-<!--include-svg src="./svgfiles/metaindexDescribeCommand.svg" target="./diagrams/metaindexDescribeCommand.svg" alt="syntax diagram for describe metaindex command" layout="@break@" -->
+<!--include-svg src="./svgfiles/metaindexDescribeCommand.svg" target="./diagrams/metaindexDescribeCommand.svg" alt="syntax diagram for describe index command" layout="@break@" -->
 
 Describe an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command to receive information of the index, such as index status, types used, location where it is stored, or number of objects processed.
 
@@ -2940,14 +2940,14 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
-### Show Metaindexes
-{: #chapterShowMetaindexes}
+### Show Indexes
+{: #chapterShowIndexes}
 
-<h4 id="showMetaindexes">showMetaindexes</h4>
+<h4 id="showIndexes">showIndexes</h4>
 
-<!--include-svg src="./svgfiles/metaindexShowCommand.svg" target="./diagrams/mmetaindexShowCommand.svg" alt="syntax diagram for show metaindexes command" layout="@break@" -->
+<!--include-svg src="./svgfiles/metaindexShowCommand.svg" target="./diagrams/mmetaindexShowCommand.svg" alt="syntax diagram for show indexes command" layout="@break@" -->
 
-List all stored indexes in the base location. Note that tables with a different metaindex location are not displayed in the list.
+List all stored indexes in the base location. Note that tables with a different index location are not displayed in the list.
 
 ```sql
 -- list all Metaindexes in the base location
@@ -2955,12 +2955,12 @@ SHOW METAINDEXES
 ```
 {: codeblock}
 
-### Alter Metaindex
-{: #chapterAlterMetaindex}
+### Alter Index
+{: #chapterAlterIndex}
 
-<h4 id="alterMetaindex">alterMetaindex</h4>
+<h4 id="alterIndex">alterIndex</h4>
 
-<!--include-svg src="./svgfiles/metaindexLocationCommand.svg" target="./diagrams/metaindexLocationCommand.svg" alt="syntax diagram for alter metaindex command" layout="@break@" -->
+<!--include-svg src="./svgfiles/metaindexLocationCommand.svg" target="./diagrams/metaindexLocationCommand.svg" alt="syntax diagram for alter index command" layout="@break@" -->
 
 You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location. 
 If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
@@ -3005,14 +3005,14 @@ ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
 ```
 {: codeblock}
 
-### MetaindexAsset
-{: #chapterMetaindexAsset}
+### IndexAsset
+{: #chapterIndexAsset}
 
-<h4 id="metaindexAsset">metaindexAsset</h4>
+<h4 id="indexAsset">indexAsset</h4>
 
-The metaindexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
 
-<!--include-svg src="./svgfiles/metaindexAsset.svg" target="./diagrams/metaindexAsset.svg" alt="syntax diagram for metaindex asset" layout="@break@" -->
+<!--include-svg src="./svgfiles/metaindexAsset.svg" target="./diagrams/metaindexAsset.svg" alt="syntax diagram for index asset" layout="@break@" -->
 
 
 ## Miscellaneous Definitions
