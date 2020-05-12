@@ -2670,7 +2670,9 @@ location  cos://us-geo/sql/shippers.parquet
 Create a view definition in the catalog, based on existing table and view definitions. 
 If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
 
-The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
+The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. 
+You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
+
 ```sql
 -- create a view on top of table customer
 CREATE VIEW CUSTOMER_STATISTICS AS
@@ -2678,7 +2680,6 @@ CREATE VIEW CUSTOMER_STATISTICS AS
         FROM CUSTOMERS
         WHERE region is NOT NULL
         GROUP BY country, region
-
 ```
 {: codeblock}
 
@@ -3105,3 +3106,4 @@ See section [dataType](#dataType) for more details about data types.
 A *string* is a sequence of arbitrary characters including escaped characters, for example,
 `\t`, either enclosed in single quotes `'`, or double quotes, `"`.
 To include any quote characters in the string they have to be escaped as <code>\\\\&#96;</code> or `\\"`, respectively.
+
