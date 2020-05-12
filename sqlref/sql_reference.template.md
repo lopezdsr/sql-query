@@ -2658,11 +2658,13 @@ location  cos://us-geo/sql/shippers.parquet
 
 ### Create View
 {: #chapterCreateView}
+
 <h4 id="createView">createView</h4>
 
 <!--include-svg src="./svgfiles/createView.svg" target="./diagrams/createView.svg" alt="syntax diagram for a create view command" layout="@break@" -->
 
 <h4 id="identifierComment">identifierComment</h4>
+
 <!--include-svg src="./svgfiles/identifierComment.svg" target="./diagrams/identifierComment.svg" alt="syntax diagram for identifier comment definition" layout="@break@" -->
 
 Create a view definition in the catalog, based on existing table and view definitions. 
