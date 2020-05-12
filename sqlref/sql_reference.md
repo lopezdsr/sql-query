@@ -3,7 +3,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-05-11"
+lastupdated: "2020-05-12"
 
 ---
 
@@ -3104,6 +3104,7 @@ location  cos://us-geo/sql/shippers.parquet
 
 ### Create View
 {: #chapterCreateView}
+
 <h4 id="createView">createView</h4>
 
 <div style="overflow-x : auto;">
@@ -3116,6 +3117,7 @@ location  cos://us-geo/sql/shippers.parquet
 </div>
 
 <h4 id="identifierComment">identifierComment</h4>
+
 <div style="overflow-x : auto;">
 <map name="identifierCommentImgMap">
 	<area alt="section identifier" shape="rect" coords="50,30,150,52" href="#identifier" />
@@ -3127,7 +3129,9 @@ location  cos://us-geo/sql/shippers.parquet
 Create a view definition in the catalog, based on existing table and view definitions. 
 If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
 
-The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
+The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. 
+You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
+
 ```sql
 -- create a view on top of table customer
 CREATE VIEW CUSTOMER_STATISTICS AS
@@ -3135,7 +3139,6 @@ CREATE VIEW CUSTOMER_STATISTICS AS
         FROM CUSTOMERS
         WHERE region is NOT NULL
         GROUP BY country, region
-
 ```
 {: codeblock}
 
@@ -3350,17 +3353,17 @@ The following commands allow you to create indexes for data skipping during SQL 
 The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
 Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-index_management) for more details.
 
-### Create Metaindex
-{: #chapterCreateMetaindex}
+### Create Index
+{: #chapterCreateIndex}
 
-<h4 id="createMetaindex">createMetaindex</h4>
+<h4 id="createIndex">createIndex</h4>
 
 <div style="overflow-x : auto;">
 <map name="metaindexCreateCommandImgMap">
 	<area alt="section metaindexIndextype" shape="rect" coords="270,20,434,42" href="#metaindexIndextype" />
 	<area alt="section metaindexAsset" shape="rect" coords="530,20,662,42" href="#metaindexAsset" />
 </map>
-<img style="max-width: 702px;" usemap="#metaindexCreateCommandImgMap" alt="syntax diagram for create metaindex command" src="./diagrams/metaindexCreateCommand-147d224ef7be4ba82820b55ce0788827.svg" />
+<img style="max-width: 702px;" usemap="#metaindexCreateCommandImgMap" alt="syntax diagram for create index command" src="./diagrams/metaindexCreateCommand-147d224ef7be4ba82820b55ce0788827.svg" />
 </div>
 
 Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
@@ -3406,16 +3409,16 @@ ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
 ```
 {: codeblock}
 
-### Drop Metaindex
-{: #chapterDropMetaindex}
+### Drop Index
+{: #chapterDropIndex}
 
-<h4 id="dropMetaindex">dropMetaindex</h4>
+<h4 id="dropIndex">dropIndex</h4>
 
 <div style="overflow-x : auto;">
 <map name="metaindexDropCommandImgMap">
 	<area alt="section metaindexAsset" shape="rect" coords="290,20,422,42" href="#metaindexAsset" />
 </map>
-<img style="max-width: 462px;" usemap="#metaindexDropCommandImgMap" alt="syntax diagram for drop metaindex command" src="./diagrams/metaindexDropCommand-7c9ceb0a8ebc8fc640d0e9bcd411bcde.svg" />
+<img style="max-width: 462px;" usemap="#metaindexDropCommandImgMap" alt="syntax diagram for drop index command" src="./diagrams/metaindexDropCommand-7c9ceb0a8ebc8fc640d0e9bcd411bcde.svg" />
 </div>
 
 Drop an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the index is no longer needed:
@@ -3426,16 +3429,16 @@ DROP METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
-### Refresh Metaindex
-{: #chapterRefreshMetaindex}
+### Refresh Index
+{: #chapterRefreshIndex}
 
-<h4 id="refreshMetaindex">refreshMetaindex</h4>
+<h4 id="refreshIndex">refreshIndex</h4>
 
 <div style="overflow-x : auto;">
 <map name="metaindexRefreshCommandImgMap">
 	<area alt="section metaindexAsset" shape="rect" coords="314,20,446,42" href="#metaindexAsset" />
 </map>
-<img style="max-width: 486px;" usemap="#metaindexRefreshCommandImgMap" alt="syntax diagram for refresh metaindex command" src="./diagrams/metaindexRefreshCommand-fe7e1ada42e0cb1281cabe0090a22afb.svg" />
+<img style="max-width: 486px;" usemap="#metaindexRefreshCommandImgMap" alt="syntax diagram for refresh index command" src="./diagrams/metaindexRefreshCommand-fe7e1ada42e0cb1281cabe0090a22afb.svg" />
 </div>
 
 Refresh an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the data has changed and you need to update the index:
@@ -3446,17 +3449,17 @@ REFRESH METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
-### Describe Metaindex
-{: #chapterDescribeMetaindex}
+### Describe Index
+{: #chapterDescribeIndex}
 
-<h4 id="describeMetaindex">describeMetaindex</h4>
+<h4 id="describeIndex">describeIndex</h4>
 
 <div style="overflow-x : auto;">
 <map name="metaindexDescribeCommandImgMap">
 	<area alt="section metaindexAsset" shape="rect" coords="322,30,454,52" href="#metaindexAsset" />
 	<area alt="section intoClause" shape="rect" coords="484,30,584,52" href="#intoClause" />
 </map>
-<img style="max-width: 634px;" usemap="#metaindexDescribeCommandImgMap" alt="syntax diagram for describe metaindex command" src="./diagrams/metaindexDescribeCommand-cd582a9aa24fa0b7102de9804db08535.svg" />
+<img style="max-width: 634px;" usemap="#metaindexDescribeCommandImgMap" alt="syntax diagram for describe index command" src="./diagrams/metaindexDescribeCommand-cd582a9aa24fa0b7102de9804db08535.svg" />
 </div>
 
 Describe an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command to receive information of the index, such as index status, types used, location where it is stored, or number of objects processed.
@@ -3467,18 +3470,18 @@ DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
-### Show Metaindexes
-{: #chapterShowMetaindexes}
+### Show Indexes
+{: #chapterShowIndexes}
 
-<h4 id="showMetaindexes">showMetaindexes</h4>
+<h4 id="showIndexes">showIndexes</h4>
 
 <div style="overflow-x : auto;">
 <map name="metaindexShowCommandImgMap">
 </map>
-<img style="max-width: 270px;" usemap="#metaindexShowCommandImgMap" alt="syntax diagram for show metaindexes command" src="./diagrams/mmetaindexShowCommand-41c5db29aba1c9307b063c0e989c1065.svg" />
+<img style="max-width: 270px;" usemap="#metaindexShowCommandImgMap" alt="syntax diagram for show indexes command" src="./diagrams/mmetaindexShowCommand-41c5db29aba1c9307b063c0e989c1065.svg" />
 </div>
 
-List all stored indexes in the base location. Note that tables with a different metaindex location are not displayed in the list.
+List all stored indexes in the base location. Note that tables with a different index location are not displayed in the list.
 
 ```sql
 -- list all Metaindexes in the base location
@@ -3486,16 +3489,16 @@ SHOW METAINDEXES
 ```
 {: codeblock}
 
-### Alter Metaindex
-{: #chapterAlterMetaindex}
+### Alter Index
+{: #chapterAlterIndex}
 
-<h4 id="alterMetaindex">alterMetaindex</h4>
+<h4 id="alterIndex">alterIndex</h4>
 
 <div style="overflow-x : auto;">
 <map name="metaindexLocationCommandImgMap">
 	<area alt="section metaindexAsset" shape="rect" coords="410,20,542,42" href="#metaindexAsset" />
 </map>
-<img style="max-width: 582px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter metaindex command" src="./diagrams/metaindexLocationCommand-bf219801c1f129a92bfab707ba857513.svg" />
+<img style="max-width: 582px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter index command" src="./diagrams/metaindexLocationCommand-bf219801c1f129a92bfab707ba857513.svg" />
 </div>
 
 You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location. 
@@ -3552,12 +3555,12 @@ ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
 ```
 {: codeblock}
 
-### MetaindexAsset
-{: #chapterMetaindexAsset}
+### IndexAsset
+{: #chapterIndexAsset}
 
-<h4 id="metaindexAsset">metaindexAsset</h4>
+<h4 id="indexAsset">indexAsset</h4>
 
-The metaindexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
 
 <div style="overflow-x : auto;">
 <map name="metaindexAssetImgMap">
@@ -3565,7 +3568,7 @@ The metaindexAsset is an subset of the [externalTableSpec](#externalTableSpec).
 	<area alt="section STRING" shape="rect" coords="750,40,818,62" href="#STRING" />
 	<area alt="section tableIdentifier" shape="rect" coords="506,210,646,232" href="#tableIdentifier" />
 </map>
-<img style="max-width: 1062px;" usemap="#metaindexAssetImgMap" alt="syntax diagram for metaindex asset" src="./diagrams/metaindexAsset-8c15762c08988fb3470dc20546c8f4dc.svg" />
+<img style="max-width: 1062px;" usemap="#metaindexAssetImgMap" alt="syntax diagram for index asset" src="./diagrams/metaindexAsset-8c15762c08988fb3470dc20546c8f4dc.svg" />
 </div>
 
 
@@ -3660,4 +3663,5 @@ See section [dataType](#dataType) for more details about data types.
 A *string* is a sequence of arbitrary characters including escaped characters, for example,
 `\t`, either enclosed in single quotes `'`, or double quotes, `"`.
 To include any quote characters in the string they have to be escaped as <code>\\\\&#96;</code> or `\\"`, respectively.
+
 
