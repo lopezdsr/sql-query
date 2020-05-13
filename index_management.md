@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-05-05"
+lastupdated: "2020-05-12"
 
 keywords: data skipping, performance, cost, data format, indexes, sample data, index management
 
@@ -39,9 +39,12 @@ SQL queries benefit from an index by skipping over all objects whose metadata in
 ## Overview
 {: #overview_ds}
 
-For each of the columns in an object, summary metadata can include minimum and maximum values, a list or bloom filter of the appearing values, or other metadata that concisely represents the data in that column. The summary metadata is then used during query evaluation to skip over objects that do not contain any relevant data. All formats are supported, including Parquet, ORC, CSV, and JSON. Data skipping is for performance optimization, using it does not affect the content of query results.
+For each of the columns in an object, summary metadata can include minimum and maximum values, a list or bloom filter of the appearing values, or other metadata that concisely 
+represents the data in that column. The summary metadata is then used during query evaluation to skip over objects that do not contain any relevant data. 
+All formats are supported, including Parquet, ORC, CSV, and JSON. Data skipping is for performance optimization, using it does not affect the content of query results.
+{{site.data.keyword.sqlquery_full}} currently supports metaindexes only. Metaindexes are indexes on a higher level, thus they index objects instead of rows.
 
-As {{site.data.keyword.sqlquery_full}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while improving performance. For data skipping to work well, as well as for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
+As {{site.data.keyword.sqlquery_short}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while improving performance. For data skipping to work well, as well as for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
 Data skipping complements these best practices and provides significant additional cost savings and performance benefits.
 
 To use this feature, you must create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause.
