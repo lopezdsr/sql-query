@@ -150,7 +150,7 @@ ST_Distance(ST_Point(lng,lat),ST_WKTToSQL('POINT(6.433881 43.422323)')) < 1000.0
 
 ### Choosing data formats
 
-You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}.
+You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}, except for AVRO.
 Best practices for data layout advise using a column-based format, such as Parquet.
 CSV and JSON require the entire data set to first be scanned in order to infer the schema, prior to running any query.
 This is not necessary if you create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
