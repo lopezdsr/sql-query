@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-03-16"
+lastupdated: "2020-05-18"
 
 keywords: hive, metastore, catalog, performance, create table, object storage
 
@@ -51,6 +51,7 @@ LOCATION cos://us-geo/sql/employees.parquet
 ```
 
 The statement automatically detects the schema of the data at the given location.
+See the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference#createTable) for options that can be set on the table.
 
 Use the `DESCRIBE TABLE` statement to verify the detected table schema:
 
