@@ -3,7 +3,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-05-12"
+lastupdated: "2020-05-19"
 
 ---
 
@@ -2656,6 +2656,23 @@ location  cos://us-geo/sql/shippers.parquet
 ```
 {: codeblock}
 
+### Drop Table
+{: #chapterDropTable}
+
+<h4 id="dropTable">dropTable</h4>
+
+<!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table command" layout="@break@" -->
+
+Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the `IF EXISTS` option is specified.
+
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
+
+```sql
+-- drop a definition for the table customer
+DROP TABLE customers
+```
+{: codeblock}
+
 ### Create View
 {: #chapterCreateView}
 
@@ -2680,23 +2697,6 @@ CREATE VIEW CUSTOMER_STATISTICS AS
         FROM CUSTOMERS
         WHERE region is NOT NULL
         GROUP BY country, region
-```
-{: codeblock}
-
-### Drop Table
-{: #chapterDropTable}
-
-<h4 id="dropTable">dropTable</h4>
-
-<!--include-svg src="./svgfiles/dropTable.svg" target="./diagrams/dropTable.svg" alt="syntax diagram for a drop table command" layout="@break@" -->
-
-Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the `IF EXISTS` option is specified.
-
-Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
-
-```sql
--- drop a definition for the table customer
-DROP TABLE customers
 ```
 {: codeblock}
 
