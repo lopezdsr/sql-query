@@ -190,11 +190,11 @@ Note that dropping a table, does not also drop the table indexes.
 ## Data skipping on catalog tables
 {: #ds_catalog}
 
-Data skipping also supports indexing and skipping on [catalog tables](/docs/services/sql-query?topic=sql-query-hivemetastore#partitioned). How the index is created differs for partitioned and non-partitioned tables.
+Data skipping also supports indexing and skipping on [catalog tables](/docs/services/sql-query?topic=sql-query-hivemetastore). How the index is created differs for partitioned and non-partitioned tables.
 
 For non-partitioned tables, indexing must be done using the [COS URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI). In this case, the same metadata is used whether a query accesses the table by name or by physical location using the COS URI.
 
-For partitioned tables, indexes created in the COS URI are not used when accessing a table by name. Instead, all command and query examples above must be rewritten by replacing the COS URI with the table name, using the ON TABLE <table> clause. For example, for the above CREATE INDEX statement, to index a table named *metergen*, use the following syntax:
+For [partitioned tables](/docs/sql-query?topic=sql-query-hivemetastore#partitioned), indexes created in the COS URI are not used when accessing a table by name. Instead, all command and query examples above must be rewritten by replacing the COS URI with the table name, using the ON TABLE clause. For example, for the above CREATE INDEX statement, to index a table named *metergen*, use the following syntax:
 
 ```
 CREATE METAINDEX
