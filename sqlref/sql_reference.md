@@ -3,7 +3,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-05-12"
+lastupdated: "2020-05-19"
 
 ---
 
@@ -3102,6 +3102,28 @@ location  cos://us-geo/sql/shippers.parquet
 ```
 {: codeblock}
 
+### Drop Table
+{: #chapterDropTable}
+
+<h4 id="dropTable">dropTable</h4>
+
+<div style="overflow-x : auto;">
+<map name="dropTableImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="386,30,526,52" href="#tableIdentifier" />
+</map>
+<img style="max-width: 566px;" usemap="#dropTableImgMap" alt="syntax diagram for a drop table command" src="./diagrams/dropTable-8b1eb4ecf09c740bf4289738838875e9.svg" />
+</div>
+
+Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the `IF EXISTS` option is specified.
+
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
+
+```sql
+-- drop a definition for the table customer
+DROP TABLE customers
+```
+{: codeblock}
+
 ### Create View
 {: #chapterCreateView}
 
@@ -3139,28 +3161,6 @@ CREATE VIEW CUSTOMER_STATISTICS AS
         FROM CUSTOMERS
         WHERE region is NOT NULL
         GROUP BY country, region
-```
-{: codeblock}
-
-### Drop Table
-{: #chapterDropTable}
-
-<h4 id="dropTable">dropTable</h4>
-
-<div style="overflow-x : auto;">
-<map name="dropTableImgMap">
-	<area alt="section tableIdentifier" shape="rect" coords="386,30,526,52" href="#tableIdentifier" />
-</map>
-<img style="max-width: 566px;" usemap="#dropTableImgMap" alt="syntax diagram for a drop table command" src="./diagrams/dropTable-8b1eb4ecf09c740bf4289738838875e9.svg" />
-</div>
-
-Drop a table definition from the catalog. If the table does not exist, you receive an error, unless the `IF EXISTS` option is specified.
-
-Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the table definition from the catalog.
-
-```sql
--- drop a definition for the table customer
-DROP TABLE customers
 ```
 {: codeblock}
 
@@ -3368,6 +3368,8 @@ Refer to the section about [Index Management](/docs/services/sql-query?topic=sql
 
 Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
 
+<h4 id="metaindexIndextype">metaindexIndextype</h4>
+
 <div style="overflow-x : auto;">
 <map name="metaindexIndextypeImgMap">
 	<area alt="section identifier" shape="rect" coords="242,20,342,42" href="#identifier" />
@@ -3558,7 +3560,7 @@ ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
 ### IndexAsset
 {: #chapterIndexAsset}
 
-<h4 id="indexAsset">indexAsset</h4>
+<h4 id="metaindexAsset">metaindexAsset</h4>
 
 The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
 

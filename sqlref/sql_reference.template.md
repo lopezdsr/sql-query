@@ -2861,6 +2861,8 @@ Refer to the section about [Index Management](/docs/services/sql-query?topic=sql
 
 Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
 
+<h4 id="metaindexIndextype">metaindexIndextype</h4>
+
 <!--include-svg src="./svgfiles/metaindexIndextype.svg" target="./diagrams/metaindexIndextype.svg" alt="syntax diagram for the different index types" layout="@break@" -->
 
 * MINMAX: Stores minimum or maximum values for a column for orderable types.
@@ -3008,7 +3010,7 @@ ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
 ### IndexAsset
 {: #chapterIndexAsset}
 
-<h4 id="indexAsset">indexAsset</h4>
+<h4 id="metaindexAsset">metaindexAsset</h4>
 
 The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
 
