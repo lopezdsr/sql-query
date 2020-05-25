@@ -197,3 +197,9 @@ SELECT customerID FROM customers WHERE country = 'Germany'
 ```
 
 The query execution only reads the objects under the `cos://us-geo/sql/customers_partitioned.csv/country=Germany/` prefix because the partition definitions are used by the query optimizer to minimize the necessary data transfer.
+
+## Limitations
+{: #limitations_catalog}
+
+- With the Standard Plan, you can create up to 100 tables with up to 20,000 partitions per table. 
+- Using the Lite Plan, the catalog management features, such as `CREATE TABLE`, are not allowed.
