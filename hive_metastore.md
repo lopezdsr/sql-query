@@ -201,5 +201,5 @@ The query execution only reads the objects under the `cos://us-geo/sql/customers
 ## Limitations
 {: #limitations_catalog}
 
-- With the Standard Plan, you can create up to 100 tables with up to 20,000 partitions per table. 
-- Using the Lite Plan, the catalog management features, such as `CREATE TABLE`, are not allowed.
+- With the Standard plan, you can create up to 100 tables with up to 20,000 partitions per table. 
+- Using the Lite plan, the catalog management features, such as `CREATE TABLE`, are not allowed.
