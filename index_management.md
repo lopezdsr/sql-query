@@ -68,8 +68,11 @@ Indexes, or data skipping metadata, are stored in a location you specify. Note t
 
 The sample data set used in this documentation originates from the *meter_gen* [data generator](https://github.com/gridpocket/project-iostack/tree/master/meter_gen) that was developed by [Gridpocket](https://www.gridpocket.com/en/) in the context of the [IOStack project](http://iostack.eu/).
 It generates electricity, water, and gas meter readings, along with their associated timestamps, geospatial locations, and additional information.
-The data set is in Parquet format, has 18 GB, and is publicly available to use with {{site.data.keyword.sqlquery_short}} at `cos:\\us-geo\sql\metergen`.
-The queries listed in the examples are also available in the UI under **Samples** > **Data Skipping**.
+The data set is in Parquet format, has 9 GB, and is publicly available to use with {{site.data.keyword.sqlquery_short}} at `cos:\\us-geo\sql\metergen`.
+The queries listed in the examples are also available in the UI under **Samples** > **Data skipping queries**. 
+Examples for queries when working on tables are available under **Samples** > **Data skipping on catalog tables**.
+In the UI samples, under **Basic index creation**, you find a fast running index creation example that only creates MinMax indexes.
+**Advanced index creation** is an example for using all index types and it takes longer to finish.
 
 ### Assigning a base location for data skipping indexes
 
@@ -234,22 +237,24 @@ ALTER TABLE metergen DROP METAINDEX LOCATION
 ## Limitations
 {: #limitations_ds}
 
-Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a MinMax index on a column with
-a short data type, the following query does not benefit from data skipping:
+- Data skipping sometimes does not work if type *casting* is used in the `WHERE` clause. For example, given a MinMax index on a column    with a short data type, the following query does not benefit from data skipping:
 
-```
-select * from table where shortType > 1
-```
+  ```
+  select * from table where shortType > 1
+  ```
 
-Apache Spark evaluates the query as `(cast(shortType#3 as int) > 1)` because the constant 1 is of type *integer*.
+  Apache Spark evaluates the query as `(cast(shortType#3 as int) > 1)` because the constant 1 is of type *integer*.
 
-Note that in some cases Apache Spark automatically casts the literal to the right type.
-For example, the previous query works for all other numerical types, except for the byte type, as it requires casting, as well.
-To benefit from data skipping in such cases, ensure that the literal has the same type as the column type, as in the following example:
+  Note that in some cases Apache Spark automatically casts the literal to the right type.
+  For example, the previous query works for all other numerical types, except for the byte type, as it requires casting, as well.
+  To benefit from data skipping in such cases, ensure that the literal has the same type as the column type, as in the following    example:
 
-```
-select * from table where shortType > cast(1 as short)
-```
+  ```
+  select * from table where shortType > cast(1 as short)
+  ```
+
+- Using the Lite plan, data skipping features, such as `CREATE METAINDEX`, are not allowed.
+
 
 ## References
 {: #references_ds}
