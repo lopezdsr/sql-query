@@ -20,7 +20,7 @@ subcollection: sql-query
 ## May 2020
 
 - {{site.data.keyword.sqlquery_full}} supports index management, also referred to as data skipping. Index management can significantly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
-Service access role **Manage** is required to run catalog management or index management commands.
+Service access role **Manager** is required to run catalog management or index management commands.
 - {{site.data.keyword.sqlquery_short}} database catalog support has been extended to support [views](/docs/services/sql-query?topic=sql-query-sql-reference#createView).
 - {{site.data.keyword.sqlquery_short}} catalog management is now out of the Beta stage and can be used with the Standard plan.
 
