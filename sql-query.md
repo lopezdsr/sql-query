@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-03-20"
+lastupdated: "2020-05-26"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -181,7 +181,8 @@ Matching columns need to have compatible data types across all objects where the
 {: #db-location}
 
 There are two ways to specify database locations, CRN URIs, and Db2 table URIs. Which one you choose
-depends on the target database plan and the access you have to that database:
+depends on the target database plan and the access you have to that database.
+Note that the number of parallel Db2 connections has an effect on performance. The more parallel connections there are, the better the performance gets, depending on the allowed connections to Db2 and the current free resources of {{site.data.keyword.sqlquery_short}}. Check how many connections your [Db2 plan](https://cloud.ibm.com/catalog/services/db2) allows. 
 
 #### CRN URI location
 {: #crn-uri}
@@ -190,7 +191,7 @@ If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.ke
 
 You can optionally override the user name and password in the credentials with a custom user and password or a custom API key. Store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details.
 
-This option is typically used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with Standard plans, but the service credentials for Standard plans always allow full administrator access. If the SQL user should have only restricted access to the target database, use the subsequent "Db2 table URI location" option.
+This option is typically used with Db2 Lite plans, which provide restricted access for a single user in a shared database. It can also be used with Standard plans, but the service credentials for Standard plans always allow full administrator access. If the SQL user should have only restricted access to the target database, use the subsequent "Db2 table URI location" option.
 
 The CRN table has the form:
 
