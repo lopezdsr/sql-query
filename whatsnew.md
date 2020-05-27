@@ -28,7 +28,7 @@ subcollection: sql-query
 
 ## March 2020
 
-- {{site.data.keyword.sqlquery_short}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.![Beta](beta.png)
+- {{site.data.keyword.sqlquery_short}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.
 
 ## January 2020
 
