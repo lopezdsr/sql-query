@@ -2712,7 +2712,7 @@ Drop a view definition from the catalog. If the view does not exist, you receive
 Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the view definition from the catalog.
 
 ```sql
--- drop a view definition for the vierw customer_statistics
+-- drop a view definition for the view customer_statistics
 DROP VIEW customer_statistics
 ```
 {: codeblock}
