@@ -53,8 +53,8 @@ The following three index types are supported:
 
 Index type | Description | Applicable to predicates in `WHERE` clause | Column types
 --- | --- | --- | ---
-MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> | [Orderable types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
-ValueList | Stores the list of unique values for the column | =,IN,LIKE | All types
+MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> | All types except for complex types. [Supported Spark SQL data types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
+ValueList | Stores the list of unique values for the column | =,IN,LIKE | All types except for complex types. [Supported Spark SQL data types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
 BloomFilter | Using bloom filter technique for set membership | =,IN | Byte, string, long, integer, short
 
 Use ValueList for a column if the number of distinct values for that column per object is typically much smaller than the total number of values for that column per object (otherwise, the index could be undesirably large). Use BloomFilter if the number of distinct column values per object is high.
