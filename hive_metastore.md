@@ -38,6 +38,7 @@ Another advantage of creating a table in the catalog is that the table name serv
 
 You manage the database catalog in {{site.data.keyword.sqlquery_short}} via Database Definition Language (DDL) statements that you submit just like any other SQL query statement.
 The catalog is stored independently of {{site.data.keyword.cos_short}}: No data is written to {{site.data.keyword.cos_short}} when you create or change table definitions, and no data is deleted from {{site.data.keyword.cos_short}} when you drop a table definition.
+To call the catalog management statements, you need to have the **Manager** user role assigned.
 
 To register a new table in the catalog, use the `CREATE TABLE` statement, as in the following example:
 
