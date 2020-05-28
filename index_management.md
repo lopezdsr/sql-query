@@ -93,7 +93,7 @@ A command including a path, looks like the following:
 When you create a data skipping index on a data set, decide which columns to index, and choose an index type for each column.
 Your choices depend on your workload and data. In general, index those columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter.
 
-The following example creates a data skipping index on the `metergen` data set:
+The following example creates a data skipping index on the `metergen` data set using all three index types:
 
 ```
 CREATE METAINDEX
