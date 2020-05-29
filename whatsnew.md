@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2020
-lastupdated: "2020-03-16"
+lastupdated: "2020-05-27"
 
 keywords: what's new, support, release, beta
 
@@ -17,13 +17,26 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## May 2020
+
+- {{site.data.keyword.sqlquery_full}} supports index management, also referred to as data skipping. Index management can significantly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
+- Service access role **Manager** is required to run catalog management or index management commands.
+- {{site.data.keyword.sqlquery_short}} database catalog support has been extended to support [views](/docs/services/sql-query?topic=sql-query-sql-reference#createView).
+- {{site.data.keyword.sqlquery_short}} catalog management is now out of the Beta stage and can be used with the Standard plan.
+
+
+
+## April 2020
+
+- {{site.data.keyword.sqlquery_short}} support for [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore) has been made generally available with full production support.
+
 ## March 2020
 
-- {{site.data.keyword.sqlquery_full}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.![Beta](beta.png)
+- {{site.data.keyword.sqlquery_short}} now has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.
 
 ## January 2020
 
-- {{site.data.keyword.sqlquery_full}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on ".appdomain.cloud", for example, s3.us.cloud-object-storage.appdomain.cloud), as well as all new single data center endpoints (for example, sng01).
+- {{site.data.keyword.sqlquery_short}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on ".appdomain.cloud", for example, s3.us.cloud-object-storage.appdomain.cloud), as well as all new single data center endpoints (for example, sng01).
 
 ## December 2019
 

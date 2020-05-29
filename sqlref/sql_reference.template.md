@@ -1,8 +1,9 @@
+
 ---
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-03-06"
+lastupdated: "2020-05-19"
 
 ---
 
@@ -13,18 +14,6 @@ lastupdated: "2020-03-06"
 {:pre: .pre}
 
 # SQL reference
-
-## Table of Content
-{: #toc}
-
-[Introduction](#chapterIntroduction)
-[SELECT](#chapterSQLQueryStatement)
-[Relations](#chapterRelations)
-[SQL Functions](#chapterSqlFunctions)
-[SQL Expressions](#chapterSqlExpressions)
-[Data Types](#dataType)
-[Database Catalog](#chapterHiveCatalog)
-[Miscellaneous](#chapterMiscDefinitions)
 
 ## Introduction
 {: #chapterIntroduction}
@@ -2299,7 +2288,7 @@ The syntax of a *cast expression* is described by the syntax diagrams below.
 
 The cast specification returns the cast operand (the first operand) cast to the type specified by the data type.
 
-If the specified data type is not supported, an error is returned.
+If the specified data type is not supported, you receive an error.
 
 <h4 id="castExpression">castExpression</h4>
 
@@ -2605,7 +2594,7 @@ Refer to the section about [Catalog Management (/docs/services/sql-query?topic=s
 <!--include-svg src="./svgfiles/columnDefinition.svg" target="./diagrams/columnDefinition.svg" alt="syntax diagram for column definition" layout="@break@" -->
 
 Create a table definition in the catalog based on the objects in the specified {{site.data.keyword.cos_short}} location. The `LOCATION` option is mandatory.
-If a table with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, an error is returned, unless the `IF NOT EXISTS` clause is specified.
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
 
 The column and partition definitions are optional. If they are not provided, the table schema and partitioning is detected from the structure of the data at the given location.
 If you explicitly provide these definitions, ensure that they match the objects stored in {{site.data.keyword.cos_short}}.
@@ -2667,7 +2656,6 @@ location  cos://us-geo/sql/shippers.parquet
 ```
 {: codeblock}
 
-
 ### Drop Table
 {: #chapterDropTable}
 
@@ -2682,6 +2670,50 @@ Note: This command does not delete any data in {{site.data.keyword.cos_short}}. 
 ```sql
 -- drop a definition for the table customer
 DROP TABLE customers
+```
+{: codeblock}
+
+### Create View
+{: #chapterCreateView}
+
+<h4 id="createView">createView</h4>
+
+<!--include-svg src="./svgfiles/createView.svg" target="./diagrams/createView.svg" alt="syntax diagram for a create view command" layout="@break@" -->
+
+<h4 id="identifierComment">identifierComment</h4>
+
+<!--include-svg src="./svgfiles/identifierComment.svg" target="./diagrams/identifierComment.svg" alt="syntax diagram for identifier comment definition" layout="@break@" -->
+
+Create a view definition in the catalog, based on existing table and view definitions. 
+If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
+
+The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. 
+You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
+
+```sql
+-- create a view on top of table customer
+CREATE VIEW CUSTOMER_STATISTICS AS
+    SELECT country, region, count(*) customers
+        FROM CUSTOMERS
+        WHERE region is NOT NULL
+        GROUP BY country, region
+```
+{: codeblock}
+
+### Drop View
+{: #chapterDropView}
+
+<h4 id="dropView">dropView</h4>
+
+<!--include-svg src="./svgfiles/dropView.svg" target="./diagrams/dropView.svg" alt="syntax diagram for a drop view command" layout="@break@" -->
+
+Drop a view definition from the catalog. If the view does not exist, you receive an error, unless the `IF EXISTS` option is specified.
+
+Note: This command does not delete any data in {{site.data.keyword.cos_short}}. It only removes the view definition from the catalog.
+
+```sql
+-- drop a view definition for the view customer_statistics
+DROP VIEW customer_statistics
 ```
 {: codeblock}
 
@@ -2753,7 +2785,7 @@ The option `NOSCAN` only collects the sizes of the objects. HIDE END -->
 
 <!--include-svg src="./svgfiles/describeTable.svg" target="./diagrams/describeTable.svg" alt="syntax diagram for describe tables command" layout="@break@" -->
 
-Return the schema (column names and data types) of a table definition. If the table does not exist, an error is returned.
+Return the schema (column names and data types) of a table or view definition. If the table or view does not exist, you receive an error.
 
 ```sql
 -- returns detailed information about the customer table
@@ -2768,7 +2800,7 @@ DESCRIBE TABLE  customers_partitioned
 
 <!--include-svg src="./svgfiles/showTables.svg" target="./diagrams/showTables.svg" alt="syntax diagram for show tables command" layout="@break@" -->
 
-Returns the list of the defined tables in the catalog. The `LIKE` option allows to filter for a given pattern. `*` can be used as wildcard character.
+Returns the list of the defined tables and views in the catalog. The `LIKE` option allows to filter for a given pattern. Use `*` as wildcard character.
 
 ```sql
 -- returns all defined tables in the catalog for this instance
@@ -2789,7 +2821,7 @@ SHOW TABLES
 *!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
 
 
-Return either all properties of a table definition or a specific property. An error is returned if the table does not exist.
+Return either all properties of a table definition or a specific property. You receive an error if the table does not exist.
 
 ```sql
 -- returns all specified table options for the table customer
@@ -2812,6 +2844,178 @@ List the defined partitions of a table when a table has been created as partitio
 SHOW PARTITIONS customers_partitioned
 ```
 {: codeblock}
+
+## Index Management ![Beta](beta.png)
+{: #chapterIndexManagement}
+
+The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
+The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
+Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-index_management) for more details.
+
+### Create Index
+{: #chapterCreateIndex}
+
+<h4 id="createIndex">createIndex</h4>
+
+<!--include-svg src="./svgfiles/metaindexCreateCommand.svg" target="./diagrams/metaindexCreateCommand.svg" alt="syntax diagram for create index command" layout="@break@" -->
+
+Create an index on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Define the required index type for each column that you want to calculate the summary metadata for. Create the index on columns that are used for predicates in the SQL statements.
+
+<h4 id="metaindexIndextype">metaindexIndextype</h4>
+
+<!--include-svg src="./svgfiles/metaindexIndextype.svg" target="./diagrams/metaindexIndextype.svg" alt="syntax diagram for the different index types" layout="@break@" -->
+
+* MINMAX: Stores minimum or maximum values for a column for all types, except for complex types.
+* VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
+* BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
+
+```sql
+-- create an index on the columns temp, lat, lng, vid and city of the metergen sample table
+CREATE METAINDEX
+MINMAX FOR temp,
+MINMAX FOR lat,
+MINMAX FOR lng,
+BLOOMFILTER FOR vid,
+VALUELIST FOR city
+ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+```sql
+-- create an index on the columns  customerID and city of the sample table CUSTOMERS_PARTITIONED
+CREATE METAINDEX 
+VALUELIST for city,
+BLOOMFILTER for customerID
+ON TABLE CUSTOMERS_PARTITIONED 
+```
+{: codeblock}
+
+Before you start using data skipping index management commands, ensure that you set the base location in {{site.data.keyword.cos_short}}, where the metadata should be stored. Use the following command:
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+### Drop Index
+{: #chapterDropIndex}
+
+<h4 id="dropIndex">dropIndex</h4>
+
+<!--include-svg src="./svgfiles/metaindexDropCommand.svg" target="./diagrams/metaindexDropCommand.svg" alt="syntax diagram for drop index command" layout="@break@" -->
+
+Drop an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the index is no longer needed:
+
+```sql
+-- drop the index based on the metergen sample data set
+DROP METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Refresh Index
+{: #chapterRefreshIndex}
+
+<h4 id="refreshIndex">refreshIndex</h4>
+
+<!--include-svg src="./svgfiles/metaindexRefreshCommand.svg" target="./diagrams/metaindexRefreshCommand.svg" alt="syntax diagram for refresh index command" layout="@break@" -->
+
+Refresh an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command when the data has changed and you need to update the index:
+
+```sql
+-- refresh the index based on metergen sample data set
+REFRESH METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
+```
+{: codeblock}
+
+### Describe Index
+{: #chapterDescribeIndex}
+
+<h4 id="describeIndex">describeIndex</h4>
+
+<!--include-svg src="./svgfiles/metaindexDescribeCommand.svg" target="./diagrams/metaindexDescribeCommand.svg" alt="syntax diagram for describe index command" layout="@break@" -->
+
+Describe an existing index based on the objects in the specified {{site.data.keyword.cos_short}} location or on the specified table. Use the following command to receive information of the index, such as index status, types used, location where it is stored, or number of objects processed.
+
+```sql
+-- describe the index based on the metergen sample data set
+DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet 
+```
+{: codeblock}
+
+### Show Indexes
+{: #chapterShowIndexes}
+
+<h4 id="showIndexes">showIndexes</h4>
+
+<!--include-svg src="./svgfiles/metaindexShowCommand.svg" target="./diagrams/mmetaindexShowCommand.svg" alt="syntax diagram for show indexes command" layout="@break@" -->
+
+List all stored indexes in the base location. Note that tables with a different index location are not displayed in the list.
+
+```sql
+-- list all Metaindexes in the base location
+SHOW METAINDEXES 
+```
+{: codeblock}
+
+### Alter Index
+{: #chapterAlterIndex}
+
+<h4 id="alterIndex">alterIndex</h4>
+
+<!--include-svg src="./svgfiles/metaindexLocationCommand.svg" target="./diagrams/metaindexLocationCommand.svg" alt="syntax diagram for alter index command" layout="@break@" -->
+
+You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location. 
+If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
+Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed. 
+
+```sql
+-- set the default location for all indexes
+ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
+```
+{: codeblock}
+
+
+### Alter Table Set Location
+{: #chapterAlterTableSetLocation}
+
+<h4 id="alterTableSetLocation">alterTableSetLocation</h4>
+
+<!--include-svg src="./svgfiles/hiveMetaindexLocationCommand.svg" target="./diagrams/hiveMetaindexLocationCommand.svg" alt="syntax diagram for alter table set location command" layout="@break@" -->
+
+This command lets you to define a location for this specified Hive table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index metadata anymore. Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.  
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED SET METAINDEX LOCATION cos://us-south/<mybucket>/<mypath>
+```
+{: codeblock}
+
+
+### Alter Table Drop Location
+{: #chapterAlterTableDropLocation}
+
+<h4 id="alterTableDropLocation">alterTableDropLocation</h4>
+
+<!--include-svg src="./svgfiles/hiveMetaindexDropLocationCommand.svg" target="./diagrams/hiveMetaindexDropLocationCommand.svg" alt="syntax diagram for alter table drop location command" layout="@break@" -->
+
+This command allows you to drop a location for the specified table. Use this command if the index metadata should be fetched from the base location. 
+The metadata for the index stored in {{site.data.keyword.cos_short}} is not dropped and have to be cleaned up manually.
+
+```sql
+-- set the index location for the table CUSTOMERS_PARTITIONED
+ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
+```
+{: codeblock}
+
+### IndexAsset
+{: #chapterIndexAsset}
+
+<h4 id="metaindexAsset">metaindexAsset</h4>
+
+The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+
+<!--include-svg src="./svgfiles/metaindexAsset.svg" target="./diagrams/metaindexAsset.svg" alt="syntax diagram for index asset" layout="@break@" -->
+
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}
@@ -2859,7 +3063,7 @@ SELECT col1 as `Lösung` FROM VALUES 1, 2 ,3
 
 <h3 id="tableIdentifier">Table Identifier</h3>
 
-A *table identifier* uniquely identifies a table in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
+A *table identifier* uniquely identifies a table or view in the catalog of the {{site.data.keyword.sqlquery_short}} instance. Valid characters that can be used are the following:
 * Digits `0-9`
 * Letters `a-z`, `A-Z`
 * Underscore `_`
@@ -2904,3 +3108,4 @@ See section [dataType](#dataType) for more details about data types.
 A *string* is a sequence of arbitrary characters including escaped characters, for example,
 `\t`, either enclosed in single quotes `'`, or double quotes, `"`.
 To include any quote characters in the string they have to be escaped as <code>\\\\&#96;</code> or `\\"`, respectively.
+

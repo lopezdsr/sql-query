@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-03-20"
+lastupdated: "2020-05-26"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -74,7 +74,7 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, 
     - Use the `INTO` clause of a [query](/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the desired result format.
 2. Below the SELECT statement, the **Target** field displays where the result will be stored. A default location is chosen if your query does not specify an `INTO` clause. You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
 3. Click the **Run** button.
-When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a standard plan instance of {{site.data.keyword.sqlquery_short}}.
+When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a Standard plan instance of {{site.data.keyword.sqlquery_short}}.
 
 ### Sample queries
 {: #sample}
@@ -181,7 +181,8 @@ Matching columns need to have compatible data types across all objects where the
 {: #db-location}
 
 There are two ways to specify database locations, CRN URIs, and Db2 table URIs. Which one you choose
-depends on the target database plan and the access you have to that database:
+depends on the target database plan and the access you have to that database.
+Note that the number of parallel Db2 connections has an effect on performance. The more parallel connections there are, the better the performance gets, depending on the allowed connections to Db2 and the current free resources of {{site.data.keyword.sqlquery_short}}. Check how many connections your [Db2 plan](https://cloud.ibm.com/catalog/services/db2) allows. 
 
 #### CRN URI location
 {: #crn-uri}
@@ -190,7 +191,7 @@ If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.ke
 
 You can optionally override the user name and password in the credentials with a custom user and password or a custom API key. Store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details.
 
-This option is typically used with Db2 lite plans, which provide restricted access for a single user in a shared database. It can also be used with standard plans, but the service credentials for standard plans always allow full administrator access. If the SQL user should have only restricted access to the target database, use the subsequent "Db2 table URI location" option.
+This option is typically used with Db2 Lite plans, which provide restricted access for a single user in a shared database. It can also be used with Standard plans, but the service credentials for Standard plans always allow full administrator access. If the SQL user should have only restricted access to the target database, use the subsequent "Db2 table URI location" option.
 
 The CRN table has the form:
 
@@ -199,7 +200,7 @@ The CRN table has the form:
 You can retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. This opens an overlay pane to the right where you find a field labelled `CRN:` with the value and an option to copy it to your clipboard.
 
 The **`<table name>`** part specifies the table that will be created in your database. It has the format **`<schemaname>.<tablename>`**.
-If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 lite plan, this is the only schema that you have access to.
+If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 Lite plan, this is the only schema that you have access to.
 The table name is case-preserving, so use upper case to match database defaults.
 
 An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
@@ -209,7 +210,7 @@ An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us
 
 If the SQL user cannot access the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance (because the user does not have access to the account containing the database instance, or hasn't been granted Operator privilege on the instance), that user can specify the database location using a URI with the Db2 database host name.
 
-By default the access to this database will be performed with the IAM identity of the user who submitted the query. This default requires that the database is enabled for IAM authentication. Also, before using this option, make sure that the IBMid of the user hase been added as a database user. For more information, see section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 lite plans because they don't support IAM authentication in the database.
+By default the access to this database will be performed with the IAM identity of the user who submitted the query. This default requires that the database is enabled for IAM authentication. Also, before using this option, make sure that the IBMid of the user hase been added as a database user. For more information, see section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 Lite plans because they don't support IAM authentication in the database.
 
 If you cannot or do not want to use the default mechanism of IAM user authentication, you can instead specify a custom user and password or a custom API key. To do so, store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details. This option lets you connect to *any* Db2 database that is accessible from the IBM public cloud network
 
@@ -341,6 +342,7 @@ Description | Service Action | API Endpoint | Required User Roles
 Submit an SQL query | sql-query.api.submit | POST/v2/sql_jobs/ | Manager or Writer
 Get info for all submitted jobs | sql-query.api.getalljobs | GET/v2/sql_jobs/ | Manager, Writer, or Reader
 Get info for a specific submitted job | sql-query.api.getjobinfo | GET/v2/sql_jobs/{job_id} | Manager, Writer, or Reader
+Submit a catalog or index management statement | sql-query.api.managecatalog | POST/v2/sql_jobs/ | Manager
 
 ## Data scanned behavior
 {: #data-scanned}

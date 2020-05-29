@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-03-16"
+lastupdated: "2020-05-18"
 
 keywords: hive, metastore, catalog, performance, create table, object storage
 
@@ -19,11 +19,8 @@ subcollection: sql-query
 {:note: .note}
 
 
-# Catalog management ![Beta](beta.png)
+# Catalog management
 {: #hivemetastore}
-
-Beta support for this feature was introduced in March, 2020.
-{: note}
 
 Each instance of {{site.data.keyword.sqlquery_full}} includes a database catalog that you can use to register and manage table definitions for your data on {{site.data.keyword.cos_full}}. Catalog syntax is compatible with Hive Metastore syntax. See below how to [work with the catalog](#usage) and refer to the [Catalog Management](/docs/services/sql-query?topic=sql-query-sql-reference#chapterHiveCatalog) section of the SQL reference.
 
@@ -41,6 +38,7 @@ Another advantage of creating a table in the catalog is that the table name serv
 
 You manage the database catalog in {{site.data.keyword.sqlquery_short}} via Database Definition Language (DDL) statements that you submit just like any other SQL query statement.
 The catalog is stored independently of {{site.data.keyword.cos_short}}: No data is written to {{site.data.keyword.cos_short}} when you create or change table definitions, and no data is deleted from {{site.data.keyword.cos_short}} when you drop a table definition.
+To call the catalog management statements, you need to have the **Manager** user role assigned.
 
 To register a new table in the catalog, use the `CREATE TABLE` statement, as in the following example:
 
@@ -51,6 +49,7 @@ LOCATION cos://us-geo/sql/employees.parquet
 ```
 
 The statement automatically detects the schema of the data at the given location.
+See the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference#createTable) for options that can be set on the table.
 
 Use the `DESCRIBE TABLE` statement to verify the detected table schema:
 
@@ -196,3 +195,9 @@ SELECT customerID FROM customers WHERE country = 'Germany'
 ```
 
 The query execution only reads the objects under the `cos://us-geo/sql/customers_partitioned.csv/country=Germany/` prefix because the partition definitions are used by the query optimizer to minimize the necessary data transfer.
+
+## Limitations
+{: #limitations_catalog}
+
+- With the Standard plan, you can create up to 100 tables with up to 20,000 partitions per table. 
+- Using the Lite plan, the catalog management features, such as `CREATE TABLE`, are not allowed.
