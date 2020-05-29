@@ -34,7 +34,7 @@ Quick references:
 
 ## Whatsnew trigger
 
-When you add new items to the [whatsnew doc section](./whatsnew.md), you must start the commit message for this change with `whatsnew: `. This will trigger a [custom GitHub app](https://github.ibm.com/SqlServiceWdp/whatsnew-ghe-app) which updates the UI build, so that users will see a reminder.
+When you add new items to the [whatsnew doc section](./whatsnew.md), you must start the commit message for this change with `whatsnew: `. This will trigger a [custom GitHub app](https://github.ibm.com/SqlServiceWdp/whatsnew-ghe-app) which updates the UI build, so that users will see a reminder. We should eventually automate this. 
 
 ## SQL Reference
 
