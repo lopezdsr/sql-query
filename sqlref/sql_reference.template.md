@@ -2865,7 +2865,7 @@ Create an index on the objects in the specified {{site.data.keyword.cos_short}} 
 
 <!--include-svg src="./svgfiles/metaindexIndextype.svg" target="./diagrams/metaindexIndextype.svg" alt="syntax diagram for the different index types" layout="@break@" -->
 
-* MINMAX: Stores minimum or maximum values for a column for all types except for complex types.
+* MINMAX: Stores minimum or maximum values for a column for all types, except for complex types.
 * VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
 * BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
 
