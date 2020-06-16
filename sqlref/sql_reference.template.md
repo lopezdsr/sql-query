@@ -751,8 +751,6 @@ when your input data has columns with these characters. A typical situation is t
 
 For example, you can use `SELECT * FROM CLEANCOLS(cos://us-geo/sql/iotmessages STORED AS JSON) INTO cos://us-geo/mybucket/myprefix STORED AS PARQUET` to produce a result set that can be stored as is into Parquet target format.
 
-You can optionally also combine `CLEANCOLS` with `FLATTEN`.
-
 If you wrap your external table definition with the `DESCRIBE` table transformer,
 the table does not show its actual content but the schema that is inferred from the objects in {{site.data.keyword.cos_full}} instead.
 This allows you to explore the schema before authoring your actual SQL statements against it.
