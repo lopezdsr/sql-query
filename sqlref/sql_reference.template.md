@@ -2866,6 +2866,7 @@ Create an index on the objects in the specified {{site.data.keyword.cos_short}} 
 * MINMAX: Stores minimum or maximum values for a column for all types, except for complex types.
 * VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
 * BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
+* GEOSPATIAL: Stores a geospatial bounding box for geometry types.
 
 ```sql
 -- create an index on the columns temp, lat, lng, vid and city of the metergen sample table
@@ -2885,6 +2886,14 @@ CREATE METAINDEX
 VALUELIST for city,
 BLOOMFILTER for customerID
 ON TABLE CUSTOMERS_PARTITIONED 
+```
+{: codeblock}
+
+```sql
+-- create a geospatial index on the column location of the hospitals sample table
+CREATE METAINDEX
+GEOSPATIAL FOR location
+ON cos://us-geo/sql/hospitals.parquet STORED AS parquet
 ```
 {: codeblock}
 
