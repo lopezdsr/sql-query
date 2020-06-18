@@ -2893,7 +2893,7 @@ ON TABLE CUSTOMERS_PARTITIONED
 -- create a geospatial index on the column location of the hospitals sample table
 CREATE METAINDEX
 GEOSPATIAL FOR location
-ON cos://us-geo/sql/hospitals.parquet STORED AS parquet
+ON cos://us-geo/sql/hospitals_geometry.parquet STORED AS parquet
 ```
 {: codeblock}
 
