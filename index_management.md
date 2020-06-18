@@ -19,7 +19,7 @@ subcollection: sql-query
 {:note: .note}
 
 
-# Index management ![Beta](beta.png)
+# Index management
 {: #index_management}
 
 Beta support for this feature was introduced in May, 2020.

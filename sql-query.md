@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-05-26"
+lastupdated: "2020-06-18"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -72,7 +72,13 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, 
     - By default, it is assumed that JSON input objects consist of a single JSON record per line. If individual records span multiple lines, you have to specify `MULTILINE` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - If required, you can use JOIN constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
     - Use the `INTO` clause of a [query](/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the desired result format.
-2. Below the SELECT statement, the **Target** field displays where the result will be stored. A default location is chosen if your query does not specify an `INTO` clause. You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
+2. Below the query editor, the **Target location** field displays where the result will be stored. An initial bucket in one of your {{site.data.keyword.cos_short}} instances is automatically created for you when you open the UI. It is then chosen as your default location, if your query does not specify an `INTO` clause. To ensure the automatic setup of an initial bucket, the following has to be done in advance:
+
+    - You must have created a {{site.data.keyword.cos_short}} instance.
+    - You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
+
+In the *Details* tab of the selected job, you can set any location that you specified in the `INTO` clause as your default location.
+
 3. Click the **Run** button.
 When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a Standard plan instance of {{site.data.keyword.sqlquery_short}}.
 
