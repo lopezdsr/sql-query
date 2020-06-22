@@ -172,14 +172,14 @@ using the Geospatial Toolkit.
 ```
 CREATE METAINDEX
 GEOSPATIAL FOR location
-ON cos://us-geo/sql/hospitals.parquet STORED AS parquet
+ON cos://us-geo/sql/hospitals_geometry.parquet STORED AS parquet
 ```
 
 The following example query using this index returns the names of those hospitals that are within a radius of 46800 meters of a given coordinate.
 
 ```
 SELECT name
-FROM cos://us-geo/sql/hospitals.parquet STORED AS PARQUET
+FROM cos://us-geo/sql/hospitals_geometry.parquet STORED AS PARQUET
 WHERE ST_Intersects(ST_WKTToSQL(location), ST_Buffer(ST_WKTToSQL('POINT (-74.0 42.0)'), 46800.0))
 ```
 
