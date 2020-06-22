@@ -151,7 +151,7 @@ The list of supported geospatial functions includes the following:
 - ST_EnvelopesIntersect
 - ST_IntersectsInterior
 
-#### Geospatial data skipping with MinMax Indexes
+#### Geospatial data skipping with MinMax indexes
 {: #geospatial_minmax}
 
 You can use MinMax indexes on latitude and longitude columns for data skipping. 
@@ -162,7 +162,7 @@ SELECT * FROM cos://us-geo/sql/metergen STORED AS PARQUET WHERE
 ST_Distance(ST_Point(lng,lat),ST_WKTToSQL('POINT(6.433881 43.422323)')) < 1000.0
 ```
 
-#### Geospatial data skipping with geospatial Indexes
+#### Geospatial data skipping with geospatial indexes
 {: #geospatial_ds_geospatial_indexes}
 
 Geospatial indexes on columns with geometry types can also be used for data skipping. For example, the statement below creates a geospatial index. 
