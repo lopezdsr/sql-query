@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-05-18"
+lastupdated: "2020-06-22"
 
 keywords: data skipping, performance, cost, data format, indexes, sample data, index management
 
@@ -49,13 +49,14 @@ Data skipping complements these best practices and provides significant addition
 
 To use this feature, you must create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause.
 
-The following three index types are supported:
+The following four index types are supported:
 
 Index type | Description | Applicable to predicates in `WHERE` clause | Column types
 --- | --- | --- | ---
-MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> | All types, except for complex types. [Supported Spark SQL data types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
+MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> and geospatial functions where applicable | All types, except for complex types. [Supported Spark SQL data types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
 ValueList | Stores the list of unique values for the column | =,IN,LIKE | All types, except for complex types. [Supported Spark SQL data types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
 BloomFilter | Using bloom filter technique for set membership | =,IN | Byte, string, long, integer, short
+Geospatial | Stores a geospatial bounding box | Geospatial functions | Geometry types
 
 Use ValueList for a column if the number of distinct values for that column per object is typically much smaller than the total number of values for that column per object (otherwise, the index could be undesirably large). Use BloomFilter if the number of distinct column values per object is high.
 
@@ -65,6 +66,7 @@ Indexes, or data skipping metadata, are stored in a location you specify. Note t
 {: #usage_ds}
 
 ### Sample data
+{: #sample_data}
 
 The sample data set used in this documentation originates from the *meter_gen* [data generator](https://github.com/gridpocket/project-iostack/tree/master/meter_gen) that was developed by [Gridpocket](https://www.gridpocket.com/en/) in the context of the [IOStack project](http://iostack.eu/).
 It generates electricity, water, and gas meter readings, along with their associated timestamps, geospatial locations, and additional information.
@@ -75,6 +77,7 @@ In the UI samples, under **Basic index creation**, you find a fast running index
 **Advanced index creation** is an example for using all index types and it takes longer to finish.
 
 ### Assigning a base location for data skipping indexes
+{: #assigning_base}
 
 Indexes are stored in Cloud {{site.data.keyword.cos_short}} in a bucket of your choice.
 Before starting to create indexes, first configure the default location, called base location, for indexes created in your {{site.data.keyword.sqlquery_short}} instance.
@@ -89,11 +92,13 @@ A command including a path, looks like the following:
 `ALTER METAINDEX SET LOCATION cos://us-south/mybucket/mypath/`
 
 ### Creating data skipping indexes
+{: #creating_ds_indexes}
 
 When you create a data skipping index on a data set, decide which columns to index, and choose an index type for each column.
-Your choices depend on your workload and data. In general, index those columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, ValueList, and BloomFilter.
+Your choices depend on your workload and data. In general, index those columns that are queried the most in the `WHERE` clause. The three supported index types are MinMax, 
+ValueList, and BloomFilter.
 
-The following example creates a data skipping index on the `metergen` data set using all three index types:
+The following example creates a data skipping index on the `metergen` data set using three index types:
 
 ```
 CREATE METAINDEX
@@ -110,6 +115,7 @@ In the [COS URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI),
 Note that it is possible to share indexes across {{site.data.keyword.sqlquery_short}} accounts. Users having READ access to the base location of an index can use it by setting their base location accordingly. However, it is important to avoid multiple users writing indexes for the same data set to the same base location. Users can avoid sharing indexes by using different base locations.
 
 ### Describing an index
+{: #describing_index}
 
 To retrieve data skipping index statistics and metadata, use the `DESCRIBE` operation, as in the following example:
 
@@ -122,11 +128,13 @@ The result includes how many objects were indexed, whether the index is up-to-da
 index types that were generated.
 
 ### Using data skipping indexes
+{: #using_ds_indexes}
 
 Once you create a data skipping index, {{site.data.keyword.sqlquery_short}} automatically uses it when running queries.
 The UI shows the percentage of objects skipped. You also find examples in the UI of queries benefiting from data skipping.
 
 ### Geospatial data skipping
+{: #geospatial_ds}
 
 Data skipping is supported for queries using [geospatial functions](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_functions.html).
 
@@ -143,15 +151,40 @@ The list of supported geospatial functions includes the following:
 - ST_EnvelopesIntersect
 - ST_IntersectsInterior
 
-The following example will get all of the points in 1 km around the point POINT(6.433881 43.422323).
-For data skipping to work, a MinMax index on the `lat` and `lng` columns is required.
+#### Geospatial data skipping with MinMax Indexes
+{: #geospatial_minmax}
+
+You can use MinMax indexes on latitude and longitude columns for data skipping. 
+In the example below, the MinMax indexes on the `lat` and `lng` columns are used. The following query retrieves all of the points in 1 km around the point POINT(6.433881 43.422323). 
 
 ```
 SELECT * FROM cos://us-geo/sql/metergen STORED AS PARQUET WHERE
 ST_Distance(ST_Point(lng,lat),ST_WKTToSQL('POINT(6.433881 43.422323)')) < 1000.0
 ```
 
+#### Geospatial data skipping with geospatial Indexes
+{: #geospatial_ds_geospatial_indexes}
+
+Geospatial indexes on columns with geometry types can also be used for data skipping. For example, the statement below creates a geospatial index. 
+The hospitals data set is available as an {{site.data.keyword.sqlquery_short}} sample and has a geometry type column called “location”. Geometry type columns can be created 
+using the Geospatial Toolkit.
+
+```
+CREATE METAINDEX
+GEOSPATIAL FOR location
+ON cos://us-geo/sql/hospitals.parquet STORED AS parquet
+```
+
+The following example query using this index returns the names of those hospitals that are within a radius of 46800 meters of a given coordinate.
+
+```
+SELECT name
+FROM cos://us-geo/sql/hospitals.parquet STORED AS PARQUET
+WHERE ST_Intersects(ST_WKTToSQL(location), ST_Buffer(ST_WKTToSQL('POINT (-74.0 42.0)'), 46800.0))
+```
+
 ### Choosing data formats
+{: #choosing_data_formats}
 
 You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}, except for AVRO.
 Best practices for data layout advise using a column-based format, such as Parquet.
@@ -159,6 +192,7 @@ CSV and JSON require the entire data set to first be scanned in order to infer t
 This is not necessary if you create tables using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
 
 ### Refreshing data skipping indexes
+{: #refreshing_ds}
 
 If data is added to a data set, or if there are modifications to a data set after a data skipping index is created, the new or changed data is not skipped during queries. Once the amount of new data becomes significant, refresh the index incrementally, as follows:
 
@@ -179,6 +213,7 @@ The result includes the currently set metadata base location and a list of index
 
 
 ### Deleting data skipping indexes
+{: #deleting_ds}
 
 To delete a data skipping index, use the following query:
 
@@ -230,6 +265,7 @@ ALTER TABLE metergen DROP METAINDEX LOCATION
 ```
 
 ### Notes
+{: #notes_ds}
 
 -	The metadata for a partitioned table has to be different from the metadata on the physical location (the location that was defined in the LOCATION clause of the CREATE TABLE query) because the table can possibly contain partitions that are not located under the physical location. Therefore, depending on what data skipping metadata was generated for each case, using the table name can give different results than using the COS URI.  
 
