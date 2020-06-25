@@ -56,7 +56,7 @@ Index type | Description | Applicable to predicates in `WHERE` clause | Column t
 MinMax | Stores minimum or maximum values for a column | <,<=,=,>=,> and geospatial functions where applicable | All types, except for complex types. [Supported Spark SQL data types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
 ValueList | Stores the list of unique values for the column | =,IN,LIKE | All types, except for complex types. [Supported Spark SQL data types](https://spark.apache.org/docs/latest/sql-reference.html#data-types)
 BloomFilter | Using bloom filter technique for set membership | =,IN | Byte, string, long, integer, short
-Geospatial | Stores a geospatial bounding box | Geospatial functions | Geometry types
+Geospatial | Stores a geospatial bounding box | Geospatial functions | [Geometry types](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_datatypes.html)
 
 Use ValueList for a column if the number of distinct values for that column per object is typically much smaller than the total number of values for that column per object (otherwise, the index could be undesirably large). Use BloomFilter if the number of distinct column values per object is high.
 
