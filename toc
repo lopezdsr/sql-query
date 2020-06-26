@@ -1,7 +1,9 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="sql-query" category="dev_ops" audience="service" arm="3663118" href="/docs/services/sql-query?topic=sql-query-gettingstarted" path="services/sql-query"}
+
+{: .toc subcollection="sql-query" category="analytics, databases" audience="service" arm="3663118" href="/docs/services/sql-query?topic=sql-query-gettingstarted" path="services/sql-query"}
+
 IBM Cloud SQL Query
 
     {: .navgroup id="learn"}
