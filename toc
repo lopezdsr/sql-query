@@ -51,7 +51,6 @@ IBM Cloud SQL Query
         big_data.md
         setup.md
         data_lake.md
-        db2.md
         api_notebook.md
         geospatial_analytics.md
         microservice.md
