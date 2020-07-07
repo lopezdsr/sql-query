@@ -3,7 +3,7 @@
 
 
 {: .toc subcollection="sql-query" category="analytics, databases" audience="service" arm="3663118" href="/docs/sql-query?topic=sql-query-gettingstarted" path="sql-query"}
-IBM Cloud SQL Query
+SQL Query
 
     {: .navgroup id="learn"}
     sql-query.md
