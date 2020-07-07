@@ -2,8 +2,7 @@
 {:topicgroup: .topicgroup}
 
 
-{: .toc subcollection="sql-query" category="analytics, databases" audience="service" arm="3663118" href="/docs/services/sql-query?topic=sql-query-gettingstarted" path="services/sql-query"}
-
+{: .toc subcollection="sql-query" category="analytics, databases" audience="service" arm="3663118" href="/docs/sql-query?topic=sql-query-gettingstarted" path="sql-query"}
 IBM Cloud SQL Query
 
     {: .navgroup id="learn"}
@@ -39,6 +38,7 @@ IBM Cloud SQL Query
         sqlref/timeseries_functions.md
         sqlref/timeseries_functions_artifact.md
         sqlref/timeseries_functions_dataproc.md
+    
     activity.md
     {: .navgroup-end}
 
@@ -55,5 +55,6 @@ IBM Cloud SQL Query
         geospatial_analytics.md
         microservice.md
         db2.md  
+    
     disaster_recovery.md  
     {: .navgroup-end}
