@@ -112,11 +112,9 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 
 In the [COS URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI), specify the top level (the root) of the data set.
 
-#### Notes
-{: #notes_creating}
+Note that it is possible to share indexes across {{site.data.keyword.sqlquery_short}} accounts. Users having READ access to the base location of an index can use it by setting their base location accordingly. However, it is important to avoid multiple users writing indexes for the same data set to the same base location. Users can avoid sharing indexes by using different base locations.
 
-- Note that it is possible to share indexes across {{site.data.keyword.sqlquery_short}} accounts. Users having READ access to the base location of an index can use it by setting their base location accordingly. However, it is important to avoid multiple users writing indexes for the same data set to the same base location. Users can avoid sharing indexes by using different base locations.
-- {{site.data.keyword.sqlquery_short}} charges for index creation based on the amount of data scanned. Index creation for Parquet files benefits from the availability of schema information and the possibility of column projection to limit the amount of data scanned. However, index creation for JSON and CSV files requires schema inference that results in additional passes on the input data. To avoid this, create a table in the catalog for the respective data to provide the required schema information.
+Note that {{site.data.keyword.sqlquery_short}} charges for index creation based on the amount of data scanned. Index creation for Parquet files benefits from the availability of schema information and the possibility of column projection to limit the amount of data scanned. However, index creation for JSON and CSV files requires schema inference that results in additional passes on the input data. To avoid this, create a table in the catalog for the respective data to provide the required schema information.
 
 ### Describing an index
 {: #describing_index}
