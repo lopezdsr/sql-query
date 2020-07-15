@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-05-18"
+lastupdated: "2020-07-15"
 
 keywords: hive, metastore, catalog, performance, create table, object storage
 
@@ -203,8 +203,8 @@ The query execution only reads the objects under the `cos://us-geo/sql/customers
 
 - Using the Lite plan, the catalog management features, such as `CREATE TABLE`, are not allowed.
 
-- The `ADD PARTITION` option of the `ALTER TABLE` statement may not correctly locate partitions if the value for a partition column contains special characters. This includes the colon `:` which can appear as a timestamp separator.
+- The `ADD PARTITION` option of the `ALTER TABLE` statement may not correctly locate partitions if the value for a partition column contains special characters. This includes the colon `:` that can appear as a timestamp separator.
 
-  When the location is inferred from the partition value(s), some special characters in the values are URL escaped when constructing the object store location. For example, the statement `ALTER TABLE mytable ADD PARTITION ( startTime = '2020-01-01 12:00:00' )` constructs a partition with an object store location `.../startTime=2020-01-01 12%3A00%3A00/`. If that location does not match the location of the objects to be added, the objects are not found and the new partition is empty.
+  When the location is inferred from the partition value(s), some special characters in the values are URL escaped when constructing the {{site.data.keyword.cos_short}} location. For example, the statement `ALTER TABLE mytable ADD PARTITION ( startTime = '2020-01-01 12:00:00' )` constructs a partition with an {{site.data.keyword.cos_short}} location `.../startTime=2020-01-01 12%3A00%3A00/`. If that location does not match the location of the objects to be added, the objects are not found and the new partition is empty.
 
   Avoid this case by explicitly specifying the _exact_ object location, as in `ALTER TABLE mytable ADD PARTITION ( startTime = '2020-01-01 12:00:00' ) LOCATION <base-location>/startTime=2020-01-01 12:00:00/` (note the unescaped colons in the location).
