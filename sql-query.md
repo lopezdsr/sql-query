@@ -355,6 +355,8 @@ Submit a catalog or index management statement | sql-query.api.managecatalog | P
 
 {{site.data.keyword.sqlquery_short}} reads as little data as possible based on your query. The amount of data scanned depends on the amount of data that {{site.data.keyword.sqlquery_short}} has to read to execute your query, and not on the actual size of your data. Several factors play a role when it comes to how much data needs to be accessed to execute a query. First, data layout is very important. Columnar formats, such as Parquet, lead to less data scanned, as {{site.data.keyword.sqlquery_short}} can selectively read ranges and single columns. Furthermore, the actual object layout determines how many objects need to be scanned. Read [How to layout big data in IBM Cloud Object Storage for Spark SQL](https://www.ibm.com/cloud/blog/big-data-layout) for more details on how to lay out big data on Cloud {{site.data.keyword.cos_short}} to improve cost and performance of SQL queries.
 
+Each successful query will be charged with at least 10MB.
+
 ### Example:
 {: #data-scanned-example}
 
