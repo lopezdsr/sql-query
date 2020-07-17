@@ -3,7 +3,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-05-19"
+lastupdated: "2020-07-15"
 
 ---
 
@@ -2736,8 +2736,10 @@ ALTER TABLE customers_partitioned RECOVER PARTITIONS
 
 <!--include-svg src="./svgfiles/partitionSpec.svg" target="./diagrams/partitionSpec.svg" alt="syntax diagram for a partition's specification" layout="@break@" -->
 
+In order to add or remove partitions individually, use the `ADD PARTITION` or `DROP PARTITION` options.
 
-In order to add or remove partitions manually, use the `ADD PARTITION` or `DROP PARTITION` options. `ALTER TABLE` does not validate the specified location.
+The `ADD PARTITON` option allows you to specify an explicit location for the new partition. This way, you can construct a table from object locations that do not share a common {{site.data.keyword.cos_short}} prefix, or are even located in separate buckets. If the partiton location is not specified, it is inferred from the location of the table and the value(s) of the partitioning column(s). `ADD PARTITION` does not validate the specified or inferred location.
+
 
 ```sql
 -- alter the table partitions by adding a partition
