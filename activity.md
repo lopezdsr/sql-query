@@ -37,5 +37,5 @@ Actions  |	Description
 sql-query.sql-job.create | 	An SQL query was submitted.
 sql-query.sql-job.list | 	List of jobs has been retrieved.
 sql-query.sql-job.get | 	Details of a job have been retrieved.
-sql-query.catalog-table.list | 	List of catalog tables has been retrieved..
+sql-query.catalog-table.list | 	List of catalog tables has been retrieved.
 sql-query.catalog-table.get | 	Details of a catalog table have been retrieved.
