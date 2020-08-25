@@ -49,12 +49,10 @@ Before you can start using {{site.data.keyword.sqlquery_short}} Sysdig metrics, 
 Before you opt in to using {{site.data.keyword.mon_full}} metrics, be aware of the cost of doing so. Every instance of {{site.data.keyword.sqlquery_short}} makes four metrics available, each time series has a monthly cost of $0.08,
 which leads to monthly cost of $0.24 per instance.
 
-{: caption="Table 1. Cost for each plan" caption-side="top"}
-
 For more information, see [{{site.data.keyword.mon_full_notm}} pricing ![External link icon](../../icons/launch-glyph.svg "External link icon")](/docs/Monitoring-with-Sysdig?topic=Sysdig-pricing_plans).
 
 
-## {{site.data.keyword.messagehub}} metrics details
+## {{site.data.keyword.sqlquery_short}} metrics details
 {: #metric_details}
 
 The following tables describe the specific metrics provided by {{site.data.keyword.sqlquery_short}}.
@@ -66,7 +64,7 @@ The following tables describe the specific metrics provided by {{site.data.keywo
 | [Number of completed Jobs](#ibm_sqlquery_completed_jobs) |
 | [Number of failed Jobs](#ibm_sqlquery_failed_jobs) |
 | [Number of jobs in progress](#ibm_sqlquery_jobs_in_progress) |
-{: caption="Table 1: Metrics Available by Plan Names" caption-side="top"}
+{: caption="Table 1: Available Metrics" caption-side="top"}
 
 ### Number of bytes read by completed jobs
 {: #ibm_sqlquery_bytes_read}
@@ -148,6 +146,6 @@ The following attributes are available for segmenting one or more attributes as 
 | `Service instance` | `ibm_service_instance` | The service instance segment identifies the instance the metric is associated with. |
 | `Service instance name` | `ibm_service_instance_name` | The service instance name provides the user-provided name of the service instance, which isn't necessarily a unique value, depending on the name provided by the user. |
 
-<br/>
+## Next Steps
 
-For more information about enabling platform metrics from the {{site.data.keyword.sqlquery_short}} dashboard and viewing metrics, see [Monitoring {{site.data.keyword.sqlquery_short}} metrics ![External link icon](../../icons/launch-glyph.svg "External link icon")](/docs/observability-monitoring?topic=observability-monitoring-monitor-sysdig){:new_window}.
+You will want to manage the data the Monitoring with Sysdig instance is collecting for you. From management to setting alerts, you can [get started ![External link icon](../../icons/launch-glyph.svg "External link icon")](/docs/Monitoring-with-Sysdig?topic=Monitoring-with-Sysdig-getting-started) monitoring your data quickly and efficiently.
