@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020
-lastupdated: "2020-09-05"
+lastupdated: "2020-09-07"
 
 keywords: aspera, data lake, object storage, csv, sysdig, monitoring
 
