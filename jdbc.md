@@ -39,7 +39,7 @@ Connection properties (except for the CRN) can be specified as part of the URL, 
 
 - password (required): IBM Cloud API key for executing the queries.
 - user (optional): a user name is not required and is ignored if given.
-- targetcosurl (optional, but usually needed): COS-URI in SQL query style where the results should be stored. If this property is not given, you can not run queries that return a JDBC result set. The JDBC connection can still be used to retrieve database metadata and run DDL and ETL-type statements.
+- targetcosurl (optional, but usually needed): COS-URI in SQL query style where the results should be stored. If this property is not given, you can not run queries that return a JDBC result set. The JDBC connection can still be used to retrieve database metadata and run DDL and [ETL-type statements](https://github.ibm.com/SqlServiceWdp/main/wiki/JDBC-driver-external-documentation#etl-type-statements).
 - loggerFile (optional, default none): file to write driver logs to.
 - loggerLevel (optional, default set by JDK): java.util.logging level for the driver. JDK default is usually INFO.
   - DEBUG/FINER or TRACE/FINEST are the most useful values.
@@ -54,12 +54,12 @@ The driver does not implement full JDBC-compliant functionality, but only the pa
 
 - Retrieving query results with the following primitive SQL types: STRING/VARCHAR, INTEGER, LONG, FLOAT, DOUBLE, DECIMAL, DATE, TIME, TIMESTAMP.
 - Inspecting result columns and types via the JDBC ResultSetMetaData interface.
-- Running DDL statements `CREATE/DROP TABLE` to manage objects in the {{site.data.keyword.sqlquery_short}} catalog.
+- Running DDL statements `CREATE/DROP TABLE` to manage objects in the [{{site.data.keyword.sqlquery_short}} catalog](/docs/sql-query?topic=sql-query-hivemetastore).
 - Accessing a list of tables and table columns via the JDBC DatabaseMetaData interface. The schema information is retrieved from the {{site.data.keyword.sqlquery_short}} catalog.
 
 The SQL syntax itself is the full syntax supported by {{site.data.keyword.sqlquery_short}} with the exception of the `INTO` clause. An `INTO` clause is implicitly added by the driver based on the Cloud {{site.data.keyword.cos_short}} location given with the `targetcosurl` connection property (see above).
 
-Results in the `targetcosurl` location are never deleted by the driver. You can use expiration rules to clean up your results on the IBM Cloud automatically.
+Results in the `targetcosurl` location are never deleted by the driver. You can use [expiration rules](/docs/cloud-object-storage?topic=cloud-object-storage-expiry) to clean up your results on the IBM Cloud automatically.
 
 ## Basic limitations
 {: #basic_limitations}
@@ -105,9 +105,9 @@ Note that you can not run statements with an INTO clause using the generic `Stat
 ## JDBC driver logging
 {: #jdbc_driver_logging}
 
-JDBC driver logging works similarly to the postgresql JDBC driver:
+JDBC driver logging works similarly to the [postgresql JDBC driver](https://jdbc.postgresql.org/documentation/head/logging.html):
 
-- Logging uses the java.util.logging framework and can be configured with a configuration file. The file name must be specified as Java system property `-D java.util.logging.config.file=<path>`. JDK default is usually to log to the console at INFO level.
+- Logging uses the java.util.logging framework and can be [configured](https://docs.oracle.com/javase/8/docs/api/java/util/logging/LogManager.html) with a configuration file. The file name must be specified as Java system property `-D java.util.logging.config.file=<path>`. JDK default is usually to log to the console at INFO level.
 - The base logger for the JDBC driver is `com.ibm.cloud.sql.query`.
 - For convenience and in cases where JVM system properties are not under your control, there are two connection properties, "loggerFile" and "loggerLevel" that allow to control JDBC driver logging via the JDBC URL. These set the log level and install a file handler for the driver base logger. For example, append `&loggerLevel=debug&loggerFile=/tmp/sqlquery.log` to the JDBC URL to create detailed logging output in files `/tmp/sqlquery.log.<n>`.
 - Note that setting loggerLevel higher than INFO (for example, DEBUG) usually has no effect if you do not also configure loggerFile or install a log handler, because the default console *handler* suppresses all messages with a log level higher than INFO.
@@ -115,7 +115,7 @@ JDBC driver logging works similarly to the postgresql JDBC driver:
 ## Using the driver with Tableau Desktop
 {: #using_tableau}
 
-Tableau Desktop is a BI reporting tool that connects to a rich set of data sources. You can connect to any custom JDBC driver using the generic JDBC connector offered by Tableau.
+[Tableau Desktop](https://www.tableau.com/products/desktop) is a BI reporting tool that connects to a rich set of data sources. You can connect to any custom JDBC driver using the generic JDBC connector offered by Tableau.
 
 To make sure that Tableau only generates SQL that is supported by a specific JDBC driver, you have to specify the supported/unsupported SQL capabilities of the driver. Tableau generates appropriate SQL statements dependent on this specification.
 
@@ -125,9 +125,9 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
 2. Download the {{site.data.keyword.sqlquery_short}} JDBC driver and copy to the installation directory of Tableau.
 
-   - For **Windows**: C:\Program Files\Tableau\Drivers\sql-query-jdbc-<version>.jar
+   - For **Windows**: `C:\Program Files\Tableau\Drivers\sql-query-jdbc-<version>.jar`
 
-   - For **Mac**: ~/Library/Tableau/Drivers/sql-query-jdbc-<version>.jar
+   - For **Mac**: `~/Library/Tableau/Drivers/sql-query-jdbc-<version>.jar`
 
 3. Create a Tableau Datasource Customization file (.tdc) with the following content:
 
@@ -152,17 +152,17 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
    - Store this content in a .tdc file in:
 
-     For **Windows**: C:\Documents\My Tableau Repository\Datasources\sql-query-jdbc.tdc
+     For **Windows**: `C:\Documents\My Tableau Repository\Datasources\sql-query-jdbc.tdc`
 
-     For **Mac**: ~/My Tableau Repository/Datasources/sql-query-jdbc.tdc
+     For **Mac**: `~/My Tableau Repository/Datasources/sql-query-jdbc.tdc`
 
-If further customization is needed in future, look here for capabilities that can be switched on/off .
+If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be switched on/off .
 
 4. Start Tableau Desktop. Navigate to **Connect -> To a Server -> More** .
 5. On the next page you see a list of supported connectors. Select **Other Databases (JDBC)**.
 6. On the raised input form enter:
-   - URL: jdbc:ibmcloudsql:{CRN of your {{site.data.keyword.sqlquery_short}} service instance}?targetcosurl={COS location for results}
-   - Dialect: SQL 92
-   - User: apikey
-   - Password: {your IBM Cloud API Key}
+   - URL: `jdbc:ibmcloudsql:{CRN of your {{site.data.keyword.sqlquery_short}} service instance}?targetcosurl={COS location for results}`
+   - Dialect: `SQL 92`
+   - User: `apikey`
+   - Password: `{your IBM Cloud API Key}`
 7. Click **Sign in**.
