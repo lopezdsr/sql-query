@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2020
-lastupdated: "2020-05-29"
+lastupdated: "2020-09-14"
 
 keywords: what's new, support, release, beta
 
@@ -17,14 +17,18 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## September 2020
+
+- {{site.data.keyword.sqlquery_full}} now supports monitoring metrics for submitted jobs using
+[{{site.data.keyword.mon_full}}](/docs/Monitoring-with-Sysdig?topic=Sysdig-getting-started#getting-started).
+You can view completed and failed jobs, the number of bytes processed, and the jobs in progress. There is a default {{site.data.keyword.sqlquery_short}} dashboard, and you can define custom dashboards and alerts.
+
 ## May 2020
 
-- {{site.data.keyword.sqlquery_full}} supports index management, also referred to as data skipping. Index management can significantly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
+- {{site.data.keyword.sqlquery_short}} supports index management, also referred to as data skipping. Index management can significantly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
 - Service access role **Manager** is required to run catalog management or index management commands.
 - {{site.data.keyword.sqlquery_short}} database catalog support has been extended to support [views](/docs/services/sql-query?topic=sql-query-sql-reference#createView).
 - {{site.data.keyword.sqlquery_short}} catalog management is now out of the Beta stage and can be used with the Standard plan.
-
-
 
 ## April 2020
 
