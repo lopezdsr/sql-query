@@ -21,7 +21,7 @@ subcollection: sql-query
 
 # JDBC driver
 {: #jdbc}
-The current JDBC driver can be downloaded from [here](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.4.8.jar").
+The current JDBC driver can be downloaded from <a href="https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.4.8.jar" download>here</a>.
 
 ## JDBC driver class and URL format
 {: #jdbc_class}
