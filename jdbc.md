@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020
-lastupdated: "2020-09-11"
+lastupdated: "2020-09-16"
 
 keywords: jdbc
 
@@ -21,7 +21,8 @@ subcollection: sql-query
 
 # JDBC driver
 {: #jdbc}
-The current JDBC driver can be downloaded from <a href="https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.4.8.jar" download>here</a>.
+
+The current JDBC driver can be downloaded from [here](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.4.8.jar).
 
 ## JDBC driver class and URL format
 {: #jdbc_class}
