@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020
-lastupdated: "2020-09-16"
+lastupdated: "2020-09-21"
 
 keywords: jdbc
 
@@ -25,9 +25,9 @@ subcollection: sql-query
 ## Driver download
 {: #driver_download}
 
-Download the latest version: [`2.5.0`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.0.jar)
+Download the latest version: [`2.5.1`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.1.jar)
 
-Previous versions: [`2.4.8`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.4.8.jar)
+Previous versions: [`2.5.0`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.0.jar)
 
 
 ## JDBC driver class and URL format
@@ -51,7 +51,9 @@ Connection properties (except for the CRN) can be specified as part of the URL, 
 - loggerFile (optional, default none): file to write driver logs to.
 - loggerLevel (optional, default set by JDK): java.util.logging level for the driver. JDK default is usually INFO.
   - DEBUG/FINER or TRACE/FINEST are the most useful values.
-
+- filterType (optional, default none):
+  - Only tables will be returned if `filterType` value is set to `table`
+  - Only views will be returned if `filterType` value is set to `view`
 
 ## Driver functionality
 {: #driver_functionality}
@@ -133,9 +135,9 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
 2. Download the {{site.data.keyword.sqlquery_short}} JDBC driver and copy to the installation directory of Tableau.
 
-   - For **Windows**: `C:\Program Files\Tableau\Drivers\sql-query-jdbc-<version>.jar`
+   - For **Windows**: `C:\Program Files\Tableau\Drivers\ibmcloudsql-jdbc-<version>.jar`
 
-   - For **Mac**: `~/Library/Tableau/Drivers/sql-query-jdbc-<version>.jar`
+   - For **Mac**: `~/Library/Tableau/Drivers/ibmcloudsql-jdbc-<version>.jar`
 
 3. Create a Tableau Datasource Customization file (.tdc) with the following content:
 
@@ -160,9 +162,9 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
    - Store this content in a .tdc file in:
 
-     For **Windows**: `C:\Documents\My Tableau Repository\Datasources\sql-query-jdbc.tdc`
+     For **Windows**: `C:\Documents\My Tableau Repository\Datasources\ibmcloudsql-jdbc.tdc`
 
-     For **Mac**: `~/My Tableau Repository/Datasources/sql-query-jdbc.tdc`
+     For **Mac**: `~/My Tableau Repository/Datasources/ibmcloudsql-jdbc.tdc`
 
 If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be switched on/off .
 
@@ -174,3 +176,8 @@ If further customization is needed in future, look [here](https://help.tableau.c
    - User: `apikey`
    - Password: `{your IBM Cloud API Key}`
 7. Click **Sign in**.
+
+
+As Tableau does not support complex data types like `struct`, it is recommended to do the following if a table contains one or more columns with complex data type:
+- Create a flattened view on the table.
+-  Optionally, you have the possibility to set the the `filterType` option to `view`. This will effectively hide all tables and would only reveal views to Tableau. The option can be set via JDBC URL as follows:<br/>`jdbc:ibmcloudsql:{CRN of your {{site.data.keyword.sqlquery_short}} service instance}?targetcosurl={COS location for results}&filterType=view`
