@@ -19,7 +19,8 @@ subcollection: sql-query
 
 ## September 2020
 
-- {{site.data.keyword.sqlquery_full}} now supports monitoring metrics for submitted jobs using
+- You can now use our JDBC driver to connect {{site.data.keyword.sqlquery_full}} to business intelligence tools and other applications. In order to download and configure the driver, see the [JDBC documentation](/docs/sql-query?topic=sql-query-jdbc).
+- {{site.data.keyword.sqlquery_short}} now supports monitoring metrics for submitted jobs using
 [{{site.data.keyword.mon_full}}](/docs/Monitoring-with-Sysdig?topic=Sysdig-getting-started#getting-started).
 You can view completed and failed jobs, the number of bytes processed, and the jobs in progress. There is a default {{site.data.keyword.sqlquery_short}} dashboard, and you can define custom dashboards and alerts.
 
