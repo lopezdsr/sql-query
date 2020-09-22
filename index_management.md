@@ -2,7 +2,7 @@
 
 copyright:
   year:  2020
-lastupdated: "2020-07-07"
+lastupdated: "2020-09-14"
 
 keywords: data skipping, performance, cost, data format, indexes, sample data, index management
 
@@ -47,7 +47,7 @@ All formats are supported, including Parquet, ORC, CSV, and JSON. Data skipping 
 As {{site.data.keyword.sqlquery_short}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while improving performance. For data skipping to work well, as well as for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
 Data skipping complements these best practices and provides significant additional cost savings and performance benefits.
 
-To use this feature, you must create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause.
+To use this feature, you must create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause. Note that a full stop ("**.**") in any column name is not supported. 
 
 The following four index types are supported:
 
