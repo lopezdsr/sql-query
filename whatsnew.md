@@ -2,7 +2,9 @@
 
 copyright:
   year: 2018, 2020
+
 lastupdated: "2020-09-21"
+
 
 keywords: what's new, support, release, beta
 
@@ -18,6 +20,7 @@ subcollection: sql-query
 -->
 
 ## September 2020
+
 
 - You can now use our JDBC driver to connect {{site.data.keyword.sqlquery_full}} to business intelligence tools and other applications. In order to download and configure the driver, see the [JDBC documentation](/docs/sql-query?topic=sql-query-jdbc).
 - {{site.data.keyword.sqlquery_short}} now supports monitoring metrics for submitted jobs using
