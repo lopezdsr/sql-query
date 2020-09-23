@@ -166,15 +166,18 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
      For **Mac**: `~/My Tableau Repository/Datasources/ibmcloudsql-jdbc.tdc`
 
-     If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be switched on/off .
+     If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm)      for capabilities that can be switched on/off .
 
-4. Start Tableau Desktop. Navigate to **Connect -> To a Server -> More** .
+4. Start Tableau Desktop. Navigate to **Connect -> To a Server -> More**.
+
 5. On the next page you see a list of supported connectors. Select **Other Databases (JDBC)**.
+
 6. On the raised input form enter:
    - URL: `jdbc:ibmcloudsql:{CRN of your {{site.data.keyword.sqlquery_short}} service instance}?targetcosurl={COS location for results}`
    - Dialect: `SQL 92`
    - User: `apikey`
    - Password: `{your IBM Cloud API Key}`
+   
 7. Click **Sign in**.
 
 
