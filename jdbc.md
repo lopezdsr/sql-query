@@ -141,22 +141,22 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
 3. Create a Tableau Datasource Customization file (.tdc) with the following content:
 
-```
- <connection-customization class='genericjdbc' enabled='true' version='2020.2'>
-   <vendor name='genericjdbc' />
-   <driver name='ibmcloudsql' />
-      <customizations>
-       <customization name='CAP_CREATE_TEMP_TABLES' value='no'/>
-       <customization name='CAP_SELECT_TOP_INTO' value='no'/>
-       <customization name='CAP_QUERY_TOP_N' value='yes'/>
-       <customization name='CAP_QUERY_TOPSTYLE_TOP' value='no'/>
-           <customization name='CAP_QUERY_TOPSTYLE_ROWNUM' value='no'/>
-       <customization name='CAP_QUERY_TOPSTYLE_LIMIT' value='yes'/>
-       <customization name='CAP_QUERY_SUBQUERIES_WITH_TOP' value='no'/>
-       <customization name='CAP_QUERY_GROUP_BY_DEGREE' value='no'/>`
-       <customization name='CAP_JDBC_SUPPRESS_ENUMERATE_DATABASES' value='yes'/>
-       <customization name='CAP_JDBC_SUPPRESS_ENUMERATE_SCHEMAS' value='yes'/>
-      </customizations>
+  ```
+  <connection-customization class='genericjdbc' enabled='true' version='2020.2'>
+  <vendor name='genericjdbc' />
+    <driver name='ibmcloudsql' />
+        <customizations>
+        <customization name='CAP_CREATE_TEMP_TABLES' value='no'/>
+        <customization name='CAP_SELECT_TOP_INTO' value='no'/>
+        <customization name='CAP_QUERY_TOP_N' value='yes'/>
+        <customization name='CAP_QUERY_TOPSTYLE_TOP' value='no'/>
+        <customization name='CAP_QUERY_TOPSTYLE_ROWNUM' value='no'/>
+        <customization name='CAP_QUERY_TOPSTYLE_LIMIT' value='yes'/>
+        <customization name='CAP_QUERY_SUBQUERIES_WITH_TOP' value='no'/>
+        <customization name='CAP_QUERY_GROUP_BY_DEGREE' value='no'/>`
+        <customization name='CAP_JDBC_SUPPRESS_ENUMERATE_DATABASES' value='yes'/>
+        <customization name='CAP_JDBC_SUPPRESS_ENUMERATE_SCHEMAS' value='yes'/>
+       </customizations>
 </connection-customization>
 ```
 
@@ -166,7 +166,7 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
      For **Mac**: `~/My Tableau Repository/Datasources/ibmcloudsql-jdbc.tdc`
 
-If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be switched on/off .
+     If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be switched on/off .
 
 4. Start Tableau Desktop. Navigate to **Connect -> To a Server -> More** .
 5. On the next page you see a list of supported connectors. Select **Other Databases (JDBC)**.
