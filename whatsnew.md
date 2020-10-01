@@ -3,7 +3,7 @@
 copyright:
   year: 2018, 2020
 
-lastupdated: "2020-09-21"
+lastupdated: "2020-10-01"
 
 
 keywords: what's new, support, release, beta
@@ -19,8 +19,11 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
-## September 2020
+## October 2020
 
+- SQL Query now comes with open data out of the box, including geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap, and Natural Earth. Explore it using the new category **Reference data statements** in SAMPLES.
+
+## September 2020
 
 - You can now use our JDBC driver to connect {{site.data.keyword.sqlquery_full}} to business intelligence tools and other applications. In order to download and configure the driver, see the [JDBC documentation](/docs/sql-query?topic=sql-query-jdbc).
 - {{site.data.keyword.sqlquery_short}} now supports monitoring metrics for submitted jobs using
