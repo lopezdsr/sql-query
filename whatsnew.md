@@ -21,7 +21,7 @@ subcollection: sql-query
 
 ## October 2020
 
-- SQL Query now comes with open data out of the box, including containing geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap and Natural Earth. Explore it using the new category in SAMPLES for "Reference data statements".
+- SQL Query now comes with open data out of the box, including geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap and Natural Earth. Explore it using the new category in SAMPLES for "Reference data statements".
 
 ## September 2020
 
