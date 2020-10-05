@@ -44,7 +44,7 @@ Before you can start using {{site.data.keyword.sqlquery_short}} Sysdig metrics, 
 ## {{site.data.keyword.sqlquery_short}} metrics cost information
 {: #metric_costs}
 
-Before you opt in to using {{site.data.keyword.mon_full}} metrics, be aware of the cost of doing so. Every instance of {{site.data.keyword.sqlquery_short}} makes four metrics available, each time series has a monthly cost of $0.08, which leads to a monthly cost of $0.24 per instance.
+Before you opt in to using {{site.data.keyword.mon_full}} metrics, be aware of the cost of doing so. Every instance of {{site.data.keyword.sqlquery_short}} makes four metrics available, each time series has a monthly cost of $0.08, which leads to a monthly cost of $0.32 per instance.
 
 For more information, see [{{site.data.keyword.mon_full_notm}} pricing ![External link icon](../../icons/launch-glyph.svg "External link icon")](/docs/Monitoring-with-Sysdig?topic=Sysdig-pricing_plans).
 
