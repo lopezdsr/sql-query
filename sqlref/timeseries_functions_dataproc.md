@@ -429,3 +429,10 @@ Output: Long
 Convert the specified string or timestamp into a value of type Long containing an epoch millisecond timestamp in [Unix time](https://en.wikipedia.org/wiki/Unix_time).  
 - If the input parameter is a string, it is parsed using the [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html).
 - If the input parameter is a TimeStampType value, it is treated as a Java timestamp.
+
+## General functions
+{: #general_functions}
+
+**TS_MAP (time_series, value_expression)** 
+Output: TimeSeries
+Map each value of the time series to a new time series given an expression.
