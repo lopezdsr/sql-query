@@ -178,7 +178,7 @@ Creates an interpolator that replaces a null value with a value that is calculat
 ## Time series expressions
 {: #time_series_expressions}
 
-Expression creation functions are similar to anchor functions but they are more feature-rich and should be used preferably.
+Expression creation functions replace the anchor functions that have been deprecated. Expression functions are more powerful and allow more advanced use cases.
 
 **"TS_EXP_ID” ()**
 Output: Identity Expression
@@ -352,8 +352,8 @@ Expression that does a string match on the given expression.
 
 Each of these functions creates an *anchor* artifact, which is used by other functions to determine where to segment a time series.
 
-Anchor functions will be deprecated in a later release.
-Expression creation functions are similar to anchor functions but they are more feature-rich and should be used preferably.
+Anchor functions are deprecated, use expression creation functions instead.
+Expression creation functions are similar to anchor functions but they are more feature-rich.
 {:note}
 
 **TS_ANCHOR_EQ(see below<sup>3</sup>)**
@@ -417,7 +417,7 @@ Creates, for use by an array time series, an anchor of the specified type (first
 ## Forecasting model creation functions
 {: #forecasting_model_creation}
 
-Each of these functions creates a *forecasting model* artifact, which is used by other functions or forecasting and anomaly detection.
+Each of these functions creates a *forecasting model* artifact, which is used by other functions for forecasting and anomaly detection.
 
 **TS_FORECAST_BATS(Integer, Boolean)**
 Output: ForecastingModel
