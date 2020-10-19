@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-06-06"
+  years: 2019, 2020
+lastupdated: "2020-10-08"
 
 keywords: SQL query, time series, SQL, data processing function
 
@@ -270,6 +270,10 @@ Combines observations with duplicate timeticks based on the specified [combiner]
 Output: *TimeSeries*  
 Returns a time series whose values correspond to the values of the input array time series at the specified index (second parameter).
 
+**TS_FILTER (time_series, boolean expression)**
+Output: TimeSeries
+Filter each value of the time series given a Boolean expression.
+
 ## Cleaning functions
 {: #cleaning_funcitons}
 
@@ -322,6 +326,14 @@ each anchor point. For example:
 - Specify 0,0 to return only those observations that correspond to the anchor points.
 - Specify 5,3 to create a segment that includes, in addition to the observation at each anchor point, all observations that occur between 5 timeticks before and 3 timeticks after each anchor point.
 - Specify 5,-3 to create a segment that includes all observations that occur between 5 and 3 timeticks before the anchor point.
+
+**TS_SEGMENT_BY_MARKER (ts: AnyTimeSeries, marker: BooleanExpressionType[Any],prevInclusive: Boolean, nextInclusive: Boolean, requiresStartAndEnd: Boolean)**
+Output: Same as input
+Segment the time series by a marker point (Boolean Expression) where each segment exists between markers.
+
+**TS_SEGMENT_BY_DUAL_MARKER (ts: AnyTimeSeries, markerStart: BooleanExpressionType[Any],markerEnd: BooleanExpressionType[Any], startInclusive: Boolean, endInclusive: Boolean, startOnFirst: Boolean, endOnFirst: Boolean)** 
+Output: Same as input
+Segment the time series by a start and end marker point (Boolean expression) where each segment exists between the start and end markers.
 
 **<sup>2</sup> The input time series can be of type DoubleTimeSeries, StringTimeSeries, DoubleArrayTimeSeries, or StringArrayTimeSeries.**
 
@@ -417,3 +429,10 @@ Output: Long
 Convert the specified string or timestamp into a value of type Long containing an epoch millisecond timestamp in [Unix time](https://en.wikipedia.org/wiki/Unix_time).  
 - If the input parameter is a string, it is parsed using the [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html).
 - If the input parameter is a TimeStampType value, it is treated as a Java timestamp.
+
+## General functions
+{: #general_functions}
+
+**TS_MAP (time_series, value_expression)** 
+Output: TimeSeries
+Map each value of the time series to a new time series given an expression.
