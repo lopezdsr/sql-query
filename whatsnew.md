@@ -23,6 +23,7 @@ subcollection: sql-query
 
 - {{site.data.keyword.sqlquery_full}} now comes with open data out of the box, including geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap, and Natural Earth. Explore it using the new category **Reference data statements** in SAMPLES.
 - {{site.data.keyword.sqlquery_short}} time series functions: The anchor functions have been deprecated and replaced by the new and more powerful expression creation functions.
+- The [ibmcloudsql](https://pypi.org/project/ibmcloudsql) Python SDK has been significantly expanded in functionality for even more powerful Python analytics with SQL. Study the [SQL Query Starter Notebook](https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d) for a tour of functionality. The Python SDK now also comes with a dedicated [online documentation](https://ibm-cloud.github.io/sql-query-clients/intro.html#ibmcloudsql).
 
 ## September 2020
 
