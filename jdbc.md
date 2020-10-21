@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020
-lastupdated: "2020-09-21"
+lastupdated: "2020-10-21"
 
 keywords: jdbc
 
@@ -47,7 +47,7 @@ Connection properties (except for the CRN) can be specified as part of the URL, 
 
 - password (required): IBM Cloud API key for executing the queries.
 - user (optional): a user name is not required and is ignored if given.
-- targetcosurl (optional, but usually needed): COS-URI in SQL query style where the results should be stored. If this property is not given, you can not run queries that return a JDBC result set. The JDBC connection can still be used to retrieve database metadata and run DDL and [ETL-type statements](#etl-type-statements).
+- targetcosurl (optional, but usually needed): COS URI in SQL query style, where the results should be stored. If this property is not specified, you cannot run queries that return a JDBC result set. The JDBC connection can still be used to retrieve database metadata and run DDL and [ETL-type statements](#etl-type-statements).
 - loggerFile (optional, default none): file to write driver logs to.
 - loggerLevel (optional, default set by JDK): java.util.logging level for the driver. JDK default is usually INFO.
   - DEBUG/FINER or TRACE/FINEST are the most useful values.
@@ -55,7 +55,7 @@ Connection properties (except for the CRN) can be specified as part of the URL, 
   - Only tables will be returned if `filterType` value is set to `table`
   - Only views will be returned if `filterType` value is set to `view`
 - appendInto (optional, default true):
-  - If set to false, no INTO clause will be appended, and results will not be available via driver. Used in conjunction with [ETL-type statements](#etl-type-statements) where the INTO options are provided as part of the statement. 
+  - If set to false, no INTO clause will be appended, and results will not be available via driver. Used in conjunction with [ETL-type statements](#etl-type-statements), where the INTO options are provided as part of the statement. 
 
 ## Driver functionality
 {: #driver_functionality}
