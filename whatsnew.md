@@ -3,7 +3,7 @@
 copyright:
   year: 2018, 2020
 
-lastupdated: "2020-10-01"
+lastupdated: "2020-10-20"
 
 
 keywords: what's new, support, release, beta
@@ -21,11 +21,13 @@ subcollection: sql-query
 
 ## October 2020
 
-- SQL Query now comes with open data out of the box, including geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap, and Natural Earth. Explore it using the new category **Reference data statements** in SAMPLES.
+- {{site.data.keyword.sqlquery_full}} now comes with open data out of the box, including geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap, and Natural Earth. Explore it using the new category **Reference data statements** in SAMPLES.
+- {{site.data.keyword.sqlquery_short}} time series functions: The anchor functions have been deprecated and replaced by the new and more powerful expression creation functions.
+- The [ibmcloudsql](https://pypi.org/project/ibmcloudsql) Python SDK has been significantly expanded in functionality for even more powerful Python analytics with SQL. Take a tour of the functionalities in the [SQL Query Starter Notebook](https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d). The Python SDK now also comes with a dedicated [online documentation](https://ibm-cloud.github.io/sql-query-clients/intro.html#ibmcloudsql).
 
 ## September 2020
 
-- You can now use our JDBC driver to connect {{site.data.keyword.sqlquery_full}} to business intelligence tools and other applications. In order to download and configure the driver, see the [JDBC documentation](/docs/sql-query?topic=sql-query-jdbc).
+- You can now use our JDBC driver to connect {{site.data.keyword.sqlquery_short}} to business intelligence tools and other applications. In order to download and configure the driver, see the [JDBC documentation](/docs/sql-query?topic=sql-query-jdbc).
 - {{site.data.keyword.sqlquery_short}} now supports monitoring metrics for submitted jobs using
 [{{site.data.keyword.mon_full}}](/docs/Monitoring-with-Sysdig?topic=Sysdig-getting-started#getting-started).
 You can view completed and failed jobs, the number of bytes processed, and the jobs in progress. There is a default {{site.data.keyword.sqlquery_short}} dashboard, and you can define custom dashboards and alerts.
