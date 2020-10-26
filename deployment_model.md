@@ -25,6 +25,6 @@ The service is accessed via public endpoints. Both, the control and data plane o
 
 Tenant isolation models | Tenant domain isolation | Endpoint isolation | Compute isolation | Storage isolation | Network isolation
 --- | --- | --- | --- | --- | ---
-Shared data plane | Service account | Public endpoint | Shared physical hosts | Shared physical storage devices, shared access endpoint | Service virtual network | Storage isolation | Network isolation
+Shared data plane | Service account | Public endpoint | Shared physical hosts | Shared physical storage devices, shared access endpoint | Service virtual network
 
 ![image](deployment_model_a.png)
