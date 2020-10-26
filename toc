@@ -58,4 +58,8 @@ SQL Query
         db2.md
 
     disaster_recovery.md
+    
+    {: .topicgroup}
+    Enhancing security
+        deployment_model.md
     {: .navgroup-end}

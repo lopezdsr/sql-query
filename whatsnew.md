@@ -3,7 +3,7 @@
 copyright:
   year: 2018, 2020
 
-lastupdated: "2020-10-20"
+lastupdated: "2020-10-23"
 
 
 keywords: what's new, support, release, beta
@@ -24,6 +24,7 @@ subcollection: sql-query
 - {{site.data.keyword.sqlquery_full}} now comes with open data out of the box, including geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap, and Natural Earth. Explore it using the new category **Reference data statements** in SAMPLES.
 - {{site.data.keyword.sqlquery_short}} time series functions: The anchor functions have been deprecated and replaced by the new and more powerful expression creation functions.
 - The [ibmcloudsql](https://pypi.org/project/ibmcloudsql) Python SDK has been significantly expanded in functionality for even more powerful Python analytics with SQL. Take a tour of the functionalities in the [SQL Query Starter Notebook](https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d). The Python SDK now also comes with a dedicated [online documentation](https://ibm-cloud.github.io/sql-query-clients/intro.html#ibmcloudsql).
+- The usage of the legacy SoftLayer endpoints of Cloud {{site.data.keyword.cos_full_notm}} is discontinued. Check out the [Cloud Object Storage announcement](https://cloud.ibm.com/status?component=cloud-object-storage&location=global&selected=announcement&query=2020+Actions) for more details.
 
 ## September 2020
 
