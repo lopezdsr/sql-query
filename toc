@@ -58,6 +58,7 @@ SQL Query
         db2.md
 
     disaster_recovery.md
+    faq.md
     
     {: .topicgroup}
     Enhancing security
