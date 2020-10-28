@@ -19,23 +19,21 @@ subcollection: sql-query
 # FAQ
 {:faq}
 
-
-
-## Is SQL Query transaction safe?
+## Is {{site.data.keyword.sqlquery_full}} transaction safe?
 {:transaction_safe}
 
-IBM Cloud Object Storage does not support transaction. IBM Cloud SQL Query can be used to create 
-Parquet or CSV files / objects on COS. Since IBM Cloud SQL Query does not support INSERT, UPDATE or DELETE; while it can be used 
-to create COS object using the INTO clause, for the created object in COS, the question arises if they are transaction safe and ACID compliant?
-Is other words, if you create an object in COS using IBM Cloud SQL Query, can you assume that COS object creation is transaction 
+{{site.data.keyword.cos_full}} does not support transaction. {{site.data.keyword.sqlquery_short}} can be used to create 
+Parquet or CSV files/objects on {{site.data.keyword.cos_short}}. Since {{site.data.keyword.sqlquery_short}} does not support INSERT, UPDATE or DELETE; while it can be used 
+to create {{site.data.keyword.cos_short}} object using the INTO clause, for the created object in {{site.data.keyword.cos_short}}, the question arises if they are transaction safe and ACID compliant?
+Is other words, if you create an object in COS using {{site.data.keyword.sqlquery_short}}, can you assume that {{site.data.keyword.cos_short}} object creation is transaction 
 safe and if anything happens before the creation is done, it will be rolled back?
 
-The answer is yes if you are producing with a single SQL query jobs only a single partitioned object on COS, 
-because COS itself does object write in an atomic fashion. If you want to write complex hierarchies of objects with a 
+The answer is yes if you are producing with a single SQL query jobs only a single partitioned object on {{site.data.keyword.cos_short}}, 
+because {{site.data.keyword.cos_short}} itself does object write in an atomic fashion. If you want to write complex hierarchies of objects with a 
 single SQL job, then A) it can happen that the job fails half way and only part of the objects are written, and B) during job 
 execution some objects are already visible while others are still in process to be written.
-But for the latter scenario, we recommend using Hive-style partitioned tables. I.e. the SQL job writes a new set of objects into a new 
-COS prefix location. This does not affect anything in the Hive-style partitioned table. Only when you then also issue an ALTER TABLE … 
+But for the latter scenario, we recommend using Hive-style partitioned tables, meaning that the SQL job writes a new set of objects into a new 
+{{site.data.keyword.cos_short}} prefix location. This does not affect anything in the Hive-style partitioned table. Only when you then also issue an ALTER TABLE … 
 ADD PARTITION with the newly written object location, the data will be made available in the Hive-style partitioned table. 
 That ALTER TABLE DDL is in fact also an atomic operation.
 
