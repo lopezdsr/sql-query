@@ -3346,7 +3346,7 @@ SHOW PARTITIONS customers_partitioned
 ```
 {: codeblock}
 
-## Index Management ![Beta](beta.png)
+## Index Management
 {: #chapterIndexManagement}
 
 The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
