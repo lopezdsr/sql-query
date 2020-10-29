@@ -3100,6 +3100,27 @@ location  cos://us-geo/sql/shippers.parquet
 ```
 {: codeblock}
 
+<h4 id="tableProperty">tableProperty</h4>
+
+The tableProperty option consists of one or more key and value pairs.
+
+Key | Value | Default | Description 
+--- | --- | --- | --- 
+HEADER | true or false | true | Use the HEADER option to specify if your CSV object has a header included.
+DELIMITER | single (possibly escaped) character | `,` (comma) | Use the DELIMITER option to specify the used  delimiter in our CSV objects. All single Unicode characters are allowed as delimiters.
+MULTILINE | true or false | false | Use the MULITLINE option to specify if the JSON object is single or multiline. 
+
+```sql
+-- Example of creating a table definition in the catalog for a CSV data without header line:
+CREATE TABLE LAX_CARGO
+(Extract_Date timestamp, Report_Date timestamp, Arrival_Departure string,
+Domestic_International string, Cargo_Type string, Air_Cargo_Tons int)
+USING csv
+location cos://us-geo/sql/LAX_Cargo.csv
+options(HEADER=false)
+```
+{: codeblock}
+
 ### Drop Table
 {: #chapterDropTable}
 
