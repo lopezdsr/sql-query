@@ -3,7 +3,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-07-15"
+lastupdated: "2020-10-29"
 
 ---
 
@@ -3107,7 +3107,7 @@ The tableProperty option consists of one or more key and value pairs.
 Key | Value | Default | Description 
 --- | --- | --- | --- 
 HEADER | true or false | true | Use the HEADER option to specify if your CSV object has a header included.
-DELIMITER | single (possibly escaped) character | `,` (comma) | Use the DELIMITER option to specify the used  delimiter in our CSV objects. All single Unicode characters are allowed as delimiters.
+DELIMITER | single (possibly escaped) character | `,` (comma) | Use the DELIMITER option to specify the used delimiter in your CSV objects. All single Unicode characters are allowed as delimiters.
 MULTILINE | true or false | false | Use the MULITLINE option to specify if the JSON object is single or multiline. 
 
 ```sql
