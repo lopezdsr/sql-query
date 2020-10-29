@@ -22,9 +22,6 @@ subcollection: sql-query
 # Index management
 {: #index_management}
 
-Beta support for this feature was introduced in May, 2020.
-{: note}
-
 Index management, also referred to as data skipping, can significantly boost performance and reduce cost of SQL queries by skipping over irrelevant data.
 Data skipping indexes apply to structured data sets in {{site.data.keyword.cos_full}} and store summary metadata for each object in the data set.
 The indexes are stored in Cloud {{site.data.keyword.cos_short}} in a user-provided bucket, similarly to the data.
