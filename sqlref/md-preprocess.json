@@ -63,6 +63,7 @@
                         "sortItem",
                         "STRING",
                         "tableIdentifier",
+                        "tableProperty",
                         "tableValuedFunction",
                         "timeUnitSpec",
                         "unaryOperator",
