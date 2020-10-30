@@ -3152,11 +3152,10 @@ DROP TABLE customers
 <div style="overflow-x : auto;">
 <map name="createViewImgMap">
 	<area alt="section tableIdentifier" shape="rect" coords="650,30,790,52" href="#tableIdentifier" />
-	<area alt="section STRING" shape="rect" coords="1278,30,1346,52" href="#STRING" />
-	<area alt="section tableProperty" shape="rect" coords="1618,30,1742,52" href="#tableProperty" />
-	<area alt="section query" shape="rect" coords="1906,30,1966,52" href="#query" />
+	<area alt="section STRING" shape="rect" coords="519,104,587,126" href="#STRING" />
+	<area alt="section query" shape="rect" coords="683,104,743,126" href="#query" />
 </map>
-<img style="max-width: 2006px;" usemap="#createViewImgMap" alt="syntax diagram for a create view command" src="./diagrams/createView-f309f7720f30f11b31a3b13851a3019b.svg" />
+<img style="max-width: 885px;" usemap="#createViewImgMap" alt="syntax diagram for a create view command" src="./diagrams/createView-2084f65a421b97965e0ae892e0a26a7b.svg" />
 </div>
 
 <h4 id="identifierComment">identifierComment</h4>
