@@ -2775,7 +2775,7 @@ The `SET LOCATION` option can be used to change the location of an existing part
 
 ```sql
 -- modify the location of an existing partition
-ALTER TABLE customers_partitioned PARTITION ( country = 'Spain') SET LOCATION cos://eu-de/sql/customers_partitioned.csv/COUNTRY=Spain
+ALTER TABLE customers_partitioned PARTITION (country = 'Spain') SET LOCATION cos://eu-de/sql/customers_partitioned.csv/COUNTRY=Spain
 ```
 {: codeblock}
 
