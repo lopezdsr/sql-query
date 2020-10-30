@@ -3217,8 +3217,10 @@ DROP VIEW customer_statistics
 	<area alt="section partitionSpec" shape="rect" coords="722,60,846,82" href="#partitionSpec" />
 	<area alt="section COSURI" shape="rect" coords="990,60,1058,82" href="#COSURI" />
 	<area alt="section partitionSpec" shape="rect" coords="810,109,934,131" href="#partitionSpec" />
+	<area alt="section partitionSpec" shape="rect" coords="554,179,678,201" href="#partitionSpec" />
+	<area alt="section COSURI" shape="rect" coords="876,179,944,201" href="#COSURI" />
 </map>
-<img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions command" src="./diagrams/alterTablePartitions-32f13737699b1dfd261f2188b38c9ed0.svg" />
+<img style="max-width: 1158px;" usemap="#alterTablePartitionsImgMap" alt="syntax diagram for a alter table partitions command" src="./diagrams/alterTablePartitions-6261c43db22d8b8bc38322d9f903b36b.svg" />
 </div>
 
 Use alter table to modify the definition of the partitions or to automatically discover the available partitions.
