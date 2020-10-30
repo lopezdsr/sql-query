@@ -2770,6 +2770,15 @@ ALTER TABLE customers_partitioned DROP IF EXISTS PARTITION ( COUNTRY = 'Nowhere'
 ```
 {: codeblock}
 
+The `SET LOCATION` option can be used to change the location of an existing partition.
+
+
+```sql
+-- modify the location of an existing partition
+ALTER TABLE customers_partitioned PARTITION ( country = 'Spain') SET LOCATION cos://eu-de/sql/customers_partitioned.csv/COUNTRY=Spain
+```
+{: codeblock}
+
 Use the `EXISTS` option to avoid getting errors during `ADD` or `DROP`.
 
 <!-- HIDE START ### Set partition location
