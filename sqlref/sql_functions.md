@@ -1188,7 +1188,7 @@ date_format(timestamp, fmt) - Converts <code>timestamp</code> to a value of stri
 
 
 ## date_sub
-{: #date_sub
+{: #date_sub}
 
 date_sub(start_date, num_days) - Returns the date that is <code>num_days</code> before <code>start_date</code>.
 
