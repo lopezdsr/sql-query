@@ -367,11 +367,11 @@ If you run a single query, the most expensive query possible is `SELECT * FROM`,
 ## Timestamps
 {: #timestamps}
 
-Values of **timestamp** data type are created with UTC timezone by default. So for instance the expressions `timestamp('2009-07-30 04:17:52')`, `to_timestamp('2016-12-31', 'yyyy-MM-dd')` or `current_timestamp` will all result in a UTC timestamp value and the input string expressions are assumed to be in UTC time.
+Values of the **timestamp** data type are created with UTC timezone by default. So, for instance, the expressions `timestamp('2009-07-30 04:17:52')`, `to_timestamp('2016-12-31', 'yyyy-MM-dd')` or `current_timestamp` will all result in a UTC timestamp value and the input string expressions are assumed to be in UTC time.
 
-If you want to create a UTC timestamp from a string expression that represents a different timetone you can do so with [`to_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#to_utc_timestamp), like in `to_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
+If you want to create a UTC timestamp from a string expression that represents a different timezone, use [`to_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#to_utc_timestamp), as in `to_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
 
-You can also create timestamp values in a different timezone from a UTC timestamp value or a UTC string expression using [`from_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#from_utc_timestamp) like in `from_utc_timestamp(current_timestamp, 'Asia/Seoul')` or `from_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
+You can also create timestamp values in a different timezone from a UTC timestamp value, or a UTC string expression using [`from_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#from_utc_timestamp), as in `from_utc_timestamp(current_timestamp, 'Asia/Seoul')` or `from_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
 
 ## Limitations
 {: #limitations}
