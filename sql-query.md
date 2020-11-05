@@ -364,6 +364,15 @@ Let's assume you have 1 PB of data stored on Cloud {{site.data.keyword.cos_short
 [blog post](https://www.ibm.com/cloud/blog/big-data-layout) and is optimized for the queries you want to execute. 
 If you run a single query, the most expensive query possible is `SELECT * FROM`, as reading 1 PB of data is essentially required. Any other query will be much cheaper and faster. For example, a 1 PB data set consists of audit events for users of a system (user A performed action B in system X at time T) and the data is laid out in a way that it is partitioned by time (one file per day and system). So to answer a query like `SELECT DISTINCT user FROM WHERE System='X' AND Day >= (TODAY - 30)`, {{site.data.keyword.sqlquery_short}} has to access all objects for system X that contain data for the last 30 days. The sum of the size of these objects is the upper bound estimate of data scanned you would be charged for. But as {{site.data.keyword.sqlquery_short}} only accesses one field, and data is stored as Parquet, it is actually much less. Calculating the precise price of the query is not possible in advance, because much of it depends on the data itself. Parquet, for example, stores compressed columns, so if the column can be compressed effectively, even less data needs to be read. You also find some further details in the blog post [SQL Query releases serverless transformation and partitioning of data in open formats](https://www.ibm.com/cloud/blog/announcements/sql-query-releases-serverless-transformation-and-partitioning-of-data-in-open-formats) about {{site.data.keyword.sqlquery_short}} ETL capabilities and how they affect data scanned.
 
+## Timestamps
+{: #timestamps}
+
+Values of the **timestamp** data type are created with UTC timezone by default. So, for instance, the expressions `timestamp('2009-07-30 04:17:52')`, `to_timestamp('2016-12-31', 'yyyy-MM-dd')` or `current_timestamp` will all result in a UTC timestamp value and the input string expressions are assumed to be in UTC time.
+
+If you want to create a UTC timestamp from a string expression that represents a different timezone, use [`to_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#to_utc_timestamp), as in `to_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
+
+You can also create timestamp values in a different timezone from a UTC timestamp value, or a UTC string expression using [`from_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#from_utc_timestamp), as in `from_utc_timestamp(current_timestamp, 'Asia/Seoul')` or `from_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
+
 ## Limitations
 {: #limitations}
 
