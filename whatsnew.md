@@ -19,6 +19,9 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## November 2020
+- The location of hive partitions can now be modified using [`ALTER TABLE SET LOCATION`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionSpec) feature.
+
 ## October 2020
 - {{site.data.keyword.sqlquery_short}} index management, also referred to as data skipping has been made generally available with full production support.
 - {{site.data.keyword.sqlquery_full}} now comes with open data out of the box, including geolocation and demographic data that can be used as reference data to combine with your own data sets. It is based on open data from US Census, Eurostat Census, UNdata, OpenStreetMap, and Natural Earth. Explore it using the new category **Reference data statements** in SAMPLES.
