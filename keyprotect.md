@@ -51,7 +51,7 @@ Customer key encryption in {{site.data.keyword.sqlquery_short}} applies to the q
 With each query, you explicitly specify {{site.data.keyword.cos_full}} locations for input and target data, which are not controlled by {{site.data.keyword.sqlquery_short}}.
 So, if you are processing sensitive data, make sure that your query results are written to an {{site.data.keyword.cos_full_notm}} location that has appropriate protection. Note that default target locations, where results are stored by default if no other result locations are specified, are not and cannot be encrypted.
 
-{{site.data.keyword.cos_full_notm}} documents [how to configure customer key encryption for the Cloud Object Storage buckets](/docs/services/cloud-object-storage/libraries?topic=cloud-object-storage-manage-encryption#manage-encryption)
+{{site.data.keyword.cos_full_notm}} documents how to configure customer key encryption for the Cloud Object Storage buckets in [Managing encryption](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-encryption)
 storing the actual data.
 
 If you use {{site.data.keyword.keymanagementserviceshort}} to encrypt your queries, IBM staff cannot view the encrypted query texts and error messages. Consequently, provide this data explicitly to IBM service in a support case, so you can make sure that no sensitive information is exposed.
