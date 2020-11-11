@@ -127,7 +127,7 @@ JDBC driver logging works similarly to the [postgresql JDBC driver](https://jdbc
 ## Using the driver with Tableau Desktop
 {: #using_tableau}
 
-[Tableau Desktop](https://www.tableau.com/products/desktop) is a BI reporting tool that connects to a rich set of data sources. You can connect to any custom JDBC driver using the generic JDBC connector offered by Tableau.
+[Tableau Desktop](https://www.tableau.com/products/desktop) is a BI reporting tool that connects to a rich set of data sources. You can connect to any custom JDBC driver using the generic JDBC connector offered by Tableau. You will need Tableau Desktop 2020.2 or newer.
 
 To make sure that Tableau only generates SQL that is supported by a specific JDBC driver, you have to specify the supported/unsupported SQL capabilities of the driver. Tableau generates appropriate SQL statements dependent on this specification.
 
