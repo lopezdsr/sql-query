@@ -3,7 +3,7 @@
 copyright:
   year: 2018, 2020
 
-lastupdated: "2020-10-23"
+lastupdated: "2020-11-10"
 
 
 keywords: what's new, support, release, beta
@@ -18,6 +18,9 @@ subcollection: sql-query
   When you add new bullets at the top, prefix your commit message with "whatsnew: "
   to trigger an update of the UI build that will make users aware of the new information
 -->
+
+## November 2020
+- The location of Hive partitions can now be modified using the [`ALTER TABLE SET LOCATION`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionSpec) feature.
 
 ## October 2020
 - {{site.data.keyword.sqlquery_short}} index management, also referred to as data skipping has been made generally available with full production support.
