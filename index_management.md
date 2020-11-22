@@ -209,7 +209,7 @@ SHOW METAINDEXES
 ```
 
 The result includes the currently set metadata base location and a list of indexed data sets.
-
+Note: you might see `DEPRECATED_SUPPORTED` before the index this means that metadata version is duplicated but supported and skipping will work fine, the next `REFRESH` will update the metadata automatically.
 
 ### Deleting data skipping indexes
 {: #deleting_ds}
@@ -289,6 +289,8 @@ ALTER TABLE metergen DROP METAINDEX LOCATION
   ```
 
 - Concurrent `CREATE`/`REFRESH` operations are not supported.
+
+- Indexing nested geospatial field is not supported.
 
 - Using the Lite plan, data skipping features, such as `CREATE METAINDEX`, are not allowed.
 
