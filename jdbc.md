@@ -64,7 +64,7 @@ This driver is designed as a facade to JVM applications for easy access to {{sit
 
 The driver does not implement full JDBC-compliant functionality, but only the parts of the API that are most commonly used by clients. The following functionality is explicitly tested:
 
-- Retrieving query results with the following primitive SQL types: STRING/VARCHAR, INTEGER, LONG, FLOAT, DOUBLE, DECIMAL, DATE, TIME, TIMESTAMP.
+- Retrieving query results with the following primitive SQL types: STRING/VARCHAR, INTEGER, LONG, FLOAT, DOUBLE, DECIMAL, DATE, TIME, TIMESTAMP. Time information that doesn't encode a timezone will be handled as UTC.
 - Inspecting result columns and types via the JDBC ResultSetMetaData interface.
 - Running DDL statements `CREATE/DROP TABLE` to manage objects in the [{{site.data.keyword.sqlquery_short}} catalog](/docs/sql-query?topic=sql-query-hivemetastore).
 - Accessing a list of tables and table columns via the JDBC DatabaseMetaData interface. The schema information is retrieved from the {{site.data.keyword.sqlquery_short}} catalog.
