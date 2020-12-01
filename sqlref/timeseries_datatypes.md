@@ -85,6 +85,7 @@ example:<pre class="pre codeblock"><code>[(1,[(1, ["a", "xq"]), (3, ["b", "zr"])
 </table>
 </div>
 </div>
+</div>
 
 <div class="p"><div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" class="table" rules="rows" frame="hsides" border="1"><caption><span class="tablecap">Table 2. Pseudo data types</span>. <span class="desc tabledesc">These are not actual data types, but are placeholders used by the documentation to represent
 any of several time series data types.</span></caption><thead class="thead" align="left"><tr class="row"><th class="entry ncol thleft" valign="top" width="19.53125%" id="d2766e102">Placeholder</th>
@@ -138,5 +139,6 @@ timetick to a corresponding moment in time.</td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 

@@ -2847,7 +2847,7 @@ The following types of operators can be used:
 | `A % B`   | All number types | Returns the reminder after dividing A by B.  For example, 13.7 % 3 returns 1.7. The type of the result is the same as the type of the operand that is highest in the type hierarchy. For example, if A is of type FLOAT and B is of type INT, the result is of type FLOAT. |
 | `A DIV B` | Integer types    | Returns the integer part of the result of dividing A by B. For example, 13.7 DIV 3 returns the integer 4. |
 | `A & B`   | All number types | Returns the result of bitwise AND of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
-| <code>A &#124; B</code> | All number types | Returns the result of bitwise OR of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
+| <code>A \| B</code> | All number types | Returns the result of bitwise OR of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
 | `A ^ B`  | All number types | Returns the result of bitwise XOR of A and B. The type of the result is the same as the type of the operand that is highest in the type hierarchy. |
 {: caption="Table 52. Arithmetic operators" caption-side="top"}
 
@@ -2856,7 +2856,7 @@ The following types of operators can be used:
 
 | Operator | Operand types | Description |
 | :----: | ---- | ---- |
-| <code>A &#124;&#124; B</code> |  All types | Returns the concatenation of A and B. If A or B is not a string, it is first converted into a string type. The result is a string. |
+| <code>A \|\| B</code> |  All types | Returns the concatenation of A and B. If A or B is not a string, it is first converted into a string type. The result is a string. |
 {: caption="Table 53. String operator" caption-side="top"}
 
 
@@ -3267,27 +3267,16 @@ ALTER TABLE customers_partitioned PARTITION (country = 'Spain') SET LOCATION cos
 
 Use the `EXISTS` option to avoid getting errors during `ADD` or `DROP`.
 
-<!-- HIDE START ### Set partition location
-
-To change a partition definition, use the `SET LOCATION` option.
-
-```sql
--- alter the table partitions definition
-ALTER TABLE customers_partitioned PARTITION ( COUNTRY = 'Spain') SET LOCATION cos://us-geo/sql/customers_partitioned.csv/COUNTRY=Spain
-```
-{: codeblock}
-HIDE END -->
-
 <!-- HIDE START ### Analyze Table
 
 <h4 id="analyzeTable">Analyze Table</h4>
 
-*!-- include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" --*
+*!<add comment lines here> include-svg src="./svgfiles/analyzeTable.svg" target="./diagrams/analyzeTable.svg" alt="syntax diagram for a analyze table command" layout="@break@" <add comment lines here>*
 
 The `ANALYZE TABLE` statement collects statistics about the specified table and for the specified columns. This information can be used by the query optimizer to improve the query plan. For example, to decide which table is smaller when using a broadcast hash join, add those columns that are used in the SELECT statements.
 
 ```sql
--- analyze statistics for the table customer without scanning each object
+<add comment lines here> analyze statistics for the table customer without scanning each object
 analyze table customer compute STATISTICS NOSCAN
 ```
 {: codeblock}
@@ -3340,19 +3329,19 @@ SHOW TABLES
 
 <h4 id="showTblProperties">Show Table Properties</h4>
 
-*!--  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" --*
+*!<add comment lines here>  include-svg src="./svgfiles/showTblProperties.svg" target="./diagrams/showTblProperties.svg" alt="syntax diagram for show table properties" layout="@break@" <add comment lines here>*
 
 <h4 id="tableProperty">Table Property</h4>
 
-*!--  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" --*
+*!<add comment lines here>  include-svg src="./svgfiles/tableProperty.svg" target="./diagrams/tableProperty.svg" alt="syntax diagram for table properties" layout="@break@" <add comment lines here>*
 
-*!--  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" --*
+*!<add comment lines here>  include-svg src="./svgfiles/tablePropertyKey.svg" target="./diagrams/tablePropertyKey.svg" alt="syntax diagram for table properties" layout="@break@" <add comment lines here>*
 
 
 Return either all properties of a table definition or a specific property. You receive an error if the table does not exist.
 
 ```sql
--- returns all specified table options for the table customer
+<add comment lines here> returns all specified table options for the table customer
 SHOW TBLPROPERTIES customer
 ```
 {: codeblock} HIDE END -->
@@ -3652,8 +3641,8 @@ An unquoted identifier is at least one character long. Valid characters that can
 
 <h4>Backquoted Identifier</h4>
 
-This is an identifier that is embraced by grave accent <code>&#96;</code> characters. Backquoted identifier can
-contain any character including the grave accent character that has to be escaped like this <code>&#96;&#96;</code>.
+This is an identifier that is embraced by grave accent <code>\`</code> characters. Backquoted identifier can
+contain any character including the grave accent character that has to be escaped like this <code>\`\`</code>.
 
 The following example shows how to add a column name containing a special character:
 
@@ -3707,6 +3696,6 @@ See section [dataType](#dataType) for more details about data types.
 
 A *string* is a sequence of arbitrary characters including escaped characters, for example,
 `\t`, either enclosed in single quotes `'`, or double quotes, `"`.
-To include any quote characters in the string they have to be escaped as <code>\\\\&#96;</code> or `\\"`, respectively.
+To include any quote characters in the string they have to be escaped as <code>\\\\\`</code> or `\\"`, respectively.
 
 
