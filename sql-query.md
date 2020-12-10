@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2020
-lastupdated: "2020-06-18"
+lastupdated: "2020-12-10"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -298,6 +298,15 @@ s3.par01.cloud-object-storage.appdomain.cloud   | par01
 s3.sjc04.cloud-object-storage.appdomain.cloud   | sjc04
 s3.seo01.cloud-object-storage.appdomain.cloud   | seo01
 s3.sng01.cloud-object-storage.appdomain.cloud   | sng01
+
+## Availability zones
+{: #availability}
+
+Regions | Availability zones
+--- | ---
+Dallas  | 3
+Frankfurt | 3
+Chennai | 1
 
 ## Programmatic access
 {: #access}
