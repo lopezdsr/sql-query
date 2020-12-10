@@ -308,7 +308,7 @@ Dallas  | 3
 Frankfurt | 3
 Chennai | 1
 
-For Availability Service Level Agreements please refer to the [Cloud Service terms](http://www-03.ibm.com/software/sla/sladb.nsf/sla/bm?OpenDocument).
+For Availability Service Level Agreements, refer to the [Cloud Service terms](http://www-03.ibm.com/software/sla/sladb.nsf/sla/bm?OpenDocument).
 
 ## Programmatic access
 {: #access}
