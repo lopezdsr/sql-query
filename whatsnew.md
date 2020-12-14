@@ -19,6 +19,9 @@ subcollection: sql-query
   to trigger an update of the UI build that will make users aware of the new information
 -->
 
+## December 2020
+- {{site.data.keyword.sqlquery_short}} is now available in Chennai, India. When provisioning new instances, you can now select whether it is being provisioned in Dallas, Frankfurt or Chennai.
+
 ## November 2020
 - The location of Hive partitions can now be modified using the [`ALTER TABLE SET LOCATION`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionSpec) feature.
 
