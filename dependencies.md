@@ -26,7 +26,7 @@ This excludes customer data used by dependant service instances which are under 
 ## Critical Dependencies
 {:critical}
 
-The following dependencies of IBM Cloud SQL Query are considered critical. 
+The following dependencies of {{site.data.keyword.sqlquery_short}} are considered critical. 
 Any loss of connectivity or service of one of these dependencies results in a functional impact to the customer on {{site.data.keyword.sqlquery_short}}.
 
 Service name | Description
