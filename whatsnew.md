@@ -21,6 +21,7 @@ subcollection: sql-query
 
 ## December 2020
 - {{site.data.keyword.sqlquery_short}} is now available in Chennai, India. When provisioning new instances, you can now select whether it is being provisioned in Dallas, Frankfurt or Chennai.
+- {{site.data.keyword.cos_full_notm}} web console does not discover SQL-queryable objects and folders and allows to directly launch the {{site.data.keyword.sqlquery_short}} web console with an accordingly prefilled SQL statement for seamless interactive data exploration.
 
 ## November 2020
 - The location of Hive partitions can now be modified using the [`ALTER TABLE SET LOCATION`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionSpec) feature.
