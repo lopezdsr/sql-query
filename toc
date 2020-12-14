@@ -63,4 +63,5 @@ SQL Query
     {: .topicgroup}
     Enhancing security
         deployment_model.md
+        dependencies.md
     {: .navgroup-end}
