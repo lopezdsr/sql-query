@@ -48,7 +48,7 @@ Service name | Description
 --- | ---
 IBM Cloud Object Storage (COS) | The service instance which is owned by the customer who controls access to the instance by using IAM policies contains customer data, SQL Query results and metaindex information describing value distribution in actual data objects. All data is encrypted in transit and at rest. To learn more, see [IBM Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage).
 IBM Db2 on Cloud | Used to store SQL results in user-provided instances. To learn more, see [Db2 on Cloud](https://cloud.ibm.com/docs/Db2onCloud).
-IBM Key Protect for IBM Cloud | The user-provided instances provide: keys for envelope encryption of customer data in the job status DB (IBM Cloudant) and passwords/apikeys for access to customer Db2. To learn more, see [IBM Key Protect for IBM Cloud]https://cloud.ibm.com/docs/key-protect().
+IBM Key Protect for IBM Cloud | The user-provided instances provide: keys for envelope encryption of customer data in the job status DB (IBM Cloudant) and passwords/apikeys for access to customer Db2. To learn more, see [IBM Key Protect for IBM Cloud](https://cloud.ibm.com/docs/key-protect).
 BM Cloud Activity Tracker with LogDNA | IBM Cloud SQL Query integrates with IBM Cloud Activity Tracker with LogDNA to forward location audit events to the IBM Cloud Activity Tracker with LogDNA service instance that is set up and owned by you. To learn more, see [IBM Cloud Activity Tracker with LogDNA](https://cloud.ibm.com/docs/Activity-Tracker-with-LogDNA).
 
 #### Other dependencies 
