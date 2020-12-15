@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020
-lastupdated: "2020-12-14"
+lastupdated: "2020-12-15"
 
 keywords: SQL query, dependencies, cloud
 
@@ -21,6 +21,8 @@ subcollection: sql-query
 
 ## Dependencies to other IBM Cloud Services
 {:dependencies_cloud}
+
+In general, customer data is not leaving the region or country, in which an instance of {{site.data.keyword.sqlquery_full}} had been provisioned. This excludes customer data used by dependant service instances which are under customer responsibility.
 
 ### Critical Dependencies
 {:critical}
@@ -41,7 +43,7 @@ IBM Cloud Messages for RabbitMQ | Queues used for internal communication between
 IBM Cloud Object Storage (COS) | The service instance owned by the service contains out of the box sample data sets, backups of Cloudant data and IAE bootstrap config. To learn more, see [IBM Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage).
 IBM Cloud Resource Controller and IBM Cloud catalog | Used to load required information about your service instance and offering plan. To learn more, see [IBM Cloud Resource Controller API](https://cloud.ibm.com/apidocs/resource-controller/resource-controller).
 
-#### Dependencies to IBM service instances owned and managed by you
+### Dependencies to IBM service instances owned and managed by you
 {:dependencies_service_instances}
 
 Service name | Description
@@ -51,7 +53,7 @@ IBM Db2 on Cloud | Used to store SQL results in user-provided instances. To lear
 IBM Key Protect for IBM Cloud | The user-provided instances provide: keys for envelope encryption of customer data in the job status DB (IBM Cloudant) and passwords/apikeys for access to customer Db2. To learn more, see [IBM Key Protect for IBM Cloud](https://cloud.ibm.com/docs/key-protect).
 BM Cloud Activity Tracker with LogDNA | IBM Cloud SQL Query integrates with IBM Cloud Activity Tracker with LogDNA to forward location audit events to the IBM Cloud Activity Tracker with LogDNA service instance that is set up and owned by you. To learn more, see [IBM Cloud Activity Tracker with LogDNA](https://cloud.ibm.com/docs/Activity-Tracker-with-LogDNA).
 
-#### Other dependencies 
+### Other dependencies 
 {:other_dependencies}
 
 Service name | Description
