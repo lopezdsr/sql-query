@@ -209,7 +209,7 @@ SHOW METAINDEXES
 ```
 
 The result includes the currently set metadata base location and a list of indexed data sets.
-Note: If you see `DEPRECATED_SUPPORTED` in front of the index, it means that the metadata version is duplicated but supported and skipping will work. The next `REFRESH` will update the metadata automatically.
+Note: If you see `DEPRECATED_SUPPORTED` in front of the index, it means that the metadata version is deprecated but supported and skipping will work. The next `REFRESH` will update the metadata automatically.
 
 ### Deleting data skipping indexes
 {: #deleting_ds}
