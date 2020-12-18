@@ -175,7 +175,7 @@ Consider the following time series, which is stored in a table column with the n
 
 `[(1, NaN), (3, 2.0), (5, 3.5), (7, 6.0), (8, 7.1)]`  
 
-Running the TS_RESAMPLE function with an interpolater of type TS_INTERPOLATOR_PREV, periodicity 1, and fill value -1.0, produces the following output:  
+Running the TS_RESAMPLE function with an interpolator of type TS_INTERPOLATOR_PREV, periodicity 1, and fill value -1.0, produces the following output:  
 
 ```sql
 SELECT TS_RESAMPLE(ts6, 1, TS_INTERPOLATOR_PREV(-1.0))    
