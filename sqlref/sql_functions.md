@@ -2102,12 +2102,10 @@ The escape character is '\'. If an escape character precedes a special symbol or
 escape character, the following character is matched literally. It is invalid to escape
 any other character.
 
-Since Spark 2.0, string literals are unescaped in our SQL parser. For example, in order
+String literals are unescaped in our SQL parser. For example, in order
 to match "\abc", the pattern should be "\abc".
 
-When SQL config 'spark.sql.parser.escapedStringLiterals' is enabled, it fallbacks
-to Spark 1.6 behavior regarding string literal parsing. For example, if the config is
-enabled, the pattern to match "\abc" should be "\abc".
+For example, if the config is enabled, the pattern to match "\abc" should be "\abc".
 
 </li>
 </ul>
@@ -3025,13 +3023,11 @@ str rlike regexp - Returns true if <code>str</code> matches <code>regexp</code>,
 
 regexp - a string expression. The pattern string should be a Java regular expression.
 
-Since Spark 2.0, string literals (including regex patterns) are unescaped in our SQL
+String literals (including regex patterns) are unescaped in our SQL
 parser. For example, to match "\abc", a regular expression for <code>regexp</code> can be
 "^\abc$".
 
-There is a SQL config 'spark.sql.parser.escapedStringLiterals' that can be used to
-fallback to the Spark 1.6 behavior regarding string literal parsing. For example,
-if the config is enabled, the <code>regexp</code> that can match "\abc" is "^\abc$".
+For example, if the config is enabled, the <code>regexp</code> that can match "\abc" is "^\abc$".
 
 </li>
 </ul>
