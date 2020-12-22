@@ -2103,9 +2103,9 @@ escape character, the following character is matched literally. It is invalid to
 any other character.
 
 String literals are unescaped in our SQL parser. For example, in order
-to match "\abc", the pattern should be "\abc".
+to match "\abc", the pattern should be "\\abc".
 
-For example, if the config is enabled, the pattern to match "\abc" should be "\abc".
+For example, if the config is enabled, the pattern to match "\abc" should be "\\abc".
 
 </li>
 </ul>
