@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  year: 2018, 2019
-lastupdated: "2019-12-04"
+  year: 2018, 2020
+lastupdated: "2020-12-22"
 
 keywords: SQL, functions
 
