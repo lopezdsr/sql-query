@@ -31,7 +31,7 @@ subcollection: sql-query
   - [spdx-exceptions](https://www.npmjs.com/package/spdx-exceptions)
   
 {{site.data.keyword.sqlquery_short}} includes some or all of the following works licensed under the 
-[Creative Commons License CC-BY-SA 4.]((https://creativecommons.org/licenses/by-sa/4.0/):
+[Creative Commons License CC-BY-SA 4.0](https://creativecommons.org/licenses/by/4.0/):
 
   - [highlight.js](https://www.npmjs.com/package/highlight.js)
 
