@@ -44,13 +44,10 @@ and not the [IBM Cloud Terms of Use](https://cloud.ibm.com/docs/overview/terms-o
 Future Program updates or fixes may contain additional Separately Licensed Code. Such additional Separately Licensed Code 
 and related licenses are listed in the applicable NON_IBM_LICENSE list below.
 
-Note: Notwithstanding any of the terms in the third party license agreement, the Agreement, or any other agreement Licensee may have with IBM, 
-with respect to the Separately Licensed Code:
+Note: Notwithstanding any of the terms in the third party license agreement, the Agreement, or any other agreement Licensee may have with IBM, with respect to the Separately Licensed Code:
 (a) IBM provides it to Licensee WITHOUT WARRANTIES OF ANY KIND AND DISCLAIMS ANY AND ALL EXPRESS AND IMPLIED WARRANTIES AND CONDITIONS INCLUDING, 
-BUT NOT LIMITED TO, THE WARRANTY OF TITLE, NON-INFRINGEMENT OR NON-INTERFERENCE, AND THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY 
-AND FITNESS FOR A PARTICULAR PURPOSE;
-(b) IBM is not liable for any direct, indirect, incidental, special, exemplary, punitive or consequential damages including, but not limited to, 
-lost data, lost savings, and lost profits.
+BUT NOT LIMITED TO, THE WARRANTY OF TITLE, NON-INFRINGEMENT OR NON-INTERFERENCE, AND THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE;
+(b) IBM is not liable for any direct, indirect, incidental, special, exemplary, punitive or consequential damages including, but not limited to, lost data, lost savings, and lost profits.
 
 NON_IBM_LICENSE list:
 
