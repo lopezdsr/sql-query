@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  year: 2018, 2020
-lastupdated: "2020-02-25"
+  year: 2018, 2021
+lastupdated: "2021-01-11"
 
 keywords: security, gdpr, hipaa, compliance, personal data, personal information, privacy policy, cloud notice, terms of use
 
@@ -39,9 +39,9 @@ with its policies as a Data Processor regarding content and data protection.
 {{site.data.keyword.sqlquery_notm}} with {{site.data.keyword.keymanagementservicelong}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements. These requirements include the appropriate administrative, physical, and technical safeguards required of Business Associates in 45 CFR Part 160 and Subparts A and C of Part 164. HIPAA must be requested at the time of provisioning and requires a representative to sign a Business Associate Addendum (BAA) agreement with IBM.
 **Note:** If you are a HIPAA user, you must not use catalog management (Hive Metastore).
 
-## ISO 27001/27017/27018
+## ISO 27001/27017/27018 & ISO 27701
 {: #iso}
 
-{{site.data.keyword.sqlquery_notm}} is ISO 27001/27017/27018 certified. The certificates and the certified cloud products listing can be found in the [IBM Trust Center](https://www.ibm.com/trust) in section [Compliance](https://www.ibm.com/cloud/compliance).
+{{site.data.keyword.sqlquery_notm}} is ISO 27001/27017/27018 and ISO 27701 certified. The certificates and the certified cloud products listing can be found in the [IBM Trust Center](https://www.ibm.com/trust) in section [IBM Cloud Compliance Programs - Global](https://www.ibm.com/cloud/compliance/global).
 
 
