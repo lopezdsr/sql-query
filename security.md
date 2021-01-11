@@ -37,6 +37,7 @@ with its policies as a Data Processor regarding content and data protection.
 {: #hipaa}
 
 {{site.data.keyword.sqlquery_notm}} with {{site.data.keyword.keymanagementservicelong}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements. These requirements include the appropriate administrative, physical, and technical safeguards required of Business Associates in 45 CFR Part 160 and Subparts A and C of Part 164. HIPAA must be requested at the time of provisioning and requires a representative to sign a Business Associate Addendum (BAA) agreement with IBM.
+
 **Note:** If you are a HIPAA user, you must not use catalog management (Hive Metastore).
 
 ## ISO 27001/27017/27018 & ISO 27701
