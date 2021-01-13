@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2020
-lastupdated: "2020-12-22"
+lastupdated: "2021-01-13"
 
 keywords: SQL, functions
 
@@ -3019,7 +3019,7 @@ str rlike regexp - Returns true if <code>str</code> matches <code>regexp</code>,
 
 <ul>
 <li>str - a string expression</li>
-<li>
+</ul>
 
 regexp - a string expression. The pattern string should be a Java regular expression.
 
@@ -3029,8 +3029,6 @@ parser. For example, to match "\abc", a regular expression for <code>regexp</cod
 
 For example, if the config is enabled, the <code>regexp</code> that can match "\abc" is "^\abc$".
 
-</li>
-</ul>
 **Example of an SQL function usage fragment:**
 
 When spark.sql.parser.escapedStringLiterals is disabled (default).
