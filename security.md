@@ -40,7 +40,7 @@ with its policies as a Data Processor regarding content and data protection.
 
 **Note:** If you are a HIPAA user, you must not use catalog management (Hive Metastore).
 
-## ISO 27001/27017/27018 & ISO 27701
+## ISO 27001/27017/27018 and ISO 27701
 {: #iso}
 
 {{site.data.keyword.sqlquery_notm}} is ISO 27001/27017/27018 and ISO 27701 certified. The certificates and the certified cloud products listing can be found in the [IBM Trust Center](https://www.ibm.com/trust) in section [IBM Cloud Compliance Programs - Global](https://www.ibm.com/cloud/compliance/global).
