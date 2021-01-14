@@ -112,7 +112,7 @@ The result of the example query is shown below:
 `[(1, [(1, 1.0), (3, 2.0)]), (3, [(3, 2.0), (5, 3.0)]), (5, [(5, 3.0),(7, 4.0)]), (7, [(7, 4.0),(9, 5.0)])]`  
 
 Some statistical functions operate expressly on segmented data. 
-For example, the following SELECT statement returns a DoubleTimeSeries that contains, for each segment of a DoubleSegmentTimeSeries, the average of its values.  
+For example, the following SELECT statement returns a DoubleTimeSeries. This DoubleTimeSeries contains the average of a DoubleSegmentTimeSeries’s values for each segment of the DoubleSegmentTimeSeries.
 
 ```sql
 SELECT TS_SEG_AVG(TS_SEGMENT(ts2, 2, 1))    
