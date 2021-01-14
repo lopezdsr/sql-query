@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020
-lastupdated: "2020-10-27"
+lastupdated: "2020-12-18"
 
 keywords: best practice, faq, sql query
 
@@ -47,7 +47,7 @@ using time_series_format(key="key", timetick="time_tick", value="amount") in ts
 The above query creates one time series per key, and partitions the data based on the key. Anytime a query is run against "ts", 
 it will be run in parallel across time series. The issue arises if "ts" is very large and thus does not fit in the memory of one machine. To mitigate this, modify your key as follows:
 
-First, add a date to your key (the key must not be with a date, it can be with any granularity of time):
+First, add a date or any granularity of time to your key (in order to generate a smaller time series):
 
 ```
 select

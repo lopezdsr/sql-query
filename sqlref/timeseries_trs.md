@@ -39,11 +39,11 @@ Consider the following simple time series:
 
 `[(0, 1.0), (1, 2.0), (2, 4.0)]`  
 
-Using a TRS that has a time granularity of 5 minutes and a start time of exactly 50 years results in the following new set of timestamps:  
+Using a TRS that has a time granularity of 5 minutes and a start time of exactly 50 years ("2020-01-01T00:00") results in the following new set of timestamps:  
 
 `[(0=2020-01-01T00:00, 1.0), (1=2020-01-01T00:05, 2.0), (2=2020-01-01T00:10, 4.0)]`  
 
-Note: When you use a TRS to convert a timestamp to a numeric representation, if the time granularity of the TRS is coarser than that of the input timestamp, precision is lost. For example, if the time granularity of a timestamp is 1 second and you use a TRS with a granularity of one minute, converting the timestamp 9:05:43 results in a numeric representation that corresponds to 9:05:00 (the seconds are truncated). However, if the time granularity of the TRS is finer than and an integral divisor of the granularity of the input time series (for example, 1 second for the TRS and 5 seconds for the input time series), forward projection is lossless.  
+Note: When you use a TRS to convert a timestamp to a numeric representation, if the time granularity of the TRS is coarser than that of the input timestamp, precision is lost. For example, if the time granularity of a timestamp is 1 second and you use a TRS with a granularity of one minute, converting the timestamp 9:05:43 results in a numeric representation that corresponds to 9:05:00 (the seconds are truncated). However, if the time granularity of the TRS is finer than an integral divisor of the granularity of the input time series (for example, 1 second for the TRS and 5 seconds for the input time series), forward projection is lossless.  
 
 ## Associating a time series with a TRS
 {: #associating}

@@ -313,7 +313,7 @@ Expression that subtracts the second expression from the first expression.
 
 **"TS_EXP_DIVIDE”(DoubleExpType, DoubleExpType)**
 Output: Double Expression
-Expression that divides the second expression from the first expression.
+Expression that divides the first expression by the second expression.
 
 **"TS_EXP_MULTIPLY”(DoubleExpType, DoubleExpType)**
 Output: Double Expression
@@ -487,7 +487,7 @@ Creates a matcher that matches an array of string values (the *pattern*) with a 
 
 **TS_MATCHER_SUBSET_PS(Double)**
 Output: MatcherType
-Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in which the items in the pattern occur in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in the items in the pattern and the order in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSET_PM(Double)**
 Output: MatcherType

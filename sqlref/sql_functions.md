@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  year: 2018, 2019
-lastupdated: "2019-12-04"
+  year: 2018, 2020
+lastupdated: "2021-01-13"
 
 keywords: SQL, functions
 
@@ -2102,12 +2102,8 @@ The escape character is '\'. If an escape character precedes a special symbol or
 escape character, the following character is matched literally. It is invalid to escape
 any other character.
 
-Since Spark 2.0, string literals are unescaped in our SQL parser. For example, in order
-to match "\abc", the pattern should be "\abc".
-
-When SQL config 'spark.sql.parser.escapedStringLiterals' is enabled, it fallbacks
-to Spark 1.6 behavior regarding string literal parsing. For example, if the config is
-enabled, the pattern to match "\abc" should be "\abc".
+String literals are unescaped in our SQL parser. For example, in order
+to match "\abc", the pattern should be "\\abc".
 
 </li>
 </ul>
@@ -3021,20 +3017,14 @@ str rlike regexp - Returns true if <code>str</code> matches <code>regexp</code>,
 
 <ul>
 <li>str - a string expression</li>
-<li>
+</ul>
 
 regexp - a string expression. The pattern string should be a Java regular expression.
 
-Since Spark 2.0, string literals (including regex patterns) are unescaped in our SQL
+String literals (including regex patterns) are unescaped in our SQL
 parser. For example, to match "\abc", a regular expression for <code>regexp</code> can be
 "^\abc$".
 
-There is a SQL config 'spark.sql.parser.escapedStringLiterals' that can be used to
-fallback to the Spark 1.6 behavior regarding string literal parsing. For example,
-if the config is enabled, the <code>regexp</code> that can match "\abc" is "^\abc$".
-
-</li>
-</ul>
 **Example of an SQL function usage fragment:**
 
 When spark.sql.parser.escapedStringLiterals is disabled (default).
