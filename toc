@@ -41,7 +41,6 @@ SQL Query
     activity.md
     monitoring.md
     jdbc.md
-    license.md
     {: .navgroup-end}
 
     {: .navgroup id="howto"}
