@@ -313,7 +313,7 @@ Expression that subtracts the second expression from the first expression.
 
 **"TS_EXP_DIVIDE”(DoubleExpType, DoubleExpType)**
 Output: Double Expression
-Expression that divides the second expression from the first expression.
+Expression that divides the first expression by the second expression.
 
 **"TS_EXP_MULTIPLY”(DoubleExpType, DoubleExpType)**
 Output: Double Expression
