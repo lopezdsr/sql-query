@@ -2105,8 +2105,6 @@ any other character.
 String literals are unescaped in our SQL parser. For example, in order
 to match "\abc", the pattern should be "\\abc".
 
-For example, if the config is enabled, the pattern to match "\abc" should be "\\abc".
-
 </li>
 </ul>
 
@@ -3026,8 +3024,6 @@ regexp - a string expression. The pattern string should be a Java regular expres
 String literals (including regex patterns) are unescaped in our SQL
 parser. For example, to match "\abc", a regular expression for <code>regexp</code> can be
 "^\abc$".
-
-For example, if the config is enabled, the <code>regexp</code> that can match "\abc" is "^\abc$".
 
 **Example of an SQL function usage fragment:**
 
