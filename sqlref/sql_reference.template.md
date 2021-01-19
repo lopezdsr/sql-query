@@ -729,6 +729,28 @@ If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to 
 
 <!--include-svg src="./svgfiles/externalTableSpec.svg" target="./diagrams/externalTableSpec.svg" alt="syntax diagram for an external table specification" layout="" -->
 
+<h3 id="timeSeriesProperties">timeSeriesProperties</h3>
+
+TIME_SERIES_FORMAT is a read transformation mechanism that uses a set of timeSeriesProperties in order to dynamically generate a one or more native time series columns (defined via the IN clause) from the specified value and key columns of the input data.
+
+<!--include-svg src="./svgfiles/timeSeriesProperties.svg" target="./diagrams/timeSeriesProperties.svg" alt="syntax diagram for time series properties" layout="" -->
+
+Of the parameters, timetick and value are the only parameters that are required to be specified. 
+
+The following are the meaning of each parameter and how they affect the time-series (Note - there is no specific order tot eh timeSeriesProperties):
+
+timetick - the column which contains the timestamp or time-tick. Ultimately, the resulting time-series will be sorted by this column. If 2 rows contain the same time-tick, there are no guarantees as to which time-tick comes first in the time-series.
+
+value - the column which contains the value.
+
+key - Optionally specify a key column for which to group each time-series by. If one is given, you can assume that there will be *n* time-series created, where n is the set of all keys in the key column. If no key-column is specified, a single time-series will be created from the given data-set
+
+starttime - Optionally specify a start_time string (Any Properly formatted DateTime from https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for which to set the time-series _TRS_. If start_time is not given, and granularity is given, the starttime will default to Jan 1, 1970 12am (midnight) GMT, however if no granularity is given, a _TRS_ will not be associated with the created time-series
+
+granularity - Optionally specify a granularity string (a Properly formatted ISO-8601 Duration format) for which to set the time-series _TRS_. If granularity is not given, and starttime is given, the default granularity will be 1 millisecond, however if no start_time is given, a _TRS_ will not be associated with the created time-series
+
+<!--include-svg src="./svgfiles/timeSeriesOptions.svg" target="./diagrams/timeSeriesOptions.svg" alt="syntax diagram for time series options" layout="" -->
+
 <h3 id="tableTransformer">tableTransformer</h3>
 
 A table transformer is a function that is applied to the input data set before it is sent to the actual SQL query compilation and execution.
@@ -1357,7 +1379,7 @@ The syntax for SQL function invocation is described by the syntax diagram below.
 
 <!--include-svg src="./svgfiles/functionOrAggregate.svg" target="./diagrams/functionOrAggregate.svg" alt="syntax diagram for a function or aggregate" layout="" -->
 
-Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, and `STRUCT()` support a different invocation style.
+Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, `STRUCT()`, `EXTRACT()` and `SUBSTRING()` support a different invocation style.
 
 Refer to section [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for details about supported functions.
 
@@ -1892,7 +1914,7 @@ For further details about the clauses used by a *primary expression*, refer to t
 * [query](#query)
 * [STRING](#STRING)
 * [valueExpression](#valueExpression)
-
+* [timeSeriesExpression](#timeSeriesExpression)
 
 <h3>Predicates</h3>
 
@@ -2401,6 +2423,80 @@ For further details about the clauses used by a *case expression*, refer to the 
 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
+
+<h3>Time Series Expressions</h3>
+
+The syntax of a *time series expressions* is described by the syntax diagrams below.
+
+<h4 id="timeSeriesExpression">timeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/timeSeriesExpression.svg" target="./diagrams/timeSeriesExpression.svg" alt="syntax diagram for time series expression" layout="" -->
+
+The syntax shows time series functions which require expressions like  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`, `TS_FIND()` and `TS_COUNT_ANCHOR()`.
+
+For more details on each function see [Data processing functions](/docs/services/sql-query?topic=sql-query-data_processing_functions).
+
+<h4>Example</h4>
+
+```sql
+WITH timeseries_input AS (SELECT location, TIME_SERIES_WITH_TRS(TS_TIMESTAMP(timestamp), humidity, TS_TRS_DEFAULT()) AS ts
+                          FROM cos://us-geo/sql/temperature_humidity.csv STORED AS CSV
+                          GROUP BY location),
+    only_40_or_above_ts AS (
+	    SELECT location, 
+	   		TS_FILTER(ts, TS_EXP_GT(TS_EXP_ID(), 40.0)) AS above_40_ts 
+	    FROM timeseries_input
+	)
+SELECT location, TS_EXPLODE(above_40_ts) AS (timestamp, humidity) FROM only_40_or_above_ts
+```
+{: codeblock}
+
+A *time series expression* is referenced by the following clause:
+* [primaryExpression](#primaryExpression)
+
+<h4 id="booleanTimeSeriesExpression">booleanTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/booleanTimeSeriesExpression.svg" target="./diagrams/booleanTimeSeriesExpression.svg" alt="syntax diagram for boolean time series expression" layout="" -->
+
+The boolean time series expression syntax shows the available boolean exresssions like `TS_EXP_GT()` which is also used in the example above. 
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="valueTimeSeriesExpression">valueTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/valueTimeSeriesExpression.svg" target="./diagrams/valueTimeSeriesExpression.svg" alt="syntax diagram for value time series expression" layout="" -->
+
+Time series values for expressions could either be a `string` or a `double` datatype.
+
+<h4 id="doubleTimeSeriesExpression">doubleTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/doubleTimeSeriesExpression.svg" target="./diagrams/doubleTimeSeriesExpression.svg" alt="syntax diagram for double time series expression" layout="" -->
+
+The functions shown in the double time series expressions like `TS_EXP_ABS()` or `TS_EXP_LENGTH()` are able to consume again double time series expressions,  `number` or an identity time series expression. 
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="stringTimeSeriesExpression">stringTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/stringTimeSeriesExpression.svg" target="./diagrams/stringTimeSeriesExpression.svg" alt="syntax diagram for string time series expression" layout="" -->
+
+The string function `TS_EXP_ID_TO_STRING()` converts an id to a string and the `TS_EXP_CONCAT()` function concatinates the result of two string expressions.
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="stringConditionalExpression">stringConditionalExpression</h4>
+
+<!--include-svg src="./svgfiles/stringConditionalExpression.svg" target="./diagrams/stringConditionalExpression.svg" alt="syntax diagram for string conditional time series expression" layout="" -->
+
+There are three conditional expression functions for sting values `TS_EXP_IF_THEN_ELSE()`, `TS_EXP_IF_THEN()` and `TS_EXP_MATCH_CASE()`.
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="identityTimeSeriesExpression">identityTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/identityTimeSeriesExpression.svg" target="./diagrams/identityTimeSeriesExpression.svg" alt="syntax diagram for identity time series expression" layout="" -->
+
+The identity expressions denotes current observation's values in time series.
 
 ### Operator
 {: #chapterOperator}
@@ -3040,10 +3136,17 @@ ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
 
 <h4 id="metaindexAsset">metaindexAsset</h4>
 
-The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+The indexAsset is either based on a table or COS location.
 
 <!--include-svg src="./svgfiles/metaindexAsset.svg" target="./diagrams/metaindexAsset.svg" alt="syntax diagram for index asset" layout="@break@" -->
 
+The metaindexAssetLocation is an subset of the [externalTableSpec](#externalTableSpec).
+
+<!--include-svg src="./svgfiles/metaindexAssetLocation.svg" target="./diagrams/metaindexAssetLocation.svg" alt="syntax diagram for index asset location" layout="@break@" -->
+
+The metaindexAssetHiveTable refers to a Hive table.
+
+<!--include-svg src="./svgfiles/metaindexAssetHiveTable.svg" target="./diagrams/metaindexAssetHiveTable.svg" alt="syntax diagram for index asset Hive table" layout="@break@" -->
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}
