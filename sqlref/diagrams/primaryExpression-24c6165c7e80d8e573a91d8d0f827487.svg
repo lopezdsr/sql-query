@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram" width="553" height="341" viewBox="0 0 553 341">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="railroad-diagram" width="553" height="401" viewBox="0 0 553 401">
 
 <defs><style type="text/css"><![CDATA[ svg.railroad-diagram {
   background-color: #ffffff;
@@ -268,6 +268,44 @@ svg.railroad-diagram rect {
 <path d="M374 310h10"></path>
 </g>
 <path d="M492 310a10 10 0 0 0 10 -10v-259a10 10 0 0 1 10 -10"></path>
+<path d="M40 31a10 10 0 0 1 10 10v289a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M60 340h126"></path>
+<path d="M366 340h126"></path>
+<rect x="186" y="329" width="180" height="22"></rect>
+<text x="276" y="344">timeSeriesExpression</text>
+</g>
+<path d="M492 340a10 10 0 0 0 10 -10v-289a10 10 0 0 1 10 -10"></path>
+<path d="M40 31a10 10 0 0 1 10 10v319a10 10 0 0 0 10 10"></path>
+<g>
+<path d="M60 370h68"></path>
+<path d="M424 370h68"></path>
+<path d="M128 370h10"></path>
+<g>
+<path d="M138 370h0"></path>
+<path d="M166 370h0"></path>
+<rect x="138" y="359" width="28" height="22" rx="10" ry="10"></rect>
+<text x="152" y="374">(</text>
+</g>
+<path d="M166 370h10"></path>
+<path d="M176 370h10"></path>
+<g>
+<path d="M186 370h0"></path>
+<path d="M366 370h0"></path>
+<rect x="186" y="359" width="180" height="22"></rect>
+<text x="276" y="374">timeSeriesExpression</text>
+</g>
+<path d="M366 370h10"></path>
+<path d="M376 370h10"></path>
+<g>
+<path d="M386 370h0"></path>
+<path d="M414 370h0"></path>
+<rect x="386" y="359" width="28" height="22" rx="10" ry="10"></rect>
+<text x="400" y="374">)</text>
+</g>
+<path d="M414 370h10"></path>
+</g>
+<path d="M492 370a10 10 0 0 0 10 -10v-319a10 10 0 0 1 10 -10"></path>
 </g>
 <path d="M 512 31 h 20 m -10 -10 v 20 m 10 -20 v 20"></path>
 </g>

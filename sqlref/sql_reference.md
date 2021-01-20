@@ -873,10 +873,48 @@ If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to 
 
 <div style="overflow-x : auto;">
 <map name="externalTableSpecImgMap">
-	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
-	<area alt="section STRING" shape="rect" coords="750,70,818,92" href="#STRING" />
+	<area alt="section COSURI" shape="rect" coords="70,60,138,82" href="#COSURI" />
+	<area alt="section STRING" shape="rect" coords="750,100,818,122" href="#STRING" />
+	<area alt="section timeSeriesProperties" shape="rect" coords="1128,60,1308,82" href="#timeSeriesProperties" />
 </map>
-<img style="max-width: 1389px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-a7bb7c757c6d4d12205c60f35f5af0e5.svg" />
+<img style="max-width: 1389px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-c10ad0518713797c74d0a994f87a3b9f.svg" />
+</div>
+
+<h3 id="timeSeriesProperties">timeSeriesProperties</h3>
+
+TIME_SERIES_FORMAT is a read transformation mechanism that uses a set of timeSeriesProperties in order to dynamically generate a one or more native time series columns (defined via the IN clause) from the specified value and key columns of the input data.
+
+<div style="overflow-x : auto;">
+<map name="timeSeriesPropertiesImgMap">
+	<area alt="section timeSeriesOptions" shape="rect" coords="402,30,558,52" href="#timeSeriesOptions" />
+	<area alt="section identifier" shape="rect" coords="722,30,822,52" href="#identifier" />
+</map>
+<img style="max-width: 893px;" usemap="#timeSeriesPropertiesImgMap" alt="syntax diagram for time series properties" src="./diagrams/timeSeriesProperties-8668d32c9aba294a28c8d24539dd07e3.svg" />
+</div>
+
+Of the parameters, timetick and value are the only parameters that are required to be specified. 
+
+The following are the meaning of each parameter and how they affect the time-series (Note - there is no specific order tot eh timeSeriesProperties):
+
+timetick - the column which contains the timestamp or time-tick. Ultimately, the resulting time-series will be sorted by this column. If 2 rows contain the same time-tick, there are no guarantees as to which time-tick comes first in the time-series.
+
+value - the column which contains the value.
+
+key - Optionally specify a key column for which to group each time-series by. If one is given, you can assume that there will be *n* time-series created, where n is the set of all keys in the key column. If no key-column is specified, a single time-series will be created from the given data-set
+
+starttime - Optionally specify a start_time string (Any Properly formatted DateTime from https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for which to set the time-series _TRS_. If start_time is not given, and granularity is given, the starttime will default to Jan 1, 1970 12am (midnight) GMT, however if no granularity is given, a _TRS_ will not be associated with the created time-series
+
+granularity - Optionally specify a granularity string (a Properly formatted ISO-8601 Duration format) for which to set the time-series _TRS_. If granularity is not given, and starttime is given, the default granularity will be 1 millisecond, however if no start_time is given, a _TRS_ will not be associated with the created time-series
+
+<div style="overflow-x : auto;">
+<map name="timeSeriesOptionsImgMap">
+	<area alt="section STRING" shape="rect" coords="246,20,314,42" href="#STRING" />
+	<area alt="section STRING" shape="rect" coords="238,50,306,72" href="#STRING" />
+	<area alt="section STRING" shape="rect" coords="214,80,282,102" href="#STRING" />
+	<area alt="section STRING" shape="rect" coords="234,110,302,132" href="#STRING" />
+	<area alt="section STRING" shape="rect" coords="222,140,290,162" href="#STRING" />
+</map>
+<img style="max-width: 385px;" usemap="#timeSeriesOptionsImgMap" alt="syntax diagram for time series options" src="./diagrams/timeSeriesOptions-dc1b48f025351fb614dca4b4530d98da.svg" />
 </div>
 
 <h3 id="tableTransformer">tableTransformer</h3>
@@ -1564,30 +1602,34 @@ The syntax for SQL function invocation is described by the syntax diagram below.
 
 <div style="overflow-x : auto;">
 <map name="functionOrAggregateImgMap">
-	<area alt="section qualifiedName" shape="rect" coords="70,40,194,62" href="#qualifiedName" />
-	<area alt="section expression" shape="rect" coords="466,40,566,62" href="#expression" />
-	<area alt="section windowSpec" shape="rect" coords="766,40,866,62" href="#windowSpec" />
-	<area alt="section expression" shape="rect" coords="430,100,530,122" href="#expression" />
-	<area alt="section expression" shape="rect" coords="622,100,722,122" href="#expression" />
-	<area alt="section expression" shape="rect" coords="360,200,460,222" href="#expression" />
-	<area alt="section expression" shape="rect" coords="548,200,648,222" href="#expression" />
-	<area alt="section valueExpression" shape="rect" coords="352,230,492,252" href="#valueExpression" />
-	<area alt="section valueExpression" shape="rect" coords="568,230,708,252" href="#valueExpression" />
-	<area alt="section expression" shape="rect" coords="292,270,392,292" href="#expression" />
-	<area alt="section expression" shape="rect" coords="460,270,560,292" href="#expression" />
-	<area alt="section expression" shape="rect" coords="648,270,748,292" href="#expression" />
-	<area alt="section expression" shape="rect" coords="364,310,464,332" href="#expression" />
-	<area alt="section expression" shape="rect" coords="336,350,436,372" href="#expression" />
-	<area alt="section booleanExpression" shape="rect" coords="524,350,680,372" href="#booleanExpression" />
-	<area alt="section expression" shape="rect" coords="360,390,460,412" href="#expression" />
-	<area alt="section expression" shape="rect" coords="332,430,432,452" href="#expression" />
-	<area alt="section booleanExpression" shape="rect" coords="520,430,676,452" href="#booleanExpression" />
-	<area alt="section resultColumn" shape="rect" coords="464,470,580,492" href="#resultColumn" />
+	<area alt="section qualifiedName" shape="rect" coords="114,40,238,62" href="#qualifiedName" />
+	<area alt="section expression" shape="rect" coords="510,40,610,62" href="#expression" />
+	<area alt="section windowSpec" shape="rect" coords="810,40,910,62" href="#windowSpec" />
+	<area alt="section expression" shape="rect" coords="474,100,574,122" href="#expression" />
+	<area alt="section expression" shape="rect" coords="666,100,766,122" href="#expression" />
+	<area alt="section expression" shape="rect" coords="404,200,504,222" href="#expression" />
+	<area alt="section expression" shape="rect" coords="592,200,692,222" href="#expression" />
+	<area alt="section valueExpression" shape="rect" coords="396,230,536,252" href="#valueExpression" />
+	<area alt="section valueExpression" shape="rect" coords="612,230,752,252" href="#valueExpression" />
+	<area alt="section expression" shape="rect" coords="336,270,436,292" href="#expression" />
+	<area alt="section expression" shape="rect" coords="504,270,604,292" href="#expression" />
+	<area alt="section expression" shape="rect" coords="692,270,792,292" href="#expression" />
+	<area alt="section expression" shape="rect" coords="408,310,508,332" href="#expression" />
+	<area alt="section expression" shape="rect" coords="380,350,480,372" href="#expression" />
+	<area alt="section booleanExpression" shape="rect" coords="568,350,724,372" href="#booleanExpression" />
+	<area alt="section expression" shape="rect" coords="404,390,504,412" href="#expression" />
+	<area alt="section expression" shape="rect" coords="376,430,476,452" href="#expression" />
+	<area alt="section booleanExpression" shape="rect" coords="564,430,720,452" href="#booleanExpression" />
+	<area alt="section resultColumn" shape="rect" coords="508,470,624,492" href="#resultColumn" />
+	<area alt="section valueExpression" shape="rect" coords="602,530,742,552" href="#valueExpression" />
+	<area alt="section valueExpression" shape="rect" coords="250,810,390,832" href="#valueExpression" />
+	<area alt="section valueExpression" shape="rect" coords="502,810,642,832" href="#valueExpression" />
+	<area alt="section valueExpression" shape="rect" coords="766,810,906,832" href="#valueExpression" />
 </map>
-<img style="max-width: 957px;" usemap="#functionOrAggregateImgMap" alt="syntax diagram for a function or aggregate" src="./diagrams/functionOrAggregate-5def3a69ce59497f30a6b76553a81727.svg" />
+<img style="max-width: 1045px;" usemap="#functionOrAggregateImgMap" alt="syntax diagram for a function or aggregate" src="./diagrams/functionOrAggregate-f148b3231a95e64c95409d82b3128bf4.svg" />
 </div>
 
-Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, and `STRUCT()` support a different invocation style.
+Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, `STRUCT()`, `EXTRACT()` and `SUBSTRING()` support a different invocation style.
 
 Refer to section [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for details about supported functions.
 
@@ -2079,8 +2121,10 @@ A *value expression* is referenced by the following clauses:
 	<area alt="section primaryExpression" shape="rect" coords="114,269,270,291" href="#primaryExpression" />
 	<area alt="section identifier" shape="rect" coords="338,269,438,291" href="#identifier" />
 	<area alt="section expression" shape="rect" coords="226,299,326,321" href="#expression" />
+	<area alt="section timeSeriesExpression" shape="rect" coords="186,329,366,351" href="#timeSeriesExpression" />
+	<area alt="section timeSeriesExpression" shape="rect" coords="186,359,366,381" href="#timeSeriesExpression" />
 </map>
-<img style="max-width: 553px;" usemap="#primaryExpressionImgMap" alt="syntax diagram for a primary expression" src="./diagrams/primaryExpression-778a7312d38e86fe24da5137d4908e75.svg" />
+<img style="max-width: 553px;" usemap="#primaryExpressionImgMap" alt="syntax diagram for a primary expression" src="./diagrams/primaryExpression-24c6165c7e80d8e573a91d8d0f827487.svg" />
 </div>
 
 <h4 id="constant">constant</h4>
@@ -2258,7 +2302,7 @@ For further details about the clauses used by a *primary expression*, refer to t
 * [query](#query)
 * [STRING](#STRING)
 * [valueExpression](#valueExpression)
-
+* [timeSeriesExpression](#timeSeriesExpression)
 
 <h3>Predicates</h3>
 
@@ -2815,6 +2859,166 @@ For further details about the clauses used by a *case expression*, refer to the 
 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
+
+<h3>Time Series Expressions</h3>
+
+The syntax of a *time series expressions* is described by the syntax diagrams below.
+
+<h4 id="timeSeriesExpression">timeSeriesExpression</h4>
+
+<div style="overflow-x : auto;">
+<map name="timeSeriesExpressionImgMap">
+	<area alt="section expression" shape="rect" coords="890,20,990,42" href="#expression" />
+	<area alt="section valueTimeSeriesExpression" shape="rect" coords="1058,20,1278,42" href="#valueTimeSeriesExpression" />
+	<area alt="section valueExpression" shape="rect" coords="874,50,1014,72" href="#valueExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="1082,50,1318,72" href="#booleanTimeSeriesExpression" />
+	<area alt="section expression" shape="rect" coords="770,80,870,102" href="#expression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="938,80,1174,102" href="#booleanTimeSeriesExpression" />
+	<area alt="section expression" shape="rect" coords="1242,80,1342,102" href="#expression" />
+	<area alt="section expression" shape="rect" coords="1410,80,1510,102" href="#expression" />
+	<area alt="section expression" shape="rect" coords="490,110,590,132" href="#expression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="658,110,894,132" href="#booleanTimeSeriesExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="962,110,1118,132" href="#booleanExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="1186,110,1342,132" href="#booleanExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="1410,110,1566,132" href="#booleanExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="1634,110,1790,132" href="#booleanExpression" />
+	<area alt="section expression" shape="rect" coords="358,140,458,162" href="#expression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="526,140,762,162" href="#booleanTimeSeriesExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="830,140,1066,162" href="#booleanTimeSeriesExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="1134,140,1290,162" href="#booleanExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="1358,140,1514,162" href="#booleanExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="1582,140,1738,162" href="#booleanExpression" />
+	<area alt="section booleanExpression" shape="rect" coords="1806,140,1962,162" href="#booleanExpression" />
+	<area alt="section expression" shape="rect" coords="886,170,986,192" href="#expression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="1054,170,1290,192" href="#booleanTimeSeriesExpression" />
+	<area alt="section expression" shape="rect" coords="918,200,1018,222" href="#expression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="1086,200,1322,222" href="#booleanTimeSeriesExpression" />
+</map>
+<img style="max-width: 2081px;" usemap="#timeSeriesExpressionImgMap" alt="syntax diagram for time series expression" src="./diagrams/timeSeriesExpression-ef9c8b42db18b04b331442cb6b30af65.svg" />
+</div>
+
+The syntax shows time series functions which require expressions like  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`, `TS_FIND()` and `TS_COUNT_ANCHOR()`.
+
+For more details on each function see [Data processing functions](/docs/services/sql-query?topic=sql-query-data_processing_functions).
+
+<h4>Example</h4>
+
+```sql
+WITH timeseries_input AS (SELECT location, TIME_SERIES_WITH_TRS(TS_TIMESTAMP(timestamp), humidity, TS_TRS_DEFAULT()) AS ts
+                          FROM cos://us-geo/sql/temperature_humidity.csv STORED AS CSV
+                          GROUP BY location),
+    only_40_or_above_ts AS (
+	    SELECT location, 
+	   		TS_FILTER(ts, TS_EXP_GT(TS_EXP_ID(), 40.0)) AS above_40_ts 
+	    FROM timeseries_input
+	)
+SELECT location, TS_EXPLODE(above_40_ts) AS (timestamp, humidity) FROM only_40_or_above_ts
+```
+{: codeblock}
+
+A *time series expression* is referenced by the following clause:
+* [primaryExpression](#primaryExpression)
+
+<h4 id="booleanTimeSeriesExpression">booleanTimeSeriesExpression</h4>
+
+<div style="overflow-x : auto;">
+<map name="booleanTimeSeriesExpressionImgMap">
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="418,20,654,42" href="#booleanTimeSeriesExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="266,50,502,72" href="#booleanTimeSeriesExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="570,50,806,72" href="#booleanTimeSeriesExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="262,80,498,102" href="#booleanTimeSeriesExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="566,80,802,102" href="#booleanTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="294,260,522,282" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="590,260,818,282" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="310,290,538,312" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="606,290,834,312" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="306,320,534,342" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="602,320,830,342" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="298,350,526,372" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="594,350,822,372" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="286,410,514,432" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="582,410,810,432" href="#stringTimeSeriesExpression" />
+</map>
+<img style="max-width: 953px;" usemap="#booleanTimeSeriesExpressionImgMap" alt="syntax diagram for boolean time series expression" src="./diagrams/booleanTimeSeriesExpression-0df8933c2056566c67f00a3c9e5ba549.svg" />
+</div>
+
+The boolean time series expression syntax shows the available boolean exresssions like `TS_EXP_GT()` which is also used in the example above. 
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="valueTimeSeriesExpression">valueTimeSeriesExpression</h4>
+
+<div style="overflow-x : auto;">
+<map name="valueTimeSeriesExpressionImgMap">
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="60,50,288,72" href="#stringTimeSeriesExpression" />
+</map>
+<img style="max-width: 349px;" usemap="#valueTimeSeriesExpressionImgMap" alt="syntax diagram for value time series expression" src="./diagrams/valueTimeSeriesExpression-49a46ded8f7ed55545680a95e21fd35f.svg" />
+</div>
+
+Time series values for expressions could either be a `string` or a `double` datatype.
+
+<h4 id="doubleTimeSeriesExpression">doubleTimeSeriesExpression</h4>
+
+<div style="overflow-x : auto;">
+<map name="doubleTimeSeriesExpressionImgMap">
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="418,440,646,462" href="#stringTimeSeriesExpression" />
+	<area alt="section number" shape="rect" coords="426,710,494,732" href="#number" />
+	<area alt="section identityTimeSeriesExpression" shape="rect" coords="338,740,582,762" href="#identityTimeSeriesExpression" />
+</map>
+<img style="max-width: 921px;" usemap="#doubleTimeSeriesExpressionImgMap" alt="syntax diagram for double time series expression" src="./diagrams/doubleTimeSeriesExpression-e349f566af4812df93710d0974e4195a.svg" />
+</div>
+
+The functions shown in the double time series expressions like `TS_EXP_ABS()` or `TS_EXP_LENGTH()` are able to consume again double time series expressions,  `number` or an identity time series expression. 
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="stringTimeSeriesExpression">stringTimeSeriesExpression</h4>
+
+<div style="overflow-x : auto;">
+<map name="stringTimeSeriesExpressionImgMap">
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="262,50,490,72" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="558,50,786,72" href="#stringTimeSeriesExpression" />
+	<area alt="section stringConditionalExpression" shape="rect" coords="334,80,570,102" href="#stringConditionalExpression" />
+	<area alt="section STRING" shape="rect" coords="418,110,486,132" href="#STRING" />
+	<area alt="section identityTimeSeriesExpression" shape="rect" coords="330,140,574,162" href="#identityTimeSeriesExpression" />
+</map>
+<img style="max-width: 905px;" usemap="#stringTimeSeriesExpressionImgMap" alt="syntax diagram for string time series expression" src="./diagrams/stringTimeSeriesExpression-48fc23f44c9addcaaa3c2258022e3a6f.svg" />
+</div>
+
+The string function `TS_EXP_ID_TO_STRING()` converts an id to a string and the `TS_EXP_CONCAT()` function concatinates the result of two string expressions.
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="stringConditionalExpression">stringConditionalExpression</h4>
+
+<div style="overflow-x : auto;">
+<map name="stringConditionalExpressionImgMap">
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="534,20,770,42" href="#booleanTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="838,20,1066,42" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="1134,20,1362,42" href="#stringTimeSeriesExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="662,50,898,72" href="#booleanTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="966,50,1194,72" href="#stringTimeSeriesExpression" />
+	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="642,80,878,102" href="#booleanTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="946,80,1174,102" href="#stringTimeSeriesExpression" />
+	<area alt="section stringTimeSeriesExpression" shape="rect" coords="1358,80,1586,102" href="#stringTimeSeriesExpression" />
+</map>
+<img style="max-width: 1705px;" usemap="#stringConditionalExpressionImgMap" alt="syntax diagram for string conditional time series expression" src="./diagrams/stringConditionalExpression-bee36bc91976cded35722539179ba2f2.svg" />
+</div>
+
+There are three conditional expression functions for sting values `TS_EXP_IF_THEN_ELSE()`, `TS_EXP_IF_THEN()` and `TS_EXP_MATCH_CASE()`.
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="identityTimeSeriesExpression">identityTimeSeriesExpression</h4>
+
+<div style="overflow-x : auto;">
+<map name="identityTimeSeriesExpressionImgMap">
+	<area alt="section number" shape="rect" coords="278,50,346,72" href="#number" />
+</map>
+<img style="max-width: 465px;" usemap="#identityTimeSeriesExpressionImgMap" alt="syntax diagram for identity time series expression" src="./diagrams/identityTimeSeriesExpression-430f7c794f4edbee7b7a72fbd45eed2a.svg" />
+</div>
+
+The identity expressions denotes current observation's values in time series.
 
 ### Operator
 {: #chapterOperator}
@@ -3394,12 +3598,14 @@ Create an index on the objects in the specified {{site.data.keyword.cos_short}} 
 
 <div style="overflow-x : auto;">
 <map name="metaindexIndextypeImgMap">
-	<area alt="section identifier" shape="rect" coords="242,20,342,42" href="#identifier" />
-	<area alt="section identifier" shape="rect" coords="258,50,358,72" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="322,20,422,42" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="338,50,438,72" href="#identifier" />
 	<area alt="section identifier" shape="rect" coords="254,80,354,102" href="#identifier" />
-	<area alt="section identifier" shape="rect" coords="262,110,362,132" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="422,80,522,102" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="334,110,434,132" href="#identifier" />
+	<area alt="section identifier" shape="rect" coords="342,140,442,162" href="#identifier" />
 </map>
-<img style="max-width: 422px;" usemap="#metaindexIndextypeImgMap" alt="syntax diagram for the different index types" src="./diagrams/metaindexIndextype-5084d9e857713c7d953f6f60c824bebb.svg" />
+<img style="max-width: 582px;" usemap="#metaindexIndextypeImgMap" alt="syntax diagram for the different index types" src="./diagrams/metaindexIndextype-c56fb900aeb108e53a2fdba39d79548a.svg" />
 </div>
 
 * MINMAX: Stores minimum or maximum values for a column for all types, except for complex types.
@@ -3530,9 +3736,9 @@ SHOW METAINDEXES
 
 <div style="overflow-x : auto;">
 <map name="metaindexLocationCommandImgMap">
-	<area alt="section metaindexAsset" shape="rect" coords="410,20,542,42" href="#metaindexAsset" />
+	<area alt="section metaindexAssetLocation" shape="rect" coords="410,20,606,42" href="#metaindexAssetLocation" />
 </map>
-<img style="max-width: 582px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter index command" src="./diagrams/metaindexLocationCommand-bf219801c1f129a92bfab707ba857513.svg" />
+<img style="max-width: 646px;" usemap="#metaindexLocationCommandImgMap" alt="syntax diagram for alter index command" src="./diagrams/metaindexLocationCommand-1295f29f1fbaae8fd1b88e9d74185c92.svg" />
 </div>
 
 You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location. 
@@ -3554,9 +3760,9 @@ ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
 <div style="overflow-x : auto;">
 <map name="hiveMetaindexLocationCommandImgMap">
 	<area alt="section tableIdentifier" shape="rect" coords="210,20,350,42" href="#tableIdentifier" />
-	<area alt="section metaindexAsset" shape="rect" coords="650,20,782,42" href="#metaindexAsset" />
+	<area alt="section metaindexAssetLocation" shape="rect" coords="650,20,846,42" href="#metaindexAssetLocation" />
 </map>
-<img style="max-width: 822px;" usemap="#hiveMetaindexLocationCommandImgMap" alt="syntax diagram for alter table set location command" src="./diagrams/hiveMetaindexLocationCommand-0fa866519493283c8b015bf81264bdfa.svg" />
+<img style="max-width: 886px;" usemap="#hiveMetaindexLocationCommandImgMap" alt="syntax diagram for alter table set location command" src="./diagrams/hiveMetaindexLocationCommand-99edd7ea7b7195288e2072e8b3257a01.svg" />
 </div>
 
 This command lets you to define a location for this specified Hive table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index metadata anymore. Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.  
@@ -3594,17 +3800,34 @@ ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
 
 <h4 id="metaindexAsset">metaindexAsset</h4>
 
-The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+The indexAsset is either based on a table or COS location.
 
 <div style="overflow-x : auto;">
 <map name="metaindexAssetImgMap">
-	<area alt="section COSURI" shape="rect" coords="70,40,138,62" href="#COSURI" />
-	<area alt="section STRING" shape="rect" coords="750,40,818,62" href="#STRING" />
-	<area alt="section tableIdentifier" shape="rect" coords="506,210,646,232" href="#tableIdentifier" />
+	<area alt="section metaindexAssetLocation" shape="rect" coords="64,20,260,42" href="#metaindexAssetLocation" />
+	<area alt="section metaindexAssetHiveTable" shape="rect" coords="60,50,264,72" href="#metaindexAssetHiveTable" />
 </map>
-<img style="max-width: 1062px;" usemap="#metaindexAssetImgMap" alt="syntax diagram for index asset" src="./diagrams/metaindexAsset-8c15762c08988fb3470dc20546c8f4dc.svg" />
+<img style="max-width: 314px;" usemap="#metaindexAssetImgMap" alt="syntax diagram for index asset" src="./diagrams/metaindexAsset-5dbbbbeef95fbce16b534eb47ef1a0f2.svg" />
 </div>
 
+The metaindexAssetLocation is an subset of the [externalTableSpec](#externalTableSpec).
+
+<div style="overflow-x : auto;">
+<map name="metaindexAssetLocationImgMap">
+	<area alt="section COSURI" shape="rect" coords="50,30,118,52" href="#COSURI" />
+	<area alt="section STRING" shape="rect" coords="730,70,798,92" href="#STRING" />
+</map>
+<img style="max-width: 1022px;" usemap="#metaindexAssetLocationImgMap" alt="syntax diagram for index asset location" src="./diagrams/metaindexAssetLocation-91f78935bcb9608472d97c2a9b3f4cf5.svg" />
+</div>
+
+The metaindexAssetHiveTable refers to a Hive table.
+
+<div style="overflow-x : auto;">
+<map name="metaindexAssetHiveTableImgMap">
+	<area alt="section tableIdentifier" shape="rect" coords="130,20,270,42" href="#tableIdentifier" />
+</map>
+<img style="max-width: 310px;" usemap="#metaindexAssetHiveTableImgMap" alt="syntax diagram for index asset Hive table" src="./diagrams/metaindexAssetHiveTable-21d4d366f6f4f154c7554b882e18d787.svg" />
+</div>
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}

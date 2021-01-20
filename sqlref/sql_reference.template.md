@@ -2,8 +2,8 @@
 ---
 
 copyright:
-  years: 2018, 2020
-lastupdated: "2020-10-29"
+  years: 2018, 2021
+lastupdated: "2021-01-20"
 
 ---
 
@@ -34,9 +34,9 @@ In addition to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you c
 
 There are several benefits to cataloging your data:
 
-1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored.
-2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
-<!-- Hide 3. With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
+- It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored.
+- The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
+<!-- Hide - With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
 
 ## Select
 {: #chapterSQLQueryStatement}
@@ -153,9 +153,9 @@ Moreover, a user can explicitly define the way a query result is stored physical
 
 As shown in the syntax diagrams, there are three main use cases to define the physical layout of a query's result on Cloud {{site.data.keyword.cos_short}}:
 
-1. Partition by columns, that is so-called Hive-style partitioning.
-2. Partition into buckets/objects (both terms can be used synonymously), that is, generate the query result into objects, with or without specifying columns.
-3. Partition by number of rows.
+- Partition by columns, that is so-called Hive-style partitioning.
+- Partition into buckets/objects (both terms can be used synonymously), that is, generate the query result into objects, with or without specifying columns.
+- Partition by number of rows.
 
 A partition is an object on Cloud {{site.data.keyword.cos_short}} that is potentially a part of an aggregated object.
 The presence of multiple partitions allows for parallel input/output (I/O) during query execution. Note that if no *result partitioned clause* is specified,
@@ -195,10 +195,10 @@ SQL query execution only partitions containing data for the countries of interes
 
 Some additional remarks on Hive-style partitioning:
 
-1. Hive-style partitions have an eye-catching naming scheme, because the column names used for partitioning are part of the partition object prefix, for example, `/order/COUNTRY=USA/part-m-00000.snappy.parquet`.
-2. Hive-style partitions do not contain any values for partition columns since their values are *stored* in the object prefix of the partition.
+- Hive-style partitions have an eye-catching naming scheme, because the column names used for partitioning are part of the partition object prefix, for example, `/order/COUNTRY=USA/part-m-00000.snappy.parquet`.
+- Hive-style partitions do not contain any values for partition columns since their values are *stored* in the object prefix of the partition.
 Thus, note that if you copy a HIVE-style partition and rename the object prefix by removing the partition column values, you are loosing data.
-3. Hive-style partitions can have a tendency for data skewing, for example, the partition representing order data from Malta is very likely much smaller
+- Hive-style partitions can have a tendency for data skewing, for example, the partition representing order data from Malta is very likely much smaller
 than the partition representing order data from the USA. You can partition the query result into separate objects if you want to have *equally-sized* partitions.
 
 
@@ -728,6 +728,33 @@ By default, if the format of the input data is JSON, each line must contain a se
 If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to handle Parquet schema evolution by specifying that all qualifying Parquet objects should be scanned for their schema and the final schema should be merged across all objects. Note that by default, for Parquet input only the first Parquet object found is used to infer the schema, which guarantees minimal overhead for compiling the SQL. Thus, use this option if your Parquet input data does not have a homogeneous schema.
 
 <!--include-svg src="./svgfiles/externalTableSpec.svg" target="./diagrams/externalTableSpec.svg" alt="syntax diagram for an external table specification" layout="" -->
+
+<h3 id="timeSeriesProperties">timeSeriesProperties</h3>
+
+TIME_SERIES_FORMAT is a read transformation mechanism that uses a set of timeSeriesProperties in order to dynamically generate one or more native time series columns (defined via the IN clause) from the specified value and key columns of the input data.
+
+<!--include-svg src="./svgfiles/timeSeriesProperties.svg" target="./diagrams/timeSeriesProperties.svg" alt="syntax diagram for time series properties" layout="" -->
+
+Of the parameters, `timetick` and `value` are the only parameters that are required to be specified. 
+
+Following you see the descriptions of each parameter and how they affect the time series (note that there is no specific order to the timeSeriesProperties):
+
+- `timetick`: The column containing the timestamp or `timetick`. Ultimately, the resulting time series is sorted by this column. 
+If two rows contain the same `timetick`, there are no guarantees as to which `timetick` comes first in the time series.
+
+- `value`: The column containing the value.
+
+- `key`: Optionally specify a `key` column that you can use to group each time series by. If a `key` is given, you can assume that there will be *n* time series created, 
+where *n* is the set of all keys in the `key` column. If no `key` column is specified, a single time series is created from the given data set.
+
+- `starttime`: Optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)) 
+for which to set the time series `_TRS_`. If `starttime` is not given, and granularity is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if 
+no granularity is given, a '_TRS_` is not associated with the created time series.
+
+- `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series `_TRS_`. If granularity is not given, 
+and `starttime` is given, the default granularity is 1 millisecond. However, if no starttime is given, a `_TRS_` is not associated with the created timeseries.
+
+<!--include-svg src="./svgfiles/timeSeriesOptions.svg" target="./diagrams/timeSeriesOptions.svg" alt="syntax diagram for time series options" layout="" -->
 
 <h3 id="tableTransformer">tableTransformer</h3>
 
@@ -1357,7 +1384,7 @@ The syntax for SQL function invocation is described by the syntax diagram below.
 
 <!--include-svg src="./svgfiles/functionOrAggregate.svg" target="./diagrams/functionOrAggregate.svg" alt="syntax diagram for a function or aggregate" layout="" -->
 
-Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, and `STRUCT()` support a different invocation style.
+Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, `STRUCT()`, `EXTRACT()` and `SUBSTRING()` support a different invocation style.
 
 Refer to section [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for details about supported functions.
 
@@ -1388,9 +1415,9 @@ Working with window functions involves two steps:
 
 There are three types of window functions:
 
-1. **Ranking functions**, for example, `rank()`, `ntile()`, or `rowNumber()`
-2. **Analytic functions**, for example, `cume_dist()`, `first_value()`, or `last_value()`
-3. **Aggregation functions**, for example, `sum()`, `max()`, or `min()`
+- **Ranking functions**, for example, `rank()`, `ntile()`, or `rowNumber()`
+- **Analytic functions**, for example, `cume_dist()`, `first_value()`, or `last_value()`
+- **Aggregation functions**, for example, `sum()`, `max()`, or `min()`
 
 Refer to the section about [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for more detailed information.
 
@@ -1892,7 +1919,7 @@ For further details about the clauses used by a *primary expression*, refer to t
 * [query](#query)
 * [STRING](#STRING)
 * [valueExpression](#valueExpression)
-
+* [timeSeriesExpression](#timeSeriesExpression)
 
 <h3>Predicates</h3>
 
@@ -2401,6 +2428,82 @@ For further details about the clauses used by a *case expression*, refer to the 
 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
+
+<h3>Time Series Expressions</h3>
+
+The syntax of a *time series expression* is described by the syntax diagrams below.
+
+<h4 id="timeSeriesExpression">timeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/timeSeriesExpression.svg" target="./diagrams/timeSeriesExpression.svg" alt="syntax diagram for time series expression" layout="" -->
+
+The syntax shows time series functions that require expressions, such as  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`, 
+`TS_FIND()` and `TS_COUNT_ANCHOR()`.
+
+For more details on each function, see [Data processing functions](/docs/services/sql-query?topic=sql-query-data_processing_functions).
+
+<h4>Example</h4>
+
+```sql
+WITH timeseries_input AS (SELECT location, TIME_SERIES_WITH_TRS(TS_TIMESTAMP(timestamp), humidity, TS_TRS_DEFAULT()) AS ts
+                          FROM cos://us-geo/sql/temperature_humidity.csv STORED AS CSV
+                          GROUP BY location),
+    only_40_or_above_ts AS (
+	    SELECT location, 
+	   		TS_FILTER(ts, TS_EXP_GT(TS_EXP_ID(), 40.0)) AS above_40_ts 
+	    FROM timeseries_input
+	)
+SELECT location, TS_EXPLODE(above_40_ts) AS (timestamp, humidity) FROM only_40_or_above_ts
+```
+{: codeblock}
+
+A *time series expression* is referenced by the following clause:
+* [primaryExpression](#primaryExpression)
+
+<h4 id="booleanTimeSeriesExpression">booleanTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/booleanTimeSeriesExpression.svg" target="./diagrams/booleanTimeSeriesExpression.svg" alt="syntax diagram for boolean time series expression" layout="" -->
+
+The boolean time series expression syntax shows the available boolean exresssions, such as `TS_EXP_GT()`, which is also used in the previous example. 
+
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="valueTimeSeriesExpression">valueTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/valueTimeSeriesExpression.svg" target="./diagrams/valueTimeSeriesExpression.svg" alt="syntax diagram for value time series expression" layout="" -->
+
+Time series values for expressions can either be a `string` or a `double` datatype.
+
+<h4 id="doubleTimeSeriesExpression">doubleTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/doubleTimeSeriesExpression.svg" target="./diagrams/doubleTimeSeriesExpression.svg" alt="syntax diagram for double time series expression" layout="" -->
+
+The functions shown in the double time series expressions, such as `TS_EXP_ABS()` and `TS_EXP_LENGTH()`, are able to consume again double time series expressions, 
+`number` or an identity time series expression. 
+
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="stringTimeSeriesExpression">stringTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/stringTimeSeriesExpression.svg" target="./diagrams/stringTimeSeriesExpression.svg" alt="syntax diagram for string time series expression" layout="" -->
+
+The string function `TS_EXP_ID_TO_STRING()` converts an ID to a string and the `TS_EXP_CONCAT()` function concatenates the result of two string expressions.
+
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="stringConditionalExpression">stringConditionalExpression</h4>
+
+<!--include-svg src="./svgfiles/stringConditionalExpression.svg" target="./diagrams/stringConditionalExpression.svg" alt="syntax diagram for string conditional time series expression" layout="" -->
+
+There are three conditional expression functions for string values `TS_EXP_IF_THEN_ELSE()`, `TS_EXP_IF_THEN()` and `TS_EXP_MATCH_CASE()`.
+
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+
+<h4 id="identityTimeSeriesExpression">identityTimeSeriesExpression</h4>
+
+<!--include-svg src="./svgfiles/identityTimeSeriesExpression.svg" target="./diagrams/identityTimeSeriesExpression.svg" alt="syntax diagram for identity time series expression" layout="" -->
+
+The identity expression denotes current observation values in time series.
 
 ### Operator
 {: #chapterOperator}
@@ -3040,10 +3143,17 @@ ALTER TABLE CUSTOMERS_PARTITIONED DROP METAINDEX LOCATION
 
 <h4 id="metaindexAsset">metaindexAsset</h4>
 
-The indexAsset is an subset of the [externalTableSpec](#externalTableSpec).
+The indexAsset is either based on a table or COS location.
 
 <!--include-svg src="./svgfiles/metaindexAsset.svg" target="./diagrams/metaindexAsset.svg" alt="syntax diagram for index asset" layout="@break@" -->
 
+The metaindexAssetLocation is an subset of the [externalTableSpec](#externalTableSpec).
+
+<!--include-svg src="./svgfiles/metaindexAssetLocation.svg" target="./diagrams/metaindexAssetLocation.svg" alt="syntax diagram for index asset location" layout="@break@" -->
+
+The metaindexAssetHiveTable refers to a Hive table.
+
+<!--include-svg src="./svgfiles/metaindexAssetHiveTable.svg" target="./diagrams/metaindexAssetHiveTable.svg" alt="syntax diagram for index asset Hive table" layout="@break@" -->
 
 ## Miscellaneous Definitions
 {: #chapterMiscDefinitions}
