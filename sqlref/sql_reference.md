@@ -2,8 +2,8 @@
 ---
 
 copyright:
-  years: 2018, 2020
-lastupdated: "2020-10-29"
+  years: 2018, 2021
+lastupdated: "2021-01-20"
 
 ---
 
@@ -34,9 +34,9 @@ In addition to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you c
 
 There are several benefits to cataloging your data:
 
-1. It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored.
-2. The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
-<!-- Hide 3. With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
+- It simplifies SQL SELECT statements because the SQL author does not have to know and specify exactly where and how the data is stored.
+- The SQL execution can skip the inference of schema and partitioning because this information is already available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
+<!-- Hide - With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
 
 ## Select
 {: #chapterSQLQueryStatement}
@@ -174,9 +174,9 @@ Moreover, a user can explicitly define the way a query result is stored physical
 
 As shown in the syntax diagrams, there are three main use cases to define the physical layout of a query's result on Cloud {{site.data.keyword.cos_short}}:
 
-1. Partition by columns, that is so-called Hive-style partitioning.
-2. Partition into buckets/objects (both terms can be used synonymously), that is, generate the query result into objects, with or without specifying columns.
-3. Partition by number of rows.
+- Partition by columns, that is so-called Hive-style partitioning.
+- Partition into buckets/objects (both terms can be used synonymously), that is, generate the query result into objects, with or without specifying columns.
+- Partition by number of rows.
 
 A partition is an object on Cloud {{site.data.keyword.cos_short}} that is potentially a part of an aggregated object.
 The presence of multiple partitions allows for parallel input/output (I/O) during query execution. Note that if no *result partitioned clause* is specified,
@@ -235,10 +235,10 @@ SQL query execution only partitions containing data for the countries of interes
 
 Some additional remarks on Hive-style partitioning:
 
-1. Hive-style partitions have an eye-catching naming scheme, because the column names used for partitioning are part of the partition object prefix, for example, `/order/COUNTRY=USA/part-m-00000.snappy.parquet`.
-2. Hive-style partitions do not contain any values for partition columns since their values are *stored* in the object prefix of the partition.
+- Hive-style partitions have an eye-catching naming scheme, because the column names used for partitioning are part of the partition object prefix, for example, `/order/COUNTRY=USA/part-m-00000.snappy.parquet`.
+- Hive-style partitions do not contain any values for partition columns since their values are *stored* in the object prefix of the partition.
 Thus, note that if you copy a HIVE-style partition and rename the object prefix by removing the partition column values, you are loosing data.
-3. Hive-style partitions can have a tendency for data skewing, for example, the partition representing order data from Malta is very likely much smaller
+- Hive-style partitions can have a tendency for data skewing, for example, the partition representing order data from Malta is very likely much smaller
 than the partition representing order data from the USA. You can partition the query result into separate objects if you want to have *equally-sized* partitions.
 
 
@@ -873,16 +873,16 @@ If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to 
 
 <div style="overflow-x : auto;">
 <map name="externalTableSpecImgMap">
-	<area alt="section COSURI" shape="rect" coords="70,60,138,82" href="#COSURI" />
-	<area alt="section STRING" shape="rect" coords="750,100,818,122" href="#STRING" />
-	<area alt="section timeSeriesProperties" shape="rect" coords="1128,60,1308,82" href="#timeSeriesProperties" />
+	<area alt="section COSURI" shape="rect" coords="70,30,138,52" href="#COSURI" />
+	<area alt="section STRING" shape="rect" coords="750,70,818,92" href="#STRING" />
+	<area alt="section timeSeriesProperties" shape="rect" coords="1032,30,1212,52" href="#timeSeriesProperties" />
 </map>
-<img style="max-width: 1389px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-c10ad0518713797c74d0a994f87a3b9f.svg" />
+<img style="max-width: 1293px;" usemap="#externalTableSpecImgMap" alt="syntax diagram for an external table specification" src="./diagrams/externalTableSpec-81be188423329dcc1f06ab73d113e427.svg" />
 </div>
 
 <h3 id="timeSeriesProperties">timeSeriesProperties</h3>
 
-TIME_SERIES_FORMAT is a read transformation mechanism that uses a set of timeSeriesProperties in order to dynamically generate a one or more native time series columns (defined via the IN clause) from the specified value and key columns of the input data.
+The TIME_SERIES_FORMAT option triggers a read transformation mechanism that uses a set of timeSeriesProperties in order to dynamically generate one or more native time series columns (defined via the IN clause) from the specified value and key columns of the input data.
 
 <div style="overflow-x : auto;">
 <map name="timeSeriesPropertiesImgMap">
@@ -892,19 +892,24 @@ TIME_SERIES_FORMAT is a read transformation mechanism that uses a set of timeSer
 <img style="max-width: 893px;" usemap="#timeSeriesPropertiesImgMap" alt="syntax diagram for time series properties" src="./diagrams/timeSeriesProperties-8668d32c9aba294a28c8d24539dd07e3.svg" />
 </div>
 
-Of the parameters, timetick and value are the only parameters that are required to be specified. 
+The parameters `timetick` and `value` are the only parameters that are required to be specified. 
 
-The following are the meaning of each parameter and how they affect the time-series (Note - there is no specific order tot eh timeSeriesProperties):
+Following you see the descriptions of each parameter and how they affect the time series:
 
-timetick - the column which contains the timestamp or time-tick. Ultimately, the resulting time-series will be sorted by this column. If 2 rows contain the same time-tick, there are no guarantees as to which time-tick comes first in the time-series.
+* `timetick`: the column containing the timestamp or `timetick`. Ultimately, the resulting time series is sorted by this column. 
+If two rows contain the same `timetick`, there are no guarantees as to which `timetick` comes first in the time series.
 
-value - the column which contains the value.
+* `value`: the column containing the value.
 
-key - Optionally specify a key column for which to group each time-series by. If one is given, you can assume that there will be *n* time-series created, where n is the set of all keys in the key column. If no key-column is specified, a single time-series will be created from the given data-set
+* `key`: optionally specify a `key` column that you can use to group each time series by. If a `key` is given, you can assume that there will be *n* time series created, 
+where *n* is the set of all keys in the `key` column. If no `key` column is specified, a single time series is created from the given data set.
 
-starttime - Optionally specify a start_time string (Any Properly formatted DateTime from https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html) for which to set the time-series _TRS_. If start_time is not given, and granularity is given, the starttime will default to Jan 1, 1970 12am (midnight) GMT, however if no granularity is given, a _TRS_ will not be associated with the created time-series
+* `starttime`: optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)) 
+for which to set the time series [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `starttime` is not given, and granularity is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if 
+no granularity is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
-granularity - Optionally specify a granularity string (a Properly formatted ISO-8601 Duration format) for which to set the time-series _TRS_. If granularity is not given, and starttime is given, the default granularity will be 1 millisecond, however if no start_time is given, a _TRS_ will not be associated with the created time-series
+* `granularity`: optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/services/sql-query?topic=sql-query-TRS). If granularity is not given, 
+and `starttime` is given, the default granularity is 1 millisecond. However, if no starttime is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
 <div style="overflow-x : auto;">
 <map name="timeSeriesOptionsImgMap">
@@ -1660,9 +1665,9 @@ Working with window functions involves two steps:
 
 There are three types of window functions:
 
-1. **Ranking functions**, for example, `rank()`, `ntile()`, or `rowNumber()`
-2. **Analytic functions**, for example, `cume_dist()`, `first_value()`, or `last_value()`
-3. **Aggregation functions**, for example, `sum()`, `max()`, or `min()`
+- **Ranking functions**, for example, `rank()`, `ntile()`, or `rowNumber()`
+- **Analytic functions**, for example, `cume_dist()`, `first_value()`, or `last_value()`
+- **Aggregation functions**, for example, `sum()`, `max()`, or `min()`
 
 Refer to the section about [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for more detailed information.
 
@@ -2019,7 +2024,8 @@ An *expression* is referenced by the following clauses:
 * [whenClause](#whenClause)
 * [windowSpec](#windowSpec)
 
-<h3>Boolean Expressions</h3>
+### Boolean Expressions
+{: #chapterBooleanExpressions}
 
 The syntax of a *Boolean expression* is defined by the following syntax diagrams.
 
@@ -2062,7 +2068,10 @@ A *Boolean expression* is referenced by the following clauses:
 * [relation](#relation)
 * [simpleselect](#simpleselect)
 
-<h3>Value Expressions</h3>
+
+### Value Expressions
+{: #chapterValueExpressions}
+
 
 <h4 id="valueExpression">valueExpression</h4>
 
@@ -2102,7 +2111,9 @@ A *value expression* is referenced by the following clauses:
 * [functionOrAggregate](#functionOrAggregate)
 * [predicate](#predicate)
 
-<h3>Primary Expressions</h3>
+
+### Primary Expressions
+{: #chapterPrimaryExpressions}
 
 <h4 id="primaryExpression">primaryExpression</h4>
 
@@ -2304,7 +2315,8 @@ For further details about the clauses used by a *primary expression*, refer to t
 * [valueExpression](#valueExpression)
 * [timeSeriesExpression](#timeSeriesExpression)
 
-<h3>Predicates</h3>
+### Predicates
+{: #chapterPredicates}
 
 <h4 id="predicate">predicate</h4>
 
@@ -2714,7 +2726,8 @@ The result of the example query is shown in the table below.
 {: caption="Table 47. Query result for example 'all employees with missing salary information'" caption-side="top"}
 
 
-<h3>Cast Expression</h3>
+### CAST Expression
+{: #chapterCastExpression}
 
 The syntax of a *cast expression* is described by the syntax diagrams below.
 
@@ -2746,7 +2759,8 @@ For further details about the clauses used by a *cast expression*, refer to the 
 A *cast expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-<h3>Case Expressions</h3>
+### Case Expressions
+{: #chapterCaseExpressions}
 
 A case expression allows an expression to be selected based on the evaluation of one or more conditions.
 
@@ -2860,9 +2874,11 @@ For further details about the clauses used by a *case expression*, refer to the 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-<h3>Time Series Expressions</h3>
 
-The syntax of a *time series expressions* is described by the syntax diagrams below.
+### Time Series Expressions
+{: #chapterTimeSeriesExpressions}
+
+The syntax of a *time series expression* is described by the syntax diagrams below.
 
 <h4 id="timeSeriesExpression">timeSeriesExpression</h4>
 
@@ -2897,9 +2913,10 @@ The syntax of a *time series expressions* is described by the syntax diagrams be
 <img style="max-width: 2081px;" usemap="#timeSeriesExpressionImgMap" alt="syntax diagram for time series expression" src="./diagrams/timeSeriesExpression-ef9c8b42db18b04b331442cb6b30af65.svg" />
 </div>
 
-The syntax shows time series functions which require expressions like  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`, `TS_FIND()` and `TS_COUNT_ANCHOR()`.
+The syntax shows time series functions that require expressions, such as  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`, 
+`TS_FIND()` and `TS_COUNT_ANCHOR()`.
 
-For more details on each function see [Data processing functions](/docs/services/sql-query?topic=sql-query-data_processing_functions).
+For more details on each function, see [Data processing functions](/docs/services/sql-query?topic=sql-query-data_processing_functions).
 
 <h4>Example</h4>
 
@@ -2928,6 +2945,16 @@ A *time series expression* is referenced by the following clause:
 	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="570,50,806,72" href="#booleanTimeSeriesExpression" />
 	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="262,80,498,102" href="#booleanTimeSeriesExpression" />
 	<area alt="section booleanTimeSeriesExpression" shape="rect" coords="566,80,802,102" href="#booleanTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="270,110,498,132" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="566,110,794,132" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="274,140,502,162" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="570,140,798,162" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="270,170,498,192" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="566,170,794,192" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="274,200,502,222" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="570,200,798,222" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="310,230,538,252" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="606,230,834,252" href="#doubleTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="294,260,522,282" href="#stringTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="590,260,818,282" href="#stringTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="310,290,538,312" href="#stringTimeSeriesExpression" />
@@ -2936,41 +2963,73 @@ A *time series expression* is referenced by the following clause:
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="602,320,830,342" href="#stringTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="298,350,526,372" href="#stringTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="594,350,822,372" href="#stringTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="286,380,514,402" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="582,380,810,402" href="#doubleTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="286,410,514,432" href="#stringTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="582,410,810,432" href="#stringTimeSeriesExpression" />
 </map>
 <img style="max-width: 953px;" usemap="#booleanTimeSeriesExpressionImgMap" alt="syntax diagram for boolean time series expression" src="./diagrams/booleanTimeSeriesExpression-0df8933c2056566c67f00a3c9e5ba549.svg" />
 </div>
 
-The boolean time series expression syntax shows the available boolean exresssions like `TS_EXP_GT()` which is also used in the example above. 
+The boolean time series expression syntax shows the available boolean exresssions, such as `TS_EXP_GT()`, which is also used in the previous example. 
 
-For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
 
 <h4 id="valueTimeSeriesExpression">valueTimeSeriesExpression</h4>
 
 <div style="overflow-x : auto;">
 <map name="valueTimeSeriesExpressionImgMap">
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="60,20,288,42" href="#doubleTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="60,50,288,72" href="#stringTimeSeriesExpression" />
 </map>
 <img style="max-width: 349px;" usemap="#valueTimeSeriesExpressionImgMap" alt="syntax diagram for value time series expression" src="./diagrams/valueTimeSeriesExpression-49a46ded8f7ed55545680a95e21fd35f.svg" />
 </div>
 
-Time series values for expressions could either be a `string` or a `double` datatype.
+Time series values for expressions can either be a `string` or a `double` datatype.
 
 <h4 id="doubleTimeSeriesExpression">doubleTimeSeriesExpression</h4>
 
 <div style="overflow-x : auto;">
 <map name="doubleTimeSeriesExpressionImgMap">
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="406,20,634,42" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="406,50,634,72" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="406,80,634,102" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="414,110,642,132" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="410,140,638,162" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="406,170,634,192" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="406,200,634,222" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="406,230,634,252" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="410,260,638,282" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="410,290,638,312" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="410,320,638,342" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="410,350,638,372" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="410,380,638,402" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="410,410,638,432" href="#doubleTimeSeriesExpression" />
 	<area alt="section stringTimeSeriesExpression" shape="rect" coords="418,440,646,462" href="#stringTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="258,470,486,492" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="554,470,782,492" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="278,500,506,522" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="574,500,802,522" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="270,530,498,552" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="566,530,794,552" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="278,560,506,582" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="574,560,802,582" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="258,590,486,612" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="554,590,782,612" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="258,620,486,642" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="554,620,782,642" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="266,650,494,672" href="#doubleTimeSeriesExpression" />
+	<area alt="section doubleTimeSeriesExpression" shape="rect" coords="562,650,790,672" href="#doubleTimeSeriesExpression" />
 	<area alt="section number" shape="rect" coords="426,710,494,732" href="#number" />
 	<area alt="section identityTimeSeriesExpression" shape="rect" coords="338,740,582,762" href="#identityTimeSeriesExpression" />
 </map>
 <img style="max-width: 921px;" usemap="#doubleTimeSeriesExpressionImgMap" alt="syntax diagram for double time series expression" src="./diagrams/doubleTimeSeriesExpression-e349f566af4812df93710d0974e4195a.svg" />
 </div>
 
-The functions shown in the double time series expressions like `TS_EXP_ABS()` or `TS_EXP_LENGTH()` are able to consume again double time series expressions,  `number` or an identity time series expression. 
+The functions shown in the double time series expressions, such as `TS_EXP_ABS()` and `TS_EXP_LENGTH()`, are able to consume again double time series expressions, 
+`number` or an identity time series expression. 
 
-For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
 
 <h4 id="stringTimeSeriesExpression">stringTimeSeriesExpression</h4>
 
@@ -2985,7 +3044,7 @@ For more details on each function see [Artifact creation functions](/docs/servic
 <img style="max-width: 905px;" usemap="#stringTimeSeriesExpressionImgMap" alt="syntax diagram for string time series expression" src="./diagrams/stringTimeSeriesExpression-48fc23f44c9addcaaa3c2258022e3a6f.svg" />
 </div>
 
-The string function `TS_EXP_ID_TO_STRING()` converts an id to a string and the `TS_EXP_CONCAT()` function concatinates the result of two string expressions.
+The string function `TS_EXP_ID_TO_STRING()` converts an ID to a string and the `TS_EXP_CONCAT()` function concatenates the result of two string expressions.
 
 For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
 
@@ -3005,9 +3064,9 @@ For more details on each function see [Artifact creation functions](/docs/servic
 <img style="max-width: 1705px;" usemap="#stringConditionalExpressionImgMap" alt="syntax diagram for string conditional time series expression" src="./diagrams/stringConditionalExpression-bee36bc91976cded35722539179ba2f2.svg" />
 </div>
 
-There are three conditional expression functions for sting values `TS_EXP_IF_THEN_ELSE()`, `TS_EXP_IF_THEN()` and `TS_EXP_MATCH_CASE()`.
+There are three conditional expression functions for string values `TS_EXP_IF_THEN_ELSE()`, `TS_EXP_IF_THEN()` and `TS_EXP_MATCH_CASE()`.
 
-For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
 
 <h4 id="identityTimeSeriesExpression">identityTimeSeriesExpression</h4>
 
@@ -3018,7 +3077,7 @@ For more details on each function see [Artifact creation functions](/docs/servic
 <img style="max-width: 465px;" usemap="#identityTimeSeriesExpressionImgMap" alt="syntax diagram for identity time series expression" src="./diagrams/identityTimeSeriesExpression-430f7c794f4edbee7b7a72fbd45eed2a.svg" />
 </div>
 
-The identity expressions denotes current observation's values in time series.
+The identity expression denotes current observation values in time series.
 
 ### Operator
 {: #chapterOperator}

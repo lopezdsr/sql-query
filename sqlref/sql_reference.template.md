@@ -731,28 +731,28 @@ If the file format is Parquet, the optional `MERGE SCHEMA` clause allows you to 
 
 <h3 id="timeSeriesProperties">timeSeriesProperties</h3>
 
-TIME_SERIES_FORMAT is a read transformation mechanism that uses a set of timeSeriesProperties in order to dynamically generate one or more native time series columns (defined via the IN clause) from the specified value and key columns of the input data.
+The TIME_SERIES_FORMAT option triggers a read transformation mechanism that uses a set of timeSeriesProperties in order to dynamically generate one or more native time series columns (defined via the IN clause) from the specified value and key columns of the input data.
 
 <!--include-svg src="./svgfiles/timeSeriesProperties.svg" target="./diagrams/timeSeriesProperties.svg" alt="syntax diagram for time series properties" layout="" -->
 
-Of the parameters, `timetick` and `value` are the only parameters that are required to be specified. 
+The parameters `timetick` and `value` are the only parameters that are required to be specified. 
 
-Following you see the descriptions of each parameter and how they affect the time series (note that there is no specific order to the timeSeriesProperties):
+Following you see the descriptions of each parameter and how they affect the time series:
 
-- `timetick`: The column containing the timestamp or `timetick`. Ultimately, the resulting time series is sorted by this column. 
+* `timetick`: the column containing the timestamp or `timetick`. Ultimately, the resulting time series is sorted by this column. 
 If two rows contain the same `timetick`, there are no guarantees as to which `timetick` comes first in the time series.
 
-- `value`: The column containing the value.
+* `value`: the column containing the value.
 
-- `key`: Optionally specify a `key` column that you can use to group each time series by. If a `key` is given, you can assume that there will be *n* time series created, 
+* `key`: optionally specify a `key` column that you can use to group each time series by. If a `key` is given, you can assume that there will be *n* time series created, 
 where *n* is the set of all keys in the `key` column. If no `key` column is specified, a single time series is created from the given data set.
 
-- `starttime`: Optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)) 
-for which to set the time series `_TRS_`. If `starttime` is not given, and granularity is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if 
-no granularity is given, a '_TRS_` is not associated with the created time series.
+* `starttime`: optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)) 
+for which to set the time series [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `starttime` is not given, and granularity is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if 
+no granularity is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
-- `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series `_TRS_`. If granularity is not given, 
-and `starttime` is given, the default granularity is 1 millisecond. However, if no starttime is given, a `_TRS_` is not associated with the created timeseries.
+* `granularity`: optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/services/sql-query?topic=sql-query-TRS). If granularity is not given, 
+and `starttime` is given, the default granularity is 1 millisecond. However, if no starttime is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
 <!--include-svg src="./svgfiles/timeSeriesOptions.svg" target="./diagrams/timeSeriesOptions.svg" alt="syntax diagram for time series options" layout="" -->
 
@@ -1715,7 +1715,8 @@ An *expression* is referenced by the following clauses:
 * [whenClause](#whenClause)
 * [windowSpec](#windowSpec)
 
-<h3>Boolean Expressions</h3>
+### Boolean Expressions
+{: #chapterBooleanExpressions}
 
 The syntax of a *Boolean expression* is defined by the following syntax diagrams.
 
@@ -1746,7 +1747,10 @@ A *Boolean expression* is referenced by the following clauses:
 * [relation](#relation)
 * [simpleselect](#simpleselect)
 
-<h3>Value Expressions</h3>
+
+### Value Expressions
+{: #chapterValueExpressions}
+
 
 <h4 id="valueExpression">valueExpression</h4>
 
@@ -1773,7 +1777,9 @@ A *value expression* is referenced by the following clauses:
 * [functionOrAggregate](#functionOrAggregate)
 * [predicate](#predicate)
 
-<h3>Primary Expressions</h3>
+
+### Primary Expressions
+{: #chapterPrimaryExpressions}
 
 <h4 id="primaryExpression">primaryExpression</h4>
 
@@ -1921,7 +1927,8 @@ For further details about the clauses used by a *primary expression*, refer to t
 * [valueExpression](#valueExpression)
 * [timeSeriesExpression](#timeSeriesExpression)
 
-<h3>Predicates</h3>
+### Predicates
+{: #chapterPredicates}
 
 <h4 id="predicate">predicate</h4>
 
@@ -2307,7 +2314,8 @@ The result of the example query is shown in the table below.
 |7     |null  |
 <!--table-caption title="Query result for example 'all employees with missing salary information'"-->
 
-<h3>Cast Expression</h3>
+### CAST Expression
+{: #chapterCastExpression}
 
 The syntax of a *cast expression* is described by the syntax diagrams below.
 
@@ -2333,7 +2341,8 @@ For further details about the clauses used by a *cast expression*, refer to the 
 A *cast expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-<h3>Case Expressions</h3>
+### Case Expressions
+{: #chapterCaseExpressions}
 
 A case expression allows an expression to be selected based on the evaluation of one or more conditions.
 
@@ -2429,7 +2438,9 @@ For further details about the clauses used by a *case expression*, refer to the 
 A *case expression* is referenced by the following clause:
 * [primaryExpression](#primaryExpression)
 
-<h3>Time Series Expressions</h3>
+
+### Time Series Expressions
+{: #chapterTimeSeriesExpressions}
 
 The syntax of a *time series expression* is described by the syntax diagrams below.
 

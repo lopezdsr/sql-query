@@ -23,6 +23,7 @@
                         "CRN_URI",
                         "dataType",
                         "describeTable",
+                        "doubleTimeSeriesExpression",
                         "dropTable",
                         "dbResultClause",
                         "DB2_TABLE_URI",
