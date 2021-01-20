@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2020
-lastupdated: "2020-10-21"
+  years: 2020, 2021
+lastupdated: "2021-01-20"
 
 keywords: jdbc
 
@@ -25,9 +25,9 @@ subcollection: sql-query
 ## Driver download
 {: #driver_download}
 
-Download the latest version: [`2.5.14`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.14.jar)
+Download the latest versions: [`2.5.9`](https://na.artifactory.swg-devops.com/artifactory/wcp-sql-query-libs-maven-local/com/ibm/cloud/ibmcloudsql-jdbc/2.5.9/ibmcloudsql-jdbc-2.5.9.jar)
 
-Previous versions: [`2.5.6`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.6.jar)
+Previous versions: [`2.5.14`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.14.jar)
 
 
 ## JDBC driver class and URL format
