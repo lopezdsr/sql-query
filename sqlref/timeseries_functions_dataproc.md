@@ -271,7 +271,7 @@ Output: *TimeSeries*
 Returns a time series whose values correspond to the values of the input array time series at the specified index (second parameter).
 
 **TS_FILTER (time_series, boolean expression)**
-Output: TimeSeries
+Output: *TimeSeries*  
 Filter each value of the time series given a Boolean expression.
 
 ## Cleaning functions
