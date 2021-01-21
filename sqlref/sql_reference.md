@@ -904,9 +904,9 @@ If two rows contain the same `timetick`, there are no guarantees as to which `ti
 * `key`: Optionally specify a `key` column that you can use to group each time series by. If a `key` is given, you can assume that there will be *n* time series created, where *n* is the set of all keys in the `key` column. If no `key` column is specified, a single time series is created from the given data set.
 
 * `starttime`: Optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)) 
-for which to set the time series [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `starttime` is not given, and granularity is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if no granularity is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
+for which to set the time series [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `starttime` is not given, and `granularity` is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if no `granularity` is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
-* `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/services/sql-query?topic=sql-query-TRS). If granularity is not given, and `starttime` is given, the default granularity is 1 millisecond. However, if no starttime is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
+* `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `granularity` is not given, and `starttime` is given, the default `granularity` is 1 millisecond. However, if no `starttime` is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
 <div style="overflow-x : auto;">
 <map name="timeSeriesOptionsImgMap">
