@@ -3027,19 +3027,7 @@ parser. For example, to match "\abc", a regular expression for <code>regexp</cod
 
 **Example of an SQL function usage fragment:**
 
-When spark.sql.parser.escapedStringLiterals is disabled (default).
-
 <pre><code>&gt; SELECT '%SystemDrive%\Users\John' rlike '%SystemDrive%\\Users.*'</code></pre>
-
-**Result value:**
-
-<pre><code>true</code></pre>
-
-**Example of an SQL function usage fragment:**
-
-When spark.sql.parser.escapedStringLiterals is enabled.
-
-<pre><code>&gt; SELECT '%SystemDrive%\Users\John' rlike '%SystemDrive%\Users.*'</code></pre>
 
 **Result value:**
 
