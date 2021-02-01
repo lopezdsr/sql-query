@@ -285,8 +285,8 @@ A *fullselect* is the core component of a *query*. It is the only mandatory gene
 The result set defined by a single fullselect can be combined with the result set of one or more other fullselects using set operators.
 
 The following set operators are supported and each set operator derives a result set from two other result sets R1 and R2:
-* `INTERSECT`:  The result consists of all rows in R1 **and** R2.
-* `UNION`: The result consists of all rows in R1 and R2.
+* `INTERSECT`:  The result consists of all rows in **both** R1 and R2.
+* `UNION`: The result consists of all rows in R1 and all rows in R2.
 * `EXCEPT`: The result consists of all rows that do not have a corresponding row in R2.
 * `MINUS`: The minus operator is a synonym for the except operator and is supported for compatibility with other SQL implementations.
 
@@ -678,7 +678,7 @@ A *sort item clause* is referenced by the following clauses:
 
 A *relation* is a component of a *simpleselect* or a *relation primary* (which itself is a component of a *relation*). It is usually referred to as a *table*.
 
-A relation is an entity that represents input data either stored physically on Cloud {{site.data.keyword.cos_short}} or virtual intermediate results, for example, the virtual result table of a *subselect*, a *values clause*, a *common table expression*, or a *table valued function*. Relations can be queried or joined with other relations.
+A relation is an entity that represents input data either stored physically on Cloud {{site.data.keyword.cos_short}} or taken from virtual intermediate results. Such an intermediate result may be, for example, the result of a *subselect*, a *values clause*, a *common table expression*, or a *table valued function*. Relations can be queried or joined with other relations.
 
 Specifying the physical data stored on Cloud {{site.data.keyword.cos_short}} as a relation is done using the [externalTableSpec](#externalTableSpec) syntax. An example of a valid table URI is `cos://us-geo/sql/orders.parquet`, which references one of the sample tables provided by {{site.data.keyword.sqlquery_short}} out of the box.
 
@@ -735,21 +735,21 @@ The TIME_SERIES_FORMAT option triggers a read transformation mechanism that uses
 
 <!--include-svg src="./svgfiles/timeSeriesProperties.svg" target="./diagrams/timeSeriesProperties.svg" alt="syntax diagram for time series properties" layout="" -->
 
-The parameters `timetick` and `value` are the only parameters that are required to be specified. 
+The parameters `timetick` and `value` are the only parameters that are required to be specified.
 
 Following you see the descriptions of each parameter and how they affect the time series:
 
-* `timetick`: The column containing the timestamp or `timetick`. Ultimately, the resulting time series is sorted by this column. 
+* `timetick`: The column containing the timestamp or `timetick`. Ultimately, the resulting time series is sorted by this column.
 If two rows contain the same `timetick`, there are no guarantees as to which `timetick` comes first in the time series.
 
 * `value`: The column containing the value.
 
 * `key`: Optionally specify a `key` column that you can use to group each time series by. If a `key` is given, you can assume that there will be *n* time series created, where *n* is the set of all keys in the `key` column. If no `key` column is specified, a single time series is created from the given data set.
 
-* `starttime`: Optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html)) 
-for which to set the time series [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `starttime` is not given, and granularity is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if no granularity is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
+* `starttime`: Optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html))
+for which to set the time series [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `starttime` is not given, and `granularity` is given, the `starttime` defaults to Jan 1, 1970 12am (midnight) GMT. However, if no `granularity` is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
-* `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/services/sql-query?topic=sql-query-TRS). If granularity is not given, and `starttime` is given, the default granularity is 1 millisecond. However, if no starttime is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
+* `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `granularity` is not given, and `starttime` is given, the default `granularity` is 1 millisecond. However, if no `starttime` is given, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
 <!--include-svg src="./svgfiles/timeSeriesOptions.svg" target="./diagrams/timeSeriesOptions.svg" alt="syntax diagram for time series options" layout="" -->
 
@@ -794,7 +794,7 @@ A table-valued function returns a relation, that is, a set of rows. An example o
 
 <h3>More Topics</h3>
 
-For further details about the clauses used in a all *relation* clauses refer to the following topics:
+For further details about the clauses used in *relation* clauses refer to the following topics:
 * [booleanExpression](#booleanExpression)
 * [COSURI](#COSURI)
 * [expression](#expression)
@@ -1041,7 +1041,7 @@ For further details about the clauses used in a *lateral view* clause, refer to 
 
 Note:
 * A *simpleselect* can contain multiple lateral view clauses that are evaluated in order of appearance.
-* Within a lateral view clause, you can refer to columns defined in any (virtual) table left to the current lateral view clause.
+* Within a lateral view clause, you can refer to columns defined in any (virtual) table on the left of the current lateral view clause.
 
 <h3>Related References</h3>
 
@@ -1724,7 +1724,7 @@ The syntax of a *Boolean expression* is defined by the following syntax diagrams
 A Boolean expression is one of the following:
 * A negation of a boolean expression using Boolean operator `NOT`.
 * A conjunction of boolean expressions using Boolean operator `AND`.
-* A conjunction of boolean expressions using Boolean operator `OR`.
+* A disjunction of boolean expressions using Boolean operator `OR`.
 * An `EXIST` predicate.
 * A *value expression* optionally followed by a *predicate*.
 
@@ -2445,7 +2445,7 @@ The syntax of a *time series expression* is described by the syntax diagrams bel
 
 <!--include-svg src="./svgfiles/timeSeriesExpression.svg" target="./diagrams/timeSeriesExpression.svg" alt="syntax diagram for time series expression" layout="" -->
 
-The syntax shows time series functions that require expressions, such as  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`, 
+The syntax shows time series functions that require expressions, such as  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`,
 `TS_FIND()` and `TS_COUNT_ANCHOR()`.
 
 For more details on each function, see [Data processing functions](/docs/services/sql-query?topic=sql-query-data_processing_functions).
@@ -2457,8 +2457,8 @@ WITH timeseries_input AS (SELECT location, TIME_SERIES_WITH_TRS(TS_TIMESTAMP(tim
                           FROM cos://us-geo/sql/temperature_humidity.csv STORED AS CSV
                           GROUP BY location),
     only_40_or_above_ts AS (
-	    SELECT location, 
-	   		TS_FILTER(ts, TS_EXP_GT(TS_EXP_ID(), 40.0)) AS above_40_ts 
+	    SELECT location,
+	   		TS_FILTER(ts, TS_EXP_GT(TS_EXP_ID(), 40.0)) AS above_40_ts
 	    FROM timeseries_input
 	)
 SELECT location, TS_EXPLODE(above_40_ts) AS (timestamp, humidity) FROM only_40_or_above_ts
@@ -2472,9 +2472,9 @@ A *time series expression* is referenced by the following clause:
 
 <!--include-svg src="./svgfiles/booleanTimeSeriesExpression.svg" target="./diagrams/booleanTimeSeriesExpression.svg" alt="syntax diagram for boolean time series expression" layout="" -->
 
-The boolean time series expression syntax shows the available boolean exresssions, such as `TS_EXP_GT()`, which is also used in the previous example. 
+The boolean time series expression syntax shows the available boolean exresssions, such as `TS_EXP_GT()`, which is also used in the previous example.
 
-For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
 
 <h4 id="valueTimeSeriesExpression">valueTimeSeriesExpression</h4>
 
@@ -2486,10 +2486,10 @@ Time series values for expressions can either be a `string` or a `double` dataty
 
 <!--include-svg src="./svgfiles/doubleTimeSeriesExpression.svg" target="./diagrams/doubleTimeSeriesExpression.svg" alt="syntax diagram for double time series expression" layout="" -->
 
-The functions shown in the double time series expressions, such as `TS_EXP_ABS()` and `TS_EXP_LENGTH()`, are able to consume again double time series expressions, 
-`number` or an identity time series expression. 
+The functions shown in the double time series expressions, such as `TS_EXP_ABS()` and `TS_EXP_LENGTH()`, are able to consume again double time series expressions,
+`number` or an identity time series expression.
 
-For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
 
 <h4 id="stringTimeSeriesExpression">stringTimeSeriesExpression</h4>
 
@@ -2497,7 +2497,7 @@ For more details on each function, see [Artifact creation functions](/docs/servi
 
 The string function `TS_EXP_ID_TO_STRING()` converts an ID to a string and the `TS_EXP_CONCAT()` function concatenates the result of two string expressions.
 
-For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+For more details on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
 
 <h4 id="stringConditionalExpression">stringConditionalExpression</h4>
 
@@ -2505,7 +2505,7 @@ For more details on each function see [Artifact creation functions](/docs/servic
 
 There are three conditional expression functions for string values `TS_EXP_IF_THEN_ELSE()`, `TS_EXP_IF_THEN()` and `TS_EXP_MATCH_CASE()`.
 
-For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact). 
+For more details on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
 
 <h4 id="identityTimeSeriesExpression">identityTimeSeriesExpression</h4>
 
@@ -2769,11 +2769,11 @@ location  cos://us-geo/sql/shippers.parquet
 
 The tableProperty option consists of one or more key and value pairs.
 
-Key | Value | Default | Description 
---- | --- | --- | --- 
+Key | Value | Default | Description
+--- | --- | --- | ---
 HEADER | true or false | true | Use the HEADER option to specify if your CSV object has a header included.
 DELIMITER | single (possibly escaped) character | `,` (comma) | Use the DELIMITER option to specify the used delimiter in your CSV objects. All single Unicode characters are allowed as delimiters.
-MULTILINE | true or false | false | Use the MULITLINE option to specify if the JSON object is single or multiline. 
+MULTILINE | true or false | false | Use the MULITLINE option to specify if the JSON object is single or multiline.
 
 ```sql
 -- Example of creating a table definition in the catalog for a CSV data without header line:
@@ -2814,10 +2814,10 @@ DROP TABLE customers
 
 <!--include-svg src="./svgfiles/identifierComment.svg" target="./diagrams/identifierComment.svg" alt="syntax diagram for identifier comment definition" layout="@break@" -->
 
-Create a view definition in the catalog, based on existing table and view definitions. 
+Create a view definition in the catalog, based on existing table and view definitions.
 If a table or view with the same name already exists in the same {{site.data.keyword.sqlquery_short}} instance, you receive an error, unless the `IF NOT EXISTS` clause is specified.
 
-The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query. 
+The query definition is mandatory. It automatically specifies the SQL query that is used, whenever you use the view in a FROM clause of a query.
 You can hide some complexity of your data model by creating views on top of your tables. It is also possibe to define views on top of other views.
 
 ```sql
@@ -2978,7 +2978,7 @@ SHOW PARTITIONS customers_partitioned
 ## Index Management
 {: #chapterIndexManagement}
 
-The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries. 
+The following commands allow you to create indexes for data skipping during SQL execution, in order to improve performance and lower the costs of your SQL queries.
 The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
 Refer to the section about [Index Management](/docs/services/sql-query?topic=sql-query-index_management) for more details.
 
@@ -2996,7 +2996,7 @@ Create an index on the objects in the specified {{site.data.keyword.cos_short}} 
 <!--include-svg src="./svgfiles/metaindexIndextype.svg" target="./diagrams/metaindexIndextype.svg" alt="syntax diagram for the different index types" layout="@break@" -->
 
 * MINMAX: Stores minimum or maximum values for a column for all types, except for complex types.
-* VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low. 
+* VALUELIST: Stores the list of unique values for the column for all types if the distict values in that column are low.
 * BLOOMFILTER: Uses bloom filter technique for byte, string, long, integer, or short types if the disctict values in that column are high.
 * GEOSPATIAL: Stores a geospatial bounding box for geometry types.
 
@@ -3014,10 +3014,10 @@ ON cos://us-geo/sql/metergen STORED AS parquet
 
 ```sql
 -- create an index on the columns  customerID and city of the sample table CUSTOMERS_PARTITIONED
-CREATE METAINDEX 
+CREATE METAINDEX
 VALUELIST for city,
 BLOOMFILTER for customerID
-ON TABLE CUSTOMERS_PARTITIONED 
+ON TABLE CUSTOMERS_PARTITIONED
 ```
 {: codeblock}
 
@@ -3077,7 +3077,7 @@ Describe an existing index based on the objects in the specified {{site.data.key
 
 ```sql
 -- describe the index based on the metergen sample data set
-DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet 
+DESCRIBE METAINDEX ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 {: codeblock}
 
@@ -3092,7 +3092,7 @@ List all stored indexes in the base location. Note that tables with a different 
 
 ```sql
 -- list all Metaindexes in the base location
-SHOW METAINDEXES 
+SHOW METAINDEXES
 ```
 {: codeblock}
 
@@ -3103,9 +3103,9 @@ SHOW METAINDEXES
 
 <!--include-svg src="./svgfiles/metaindexLocationCommand.svg" target="./diagrams/metaindexLocationCommand.svg" alt="syntax diagram for alter index command" layout="@break@" -->
 
-You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location. 
-If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.   
-Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed. 
+You have to alter the {{site.data.keyword.cos_short}} location for all indexes only once to define the base location.
+If you change it later, {{site.data.keyword.sqlquery_short}} cannot find the index metadata anymore.
+Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.
 
 ```sql
 -- set the default location for all indexes
@@ -3121,7 +3121,7 @@ ALTER METAINDEX SET LOCATION cos://us-south/<mybucket>/<mypath>/
 
 <!--include-svg src="./svgfiles/hiveMetaindexLocationCommand.svg" target="./diagrams/hiveMetaindexLocationCommand.svg" alt="syntax diagram for alter table set location command" layout="@break@" -->
 
-This command lets you to define a location for this specified Hive table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index metadata anymore. Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.  
+This command lets you to define a location for this specified Hive table. If you change it later, {{site.data.keyword.sqlquery_short}} will not find the index metadata anymore. Existing index metadata on previous location is not dropped, therefore you can always switch back to the old location when needed.
 
 ```sql
 -- set the index location for the table CUSTOMERS_PARTITIONED
@@ -3137,7 +3137,7 @@ ALTER TABLE CUSTOMERS_PARTITIONED SET METAINDEX LOCATION cos://us-south/<mybucke
 
 <!--include-svg src="./svgfiles/hiveMetaindexDropLocationCommand.svg" target="./diagrams/hiveMetaindexDropLocationCommand.svg" alt="syntax diagram for alter table drop location command" layout="@break@" -->
 
-This command allows you to drop a location for the specified table. Use this command if the index metadata should be fetched from the base location. 
+This command allows you to drop a location for the specified table. Use this command if the index metadata should be fetched from the base location.
 The metadata for the index stored in {{site.data.keyword.cos_short}} is not dropped and have to be cleaned up manually.
 
 ```sql
@@ -3254,4 +3254,3 @@ See section [dataType](#dataType) for more details about data types.
 A *string* is a sequence of arbitrary characters including escaped characters, for example,
 `\t`, either enclosed in single quotes `'`, or double quotes, `"`.
 To include any quote characters in the string they have to be escaped as <code>\\\\\`</code> or `\\"`, respectively.
-
