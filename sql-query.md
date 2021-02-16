@@ -329,7 +329,7 @@ This allows you to use IBM Watson Studio to run queries with {{site.data.keyword
 
 Using the ibmcloudsql library, you can also interact with {{site.data.keyword.sqlquery_short}} directly from Watson Studio notebooks.
 You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d)
-in the [IBM Cloud Pak for Data community](https://dataplatform.cloud.ibm.com/gallery?context=cpdaas&query=sql).
+in the [IBM Cloud Pak for Data Gallery](https://dataplatform.cloud.ibm.com/gallery?context=cpdaas&query=sql).
 
 ### Cloud functions
 {: #cloud}
