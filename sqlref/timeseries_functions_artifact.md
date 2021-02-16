@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2020
-lastupdated: "2020-10-08"
+  years: 2019, 2021
+lastupdated: "2021-02-16"
 
 keywords: SQL query, time series, SQL, artifact creation, function
 
@@ -254,7 +254,7 @@ Expression that gets the absolute value of an expression.
 
 **"TS_EXP_EXP” (DoubleExpType)**
 Output: Double Expression  
-Expression that gets the exp of an expression.
+Expression that gets the Euler's Number e raised to the power of a given DoubleExpression.
 
 **"TS_EXP_LOG” (DoubleExpType)**
 Output: Double Expression  
