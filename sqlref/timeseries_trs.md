@@ -49,11 +49,9 @@ Note: When you use a TRS to convert a timestamp to a numeric representation, if 
 {: #associating}
 
 To associate a time series with a TRS, use one of the creation functions that have WITH_TRS as part of their names. 
-A time series can be associated with a TRS only at the time that the time series is created; a TRS cannot be added to a time series retroactively. 
-However, you can use the TS_WITH_TRS function to change the TRS with which a time series is associated.
+A time series can be associated with a TRS only at the time that the time series is created; a TRS cannot be added to a time series retroactively. However, you can use the TS_WITH_TRS function to change the TRS with which a time series is associated.
 
 ## Duplicate timestamps
 {: #duplicate}
 
-Changing the TRS can result in duplicate timestamps, for example when the time granularity of the new TRS is coarser than that of the old TRS. 
-If necessary, you can use [combiner functions](/docs/services/sql-query?topic=sql-query-artifact#combiner_creation) to combine observations that have duplicate timestamps into a single observation, for example, by calculating the average of their values.
+Changing the TRS can result in duplicate timestamps, for example when the time granularity of the new TRS is coarser than that of the old TRS. If necessary, you can use [combiner functions](/docs/services/sql-query?topic=sql-query-artifact#combiner_creation) to combine observations that have duplicate timestamps into a single observation, for example, by calculating the average of their values.
