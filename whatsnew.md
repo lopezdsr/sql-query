@@ -24,7 +24,7 @@ subcollection: sql-query
 - {{site.data.keyword.cos_full_notm}} web console does now discover SQL-queryable objects and folders and allows to directly launch the {{site.data.keyword.sqlquery_short}} web console with an appropriately prefilled SQL statement for seamless interactive data exploration.
 
 ## November 2020
-- The location of Hive partitions can now be modified using the [`ALTER TABLE SET LOCATION`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionSpec) feature.
+- The location of Hive partitions can now be modified using the [`ALTER TABLE SET LOCATION`](/docs/sql-query?topic=sql-query-sql-reference#chapterAlterTableSetLocation) feature.
 
 ## October 2020
 - {{site.data.keyword.sqlquery_short}} index management, also referred to as data skipping has been made generally available with full production support.
@@ -44,7 +44,7 @@ You can view completed and failed jobs, the number of bytes processed, and the j
 
 - {{site.data.keyword.sqlquery_short}} supports index management, also referred to as data skipping. Index management can significantly boost performance and reduce cost of your SQL queries by skipping over irrelevant data.![Beta](beta.png)
 - Service access role **Manager** is required to run catalog management or index management commands.
-- {{site.data.keyword.sqlquery_short}} database catalog support has been extended to support [views](/docs/services/sql-query?topic=sql-query-sql-reference#createView).
+- {{site.data.keyword.sqlquery_short}} database catalog support has been extended to support [views](/docs/sql-query?topic=sql-query-sql-reference#chapterCreateView).
 - {{site.data.keyword.sqlquery_short}} catalog management is now out of the Beta stage and can be used with the Standard plan.
 
 ## April 2020
@@ -61,11 +61,11 @@ You can view completed and failed jobs, the number of bytes processed, and the j
 
 ## December 2019
 
-- You can now use [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to pass credentials to data resources referenced by your queries, thereby ensuring safe handling of your secrets. For more information, see the [authentication documentation](/docs/services/sql-query?topic=sql-query-security#authentication).
+- You can now use [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to pass credentials to data resources referenced by your queries, thereby ensuring safe handling of your secrets. For more information, see the [authentication documentation](/docs/sql-query?topic=sql-query-authentication).
 
 ## November 2019
 
-- You can now specify a [`MULTILINE`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) option for JSON input data if individual JSON records are stored across multiple lines.
+- You can now specify a [`MULTILINE`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) option for JSON input data if individual JSON records are stored across multiple lines.
 
 ## October 2019
 
@@ -76,11 +76,11 @@ You can view completed and failed jobs, the number of bytes processed, and the j
 
 ## September 2019
 
-- Support for ETL to {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify [Db2 target tables](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier) in your SQL queries in order to process data from {{site.data.keyword.cos_full_notm}} and save the {{site.data.keyword.sqlquery_short}} result into {{site.data.keyword.Db2_on_Cloud_short}}.
+- Support for ETL to {{site.data.keyword.Db2_on_Cloud_long}}: You can now specify [Db2 target tables](/docs/sql-query?topic=sql-query-overview#unique) in your SQL queries in order to process data from {{site.data.keyword.cos_full_notm}} and save the {{site.data.keyword.sqlquery_short}} result into {{site.data.keyword.Db2_on_Cloud_short}}.
 
 ## August 2019
 
-- Support for the [`DESCRIBE`](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that enables easy exploration of the schema of data on  by returning the schema definition instead of data as the table content. Check out the new Starter Query sample in the UI.
+- Support for the [`DESCRIBE`](/docs/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that enables easy exploration of the schema of data on  by returning the schema definition instead of data as the table content. Check out the new Starter Query sample in the UI.
 
 ## July 2019
 
@@ -99,9 +99,9 @@ to identify trends and to predict future values based on these trends.
 ## May 2019
 
 - Updates to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference):
-  - With [`JOBPREFIX JOBID/NONE`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) you can now specify if you want the jobid appended to the target prefix, or not.
-  - The [`SORT BY`](/docs/services/sql-query?topic=sql-query-sql-reference#sortClause) clause for SQL targets is new, you can use it to sort SQL result sets in many ways, before writing the results to {{site.data.keyword.cos_full_notm}}. It can be used in combination with [`PARTITIONED BY`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause), [`PARTITIONED INTO`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) (to cluster the results), or without the PARTITIONED clause.
-  - [`PARTITIONED INTO BUCKETS`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) and [`PARTITIONED INTO OBJECTS`](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) are now both supported, thus can be used synonymously.
+  - With [`JOBPREFIX JOBID/NONE`](/docs/sql-query?topic=sql-query-sql-reference#cosResultClause) you can now specify if you want the jobid appended to the target prefix, or not.
+  - The [`SORT BY`](/docs/sql-query?topic=sql-query-sql-reference#sortClause) clause for SQL targets is new, you can use it to sort SQL result sets in many ways, before writing the results to {{site.data.keyword.cos_full_notm}}. It can be used in combination with [`PARTITIONED BY`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause), [`PARTITIONED INTO`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) (to cluster the results), or without the PARTITIONED clause.
+  - [`PARTITIONED INTO BUCKETS`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) and [`PARTITIONED INTO OBJECTS`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) are now both supported, thus can be used synonymously.
 
 ## April 2019
 
