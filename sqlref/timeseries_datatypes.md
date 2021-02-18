@@ -27,11 +27,7 @@ store time series data in any BinaryType data array, such as those offered by Pa
 Data type | Description
 --- | ---
 
-DoubleTimeSeries | Time series with univariate observations of type Double, for example:  
-
-```
-[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6), (5, 7.1), (7, 3.9), (9, 1.1)]
-``` 
+DoubleTimeSeries | Time series with univariate observations of type Double, for example:  ```[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6),  (5, 7.1), (7, 3.9), (9, 1.1)]``` 
 
 
 <div class="section"><div class="p"><div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="timeseries_datatypes__ts_datatypes" class="table" rules="rows" frame="hsides" border="1"><caption><span class="tablecap">Table 1. Time series data types</span>. <span class="desc tabledesc">These are binary data types especially designed to hold time series data. Alternatively, you can store time series data in any BinaryType data array, such as those offered by Parquet, Avro, ORC, or JSON. CSV does not offer a suitable BinaryType data array for storing time series data.</span></caption><thead class="thead" align="left"><tr class="row"><th class="entry ncol thleft" valign="top" width="19.53125%" id="d2766e29">Data type</th>
