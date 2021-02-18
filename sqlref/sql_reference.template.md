@@ -249,7 +249,7 @@ this can reduce the query processing time significantly.
 By default, either the credentials needed to access the target database are taken from the credentials object of a `CRN_URI`, or the IAM user
 submitting the statement is used to connect to the `DB2_TABLE_URI`.
 You can override this default by specifying either  a combination of `USER` and `PASSWORD` or an `APIKEY`. However, the password or API key is **not** included in the SQL statement as plain text. Instead, you must to store it as a custom key in a {{site.data.keyword.keymanagementservicefull}} instance to which you have access.
-For a description how to store and manage the secrets in {{site.data.keyword.keymanagementserviceshort}}, see [Setting up custom secrets in Key Protect](/docs/services/sql-query?topic=sql-query-security#kpsetup).
+For a description how to store and manage the secrets in {{site.data.keyword.keymanagementserviceshort}}, see [Setting up custom secrets in Key Protect](/docs/sql-query?topic=sql-query-kpsetup).
 
 <!--include-svg src="./svgfiles/accessSecrets.svg" target="./diagrams/accessSecrets.svg" alt="syntax diagram for a Db2 result clause" layout="@break@" -->
 
@@ -3170,7 +3170,7 @@ The metaindexAssetHiveTable refers to a Hive table.
 
 A Cloud {{site.data.keyword.cos_short}} Uniform Resource Identifier (COS URI) is a string of characters that uniquely identifies an object on Cloud {{site.data.keyword.cos_short}}. By definition URIs are case-insensitive.
 
-The syntax of a COS URI is thoroughly described in section [Table unique resource identifier](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
+The syntax of a COS URI is thoroughly described in section [Table unique resource identifier](https://cloud.ibm.com/docs/sql-query?topic=sql-query-overview#unique).
 
 <h3 id ="CRN_URI">CRN_URI</h3>
 
