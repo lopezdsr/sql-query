@@ -25,7 +25,7 @@ subcollection: sql-query
 Use the {{site.data.keyword.cloudaccesstraillong}} service to track how users and applications interact with {{site.data.keyword.sqlquery_full}}.
 
 The {{site.data.keyword.cloudaccesstraillong_notm}} service records user-initiated activities that change the state of a service in {{site.data.keyword.cloud}}.
-For more information, see [Getting started with Activity Tracker with LogDNA](/docs/services/Activity-Tracker-with-LogDNA?topic=logdnaat-getting-started).
+For more information, see [Getting started with Activity Tracker with LogDNA](docs/Activity-Tracker-with-LogDNA?topic=Activity-Tracker-with-LogDNA-getting-started).
 
 ##List of events
 {: #events}
