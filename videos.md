@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2021
-lastupdated: "2021-02-17"
+lastupdated: "2021-02-18"
 
 keywords: SQL query, tutorial, video, provision, run query, introduction, REST API, command line, object storage
 
@@ -19,8 +19,7 @@ subcollection: sql-query
 # Video tutorials
 {: #video}
 
-The following videos help you to get started provisioning and using {{site.data.keyword.sqlquery_full}}, 
-show you how to run queries, use the REST API, and how to connect to {{site.data.keyword.cos_full}} through the command line.
+The following videos help you to get provisioned and use {{site.data.keyword.sqlquery_full}}. The videos show you how to run queries, use the REST API, and how to connect to {{site.data.keyword.cos_full}} through the command line.
 
 The first video shows you how to provision {{site.data.keyword.cos_full}} and {{site.data.keyword.sqlquery_full}} to get you started.
 
@@ -73,7 +72,7 @@ frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; pict
 
 <br>
 
-The following video in this series shows you how to run {{site.data.keyword.sqlquery_full}} using the REST API.
+The following video in this series shows you how to run {{site.data.keyword.sqlquery_full}} with the REST API.
 
 <iframe width="640" height="390" title="End-to-End Use Case for Using the API"  
 src="https://www.youtube.com/embed/yX-8_jTiAuo?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
