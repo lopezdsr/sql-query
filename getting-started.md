@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  year: 2018, 2019
-lastupdated: "2019-10-07"
+  year: 2018, 2021
+lastupdated: "2021-02-18"
 
 keywords: SQL, query, object storage, bucket, sample, instance, analyze, CSV, JSON, ORC, Parquet
 
@@ -70,6 +70,6 @@ To analyze your own data (CSV, JSON, ORC, or Parquet), upload it to an Cloud {{s
 
 For more advanced capabilities, check out these video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)
-- [How to connect to IBM Cloud Object Storage Through the Command Line](http://ibm.biz/csq-aws-sli)
+- [How to connect to IBM Cloud Object Storage through the Command Line](http://ibm.biz/csq-aws-sli)
 - [How to use the SQL Query REST API](http://ibm.biz/csq-use-api)
 - [How to operationalize SQL code and call it from an application](http://ibm.biz/csq-e2e)
