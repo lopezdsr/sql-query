@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2018, 2020
-lastupdated: "2020-12-10"
+  years: 2018, 2021
+lastupdated: "2021-02-18"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -37,7 +37,7 @@ Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your
 src="https://www.youtube.com/embed/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 1. {{site.data.keyword.sqlquery_short}}: Provision the IBM Cloud Services*
+*Video 1. {{site.data.keyword.sqlquery_short}}: Provision the IBM Cloud Services*.
 
 
 ## Where your input data and query results are stored
@@ -55,7 +55,7 @@ Watch the following video to learn more about {{site.data.keyword.sqlquery_short
 
 <iframe width="640" height="390" title="IBM Cloud SQL Query: Run Queries from the Console"  src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 2. {{site.data.keyword.sqlquery_short}}: Run queries from the console*
+*Video 2. {{site.data.keyword.sqlquery_short}}: Run queries from the console*.
 
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
@@ -67,9 +67,9 @@ You must have at least 'Reader' access to the buckets that contain the input obj
     - If the format of the input objects is CSV, and no special options are required, there is no need to specify a `STORED AS` clause.
 However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO, as appropriate.
     - If text formats, such as JSON and CSV, are compressed with either gzip or bzip2 and have the extensions *.gz and *.bz, they automatically get recognized as compressed files. However, it is not recommended to use these kinds of compressed files due to performance reasons.
-    - If the format of the input objects is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the `FIELDS TERMINATED BY` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All single Unicode characters are allowed as delimiters.
-    - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns.  If the objects don't have a header line, you have to specify `NOHEADER` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
-    - By default, it is assumed that JSON input objects consist of a single JSON record per line. If individual records span multiple lines, you have to specify `MULTILINE` in the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
+    - If the format of the input objects is CSV and a delimiter other than the default `,` (comma) is used, you have to specify the delimiter using the `FIELDS TERMINATED BY` option of the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All single Unicode characters are allowed as delimiters.
+    - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns. If the objects don't have a header line, you have to specify `NOHEADER` in the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
+    - By default, it is assumed that JSON input objects consist of a single JSON record per line. If individual records span multiple lines, you have to specify `MULTILINE` in the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - If required, you can use JOIN constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
     - Use the `INTO` clause of a [query](/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the desired result format.
 2. Below the query editor, the **Target location** field displays where the result will be stored. An initial bucket in one of your {{site.data.keyword.cos_short}} instances is automatically created for you when you open the UI. It is then chosen as your default location, if your query does not specify an `INTO` clause. To ensure the automatic setup of an initial bucket, the following has to be done in advance:
@@ -195,7 +195,7 @@ Note that the number of parallel Db2 connections has an effect on performance. T
 
 If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and if the SQL user can see the credentials for that instance (this requires the Operator privilege), then the user can specify the database location using its instance CRN. The access to the database is performed with the user name and password found in the service credentials for this Db2 instance. Note that newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
-You can optionally override the user name and password in the credentials with a custom user and password or a custom API key. Store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication) for further details.
+You can optionally override the user name and password in the credentials with a custom user and password or a custom API key. Store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. Refer to the [security documentation](/docs/sql-query?topic=sql-query-authentication) for further details.
 
 This option is typically used with Db2 Lite plans, which provide restricted access for a single user in a shared database. It can also be used with Standard plans, but the service credentials for Standard plans always allow full administrator access. If the SQL user should have only restricted access to the target database, use the subsequent "Db2 table URI location" option.
 
@@ -241,10 +241,10 @@ By default, three objects are written to Cloud {{site.data.keyword.cos_short}} a
 2. `<target>/jobid=<job_id>/_SUCCESS`
 3. `<target>/jobid=<job_id>/<part-number>`
 
-Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names will include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/services/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO` clause.
+Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names will include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO` clause.
 
 Note that you can use the result set from one query as input data for further SQL queries.
-If you want to specify a result of a single query execution as input in your SQL query, specify the first (`<target>/jobid=<job_id>`) or the third one (`<target>/jobid=<job_id>/<part-number>`). You can also use the [partitioning clause](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. Either the entire result set or individual objects can then serve as input for further queries.
+If you want to specify a result of a single query execution as input in your SQL query, specify the first (`<target>/jobid=<job_id>`) or the third one (`<target>/jobid=<job_id>/<part-number>`). You can also use the [partitioning clause](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. Either the entire result set or individual objects can then serve as input for further queries.
 
 A query can even process the output of multiple previous query executions by omitting the `jobid=<job_id>` part in the object name. For example, you can run some setup queries writing to `cos://us-geo/my-bucket/tempstore`, where each query creates new objects inside that prefix with a distinct `jobid=<job_id>` name. You can then run an aggregate query over all of the setup results using `cos://us-geo/my-bucket/tempstore` as a [composite input table](#compositeInput). The aggregate query can treat `jobid` as if it were a column in the input table (for example, in a WHERE clause). This is the Hive-style partitioning concept that Hadoop SQL engines employ for data stored in Hadoop Distributed File System (HDFS).
 
@@ -328,8 +328,8 @@ For a Python application, you can also use the [ibmcloudsql package](https://pyp
 This allows you to use IBM Watson Studio to run queries with {{site.data.keyword.sqlquery_short}} and visualize the query results with one of the various widget libraries available in [Watson Studio](https://cloud.ibm.com/catalog/services/data-science-experience).
 
 Using the ibmcloudsql library, you can also interact with {{site.data.keyword.sqlquery_short}} directly from Watson Studio notebooks.
-You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.ibm.com/analytics/notebooks/v2/656c7d43-7ccd-4e50-a3c0-bbc37c001132/view?access_token=baaa77ad715e17a8f823615d45431329fde0fe92fecb85abb9fc55a877939fe8)
-in the [Watson Studio community](https://dataplatform.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d).
+You can start by [Using IBM Cloud SQL Query notebook](https://dataplatform.cloud.ibm.com/exchange/public/entry/view/4a9bb1c816fb1e0f31fec5d580e4e14d)
+in the [IBM Cloud Pak for Data Gallery](https://dataplatform.cloud.ibm.com/gallery?context=cpdaas&query=sql).
 
 ### Cloud functions
 {: #cloud}
@@ -389,7 +389,7 @@ You can also create timestamp values in a different timezone from a UTC timestam
 
 - If a JSON, ORC, or Parquet object contains a nested or arrayed structure, a query with CSV output using a wildcard (for example, `SELECT * from cos://...`) returns an error such as "Invalid CSV data type used: `struct<nested JSON object>`."
 Use one of the following workarounds:
-  - For a nested structure, use the [`FLATTEN`](/docs/services/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function. Alternatively, you can specify the fully nested column names instead of the wildcard, for example, `SELECT address.city, address.street, ... from cos://...`.
+  - For a nested structure, use the [`FLATTEN`](/docs/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function. Alternatively, you can specify the fully nested column names instead of the wildcard, for example, `SELECT address.city, address.street, ... from cos://...`.
   - For an array, use the Spark SQL explode() function, for example, `select explode(contact_names) from cos://...`.
 
 - If you receive a corrupted result, verify that the source URI is correct and that the correct input format is specified using 'STORED AS' in the SQL statement.

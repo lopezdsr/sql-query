@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-05-28"
+  years: 2019, 2021
+lastupdated: "2021-02-16"
 
 keywords: SQL query, time series, SQL, data types
 
@@ -27,17 +27,10 @@ store time series data in any BinaryType data array, such as those offered by Pa
 Data type | Description
 --- | ---
 
-DoubleTimeSeries | Time series with univariate observations of type Double, for example:  
-
-```
-[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6), (5, 7.1), (7, 3.9), (9, 1.1)]
-``` 
+DoubleTimeSeries | Time series with univariate observations of type Double, for example:  ```[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6),  (5, 7.1), (7, 3.9), (9, 1.1)]``` 
 
 
-<div class="section"><div class="p"><div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="timeseries_datatypes__ts_datatypes" class="table" rules="rows" frame="hsides" border="1"><caption><span class="tablecap">Table 1. Time series data types</span>. <span class="desc tabledesc">These are binary data types especially designed to hold time series data. Alternatively, you
-can store time series data in any BinaryType data array, such as those offered by Parquet, Avro,
-ORC, or JSON. CSV does not offer a suitable BinaryType data array for storing time series
-data.</span></caption><thead class="thead" align="left"><tr class="row"><th class="entry ncol thleft" valign="top" width="19.53125%" id="d2766e29">Data type</th>
+<div class="section"><div class="p"><div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="timeseries_datatypes__ts_datatypes" class="table" rules="rows" frame="hsides" border="1"><caption><span class="tablecap">Table 1. Time series data types</span>. <span class="desc tabledesc">These are binary data types especially designed to hold time series data. Alternatively, you can store time series data in any BinaryType data array, such as those offered by Parquet, Avro, ORC, or JSON. CSV does not offer a suitable BinaryType data array for storing time series data.</span></caption><thead class="thead" align="left"><tr class="row"><th class="entry ncol thleft" valign="top" width="19.53125%" id="d2766e29">Data type</th>
 <th class="entry ncol thleft" valign="top" width="80.46875%" id="d2766e31">Description</th>
 </tr>
 </thead>
@@ -133,7 +126,7 @@ any of several time series data types.</span></caption><thead class="thead" alig
 </tr>
 </thead>
 <tbody class="tbody"><tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e173 ">TRS</td>
-<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e175 ">A <a class="xref" href="timeseries_trs.html#timeseries_trs" title="A time reference system (TRS) defines the granularity of a time series (that is, the length of each timetick), and the date and time from which the timeticks are to be counted (that is, the time series start time).">time reference system (TRS)</a> defines
+<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e175 ">A <a class="xref" href="timeseries_trs.html#trs" title="A time reference system (TRS) defines the granularity of a time series (that is, the length of each timetick), and the date and time from which the timeticks are to be counted (that is, the time series start time).">time reference system (TRS)</a> defines
 the granularity of time series timeticks, and defines a start time that maps a particular time series
 timetick to a corresponding moment in time.</td>
 </tr>

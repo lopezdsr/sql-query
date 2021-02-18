@@ -78,7 +78,7 @@ By doing so, each time series will be much smaller, and have a better chance of 
 The most common cause for exhausting allocated resources or out of memory errors is the structure of the query or the layout of the data. The following best practices help to avoid such issues:
 
 - Prepare your data first. Transform input formats, such as .csv or .json to a compressed format, such as Parquet.
-- Write results into [partitioned result sets](https://cloud.ibm.com/docs/sql-query?topic=sql-query-sql-reference#partitionedClause). It is recommended to start with a double digit partition value. An optimal single object size is about 128 MB. For more details, see [the following blog on big data layout](https://www.ibm.com/cloud/blog/big-data-layout).
+- Write results into [partitioned result sets](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause). It is recommended to start with a double digit partition value. An optimal single object size is about 128 MB. For more details, see [the following blog on big data layout](https://www.ibm.com/cloud/blog/big-data-layout).
 - Use Parquet as the output format (STORED AS clause) instead of .csv or .json. Avoid working with Gzip objects.
 Depending on how a join clause is written, it can cause memory-intensive operations. Avoid using functions in the join clause, such as trim. It is better to cleanse the data first with a preparation step and then to use the cleansed data in the join operation, without needing the functions.
 - If you already follow the recommendations above and still get the OOM, try breaking down complex statements into multiple SQL statements.
