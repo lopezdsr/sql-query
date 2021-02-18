@@ -41,7 +41,7 @@ For more information, see the [documentation](/docs/services/key-protect?topic=k
 encoded content to Key Protect: ``ibmcloud kp create "<key name>" -i <kp instance id> -s -k `echo -ne "<your custom secret>" | base64` ``. The key name that 
 you provide is for your reference only and can be an arbitrary string.
 7. List the keys again (as in step 5) to retrieve the key ID and CRN for the new key that you just created. Use the key CRN in an 
-[access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) of an SQL query.
+[access secret clause](/docs/sql-query?topic=sql-query-sql-reference#accessSecrets) of an SQL query.
 
 You can verify the correct setup and function of your IBM Cloud CLI by downloading and running <a href="kp_check.sh" download>this script</a> in your command line. It performs some tests for creating and verifying a test key in one of your Key Protect instances.
 
