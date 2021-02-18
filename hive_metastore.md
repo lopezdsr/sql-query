@@ -49,7 +49,7 @@ LOCATION cos://us-geo/sql/employees.parquet
 ```
 
 The statement automatically detects the schema of the data at the given location.
-See the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference#createTable) for options that can be set on the table.
+See the [SQL reference](/docs/sql-query?topic=sql-query-sql-reference#createTable) for options that can be set on the table.
 
 Use the `DESCRIBE TABLE` statement to verify the detected table schema:
 
@@ -168,7 +168,7 @@ LOCATION cos://us-geo/sql/customers_partitioned.csv
 ```
 
 If your data on {{site.data.keyword.cos_short}} does not adhere to this naming convention, you can convert it to a Hive-partitioned layout by using {{site.data.keyword.sqlquery_short}} in a data preparation step.
-Use `SELECT *` to copy the data to a new location and specify [PARTITION BY](/docs/services/sql-query?topic=sql-query-sql-reference#partitionedClause) in the INTO clause:
+Use `SELECT *` to copy the data to a new location and specify [PARTITION BY](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) in the INTO clause:
 
 ```sql
 SELECT * FROM cos://us-geo/sql/customers.csv
