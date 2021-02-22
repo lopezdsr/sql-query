@@ -45,19 +45,15 @@ The IAM user ID that is used to submit the query must have the operator role for
 {: #userpassword}
 
 You can use the USER and PASSWORD keywords in the corresponding FROM or INTO clauses to securely pass user ID and password for each resource location. 
-To ensure that the passing of sensitive data is secure, perform the follwoing steps:
-
-  1. Store the password as a custom standard key in an instance of {{site.data.keyword.keymanagementserviceshort}} to which you have access.
-  2. Pass it in a CRN to that key instead of the plain text password. 
+To ensure that the passing of sensitive data is secure, store the password as a custom standard key in an instance of {{site.data.keyword.keymanagementserviceshort}} to which you have access and then use the CRN of this custom standard key instead of the plain text password.
 For more information, see [Setting up custom secrets in Key Protect](#kpsetup) about how to store the password securely.
 
 #### Custom API key for each data resource
 {: #apikey}
 
 As an alternative to providing user and password combinations, in {{site.data.keyword.Bluemix_notm}} you can also securely pass API keys for each resource location. Using the `APIKEY` keyword inside the according `FROM` or `INTO` clauses, you can pass in this information. 
-To ensure that the passing of sensitive data is secure, you must first store the API key as a custom standard key in a 
-{{site.data.keyword.keymanagementserviceshort}} service instance to which you have access, and then pass it in a CRN to that 
-key instead of the plain text API key. For more information, see [Setting up custom secrets in Key Protect](#kpsetup) on how to store the API key securely.
+To ensure that the passing of sensitive data is secure, first store the API key as a custom standard key in a 
+{{site.data.keyword.keymanagementserviceshort}} service instance to which you have access, and then use the CRN of this custom standard key instead of the plain text password. For more information, see [Setting up custom secrets in Key Protect](#kpsetup) on how to store the API key securely.
 
 ### Currently supported authentication methods per data resource
 {: #supportedauthentication}
