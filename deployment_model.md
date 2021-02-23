@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2020
-lastupdated: "2020-10-26"
+  years: 2020, 2021
+lastupdated: "2021-02-23"
 
 keywords: SQL query, security, enhancing security, deployment model
 
@@ -21,7 +21,7 @@ subcollection: sql-query
 
 {{site.data.keyword.sqlquery_full}}'s Deployment Model corresponds to a public service with public endpoints.
 It is the publicly shared multi-tenant deployment model for IBM Services, and as such, this model is not dedicated. 
-The service is accessed via public endpoints. Both, the control and data plane of the service, are shared across tenants.
+The service is accessed through public endpoints. Both, the control and data plane of the service, are shared across tenants.
 
 Tenant isolation models | Tenant domain isolation | Endpoint isolation | Compute isolation | Storage isolation | Network isolation
 --- | --- | --- | --- | --- | ---
