@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2020
-lastupdated: "2020-12-15"
+  years: 2020, 2021
+lastupdated: "2021-02-23"
 
 keywords: SQL query, dependencies, cloud
 
@@ -22,7 +22,7 @@ subcollection: sql-query
 ## Dependencies to other IBM Cloud Services
 {:dependencies_cloud}
 
-In general, customer data is not leaving the region or country, in which an instance of {{site.data.keyword.sqlquery_full}} had been provisioned. This excludes customer data used by dependant service instances which are under customer responsibility.
+In general, customer data is not leaving the region or country, in which an instance of {{site.data.keyword.sqlquery_full}} was provisioned. This rule excludes customer data that is used by dependant service instances that are under customer responsibility.
 
 ### Critical Dependencies
 {:critical}
@@ -34,13 +34,13 @@ Service name | Description
 --- | ---
 Business Support Services for IBM Cloud (BSS) | Used to access information about the IBM Cloud account, service subscription, service usage, and billing.
 IBM Analytics Engine (IAE) | Spark engine used to execute the SQL queries. To learn more, see [IBM Analytics Engine](https://cloud.ibm.com/docs/AnalyticsEngine).
-BM Cloudant | Used to store SQL Query's job status, storing SQL query texts, execution and error info. To learn more, see [IBM Cloudant](https://cloud.ibm.com/docs/Cloudant).
-IBM Cloud Databases For PostgreSQL | Used for catalog store (Hive Metastore). Stores metadata describing customer COS data as Spark tables and views. Lo learn more, see [IBM Cloud Databases For PostgreSQL](https://cloud.ibm.com/docs/databases-for-postgresql).
-IBM Cloud Identity and Access Management (IAM) | To authenticate requests to the service and authorise user actions, IBM Cloud SQL Query implements platform and service access roles in Identity and Access Management (IAM). To learn more, see [IBM Cloud Identity and Access Management](https://cloud.ibm.com/docs/account?topic=account-iamoverview).
-IBM Cloud Internet Services (CIS) | Used to manage our external network connectivity, our .ibm.com domains and distributed proxies with TLS termination to support DDoS, WAF + Caching for HTTPs endpoints. To learn more, see [Cloud Internet Services](https://cloud.ibm.com/docs/cis).
+IBM Cloudant | Used to store SQL Query's job status, storing SQL query texts, execution, and error information. To learn more, see [IBM Cloudant](https://cloud.ibm.com/docs/Cloudant).
+IBM Cloud Databases For PostgreSQL | Used for catalog store (Hive Metastore). Stores metadata that describes customer {{site.data.keyword.cos_full}} data as Spark tables and views. Lo learn more, see [IBM Cloud Databases For PostgreSQL](https://cloud.ibm.com/docs/databases-for-postgresql).
+IBM Cloud Identity and Access Management (IAM) | To authenticate requests to the service and authorize user actions, IBM Cloud SQL Query implements platform and service access roles in Identity and Access Management. To learn more, see [IBM Cloud Identity and Access Management](https://cloud.ibm.com/docs/account?topic=account-iamoverview).
+IBM Cloud Internet Services (CIS) | Used to manage our external network connectivity, our `ibm.com` domains and distributed proxies with TLS termination to support DDoS, WAF and Caching for HTTPs endpoints. To learn more, see [Cloud Internet Services](https://cloud.ibm.com/docs/cis).
 IBM Cloud Kubernetes services | Provides the infrastructure to run the microservices of IBM Cloud SQL Query. To learn more, see [IBM Cloud Kubernetes services](https://cloud.ibm.com/docs/containers).
 IBM Cloud Messages for RabbitMQ | Queues used for internal communication between microservices. To learn more, see [IBM Cloud Messages For RabbitMQ](https://cloud.ibm.com/docs/messages-for-rabbitmq).
-IBM Cloud Object Storage (COS) | The service instance owned by the service contains out of the box sample data sets, backups of Cloudant data and IAE bootstrap config. To learn more, see [IBM Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage).
+{{site.data.keyword.cos_short}} | The service instance that is owned by the service contains out of the box sample data sets, backups of Cloudant data and IAE bootstrap config. To learn more, see [IBM Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage).
 IBM Cloud Resource Controller and IBM Cloud catalog | Used to load required information about your service instance and offering plan. To learn more, see [IBM Cloud Resource Controller API](https://cloud.ibm.com/apidocs/resource-controller/resource-controller).
 
 ### Dependencies to IBM service instances owned and managed by you
@@ -48,10 +48,10 @@ IBM Cloud Resource Controller and IBM Cloud catalog | Used to load required info
 
 Service name | Description
 --- | ---
-IBM Cloud Object Storage (COS) | The service instance which is owned by the customer who controls access to the instance by using IAM policies contains customer data, SQL Query results and metaindex information describing value distribution in actual data objects. All data is encrypted in transit and at rest. To learn more, see [IBM Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage).
+{{site.data.keyword.cos_short}} | The service instance that is owned by the customer who controls access to the instance by using IAM policies contains customer data, SQL Query results, and metaindex information that describes value distribution in actual data objects. All data is encrypted in transit and at rest. To learn more, see [IBM Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage).
 IBM Db2 on Cloud | Used to store SQL results in user-provided instances. To learn more, see [Db2 on Cloud](https://cloud.ibm.com/docs/Db2onCloud).
-IBM Key Protect for IBM Cloud | The user-provided instances provide: keys for envelope encryption of customer data in the job status DB (IBM Cloudant) and passwords/apikeys for access to customer Db2. To learn more, see [IBM Key Protect for IBM Cloud](https://cloud.ibm.com/docs/key-protect).
-BM Cloud Activity Tracker with LogDNA | IBM Cloud SQL Query integrates with IBM Cloud Activity Tracker with LogDNA to forward location audit events to the IBM Cloud Activity Tracker with LogDNA service instance that is set up and owned by you. To learn more, see [IBM Cloud Activity Tracker with LogDNA](https://cloud.ibm.com/docs/Activity-Tracker-with-LogDNA).
+IBM Key Protect for IBM Cloud | The user-provided instances provide keys for envelope encryption of customer data in the job status database (IBM Cloudant) and passwords or apikeys for access to customer Db2. To learn more, see [IBM Key Protect for IBM Cloud](https://cloud.ibm.com/docs/key-protect).
+IBM Cloud Activity Tracker with LogDNA | IBM Cloud SQL Query integrates with IBM Cloud Activity Tracker with LogDNA to forward location audit events to the IBM Cloud Activity Tracker with LogDNA service instance that is set up and owned by you. To learn more, see [IBM Cloud Activity Tracker with LogDNA](https://cloud.ibm.com/docs/Activity-Tracker-with-LogDNA).
 
 ### Other dependencies 
 {:other_dependencies}
