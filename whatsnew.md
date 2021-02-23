@@ -146,4 +146,4 @@ Support for SELECT INTO to control the format the SQL result is written in.
 
 ## April 2018
 
-[{{site.data.keyword.sqlquery_notm}} release beta](https://www.ibm.com/blogs/bluemix/2018/04/introducing-ibm-cloud-sql-query/).
+[{{site.data.keyword.sqlquery_notm}} release beta](https://www.ibm.com/cloud/blog/analyzing-data-with-ibm-cloud-sql-query?mhsrc=ibmsearch_a&mhq=ibm%20sql%20query).
