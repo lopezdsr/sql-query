@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  year: 2018, 2019
-lastupdated: "2019-04-04"
+  year: 2018, 2021
+lastupdated: "2021-02-22"
 
 keywords: activity tracker, activity, event
 
@@ -34,8 +34,8 @@ The following table lists the actions that generate an event:
 
 Actions  |	Description
 --- | ---
-sql-query.sql-job.create | 	An SQL query was submitted.
-sql-query.sql-job.list | 	List of jobs has been retrieved.
-sql-query.sql-job.get | 	Details of a job have been retrieved.
-sql-query.catalog-table.list | 	List of catalog tables has been retrieved.
-sql-query.catalog-table.get | 	Details of a catalog table have been retrieved.
+`sql-query.sql-job.create` |  An SQL query was submitted.
+`sql-query.sql-job.list` | 	List of jobs was retrieved.
+`sql-query.sql-job.get` |  Details of a job were retrieved.
+`sql-query.catalog-table.list` |  List of catalog tables was retrieved.
+`sql-query.catalog-table.get` |  Details of a catalog table were retrieved.

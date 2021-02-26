@@ -68,7 +68,7 @@ For example, change `orders.parquet STORED AS PARQUET` to `orders.orc STORED AS 
 
 To analyze your own data (CSV, JSON, ORC, or Parquet), upload it to an Cloud {{site.data.keyword.cos_short}} instance and run SQL queries as described [here](/docs/services/sql-query?topic=sql-query-overview#running).
 
-For more advanced capabilities, check out these video tutorials:
+For more advanced capabilities, check out the following video tutorials:
 - [How to run basic queries](http://ibm.biz/csq-run-queries)
 - [How to connect to IBM Cloud Object Storage through the Command Line](http://ibm.biz/csq-aws-sli)
 - [How to use the SQL Query REST API](http://ibm.biz/csq-use-api)

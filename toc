@@ -26,16 +26,17 @@ SQL Query
     sqlref/geospatial.md
 
     {: .topicgroup}
-    sqlref/timeseries_functions.md
-        sqlref/timeseries_functions_artifact.md
-        sqlref/timeseries_functions_dataproc.md
+    Time series functions
         sqlref/timeseries_intro.md
         sqlref/timeseries_trs.md
-        sqlref/timeseries_datatypes.md
+        sqlref/timeseries_datatypes.md	
         sqlref/timeseries_develop.md
         sqlref/timeseries_common.md
         sqlref/timeseries_matching.md
         sqlref/timeseries_join.md
+        sqlref/timeseries_functions.md	
+        sqlref/timeseries_functions_artifact.md	
+        sqlref/timeseries_functions_dataproc.md
 
     activity.md
     monitoring.md
