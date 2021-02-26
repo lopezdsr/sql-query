@@ -26,12 +26,11 @@ subcollection: sql-query
 
 If you have an account with {{site.data.keyword.cloud}}, your personal data is held by {{site.data.keyword.cloud_notm}}. 
 The [IBM Data Processing Addendum (IBM DPA)](https://www.ibm.com/support/customer/csol/terms/?cat=dpa) applies to the processing 
-of client's personal data by IBM on behalf of the client in order to provide IBM standard services.
+of clients' personal data by IBM on behalf of the client in order to provide IBM standard services.
 
 {{site.data.keyword.sqlquery_full}} processes limited client Personal Information (PI) in the course of running the service and optimizing the user experience.
 
-{{site.data.keyword.sqlquery_notm}} provides a [Data Sheet Addendum (DSA)](https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=AC17FFB0B52911E7A9EB066095601ABB) 
-with its policies as a Data Processor regarding content and data protection.
+{{site.data.keyword.sqlquery_notm}} provides a [Data Sheet Addendum (DSA)](https://www.ibm.com/software/reports/compatibility/clarity-reports/report/html/softwareReqsForProduct?deliverableId=AC17FFB0B52911E7A9EB066095601ABB) with its policies as a Data Processor regarding content and data protection.
 
 ## HIPAA
 {: #hipaa}
