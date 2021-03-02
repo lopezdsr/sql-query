@@ -27,8 +27,7 @@ Time series functions operate on a wide variety of special data types that are d
 </tr>
 </thead>
 <tbody class="tbody"><tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">DoubleTimeSeries</td>
-<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">Time series with univariate observations of type Double, for
-example:<pre class="pre codeblock"><code>[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6), (5, 7.1), (7, 3.9), (9, 1.1)]</code></pre>
+<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">Time series with univariate observations of type Double. See the following example: <pre class="pre codeblock"><code>[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6), (5, 7.1), (7, 3.9), (9, 1.1)]</code></pre>
 </td>
 </tr>
 <tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">DoubleArrayTimeSeries</td>
