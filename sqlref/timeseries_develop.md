@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-06-03"
+  years: 2019, 2021
+lastupdated: "2021-03-02"
 
 keywords: SQL query, time series, SQL, analyze, string matching, temporal join, align, examples
 
@@ -29,4 +29,4 @@ You can call time series functions from within SQL statements to manipulate and 
 - [Using a temporal join or align](/docs/services/sql-query?topic=sql-query-temporal_align)  
   A temporal join produces a single array time series based on the observations of the two input time series. 
   A temporal align produces two output time series with identical timeticks. In both cases, an interpolator is 
-  used to fill in missing values.
+  used to complete missing values.
