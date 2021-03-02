@@ -29,54 +29,54 @@ Each of these functions converts data in table columns into a *time series* arti
 
 **TIME_SERIES(String, String)**
 Output: DoubleTimeSeries  
-Creates a DoubleTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and there is no start time.
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type Double that represents the values of the observations.
+Creates a DoubleTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and no start time exists.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type Double that represents the values of the observations.
 
 **TIME_SERIES_WITH_TRS(String, String, TRS)**
 Output: DoubleTimeSeries  
 Creates a DoubleTimeSeries that uses a custom [TRS](/docs/services/sql-query?topic=sql-query-TRS).
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type Double that represents the values of the observations.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type Double that represents the values of the observations.
 - The third parameter specifies the name of the TRS that is to be associated with the time series. This TRS determines the granularity and start time of the time series timeticks.
 
 **TIME_SERIES_DA(DoubleArrayTimeSeries)**
 Output: DoubleArrayTimeSeries  
-Creates a DoubleArrayTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and there is no start time.
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type DoubleArray that represents the values of the observations.
+Creates a DoubleArrayTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and no start time exists.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type DoubleArray that represents the values of the observations.
 
 **TIME_SERIES_DA_WITH_TRS(String, String, TRS)**
 Output: DoubleArrayTimeSeries  
 Creates a DoubleArrayTimeSeries that uses a custom [TRS](/docs/services/sql-query?topic=sql-query-TRS).
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type DoubleArray that represents the values of the observations.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type DoubleArray that represents the values of the observations.
 - The third parameter specifies the name of the TRS that is to be associated with the time series. This TRS determines the granularity and start time of the time series timeticks.
 
 **TIME_SERIES_S(String, String)**
 Output: StringTimeSeries  
-Creates a StringTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and there is no start time.
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type String that represents the values of the observations.
+Creates a StringTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and no start time exists.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type String that represents the values of the observations.
 
 **TIME_SERIES_S_WITH_TRS(String, String, TRS)**
 Output: StringTimeSeries  
 Creates a StringTimeSeries that uses a custom [TRS](/docs/services/sql-query?topic=sql-query-TRS).
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type String that represents the values of the observations.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type String that represents the values of the observations.
 - The third parameter specifies the name of the TRS that is to be associated with the time series. This TRS determines the granularity and start time of the time series timeticks.
 
 **TIME_SERIES_SA(String, String)**
 Output: StringArrayTimeSeries  
-Creates a StringArrayTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and there is no start time.
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type StringArray that represents the values of the observations.
+Creates a StringArrayTimeSeries that does not use a [TRS](/docs/services/sql-query?topic=sql-query-TRS). The resulting timeticks are unitless, and no start time exists.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type StringArray that represents the values of the observations.
 
 **TIME_SERIES_SA_WITH_TRS(String, String, TRS)**
 Output: StringArrayTimeSeries  
 Creates a StringArrayTimeSeries that uses a custom [TRS](/docs/services/sql-query?topic=sql-query-TRS).
-- The first parameter specifies the name of a table column containing numeric data that represents the timeticks of the observations.
-- The second parameter specifies the name of the table column containing data of type StringArray that represents the values of the observations.
+- The first parameter specifies the name of a table column that contains numeric data that represents the timeticks of the observations.
+- The second parameter specifies the name of the table column that contains data of type StringArray that represents the values of the observations.
 - The third parameter specifies the name of the TRS that is to be associated with the time series. This TRS determines the granularity and start time of the time series
 timeticks.
 
@@ -88,8 +88,8 @@ These functions create or reassign a [time reference system (TRS)](/docs/service
 **TS_TRS(String, TimestampType) or TS_TRS(String, String)**
 Output: TRS  
 Creates a TRS that determines the granularity and start time of a time series.
-- The first parameter specifies the granularity of the TRS. It can be specified using any of the formats accepted by the Java [parse function of the Duration class](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-).
-- The second parameter specifies the start time of the TRS. It can be specified either as a TimestampType or as a string that uses any of the formats accepted by the Java [DateTimeFormatter class](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html).
+- The first parameter specifies the granularity of the TRS. It can be specified by using any of the formats that are accepted by the Java [parse function of the Duration class](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-).
+- The second parameter specifies the start time of the TRS. It can be specified either as a TimestampType or as a string that uses any of the formats that are accepted by the Java [DateTimeFormatter class](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html).
 
 **TS_TRS_DEFAULT()**
 Output: TRS  
@@ -100,7 +100,7 @@ Creates a default TRS that determines the granularity and start time of a time s
 **TS_TRS_DEFAULT_STARTTIME(String)**
 Output: TRS  
 Creates a TRS that determines the granularity and start time of a time series.
-- The parameter specifies the granularity of the TRS. It can be specified using any of the formats accepted by the Java [parse function of the Duration class](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-).
+- The parameter specifies the granularity of the TRS. It can be specified by using any of the formats that are accepted by the Java [parse function of the Duration class](https://docs.oracle.com/javase/8/docs/api/java/time/Duration.html#parse-java.lang.CharSequence-).
 - The start time is '1970-01-01T00:00:00'.
 
 **TS_WITH_TRS(*TimeSeries*, TRS)**
@@ -163,15 +163,15 @@ Creates an interpolator that replaces a null value with the next value in the ti
 
 **TS_INTERPOLATOR_PREV(see below<sup>2</sup>)**
 Output: InterpolatorType  
-Creates an interpolator that replaces a null value with the previous value. If there is no previous value, it fills the null value with the specified value.
+Creates an interpolator that replaces a null value with the previous value. If no previous value exists, it fills the null value with the specified value.
 
 **TS_INTERPOLATOR_LINEAR(see below<sup>2</sup>, Integer, Integer)**
 Output: InterpolatorType  
-Creates an interpolator that replaces a null value with a value that is calculated by [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation) based on the specified number of previous (second parameter) and subsequent (third parameter) observations (both numbers must be positive). The value of the first parameter is used as a filler value when there are not enough previous or subsequent values to satisfy parameter 2 or 3. For example, if `TS_INTERPOLATOR_LINEAR(9.76, 3, 5)` is specified, for each null value, a line is calculated using the 3 previous and 5 subsequent data points that minimizes the average error for all 8 data points, and the point on this line that corresponds to the timetick of the null value determines the filler value. If 3 previous or 5 subsequent data points are not available, the value 9.76 is used as the filler value.
+Creates an interpolator that replaces a null value with a value that is calculated by [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation) based on the specified number of previous (second parameter) and subsequent (third parameter) observations (both numbers must be positive). The value of the first parameter is used as a filler value when not enough previous or subsequent values exist to satisfy parameter 2 or 3. For example, if `TS_INTERPOLATOR_LINEAR(9.76, 3, 5)` is specified, for each null value, a line is calculated by using the three previous and five subsequent data points that minimize the average error for all eight data points, and the point on this line that corresponds to the timetick of the null value determines the filler value. If three previous or five subsequent data points are not available, the value 9.76 is used as the filler value.
 
 **TS_INTERPOLATOR_SPLINE(see below<sup>2</sup>, Integer, Integer)**
 Output: InterpolatorType  
-Creates an interpolator that replaces a null value with a value that is calculated by [spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation) based on the specified number of previous (second parameter) and subsequent (third parameter) observations (both numbers must be positive). The value of the first parameter is used as a filler value when there are not enough previous or subsequent values to satisfy parameter 2 or 3. For example, if `TS_INTERPOLATOR_SPLINE(3, 5, 9.76)` is specified, for each null value, a spline is calculated using the 3 previous and 5 subsequent data points that minimizes the average error for all 8 data points, and the point on this spline that corresponds to the timetick of the null value determines the filler value. If 3 previous or 5 subsequent data points are not available, the value 9.76 is used as the filler value.
+Creates an interpolator that replaces a null value with a value that is calculated by [spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation) based on the specified number of previous (second parameter) and subsequent (third parameter) observations (both numbers must be positive). The value of the first parameter is used as a filler value when not enough previous or subsequent values exist to satisfy parameter 2 or 3. For example, if `TS_INTERPOLATOR_SPLINE(3, 5, 9.76)` is specified, for each null value, a spline is calculated by using the three previous and five subsequent data points that minimizes the average error for all eight data points, and the point on this spline that corresponds to the timetick of the null value determines the filler value. If three previous or five subsequent data points are not available, the value 9.76 is used as the filler value.
 
 **<sup>2</sup> The input type can be any of String, Double, Array[String], Array[Double], but must be of a type that corresponds to the type of the time series.**
 
@@ -238,11 +238,11 @@ Expression to denote if first expression equals second expression.
 
 **"TS_EXP_IF_THEN_ELSE” (BooleanExpType, DoubleExpType | StringExpType, DoubleExpType | StringExpType)**
 Output: Conditional Expression  
-Expression that if the “if” condition is met, it will return the “then” expression, otherwise it will return the “else” expression.
+Expression that if the “if” condition is met, it returns the “then” expression, otherwise it returns the “else” expression.
 
 **"TS_EXP_IF_THEN” (BooleanExpType, DoubleExpType | StringExpType)**
 Output: Conditional Expression  
-Expression that if the “if” condition is met, it will return the “then” expression, otherwise it will return null.
+Expression that if the “if” condition is met, it returns the “then” expression, otherwise it returns null.
 
 **"TS_EXP_MATCH_CASE” (Array[TS_EXP_IF_THEN], DoubleExpType | StringExpType)**
 Output: Conditional Expression  
@@ -254,7 +254,7 @@ Expression that gets the absolute value of an expression.
 
 **"TS_EXP_EXP” (DoubleExpType)**
 Output: Double Expression  
-Expression that gets the Euler's Number e raised to the power of a given DoubleExpression.
+Expression that gets the Euler's Number e that is raised to the power of an indicated DoubleExpression.
 
 **"TS_EXP_LOG” (DoubleExpType)**
 Output: Double Expression  
@@ -326,7 +326,7 @@ Expression that performs mod on the first expression with the second expression.
 
 **"TS_EXP_POW”(DoubleExpType, DoubleExpType)**
 Output: Double Expression  
-Expression that performs pow on the first expression with the second expression being the exponent.
+Expression that performs pow on the first expression with the second expression as the exponent.
 
 **"TS_EXP_ATAN2”(DoubleExpType, DoubleExpType)**
 Output: Double Expression  
@@ -346,7 +346,7 @@ Expression that converts the current observation’s value to a string.
 
 **"TS_EXP_MATCH” (StringExpression, StringExpression)**
 Output: Boolean Expression  
-Expression that does a string match on the given expression.
+Expression that does a string match on the indicated expression.
 
 ## Anchor creation functions
 {: #anchor_creation}
@@ -354,7 +354,7 @@ Expression that does a string match on the given expression.
 Each of these functions creates an *anchor* artifact, which is used by other functions to determine where to segment a time series.
 
 Anchor functions are deprecated, use expression creation functions instead.
-Expression creation functions are similar to anchor functions but they are more feature-rich.
+Expression creation functions are similar to anchor functions but they are more feature rich.
 {:note}
 
 **TS_ANCHOR_EQ(see below<sup>3</sup>)**
@@ -411,7 +411,7 @@ Creates an anchor that sets an anchor point when the specified anchor would not.
 
 **TS_ANCHOR_INDEX(AnchorType, Integer)**
 Output: AnchorType  
-Creates, for use by an array time series, an anchor of the specified type (first parameter) for a the specified index (second parameter) of the series.
+Creates, for use by an array time series, an anchor of the specified type (first parameter) for a specified index (second parameter) of the series.
 
 **<sup>3</sup> The input type can be any of String, Double, Array[String], Array[Double]**
 
@@ -432,7 +432,7 @@ Creates a Holt-Winters forecasting model with the specified number of observatio
 
 **TS_FORECAST_ARIMA(Integer)**
 Output: ForecastingModel  
-Creates an ARIMA forecasting model with the with the specified minimum number of training observations.
+Creates an ARIMA forecasting model with the specified minimum number of training observations.
 
 **TS_FORECAST_ARMA(Integer)**
 Output: ForecastingModel  
@@ -442,13 +442,13 @@ Creates an ARMA forecasting model with the with the specified minimum number of 
 Output: ForecastingModel  
 Creates an ordinary least squares (OLS) linear regression forecasting model.
 - The first parameter specifies the number of observations that are to be used to initialize the model (that is, to calculate its slope and intercept). If the model is not to be initialized, specify -1.
-- The second parameter specifies the minimum number of previous values used to compute each new slope and intercept. This must be at least 2.
+- The second parameter specifies the minimum number of previous values that are used to compute each new slope and intercept. This must be at least 2.
 
 **TS_FORECAST_AVERAGE(Integer, Integer)**
 Output: ForecastingModel  
 Creates a forecasting model that returns the running average of the sample data as its forecast value.
 - The first parameter specifies the number of observations that are to be used to initialize the model (that is, to calculate its average). If the model is not to be initialized, specify -1.
-- The second parameter specifies the minimum number of previous values used to compute each new average. This must be at least 2.
+- The second parameter specifies the minimum number of previous values that are used to compute each new average. This must be at least 2.
 
 **TS_FORECAST_AUTO(Integer)**
 Output: ForecastingModel  
@@ -476,15 +476,15 @@ Creates a matcher that matches an array of string values (the *pattern*) with a 
 
 **TS_MATCHER_SUBSEQ_PS(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a sub-sequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSEQ_PM(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a sub-sequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to match string size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to match string size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSEQ_MS(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a sub-sequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of match string size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to have matched the sub-sequence and the function that uses the matcher returns the observations that correspond to the match string; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of match string size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to have matched the subsequence and the function that uses the matcher returns the observations that correspond to the match string; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSET_PS(Double)**
 Output: MatcherType  
