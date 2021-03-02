@@ -21,12 +21,6 @@ subcollection: sql-query
 
 Time series functions operate on a wide variety of special data types that are designed especially for time series data.
 
-Data type | Description
---- | ---
-DoubleTimeSeries | Time series with univariate observations of type Double. See the following example:  ```[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6),  (5, 7.1), (7, 3.9), (9, 1.1)]``` 
-*Table 1. Time series data types are binary data types especially designed to hold time series data. Alternatively, you can
-store time series data in any BinaryType data array, such as the ones offered by Parquet, Avro, ORC, or JSON. CSV does not offer a suitable BinaryType data array for storing time series data.*
-
 
 <div class="section"><div class="p"><div class="tablenoborder"><table cellpadding="4" cellspacing="0" summary="" id="timeseries_datatypes__ts_datatypes" class="table" rules="rows" frame="hsides" border="1"><caption><span class="tablecap">Table 1. Time series data types</span>. <span class="desc tabledesc">These are binary data types especially designed to hold time series data. Alternatively, you can store time series data in any BinaryType data array, such as those offered by Parquet, Avro, ORC, or JSON. CSV does not offer a suitable BinaryType data array for storing time series data.</span></caption><thead class="thead" align="left"><tr class="row"><th class="entry ncol thleft" valign="top" width="19.53125%" id="d2766e29">Data type</th>
 <th class="entry ncol thleft" valign="top" width="80.46875%" id="d2766e31">Description</th>
@@ -38,18 +32,16 @@ example:<pre class="pre codeblock"><code>[(1, 7.2), (3, 4.5), (5, 4.5), (5, 4.6)
 </td>
 </tr>
 <tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">DoubleArrayTimeSeries</td>
-<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">Time series with multivariate observations of type Double, for
-example:<pre class="pre codeblock"><code>[(1, [7.2, 8.74]), (3, [4.5, 9.44]), (5, [4.5, 10.12]), (5, [4.6, 12.91]), (5, [7.1, 9.90]), (7, [3.9, 3.76])]</code></pre>
+<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">Time series with multivariate observations of type Double. See the following example: <pre class="pre codeblock"><code>[(1, [7.2, 8.74]), (3, [4.5, 9.44]), (5, [4.5, 10.12]), (5, [4.6, 12.91]), (5, [7.1, 9.90]), (7, [3.9, 3.76])]</code></pre>
 </td>
 </tr>
 <tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">DoubleSegmentTimeSeries</td>
-<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">DoubleTimeSeries that is segmented, for
-example:<pre class="pre codeblock"><code>[(1,[(1, 7.2), (3, 4.5)]), (5,[(5, 4.5), (5, 4.6), (5, 7.1)]), (7,[(7, 3.9), (9, 1.1)])]</code></pre>
+<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">DoubleTimeSeries that is segmented. See the following example:
+  <pre class="pre codeblock"><code>[(1,[(1, 7.2), (3, 4.5)]), (5,[(5, 4.5), (5, 4.6), (5, 7.1)]), (7,[(7, 3.9), (9, 1.1)])]</code></pre>
 </td>
 </tr>
 <tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">DoubleArraySegmentTimeSeries</td>
-<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">DoubleArrayTimeSeries that is segmented, for
-example:<pre class="pre codeblock"><code>[(1,[(1, 7.2, 8.74), (3, 4.5, 9.44)]), (5,[(5, 4.5, 10.12), (5, 4.6, 12.91), (5, 7.1, 9.90)]), (7,[(7, 3.9, 3.76)])]</code></pre>
+<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">DoubleArrayTimeSeries that is segmented.See the following example: <pre class="pre codeblock"><code>[(1,[(1, 7.2, 8.74), (3, 4.5, 9.44)]), (5,[(5, 4.5, 10.12), (5, 4.6, 12.91), (5, 7.1, 9.90)]), (7,[(7, 3.9, 3.76)])]</code></pre>
 </td>
 </tr>
 <tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">StringTimeSeries</td>
@@ -63,13 +55,11 @@ example:<pre class="pre codeblock"><code>[(1,[(1, 7.2, 8.74), (3, 4.5, 9.44)]), 
 </td>
 </tr>
 <tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">StringSegmentTimeSeries</td>
-<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">StringTimeSeries that is segmented, for
-example:<pre class="pre codeblock"><code>[(1,[(1, "a"), (3, "b")]), (5,[(5, "c"), (5, "d"), (5, "e")]), (7,[(7, "f"), (9, "g")])]</code></pre>
+<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">StringTimeSeries that is segmented. See the following example:  <pre class="pre codeblock"><code>[(1,[(1, "a"), (3, "b")]), (5,[(5, "c"), (5, "d"), (5, "e")]), (7,[(7, "f"), (9, "g")])]</code></pre>
 </td>
 </tr>
 <tr class="row"><td class="entry ncol" valign="top" width="19.53125%" headers="d2766e29 ">StringArraySegmentTimeSeries</td>
-<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">StringArrayTimeSeries that is segmented, for
-example:<pre class="pre codeblock"><code>[(1,[(1, ["a", "xq"]), (3, ["b", "zr"])]), (5,[(5, ["c", "ms"]), (5, ["d", "rt"]), (5, ["e", "wu"])]), (7, [(7, ["f", "vv"]), (9, ["g", "zw"])])]</code></pre>
+<td class="entry ncol" valign="top" width="80.46875%" headers="d2766e31 ">StringArrayTimeSeries that is segmented. See the following example: <pre class="pre codeblock"><code>[(1,[(1, ["a", "xq"]), (3, ["b", "zr"])]), (5,[(5, ["c", "ms"]), (5, ["d", "rt"]), (5, ["e", "wu"])]), (7, [(7, ["f", "vv"]), (9, ["g", "zw"])])]</code></pre>
 </td>
 </tr>
 </tbody>
