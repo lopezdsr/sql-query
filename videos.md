@@ -78,7 +78,7 @@ The following video in this series shows you how to run {{site.data.keyword.sqlq
 src="https://www.youtube.com/embed/yX-8_jTiAuo?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 6. End-to-End use case for using the API*.
+*Video 6. End-to-end use case for using the API*.
 
 <br>
 
