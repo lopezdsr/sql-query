@@ -20,7 +20,7 @@ subcollection: sql-query
 -->
 
 ## December 2020
-- {{site.data.keyword.sqlquery_short}} is available in Chennai, India. When provisioning new instances, you can select whether it is being provisioned in Dallas, Frankfurt, or Chennai.
+- {{site.data.keyword.sqlquery_short}} is available in Chennai, India. When you provision new instances, you can select whether it is being provisioned in Dallas, Frankfurt, or Chennai.
 - {{site.data.keyword.cos_full_notm}} web console discovers SQL-queryable objects and folders and directly launches the {{site.data.keyword.sqlquery_short}} web console with a prefilled SQL statement for seamless interactive data exploration.
 
 ## November 2020
@@ -53,15 +53,15 @@ You can view completed and failed jobs, the number of bytes processed, and the j
 
 ## March 2020
 
-- {{site.data.keyword.sqlquery_short}} has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and allows you to significantly speed up query execution and decouple data management from SQL users and applications.
+- {{site.data.keyword.sqlquery_short}} has a [database catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). It is based on Hive Metastore and significantly speeds up query execution and decouples data management from SQL users and applications.
 
 ## January 2020
 
-- {{site.data.keyword.sqlquery_short}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (those ending on ".appdomain.cloud", for example, s3.us.cloud-object-storage.appdomain.cloud) and all new single data center endpoints (for example, sng01).
+- {{site.data.keyword.sqlquery_short}} fully supports all current public and private {{site.data.keyword.cos_full}} endpoints (ending with ".appdomain.cloud", for example, "s3.us.cloud-object-storage.appdomain.cloud") and all new single data center endpoints (for example, sng01).
 
 ## December 2019
 
-- You can use [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to pass credentials to data resources referenced by your queries, thereby ensuring safe handling of your secrets. For more information, see the [authentication documentation](/docs/sql-query?topic=sql-query-authentication).
+- You can use [{{site.data.keyword.keymanagementserviceshort}}](https://cloud.ibm.com/catalog/services/key-protect) as a secure credential broker to pass credentials to data resources referenced by your queries, thus ensuring safe handling of your secrets. For more information, see the [authentication documentation](/docs/sql-query?topic=sql-query-authentication).
 
 ## November 2019
 
@@ -69,9 +69,9 @@ You can view completed and failed jobs, the number of bytes processed, and the j
 
 ## October 2019
 
-- The new open source [cos-upload](https://github.com/IBM-Cloud/data-lake/tree/master/upload/cos-upload) script can be used to efficiently upload large volumes of data to {{site.data.keyword.cos_full_notm}} buckets via Aspera by merely providing an IAM API Key.
+- The new open source [cos-upload](https://github.com/IBM-Cloud/data-lake/tree/master/upload/cos-upload) script can be used to efficiently upload large volumes of data to {{site.data.keyword.cos_full_notm}} buckets with Aspera by merely providing an IAM API Key.
 - {{site.data.keyword.sqlquery_short}} JSON parser is processing and extracting all JSON keys in lowercase, so it can work correctly on LogDNA data.
-- Storing new objects in {{site.data.keyword.cos_full_notm}} can trigger {{site.data.keyword.sqlquery_short}} executions. This is enabled by the {{site.data.keyword.cos_full_notm}} [event provider](https://www.ibm.com/cloud/blog/announcements/cloud-object-storage-event-provider-enables-hello-serverless-and-more) for {{site.data.keyword.openwhisk}}. By combining that with the SQL [{{site.data.keyword.openwhisk_short}}](https://hub.docker.com/r/ibmfunctions/sqlquery/), you can automatically run SQL-based post processing for new objects.
+- Storing new objects in {{site.data.keyword.cos_full_notm}} can trigger {{site.data.keyword.sqlquery_short}} executions. It is enabled by the {{site.data.keyword.cos_full_notm}} [event provider](https://www.ibm.com/cloud/blog/announcements/cloud-object-storage-event-provider-enables-hello-serverless-and-more) for {{site.data.keyword.openwhisk}}. By combining it with the SQL [{{site.data.keyword.openwhisk_short}}](https://hub.docker.com/r/ibmfunctions/sqlquery/), you can automatically run SQL-based post processing for new objects.
 - {{site.data.keyword.sqlquery_short}} has query hints for SQL queries that have potential for faster execution by using certain features of {{site.data.keyword.sqlquery_short}}. These hints are flagged with a light bulb icon in the job list and the specific hint is available inside the Details pane.
 
 ## September 2019
@@ -99,14 +99,14 @@ to identify trends and to predict future values based on these trends.
 ## May 2019
 
 - Updates to the [SQL reference](/docs/services/sql-query?topic=sql-query-sql-reference):
-  - With [`JOBPREFIX JOBID/NONE`](/docs/sql-query?topic=sql-query-sql-reference#cosResultClause) you can specify if you want the job ID appended to the target prefix, or not.
-  - The [`SORT BY`](/docs/sql-query?topic=sql-query-sql-reference#sortClause) clause for SQL targets is new, you can use it to sort SQL result sets in many ways, before writing the results to {{site.data.keyword.cos_full_notm}}. It can be used in combination with [`PARTITIONED BY`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause), [`PARTITIONED INTO`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) (to cluster the results), or without the PARTITIONED clause.
-  - [`PARTITIONED INTO BUCKETS`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) and [`PARTITIONED INTO OBJECTS`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) are both supported, thus can be used synonymously.
+  - [`JOBPREFIX JOBID/NONE`](/docs/sql-query?topic=sql-query-sql-reference#cosResultClause), you can specify whether you want the job ID to be appended to the target prefix, or not.
+  - The [`SORT BY`](/docs/sql-query?topic=sql-query-sql-reference#sortClause) clause for SQL targets is new. You can use it to sort SQL result sets in many ways before writing the results to {{site.data.keyword.cos_full_notm}}. It can be used in combination with [`PARTITIONED BY`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause), [`PARTITIONED INTO`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) (to cluster the results), or without the PARTITIONED clause.
+  - [`PARTITIONED INTO BUCKETS`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) and [`PARTITIONED INTO OBJECTS`](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) are both supported, thus you can use them synonymously.
 
 ## April 2019
 
 - Support for encrypting SQL queries with {{site.data.keyword.keymanagementservicefull}}. {{site.data.keyword.keymanagementservicelong_notm}} is a centralized key management system (KMS) for generating, managing, and destroying encryption keys used by {{site.data.keyword.Bluemix}} services.
-If you are processing particularly sensitive data in your queries, you can use customer-managed keys to encrypt SQL query texts and error messages that are stored in the job information.
+If you are processing sensitive data in your queries, you can use customer-managed keys to encrypt SQL query texts and error messages that are stored in the job information.
 - {{site.data.keyword.sqlquery_notm}} with {{site.data.keyword.keymanagementservicelong_notm}} for managing encryption keys meets the required IBM controls that are commensurate with the Health Insurance Portability and Accountability Act of 1996 (HIPAA) Security and Privacy Rule requirements.
 
 ## February 2019
@@ -120,12 +120,12 @@ Request to participate by sending an email to Joshua.Mintz@ibm.com.
 ## December 2018
 
 Release of a complete SQL Reference Guide, an SQL introduction for Cloud SQL/Spark SQL.
-This Guide includes examples that can be copied and directly pasted into the Web UI to be run.
+This Guide includes examples that can be copied and directly pasted into the web UI to be run.
 
 ## November 2018
 
 - Support for controlling the layout of SQL results. Including support for creating hive-style partitioning and paginated result data.
-- Support for extensions in [Python SDK](https://pypi.org/project/ibmcloudsql) for result data partitioning, pagination and exporting SQL job history to {{site.data.keyword.cos_full_notm}}.
+- Support for extensions in [Python SDK](https://pypi.org/project/ibmcloudsql) for result data partitioning, pagination, and exporting SQL job history to {{site.data.keyword.cos_full_notm}}.
 
 ## October 2018
 
@@ -133,14 +133,14 @@ Support for SELECT INTO to control the format the SQL result is written in.
 
 ## August 2018
 
-- {{site.data.keyword.sqlquery_notm}} is generally available. Its open beta phase has ended.
+- {{site.data.keyword.sqlquery_notm}} is generally available. Its open beta phase ended.
 - Support for [new built-in SQL functions](https://issues.apache.org/jira/browse/SPARK-20746) released with Apache Spark 2.3.
-- Set of SQL optimizer and ANSI SQL and Hive SQL compliance enhancements introduced with Apache Spark 2.3.
+- Set of SQL optimizer and ANSI SQL and Hive SQL compliance enhancements that are introduced with Apache Spark 2.3.
 
 ## June 2018
 
 - Support for ORC data (STORED AS ORC).
-- Support for geospatial SQL functions for calculations, aggregations and joins on location data.
+- Support for geospatial SQL functions for calculations, aggregations, and joins on location data.
 - Release of [ibmcloudsql Node.js client SDK](https://www.npmjs.com/package/ibmcloudsql).
 
 
