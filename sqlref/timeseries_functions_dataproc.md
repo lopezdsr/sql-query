@@ -297,7 +297,7 @@ Each of these functions creates, as output, a segmented version of a time series
 **TS_SEGMENT(see below<sup>2</sup>, Int, Int)**  
 Output: The type of the output segment time series corresponds to the type of the input.  
 Returns a SegmentTimeSeries based on the input time series and the specified segment size (second parameter) and step size (third parameter). 
-The step size corresponds to a number of observations. For example, the array `[1,2,3,4,5,6,7]` segmented with a segment size of 3 and a step size of 2 producesthe result `[1,2,3]`, `[3,4,5]`, `[5,6,7]`.
+The step size corresponds to a number of observations. For example, the array `[1,2,3,4,5,6,7]` segmented with a segment size of 3 and a step size of 2 produces the result `[1,2,3]`, `[3,4,5]`, `[5,6,7]`.
 
 **TS_SEGMENT_BY_TIME(see below<sup>2</sup>, Long, Long)**  
 Output: The type of the output segment time series corresponds to the type of the input.  
