@@ -35,7 +35,7 @@ To create a Cloud {{site.data.keyword.cos_short}} instance, do the following ste
 1. Go to the [**IBM Cloud catalog > Storage > Object Storage**](https://cloud.ibm.com/catalog/infrastructure/cloud-object-storage) page.
 2. Select one of the plans and create the service.
 
-   If you want to find your Cloud {{site.data.keyword.cos_short}} instance at a later time, go to your
+   If you want to find your Cloud {{site.data.keyword.cos_short}} instance later, go to your
    [**IBM Cloud Dashboard > Services**](https://cloud.ibm.com/dashboard/apps).
 (If you do not see it in the list, select the resource group "All Resources".)
 
@@ -52,12 +52,12 @@ for more information about how to use Cloud {{site.data.keyword.cos_short}}.
 4. Click **Launch SQL Query UI** on the Dashboard page to open the {{site.data.keyword.sqlquery_short}} Console.
 When you open the Console for the first time, the {{site.data.keyword.sqlquery_short}} service automatically creates a bucket for you in your Cloud {{site.data.keyword.cos_short}} instance. It uses this bucket as the default target for your query results.
 
-## Execute one of the samples to see how to use the service
+## Run one of the samples to see how to use the service
 {: #samples}
 
 1. Select a sample query. The query automatically gets loaded into the editor. The input data that is used by the sample query is available in a publicly accessible bucket.
-2. The **Target** field is automatically filled in with the unique resource identifier (URI) of your default bucket. You can use this bucket or specify an `INTO` clause in your query.
-3. Click **Run** to run the query. The query result is displayed below the editor.
+2. The **Target** field is automatically completed with the unique resource identifier (URI) of your default bucket. You can use this bucket or specify an `INTO` clause in your query.
+3. Click **Run** to run the query. The query result is displayed.
 4. Each sample data set is available in each of the supported input data formats (CSV, JSON, ORC, and Parquet).
 If you want to experiment with different formats, edit the selected sample query and change the specified file name and format.
 For example, change `orders.parquet STORED AS PARQUET` to `orders.orc STORED AS ORC`.
