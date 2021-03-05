@@ -31,7 +31,7 @@ SQL queries benefit from an index by skipping over all objects whose metadata in
 {: #benefits_ds}
 
 - Boosts performance of your queries
-- Lowers cost of your queries
+- Reduces cost of your queries
 
 ## Overview
 {: #overview_ds}
@@ -40,7 +40,7 @@ For each of the columns in an object, summary metadata can include minimum and m
 All formats are supported, including Parquet, ORC, CSV, and JSON. Data skipping is used for performance optimization. Data skipping does not affect the content of query results.
 {{site.data.keyword.sqlquery_full}} currently supports metaindexes only. Metaindexes are indexes on a higher level, thus they index objects instead of rows.
 
-As {{site.data.keyword.sqlquery_short}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while it improves performance. For data skipping to work well, as well as for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables by using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
+As {{site.data.keyword.sqlquery_short}} charges on a per-query basis based on the amount of data scanned, reducing the number of bytes scanned per query, reduces cost while it improves performance. For data skipping to work well and for good performance overall, use the [best practices for data layout](https://www.ibm.com/cloud/blog/big-data-layout), such as using the Parquet format and adopting Hive-style partitioning. Ideally, create tables by using the [Cloud Object Storage catalog](/docs/services/sql-query?topic=sql-query-hivemetastore).
 Data skipping complements these best practices and provides significant cost savings and performance benefits.
 
 To use this feature, you must create indexes on one or more columns of the data set. Start by indexing columns that you query most often in the `WHERE` clause. A full stop ("**.**") in any column name is not supported. 
@@ -54,7 +54,7 @@ ValueList | Stores the list of unique values for the column | =,IN,LIKE | All ty
 BloomFilter | Using bloom filter technique for set membership | =,IN | Byte, string, long, integer, short
 Geospatial | Stores a geospatial bounding box | Geospatial functions | [Geometry types](https://www.ibm.com/support/knowledgecenter/en/SSCJDQ/com.ibm.swg.im.dashdb.analytics.doc/doc/geo_datatypes.html)
 
-Use ValueList for a column if the number of distinct values for that column per object is typically much smaller than the total number of values for that column per object (otherwise, the index could be undesirably large). Use BloomFilter if the number of distinct column values per object is high.
+Use ValueList for a column if the number of distinct values for that column per object is typically much smaller than the total number of values for that column per object (otherwise, the index can be undesirably large). Use BloomFilter if the number of distinct column values per object is high.
 
 Indexes, or data skipping metadata, are stored in a location you specify. Metadata is typically much smaller than the data itself. If changes are made to some of the objects in the data set after index creation, refresh the indexes. Otherwise, data skipping still works correctly, but it cannot skip the changed objects.
 
@@ -122,7 +122,7 @@ DESCRIBE METAINDEX
 ON cos://us-geo/sql/metergen STORED AS parquet
 ```
 
-The result includes how many objects were indexed, whether the index is up-to-date, as well as the base location of the indexes and the
+The result includes how many objects were indexed, whether the index is up-to-date, the base location of the indexes, and the
 index types that were generated.
 
 ### Using data skipping indexes
@@ -185,14 +185,14 @@ WHERE ST_Intersects(ST_WKTToSQL(location), ST_Buffer(ST_WKTToSQL('POINT (-74.0 4
 {: #choosing_data_formats}
 
 You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}, except for AVRO.
-Best practices for data layout advise to use a column-based format, such as Parquet.
-CSV and JSON require the entire data set to first be scanned in order to infer the schema, before running any query.
+It is best for data layout to use a column-based format, such as Parquet.
+To infer the schema before running any query, the entire data set must first be scanned for CSV and JSON.
 Scanning the entire data set is not necessary if you create tables by using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
 
 ### Refreshing data skipping indexes
 {: #refreshing_ds}
 
-If data is added to a data set, or if modifications have been made to a data set after a data skipping index is created, the new or changed data is not skipped during queries. Once the amount of new data becomes significant, refresh the index incrementally, as follows:
+If data is added to a data set, or if modifications are made to a data set after the creation of a data skipping index, the new or changed data is not skipped during queries. When the amount of new data becomes significant, refresh the index incrementally, as follows:
 
 ```
 REFRESH METAINDEX
@@ -230,7 +230,7 @@ Data skipping also supports indexing and skipping on [catalog tables](/docs/serv
 
 For non-partitioned tables, indexing must be done by using the [Cloud {{site.data.keyword.cos_short}} URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI). In this case, the same metadata is used whether a query accesses the table by name or by physical location by using the Cloud {{site.data.keyword.cos_short}} URI.
 
-For [partitioned tables](/docs/sql-query?topic=sql-query-hivemetastore#partitioned), indexes that are created in the Cloud {{site.data.keyword.cos_short}} URI are not used when you access a table by name. Instead, all perceding command and query examples must be rewritten by replacing the Cloud {{site.data.keyword.cos_short}} URI with the table name, by using the ON TABLE clause. For example, for the perceding CREATE INDEX statement, to index a table named *metergen*, use the following syntax:
+For [partitioned tables](/docs/sql-query?topic=sql-query-hivemetastore#partitioned), indexes that are created in the Cloud {{site.data.keyword.cos_short}} URI are not used when you access a table by name. Instead, all preceding command and query examples must be rewritten by replacing the Cloud {{site.data.keyword.cos_short}} URI with the table name, by using the ON TABLE clause. For example, for the preceding CREATE INDEX statement, to index a table named `metergen` use the following syntax:
 
 ```
 CREATE METAINDEX
@@ -254,7 +254,7 @@ If the metadata exists in the location that was set, no indexing is needed.
 If the index does not exist and you run this command before you run the CREATE INDEX query, the index is stored under the configured location, instead of the base location.
 
 The location of the metadata for a table is saved in the table properties under the parameter *spark.ibm.metaindex.parquet.mdlocation*.
-If this parameter does not exist, there is a fallback to the base location. Automatic indexing updates the table parameter with the index location.
+If this parameter does not exist, a fallback to the base location is in place. Automatic indexing updates the table parameter with the index location.
 
 To remove the parameter from the table, use the following command:
 
@@ -265,7 +265,7 @@ ALTER TABLE metergen DROP METAINDEX LOCATION
 ### Notes
 {: #notes_ds}
 
--	The metadata for a partitioned table has to be different from the metadata on the physical location (the location that was defined in the LOCATION clause of the CREATE TABLE query) because the table can contain partitions that are not located under the physical location. Therefore, depending on what data skipping metadata was generated for each case, you can get different results by using the table name than by using the Cloud {{site.data.keyword.cos_short}} URI. 
+-	The metadata for a partitioned table must be different from the metadata on the physical location (the location that was defined in the LOCATION clause of the CREATE TABLE query) because the table can contain partitions that are not located under the physical location. Therefore, depending on what data skipping metadata was generated for each case, you can get different results by using the table name than by using the Cloud {{site.data.keyword.cos_short}} URI. 
 
 
 ## Limitations
