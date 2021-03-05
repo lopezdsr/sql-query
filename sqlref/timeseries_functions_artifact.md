@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2021
-lastupdated: "2021-02-16"
+lastupdated: "2021-03-05"
 
 keywords: SQL query, time series, SQL, artifact creation, function
 
@@ -155,7 +155,7 @@ Creates an interpolator that replaces any null value with the specified value.
 
 **TS_INTERPOLATOR_NEAREST(see below<sup>2</sup>)**
 Output: InterpolatorType  
-Creates an interpolator that replaces a null value with the value of the neighboring observation that has the nearest timetick. If the value of that observation is also null, the original null value remains unchanged. If the previous and next timeticks are equidistant, the value of the observation with the previous timetick is used. If no nearest observation exists (that is, if the input time series contains a single observation), this function replaces the null value with the specified value.
+Creates an interpolator that replaces a null value with the value of the neighboring observation that has the nearest timetick. If the value of that observation is also null, the original null value remains unchanged. If the previous and next timeticks are equidistant, the value of the observation with the previous timetick is used. If no nearest observation exists (that is if the input time series contains a single observation), this function replaces the null value with the specified value.
 
 **TS_INTERPOLATOR_NEXT(see below<sup>2</sup>)**
 Output: InterpolatorType  
@@ -171,14 +171,14 @@ Creates an interpolator that replaces a null value with a value that is calculat
 
 **TS_INTERPOLATOR_SPLINE(see below<sup>2</sup>, Integer, Integer)**
 Output: InterpolatorType  
-Creates an interpolator that replaces a null value with a value that is calculated by [spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation) based on the specified number of previous (second parameter) and subsequent (third parameter) observations (both numbers must be positive). The value of the first parameter is used as a filler value when not enough previous or subsequent values exist to satisfy parameter 2 or 3. For example, if `TS_INTERPOLATOR_SPLINE(3, 5, 9.76)` is specified, for each null value, a spline is calculated by using the three previous and five subsequent data points that minimizes the average error for all eight data points, and the point on this spline that corresponds to the timetick of the null value determines the filler value. If three previous or five subsequent data points are not available, the value 9.76 is used as the filler value.
+Creates an interpolator that replaces a null value with a value that is calculated by [spline interpolation](https://en.wikipedia.org/wiki/Spline_interpolation) based on the specified number of previous (second parameter) and subsequent (third parameter) observations (both numbers must be positive). The value of the first parameter is used as a filler value when not enough previous or subsequent values exist to satisfy parameter 2 or 3. For example, if `TS_INTERPOLATOR_SPLINE(3, 5, 9.76)` is specified, for each null value, a spline is calculated by using the three previous and five subsequent data points that minimize the average error for all eight data points, and the point on this spline that corresponds to the timetick of the null value determines the filler value. If three previous or five subsequent data points are not available, the value 9.76 is used as the filler value.
 
 **<sup>2</sup> The input type can be any of String, Double, Array[String], Array[Double], but must be of a type that corresponds to the type of the time series.**
 
 ## Time series expressions
 {: #time_series_expressions}
 
-Expression creation functions replace the anchor functions that have been deprecated. Expression functions are more powerful and allow more advanced use cases.
+Expression creation functions replace the anchor functions that are deprecated. Expression functions are more powerful and allow more advanced use cases.
 
 **"TS_EXP_ID” ()**
 Output: Identity Expression  
@@ -436,19 +436,19 @@ Creates an ARIMA forecasting model with the specified minimum number of training
 
 **TS_FORECAST_ARMA(Integer)**
 Output: ForecastingModel  
-Creates an ARMA forecasting model with the with the specified minimum number of training observations.
+Creates an ARMA forecasting model with the specified minimum number of training observations.
 
 **TS_FORECAST_LINEAR(Integer, Integer)**
 Output: ForecastingModel  
 Creates an ordinary least squares (OLS) linear regression forecasting model.
 - The first parameter specifies the number of observations that are to be used to initialize the model (that is, to calculate its slope and intercept). If the model is not to be initialized, specify -1.
-- The second parameter specifies the minimum number of previous values that are used to compute each new slope and intercept. This must be at least 2.
+- The second parameter specifies the minimum number of previous values that are used to compute each new slope and intercept. This minimum number must be at least 2.
 
 **TS_FORECAST_AVERAGE(Integer, Integer)**
 Output: ForecastingModel  
 Creates a forecasting model that returns the running average of the sample data as its forecast value.
 - The first parameter specifies the number of observations that are to be used to initialize the model (that is, to calculate its average). If the model is not to be initialized, specify -1.
-- The second parameter specifies the minimum number of previous values that are used to compute each new average. This must be at least 2.
+- The second parameter specifies the minimum number of previous values that are used to compute each new average. This minimum number must be at least 2.
 
 **TS_FORECAST_AUTO(Integer)**
 Output: ForecastingModel  
@@ -468,32 +468,32 @@ Each of these functions creates a *matcher* artifact, which is used by a [matchi
 
 **TS_MATCHER_SEQ()**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with an entire string time series exactly and in sequence. If the pattern and time series match, the function that uses the matcher returns the input time series; otherwise, the function returns null. This corresponds to using a TS_MATCHER_SUBLIST_PS matcher with a threshold of 1.
+Creates a matcher that matches an array of string values (the *pattern*) with an entire string time series exactly and in sequence. If the pattern and time series match, the function that uses the matcher returns the input time series, otherwise, the function returns null. This function corresponds to using a TS_MATCHER_SUBLIST_PS matcher with a threshold of 1.
 
 **TS_MATCHER_SUBLIST(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a sublist of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sublist. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the time series values, in sequence and contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a sublist of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sublist. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the time series values, in sequence and contiguously. If the threshold is met, the pattern is considered to match, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSEQ_PS(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to match, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSEQ_PM(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to match string size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to match string size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to match, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSEQ_MS(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of match string size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to have matched the subsequence and the function that uses the matcher returns the observations that correspond to the match string; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a subsequence of a string time series, to within the specified coverage threshold. The threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of match string size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to match the subsequence and the function that uses the matcher returns the observations that correspond to the match string; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSET_PS(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in the items in the pattern and the order in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in the items in the pattern and the order in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the sequence of time series values. If the threshold is met, the pattern is considered to match, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSET_PM(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in which the items in the pattern occur in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to match string size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in which the items in the pattern occur in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of pattern size to match string size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to match, and the function that uses the matcher returns the observations that correspond to the pattern; otherwise, the function returns null.
 
 **TS_MATCHER_SUBSET_MS(Double)**
 Output: MatcherType  
-Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in which the items in the pattern occur in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of match string size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to have matched, and the function that uses the matcher returns the observations that correspond to the match string; otherwise, the function returns null.
+Creates a matcher that matches an array of string values (the *pattern*) with a string time series, regardless of the order in which the items in the pattern occur in the time series. The specified coverage threshold is a double-precision number in the range 0.0 - 1.0 that indicates the minimum ratio of match string size to sequence size. For example, a threshold of 0.75 means that the specified pattern must match at least 75% of the match string, in sequence but not necessarily contiguously. If the threshold is met, the pattern is considered to match, and the function that uses the matcher returns the observations that correspond to the match string; otherwise, the function returns null.
