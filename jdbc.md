@@ -49,18 +49,18 @@ Connection properties (except for the CRN) can be specified as part of the URL, 
 - User (optional): A user name is not required and is ignored if given.
 - Targetcosurl (optional, but usually needed): Cloud {{site.data.keyword.cos_short}} URI in SQL query style, where the results are stored. If this property is not specified, you cannot run queries that return a JDBC result set. The JDBC connection can still be used to retrieve database metadata and run DDL and [ETL-type statements](#etl-type-statements).
 - LoggerFile (optional, default none): file to write driver logs to.
-- LoggerLevel (optional, default set by Java SE Development Kit): java.util.logging level for the driver. Java SE Development Kit default is usually `INFO`.
+- LoggerLevel (optional, default set by JDK): java.util.logging level for the driver. JDK default is usually `INFO`.
   - DEBUG/FINER or TRACE/FINEST are the most useful values.
 - FilterType (optional, default none):
   - Only tables are returned if `filterType` value is set to `table`.
   - Only views are returned if `filterType` value is set to `view`.
 - AppendInto (optional, default *true*):
-  - If it is set to false, no `INTO` clause is appended, and results are not available through the driver. It is used in conjunction with [ETL-type statements](#etl-type-statements), where the INTO options are provided as part of the statement. 
+  - If it is set to false, no `INTO` clause is appended, and results are not available through the driver. It is used [ETL-type statements](#etl-type-statements), where the INTO options are provided as part of the statement. 
 
 ## Driver functionality
 {: #driver_functionality}
 
-This driver is designed as a facade to JVM applications for easy access to {{site.data.keyword.sqlquery_short}} service. The driver uses the REST API of the service to run queries, stores the results into Cloud {{site.data.keyword.cos_short}} and makes these results accessible through JDBC interfaces.
+This driver is designed as a facade to JVM applications for easy access to {{site.data.keyword.sqlquery_short}} service. The driver uses the REST API of the service to run queries, stores the results in Cloud {{site.data.keyword.cos_short}}, and makes these results accessible through JDBC interfaces.
 
 The driver does not implement full JDBC-compliant functionality, but only the parts of the API that are most commonly used by clients. The following functions are explicitly tested:
 
@@ -79,7 +79,7 @@ Results in the `targetcosurl` location are never deleted by the driver. You can 
 The following limitations are implied by the use of {{site.data.keyword.sqlquery_short}}, which is not a full-featured database:
 
 - The driver is based on an asynchronous REST API and does not maintain persistent "connections" to the backend.
-- {{site.data.keyword.sqlquery_short}} is not designed for interactive performance on small data. Even tiny queries usually take several seconds to execute.
+- {{site.data.keyword.sqlquery_short}} is not designed for interactive performance on small data. Even tiny queries usually take several seconds to run.
 - Query results are returned through results in Cloud {{site.data.keyword.cos_short}}. A `SELECT *` query creates a full copy of the selected table (or Cloud {{site.data.keyword.cos_short}}) in the `targetcosurl` location.
 - Streaming of query results cannot start until the execution fully completed and results were written to Cloud {{site.data.keyword.cos_short}}.
 - {{site.data.keyword.sqlquery_short}} works on read-only data in Cloud {{site.data.keyword.cos_short}}, so the following functionality that is related to data updates is not supported:
@@ -119,7 +119,7 @@ You cannot run statements with an `INTO` clause by using the generic `Statement.
 
 JDBC driver logging works similarly to the [postgresql JDBC driver](https://jdbc.postgresql.org/documentation/head/logging.html):
 
-- Logging uses the java.util.logging framework and can be [configured](https://docs.oracle.com/javase/8/docs/api/java/util/logging/LogManager.html) with a configuration file. The file name must be specified as Java system property `-D java.util.logging.config.file=<path>`. Java SE Development Kit default is usually to log to the console at `INFO` level.
+- Logging uses the java.util.logging framework and can be [configured](https://docs.oracle.com/javase/8/docs/api/java/util/logging/LogManager.html) with a configuration file. The file name must be specified as Java system property `-D java.util.logging.config.file=<path>`. JDK default is usually to log to the console at `INFO` level.
 - The base logger for the JDBC driver is `com.ibm.cloud.sql.query`.
 - For convenience, and in cases where JVM system properties are not under your control, two connection properties exist, "loggerFile" and "loggerLevel" that allow to control JDBC driver logging with the JDBC URL. These properties set the log level and install a file handler for the driver base logger. For example, append `&loggerLevel=debug&loggerFile=/tmp/sqlquery.log` to the JDBC URL to create detailed logging output in files `/tmp/sqlquery.log.<n>`.
 - If you set loggerLevel higher than `INFO` (for example, `DEBUG`) has no effect if you do not also configure loggerFile or install a log handler because the default console *handler* suppresses all messages with a log level higher than `INFO`.
@@ -129,7 +129,7 @@ JDBC driver logging works similarly to the [postgresql JDBC driver](https://jdbc
 
 [Tableau Desktop](https://www.tableau.com/products/desktop) is a BI reporting tool that connects to a rich set of data sources. You can connect to any custom JDBC driver by using the generic JDBC connector offered by Tableau. Download Tableau Desktop version 2020.2 or newer.
 
-To make sure that Tableau generates SQL that is supported only by a specific JDBC driver, you must specify the supported/unsupported SQL capabilities of the driver. Tableau generates appropriate SQL statements dependent on this specification.
+To make sure that Tableau generates SQL that is supported only by a specific JDBC driver, you must specify the supported and unsupported SQL capabilities of the driver. Tableau generates appropriate SQL statements dependent on this specification.
 
 The following steps describe how to make Tableau Desktop for Windows work with the {{site.data.keyword.sqlquery_short}} JDBC driver:
 
@@ -168,11 +168,11 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
      For **Mac**: `~/My Tableau Repository/Datasources/ibmcloudsql-jdbc.tdc`
 
-     If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be switched on and off .
+     If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be turned on and off.
 
 4. Start Tableau Desktop. Go to **Connect -> To a Server -> More**.
 5. On the next page, you see a list of supported connectors. Select **Other Databases (JDBC)**.
-6. On the raised input form enter the following:
+6. On the raised input form enter the following information:
    - URL: `jdbc:ibmcloudsql:{CRN of your {{site.data.keyword.sqlquery_short}} service instance}?targetcosurl={COS location for results}`
    - Dialect: `SQL 92`
    - User: `apikey`
@@ -180,7 +180,7 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 7. Click **Sign in**.
 
 
-As Tableau does not support complex data types, such as `struct`, if a table contains one or more columns with complex data type, do the following:
+As Tableau does not support complex data types, such as `struct`, if a table contains one or more columns with complex data type, perform the following actions:
 
 - Create a flattened view on the table.
 - You can set the `filterType` option to `view`. This option effectively hides all tables and reveals views only to Tableau. To set the option with the JDBC URL, use the following URL: 
