@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2021
-lastupdated: "2021-02-18"
+lastupdated: "2021-03-05"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -72,14 +72,14 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, 
     - By default, it is assumed that JSON input objects consist of a single JSON record per line. If individual records span multiple lines, you must specify `MULTILINE` in the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - If required, you can use `JOIN` constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
     - Use the `INTO` clause of a [query](/docs/services/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the wanted result format.
-2. Below the query editor, the **Target location** field displays where the result is stored. An initial bucket in one of your {{site.data.keyword.cos_short}} instances is automatically created for you when you open the UI. It is then chosen as your default location, if your query does not specify an `INTO` clause. To ensure the automatic setup of an initial bucket, you must do the following in advance:
+2. The **Target location** field displays where the result is stored. An initial bucket in one of your {{site.data.keyword.cos_short}} instances is automatically created for you when you open the UI. It is then chosen as your default location, if your query does not specify an `INTO` clause. To ensure the automatic setup of an initial bucket, perform the following steps in advance:
 
     - You must create a {{site.data.keyword.cos_short}} instance.
     - You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
 
 In the *Details* tab of the selected job, you can set any location that you specified in the `INTO` clause as your default location.
 
-3. Click the **Run** button.
+3. Click **Run**.
 When the query completes, a preview of the query result is displayed in the query result tab of the UI. Preview functionality is only available for CSV and JSON result formats. You can run up to five queries simultaneously with a Standard plan instance of {{site.data.keyword.sqlquery_short}}.
 
 ### Sample queries
@@ -164,35 +164,35 @@ A more exact specification of the object or objects:
   - The usage of a * wildcard depends on how the object structure was created:
 	   - If the object structure was created as Hive-partitioned structure,
 for example as SQL Query result output, and the result objects are starting with the prefix `part-`, wildcards are not supported.
-Using SQL constructs based on the Hive structure is always the preferred method, in order to restrict the number of objects to be read during query processing.
+Using SQL constructs based on the Hive structure is always the preferred method to restrict the number of objects to be read during query processing.
 	   - If the object structure was created as Hive-partitioned structure,
 but by using arbitrary file names, the usage of wildcards is supported.
 The wildcard matches all objects with the indicated path prefix. For example, `mydir/test1*`, matches
 objects `mydir/test100`, and `mydir/test101/nested/object`.
 
-- For an output URI, this is the prefix under which the [result objects](#result) are to be written.
+- For an output URI, it is the prefix under which the [result objects](#result) are to be written.
 
 ### Composite input tables
 {: compositeInput}
 
-As noted previously, the URI for an input table on Cloud {{site.data.keyword.cos_short}} can match multiple objects, forming a "composite" input table. When you run a query over composite input, ensure that the schema of each matching object is appropriate within the context of the SELECT statement. The schemas of the objects don't have be identical; depending on the input format, the schemas of multiple objects can be merged:
+As noted previously, the URI for an input table on Cloud {{site.data.keyword.cos_short}} can match multiple objects, forming a "composite" input table. When you run a query over composite input, ensure that the schema of each matching object is appropriate within the context of the SELECT statement. The schemas of the objects must not be identical; depending on the input format, the schemas of multiple objects can be merged:
 - For CSV format, columns are matched based on their *order*. Some input objects can contain more columns than others, but common columns must always use the same order across objects. The number of columns in the composite input is the maximum number of columns from all matched objects.
 - For JSON and Parquet format, columns are matched based on their *name*. The set of columns in the composite input is the union of all column names from matched objects. For Parquet format, you must use the `MERGE SCHEMA` option of the [`STORED AS`](/docs/services/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause to indicate that schema merging is to be performed.
 - Input schema merging is not supported for AVRO and ORC formats. The first object determines the set of columns in the composite input, all columns that do not occur in the first object are ignored. The same behavior applies to Parquet, if the `MERGE SCHEMA` option is not specified.
 
-Matching columns need to have compatible data types across all objects where they appear. If a column does not appear in some of the input objects, it is padded with NULL values in the composite input.
+Matching columns must have compatible data types across all objects where they appear. If a column does not appear in some of the input objects, it is padded with NULL values in the composite input.
 
 ### Database locations
 {: #db-location}
 
 Two ways to specify database locations exist, CRN URIs, and Db2 table URIs. Which one you choose
 depends on the target database plan and the access you have to that database.
-The number of parallel Db2 connections has an effect on performance. The more parallel connections there are, the better the performance gets, depending on the allowed connections to Db2 and the current free resources of {{site.data.keyword.sqlquery_short}}. Check how many connections your [Db2 plan](https://cloud.ibm.com/catalog/services/db2) allows. 
+The number of parallel Db2 connections affects performance. The more parallel connections there are, the better the performance gets, depending on the allowed connections to Db2 and the current free resources of {{site.data.keyword.sqlquery_short}}. Check how many connections your [Db2 plan](https://cloud.ibm.com/catalog/services/db2) allows. 
 
 #### CRN URI location
 {: #crn-uri}
 
-If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and if the SQL user can see the credentials for that instance (this requires the Operator privilege), then the user can specify the database location using its instance CRN. The access to the database is performed with the username and password found in the service credentials for this Db2 instance. Newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
+If the {{site.data.keyword.Db2_on_Cloud_short}} instance is in an {{site.data.keyword.Bluemix_notm}} account that is accessible to the SQL user, and if the SQL user can see the credentials for that instance (requires the Operator privilege), the user can specify the database location by using its instance CRN. The access to the database is performed with the username and password that is found in the service credentials for this Db2 instance. Newly created Db2 instances don't have any service credentials; to create them, select the instance in the {{site.data.keyword.Bluemix_notm}} console and choose **Service credentials** > **New credential**.
 
 You can optionally override the username and password in the credentials with a custom user and password or a custom API key. Store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. For more information, see the [security documentation](/docs/sql-query?topic=sql-query-authentication).
 
@@ -202,10 +202,10 @@ The CRN table has the form:
 
 **`<db service crn>/<table name>`**
 
-You can retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. This opens an overlay panel to the right where you find a field labeled `CRN:` with the value and an option to copy it to your clipboard.
+You retrieve the **`<db service crn>`** by opening the resource list in the {{site.data.keyword.Bluemix_notm}} dashboard. Scroll down to the database service instance and click in any of the columns other than the first column. An overlay panel to the right opens where you find a field that is labeled `CRN:` with the value and an option to copy it to your clipboard.
 
 The **`<table name>`** part specifies the table that is created in your database. It has the format **`<schemaname>.<tablename>`**.
-If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 Lite plan, this is the only schema that you have access to.
+If you omit the **`<schemaname>`** part, the table is created in the schema of the `"username"` in the credentials of your database service instance &ndash; for a Db2 Lite plan, it is the only schema that you have access to.
 The table name is case-preserving, so use uppercase to match database defaults.
 
 An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us-south:s/c3882b7e-00c4-4e7c-a63b-cded1c298f25:23eb50c5-723d-41e0-b7d8-603feaa79ccc:cf-service-instance:/RWS46052.QUERY_RESULT`
@@ -213,11 +213,11 @@ An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us
 #### Db2 table URI location
 {: #db2-table-uri}
 
-If the SQL user cannot access the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance (because the user does not have access to the account containing the database instance, or is not granted Operator privilege on the instance), that user can specify the database location by using a URI with the Db2 database hostname.
+If the SQL user cannot access the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance (because the user does not have access to the account that contains the database instance, or is not granted Operator privilege on the instance), the user can specify the database location by using a URI with the Db2 database hostname.
 
 By default the access to this database is performed with the IAM identity of the user who submitted the query. This default requires that the database is enabled for IAM authentication. Also, before you use this option, make sure that the IBMid of the user was added as a database user. For more information, see section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 Lite plans because they don't support IAM authentication in the database.
 
-If you cannot or do not want to use the default mechanism of IAM user authentication, you can instead specify a custom user and password or a custom API key. To do so, store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. For more information, see the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication). With this option you can connect to *any* Db2 database that is accessible from the IBM public cloud network.
+If you cannot or do not want to use the default mechanism of IAM user authentication, you can instead specify a custom user and password or a custom API key. To do so, store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/services/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. For more information, see the [security documentation](/docs/services/sql-query?topic=sql-query-security#accessauthentication). With this option, you can connect to *any* Db2 database that is accessible from the IBM public cloud network.
 
 The Db2 table URI has the following form:
 
@@ -228,7 +228,7 @@ The **`<db2 host name>`** is the hostname of the Db2 instance that is used to ac
 The **`<table name>`** part specifies the table that is created in your database. It has the format **`<schemaname>.<tablename>`**.
 If you omit the **`<schemaname>`** part, the table is created in the schema of database user that was created for the IBMid of the SQL user. The table name is case-preserving, so use upper case to match database defaults.
 
-An example for a Db2 table URI is the following: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
+The following URI is an example of a Db2 table URI: `db2://db2w-vqplkwx.us-south.db2w.cloud.ibm.com/MYSCHEMA.QUERY_RESULT`
 
 ## Object result set
 {: #result}
@@ -239,14 +239,14 @@ By default, the following three objects are written to Cloud {{site.data.keyword
 2. `<target>/jobid=<job_id>/_SUCCESS`
 3. `<target>/jobid=<job_id>/<part-number>`
 
-Only the last object contains the result set, the other two are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names includes the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. Consequently, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO` clause.
+Only the last object contains the result set, the other two objects are empty and don't contain any data. It is important not to delete any of the objects if you want to use the result set for subsequent queries. By default, the object names include the job ID. For example, if you specify `mydir/out` or `mydir/out/` as the target directory, the result objects are written under `mydir/out/jobid=<job_id>`. So, when a query is run multiple times, the result set is not overwritten. You can change this behavior with the [`JOBPREFIX`](/docs/sql-query?topic=sql-query-sql-reference#cosResultClause) option of the `INTO` clause.
 
 You can use the result set from one query as input data for further SQL queries.
 If you want to specify a result of a single query execution as input in your SQL query, specify the first (`<target>/jobid=<job_id>`) or the third one (`<target>/jobid=<job_id>/<part-number>`). You can also use the [partitioning clause](/docs/sql-query?topic=sql-query-sql-reference#partitionedClause) to split the result set into multiple objects. Either the entire result set or individual objects can then serve as input for further queries.
 
-A query can even process the output of multiple previous query executions by omitting the `jobid=<job_id>` part in the object name. For example, you can run some setup queries writing to `cos://us-geo/my-bucket/tempstore`, where each query creates new objects inside that prefix with a distinct `jobid=<job_id>` name. You can then run an aggregate query over all of the setup results using `cos://us-geo/my-bucket/tempstore` as a [composite input table](#compositeInput). The aggregate query can treat `jobid` as if it were a column in the input table (for example, in a WHERE clause). This is the Hive-style partitioning concept that Hadoop SQL engines employ for data stored in Hadoop Distributed File System (HDFS).
+A query can even process the output of multiple previous query executions by omitting the `jobid=<job_id>` part in the object name. For example, you can run some setup queries writing to `cos://us-geo/my-bucket/tempstore`, where each query creates new objects inside that prefix with a distinct `jobid=<job_id>` name. You can then run an aggregate query over all of the setup results by using `cos://us-geo/my-bucket/tempstore` as a [composite input table](#compositeInput). The aggregate query treats `jobid` as if it were a column in the input table (for example, in a WHERE clause). This concept is the Hive-style partitioning concept that Hadoop SQL engines employ for data that is stored in Hadoop Distributed File System (HDFS).
 
-If you want to run a query over the combined results of multiple previous queries, ensure that these have compatible outputs, so that their schemas can be merged. See the section on [composite input tables](#compositeInput) for detailed information. To make this work properly for CSV format, all setup queries must use the same column names and sequence in their `SELECT` clause, so the results have compatible schemas. If you later need to introduce new columns in extra setup queries, add these columns to the end of the column list. If not, the structure of the composite `tempstore` data set gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
+If you want to run a query over the combined results of multiple previous queries, ensure that these have compatible outputs so that their schemas can be merged. For more information, see the section on [composite input tables](#compositeInput). To make this work properly for CSV format, all setup queries must use the same column names and sequence in their `SELECT` clause, so the results have compatible schemas. If you later need to introduce new columns in extra setup queries, add these columns to the end of the column list. If not, the structure of the composite `tempstore` data set gets corrupted, causing unreadable objects, corrupted data, or unreliable results.
 
 ## Endpoints
 {: #endpoints}
@@ -367,7 +367,7 @@ Each successful query is charged with at least 10 MB.
 
 Let's assume you have 1 PB of data that is stored on Cloud {{site.data.keyword.cos_short}} that is laid out as described in the 
 [blog post](https://www.ibm.com/cloud/blog/big-data-layout) and is optimized for the queries you want to execute. 
-If you run a single query, the most expensive query possible is `SELECT * FROM`, as reading 1 PB of data is required. Any other query is much cheaper and faster. For example, a 1 PB data set consists of audit events for users of a system (user A performed action B in system X at time T) and the data is laid out in a way that it is partitioned by time (one file per day and system). So to answer a query like `SELECT DISTINCT user FROM WHERE System='X' AND Day >= (TODAY - 30)`, {{site.data.keyword.sqlquery_short}} has to access all objects for system X that contain data for the last 30 days. The sum of the size of these objects is the maximum estimate of data that is scanned that you would be charged for. But as {{site.data.keyword.sqlquery_short}} accesses only one field, and data is stored as Parquet, it is much less. Calculating the precise price of the query is not possible in advance because much of it depends on the data itself. Parquet, for example, stores compressed columns, so if the column can be compressed effectively, even less data needs to be read. You also find some further details in the blog post [SQL Query releases serverless transformation and partitioning of data in open formats](https://www.ibm.com/cloud/blog/announcements/sql-query-releases-serverless-transformation-and-partitioning-of-data-in-open-formats) about {{site.data.keyword.sqlquery_short}} ETL capabilities and how they affect scanned data.
+If you run a single query, the most expensive query possible is `SELECT * FROM`, as reading 1 PB of data is required. Any other query is much cheaper and faster. For example, a 1 PB data set consists of audit events for users of a system (user A performed action B in system X at time T) and the data is laid out in a way that it is partitioned by time (one file per day and system). So to answer a query like `SELECT DISTINCT user FROM WHERE System='X' AND Day >= (TODAY - 30)`, {{site.data.keyword.sqlquery_short}} must access all objects for system X that contain data for the last 30 days. The sum of the size of these objects is the maximum estimate of data that is scanned that you would be charged for. But as {{site.data.keyword.sqlquery_short}} accesses only one field, and data is stored as Parquet, it is much less. Calculating the precise price of the query is not possible in advance because much of it depends on the data itself. Parquet, for example, stores compressed columns, so if the column can be compressed effectively, even less data needs to be read. You also find some further details in the blog post [SQL Query releases serverless transformation and partitioning of data in open formats](https://www.ibm.com/cloud/blog/announcements/sql-query-releases-serverless-transformation-and-partitioning-of-data-in-open-formats) about {{site.data.keyword.sqlquery_short}} ETL capabilities and how they affect scanned data.
 
 ## Timestamps
 {: #timestamps}
@@ -392,6 +392,6 @@ Use one of the following workarounds:
 
 - To process CSV input with {{site.data.keyword.sqlquery_short}}, each row must be contained within one line. Multi-line values are not supported.
 
-  If you use {{site.data.keyword.sqlquery_short}} to generate CSV results from other data formats like Parquet that support newlines within values and these CSV results are queried again, newlines must explicitly be removed before you write the results. To do so, use the SQL function `regexp_replace`. For example, a Parquet object `data` has an attribute `multi_line` containing values that span multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following:
+  If you use {{site.data.keyword.sqlquery_short}} to generate CSV results from other data formats like Parquet that support newlines within values and these CSV results are queried again, newlines must explicitly be removed before you write the results. To do so, use the SQL function `regexp_replace`. For example, a Parquet object `data` has an attribute `multi_line` containing values that span multiple lines. To select a subset of rows based on a `condition` and store it on Cloud {{site.data.keyword.cos_short}} for further processing, a skeleton SQL statement looks like the following example:
 
 	`SELECT regexp_replace(multi_line, '[\\r\\n]', ' ') as multi_line FROM data STORED AS parquet WHERE condition`
