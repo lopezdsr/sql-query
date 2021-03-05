@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2020
-lastupdated: "2020-10-08"
+  years: 2019, 2021
+lastupdated: "2021-03-05"
 
 keywords: SQL query, time series, SQL, data processing function
 
@@ -153,7 +153,7 @@ Uses a [fast Fourier transform (FFT)](https://en.wikipedia.org/wiki/Fast_Fourier
 
 **TS_SEG_FFT(DoubleSegmentTimeSeries, String)**  
 Output: DoubleArrayTimeSeries  
-Uses a [fast Fourier transform (FFT)](https://en.wikipedia.org/wiki/Fast_Fourier_transform) algorithm to return the discrete Fourier transform for each segment of the input time series. The string specified for the second parameter determines the type of transform:
+Uses a [fast Fourier transform (FFT)](https://en.wikipedia.org/wiki/Fast_Fourier_transform) algorithm to return the discrete Fourier transform for each segment of the input time series. The string that is specified for the second parameter determines the type of transform:
 
 - `forward` or `f` for a forward transform
 - `inverse` or `i` for an inverse transform
@@ -234,7 +234,7 @@ Returns the skewness of the values of each segment of the input time series. Eac
 
 **TS_GRANGER(DoubleTimeSeries, DoubleTimeSeries, Numeric)**  
 Output: DoubleArray  
-Returns the result of a [Granger causality test](https://en.wikipedia.org/wiki/Granger_causality) as an array of the form [fStat, pValue, R2]. This indicates whether the first time series is useful in forecasting the second time series. The third parameter specifies the number of lags.
+Returns the result of a [Granger causality test](https://en.wikipedia.org/wiki/Granger_causality) as an array of the form [fStat, pValue, R2]. The result indicates whether the first time series is useful in forecasting the second time series. The third parameter specifies the number of lags.
 
 ## Forecasting functions
 {: #forecasting_funcitons}
@@ -321,9 +321,9 @@ Segment a time series whenever no observation occurs within the length of time, 
 Output: The type of the output segment time series corresponds to the type of the input.  
 Segment a time series based on the specified anchor. The specified Long values determine a segment that begins before (third parameter) and ends after (fourth parameter) each anchor point. For example:
 
-- Specify 0.0 to return only those observations that correspond to the anchor points.
-- Specify 5.3 to create a segment that includes, in addition to the observation at each anchor point, all observations that occur between five timeticks before and three timeticks after each anchor point.
-- Specify 5.-3 to create a segment that includes all observations that occur between five and three timeticks before the anchor point.
+- Specify 0,0 to return only those observations that correspond to the anchor points.
+- Specify 5,3 to create a segment that includes, in addition to the observation at each anchor point, all observations that occur between 5 timeticks before and 3 timeticks after each anchor point.
+- Specify 5,-3 to create a segment that includes all observations that occur between 5 and 3 timeticks before the anchor point.
 
 **TS_SEGMENT_BY_MARKER (ts: AnyTimeSeries, marker: BooleanExpressionType[Any],prevInclusive: Boolean, nextInclusive: Boolean, requiresStartAndEnd: Boolean)**
 Output: Same as input 
