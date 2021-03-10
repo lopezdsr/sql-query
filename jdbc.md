@@ -25,9 +25,9 @@ subcollection: sql-query
 ## Driver download
 {: #driver_download}
 
-Download the latest versions: [`2.5.20`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.20.jar)
+Download the latest version: [`2.5.20`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.20.jar)
 
-Previous versions: [`2.5.16`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.16.jar)
+Previous version: [`2.5.16`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.16.jar)
 
 
 ## JDBC driver class and URL format
