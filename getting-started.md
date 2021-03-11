@@ -18,10 +18,10 @@ subcollection: sql-query
 {:tip: .tip}
 
 
-# Getting started
+# Getting started with {{site.data.keyword.sqlquery_full}}
 {: #getting-started}
 
-In this {{site.data.keyword.sqlquery_full}} tutorial, we set you up to begin querying rectangular data in {{site.data.keyword.cos_full}} and storing the results in {{site.data.keyword.cos_short}}.
+In this {{site.data.keyword.sqlquery_short}} tutorial, we set you up to begin querying rectangular data in {{site.data.keyword.cos_full}} and storing the results in {{site.data.keyword.cos_short}}.
 
 
 {: shortdesc}
