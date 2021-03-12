@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2021
-lastupdated: "2021-03-05"
+lastupdated: "2021-03-12"
 
 keywords: SQL query, analyze, data, CVS, JSON, ORC, Parquet, Avro, object storage, SELECT, cloud instance, URI, endpoint, api, user roles
 
@@ -37,7 +37,7 @@ Use the {{site.data.keyword.sqlquery_short}} user interface (UI) to develop your
 src="https://www.youtube.com/embed/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 1. {{site.data.keyword.sqlquery_short}}: Provision the IBM Cloud Services*.
+*Video 1. Provision the IBM Cloud Services.*
 
 
 ## Where your input data and query results are stored
@@ -55,7 +55,7 @@ Watch the following video to learn more about {{site.data.keyword.sqlquery_short
 
 <iframe width="640" height="390" title="IBM Cloud SQL Query: Run Queries from the Console"  src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 2. {{site.data.keyword.sqlquery_short}}: Run queries from the console*.
+*Video 2. Run queries from the console.*
 
 
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
@@ -262,13 +262,13 @@ When you interact with {{site.data.keyword.sqlquery_short}} programmatically thr
 The following tables list some examples of currently supported {{site.data.keyword.sqlquery_short}} endpoints:
 
 
-Cross Region Endpoint Name | Alias
+Cross region endpoint name | Alias
 --- | ---
 s3.us.cloud-object-storage.appdomain.cloud     | us-geo
 s3.eu.cloud-object-storage.appdomain.cloud     | eu-geo
 s3.ap.cloud-object-storage.appdomain.cloud     | ap-geo
 
-Regional Endpoint Name | Alias
+Regional endpoint name | Alias
 --- | ---
 s3.eu-de.cloud-object-storage.appdomain.cloud    | eu-de
 s3.eu-gb.cloud-object-storage.appdomain.cloud    | eu-gb
@@ -277,7 +277,7 @@ s3.us-east.cloud-object-storage.appdomain.cloud  | us-east
 s3.au-syd.cloud-object-storage.appdomain.cloud   | au-syd
 s3.jp-tok.cloud-object-storage.appdomain.cloud   | jp-tok
 
-Single Data Center Endpoint Name | Alias
+Single data center endpoint name | Alias
 --- | ---
 s3.ams03.cloud-object-storage.appdomain.cloud   | ams03
 s3.che01.cloud-object-storage.appdomain.cloud   | che01
@@ -348,7 +348,7 @@ to use these functions.
 The following table shows which user roles are required to launch a particular service action or API endpoint.
 Use this information to decide which access rights to grant your users when you create new user IDs.
 
-Description | Service Action | API Endpoint | Required User Roles
+Description | Service action | API endpoint | Required user roles
 --- | --- | --- | ---
 Submit an SQL query | sql-query.api.submit | `POST/v2/sql_jobs/` | Manager or Writer
 Get information for all submitted jobs | sql-query.api.getalljobs | `GET/v2/sql_jobs/` | Manager, Writer, or Reader
