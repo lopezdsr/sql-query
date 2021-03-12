@@ -2,7 +2,7 @@
 
 copyright:
   year: 2018, 2021
-lastupdated: "2021-02-26"
+lastupdated: "2021-03-12"
 
 keywords: SQL, query, object storage, bucket, sample, instance, analyze, CSV, JSON, ORC, Parquet
 
@@ -18,10 +18,10 @@ subcollection: sql-query
 {:tip: .tip}
 
 
-# Getting started with {{site.data.keyword.sqlquery_full}}
+# Getting started with IBM Cloud SQL Query
 {: #getting-started}
 
-In this {{site.data.keyword.sqlquery_short}} tutorial, we set you up to begin querying rectangular data in {{site.data.keyword.cos_full}} and storing the results in {{site.data.keyword.cos_short}}.
+In this {{site.data.keyword.sqlquery_full}} tutorial, we set you up to begin querying rectangular data in {{site.data.keyword.cos_full}} and storing the results in {{site.data.keyword.cos_short}}.
 
 
 {: shortdesc}
