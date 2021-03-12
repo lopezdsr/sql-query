@@ -3,7 +3,7 @@
 copyright:
   year: 2018, 2021
 
-lastupdated: "2021-03-03"
+lastupdated: "2021-03-12"
 
 
 keywords: what's new, support, release, beta
@@ -37,7 +37,7 @@ subcollection: sql-query
 
 - You can use our JDBC driver to connect {{site.data.keyword.sqlquery_short}} to business intelligence tools and other applications. To download and configure the driver, see the [JDBC documentation](/docs/sql-query?topic=sql-query-jdbc).
 - {{site.data.keyword.sqlquery_short}} supports monitoring metrics for submitted jobs by using
-[{{site.data.keyword.mon_full}}](docs/Monitoring-with-Sysdig?topic=Monitoring-with-Sysdig-getting-started).
+[{{site.data.keyword.mon_full}}](https://cloud.ibm.com/docs/Monitoring-with-Sysdig?topic=Monitoring-with-Sysdig-getting-started).
 You can view completed and failed jobs, the number of bytes processed, and the jobs in progress. A default {{site.data.keyword.sqlquery_short}} dashboard exists, and you can define custom dashboards and alerts.
 
 ## May 2020
