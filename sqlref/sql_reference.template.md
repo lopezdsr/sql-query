@@ -3189,7 +3189,7 @@ The syntax of a COS URI is thoroughly described in section [Table unique resourc
 A database table CRN is a unique identifier that consists of the CRN of a database service instance and a specific table name that instance.
 The user must have access to this service instance and its credentials.
 
-The syntax of a table CRN is thoroughly described in section [Table unique resource identifier](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
+The syntax of a table CRN is thoroughly described in section [Table unique resource identifier](/docs/sql-query?topic=sql-query-overview#unique).
 
 <h3 id ="DB2_TABLE_URI">DB2_TABLE_URI</h3>
 
