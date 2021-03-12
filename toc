@@ -1,7 +1,7 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="sql-query" category="databases" audience="service" arm="3663118" href="/docs/sql-query?topic=sql-query-gettingstarted" path="sql-query"}
+{: .toc subcollection="sql-query" category="databases" audience="service" arm="3663118" href="/docs/sql-query?topic=sql-query-getting-started" path="sql-query"}
 SQL Query
 
     {: .navgroup id="learn"}
