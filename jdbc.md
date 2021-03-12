@@ -27,7 +27,7 @@ subcollection: sql-query
 
 Download the latest version: [`2.5.20`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.20.jar)
 
-Previous version: [`2.5.16`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.16.jar)
+Here you find the previous version for reference: [`2.5.16`](https://us.sql-query.cloud.ibm.com/download/jdbc/ibmcloudsql-jdbc-2.5.16.jar)
 
 
 ## JDBC driver class and URL format
@@ -46,10 +46,10 @@ The CRN can be obtained from the service dashboard in the IBM Cloud console. The
 Connection properties (except for the CRN) can be specified as part of the URL, separated by `&`, or through the Java connection properties object. The following properties are supported:
 
 - Password (required): IBM Cloud API key for running the queries.
-- User (optional): A user name is not required and is ignored if given.
+- User (optional): A username is not required and is ignored if given.
 - Targetcosurl (optional, but usually needed): Cloud {{site.data.keyword.cos_short}} URI in SQL query style, where the results are stored. If this property is not specified, you cannot run queries that return a JDBC result set. The JDBC connection can still be used to retrieve database metadata and run DDL and [ETL-type statements](#etl-type-statements).
 - LoggerFile (optional, default none): file to write driver logs to.
-- LoggerLevel (optional, default set by JDK): java.util.logging level for the driver. JDK default is usually `INFO`.
+- LoggerLevel (optional, default set by Java SE Development Kit): java.util.logging level for the driver. Java SE Development Kit default is usually `INFO`.
   - DEBUG/FINER or TRACE/FINEST are the most useful values.
 - FilterType (optional, default none):
   - Only tables are returned if `filterType` value is set to `table`.
@@ -119,7 +119,7 @@ You cannot run statements with an `INTO` clause by using the generic `Statement.
 
 JDBC driver logging works similarly to the [postgresql JDBC driver](https://jdbc.postgresql.org/documentation/head/logging.html):
 
-- Logging uses the java.util.logging framework and can be [configured](https://docs.oracle.com/javase/8/docs/api/java/util/logging/LogManager.html) with a configuration file. The file name must be specified as Java system property `-D java.util.logging.config.file=<path>`. JDK default is usually to log to the console at `INFO` level.
+- Logging uses the java.util.logging framework and can be [configured](https://docs.oracle.com/javase/8/docs/api/java/util/logging/LogManager.html) with a configuration file. The file name must be specified as Java™ system property `-D java.util.logging.config.file=<path>`. Java SE Development Kit default is usually to log to the console at `INFO` level.
 - The base logger for the JDBC driver is `com.ibm.cloud.sql.query`.
 - For convenience, and in cases where JVM system properties are not under your control, two connection properties exist, "loggerFile" and "loggerLevel" that allow to control JDBC driver logging with the JDBC URL. These properties set the log level and install a file handler for the driver base logger. For example, append `&loggerLevel=debug&loggerFile=/tmp/sqlquery.log` to the JDBC URL to create detailed logging output in files `/tmp/sqlquery.log.<n>`.
 - If you set loggerLevel higher than `INFO` (for example, `DEBUG`) has no effect if you do not also configure loggerFile or install a log handler because the default console *handler* suppresses all messages with a log level higher than `INFO`.
