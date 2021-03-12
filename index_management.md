@@ -228,7 +228,7 @@ Dropping a table does not also drop the table indexes.
 
 Data skipping also supports indexing and skipping on [catalog tables](/docs/services/sql-query?topic=sql-query-hivemetastore). How the index is created differs for partitioned and non-partitioned tables.
 
-For non-partitioned tables, indexing must be done by using the [Cloud {{site.data.keyword.cos_short}} URI](/docs/services/sql-query?topic=sql-query-sql-reference#COSURI). In this case, the same metadata is used whether a query accesses the table by name or by physical location by using the Cloud {{site.data.keyword.cos_short}} URI.
+For non-partitioned tables, indexing must be done by using the [Cloud {{site.data.keyword.cos_short}} URI](/docs/sql-query?topic=sql-query-sql-reference#COSURI). In this case, the same metadata is used whether a query accesses the table by name or by physical location by using the Cloud {{site.data.keyword.cos_short}} URI.
 
 For [partitioned tables](/docs/sql-query?topic=sql-query-hivemetastore#partitioned), indexes that are created in the Cloud {{site.data.keyword.cos_short}} URI are not used when you access a table by name. Instead, all preceding command and query examples must be rewritten by replacing the Cloud {{site.data.keyword.cos_short}} URI with the table name, by using the ON TABLE clause. For example, for the preceding CREATE INDEX statement, to index a table named `metergen` use the following syntax:
 
