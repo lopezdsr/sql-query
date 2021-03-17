@@ -2,7 +2,7 @@
 
 copyright:
   years: 2019, 2021
-lastupdated: "2021-03-05"
+lastupdated: "2021-03-17"
 
 keywords: SQL query, time series, SQL, data types
 
@@ -38,9 +38,9 @@ StringArraySegmentTimeSeries | StringArrayTimeSeries that is segmented. See the 
 
 Placeholder | Description
 --- | ---
-TimeSeries | Any of the following data types: <ul><li>DoubleTimeSeries</li><li>DoubleArrayTimeSeries</li><li>DoubleSegmentTimeSeries</li><li>DoubleArraySegmentTimeSeries</li><li>StringTimeSeries</li><li>StringArrayTimeSeries</li><li>StringSegmentTimeSeries</li><li>StringArraySegmentTimeSeries</li></ul>
-SegmentTimeSeries | Any of the following data types: <ul><li>DoubleSegmentTimeSeries</li><li>DoubleArraySegmentTimeSeries</li><li>StringSegmentTimeSeries</li><li>StringArraySegmentTimeSeries</li></ul>
-ArrayTimeSeries | Any of the following data types: <ul><li>DoubleArrayTimeSeries</li><li>DoubleArraySegmentTimeSeries</li><li>StringArrayTimeSeries</li><li>StringArraySegmentTimeSeries</li></ul>
+TimeSeries | Represent any of the following data types: <ul><li>DoubleTimeSeries</li><li>DoubleArrayTimeSeries</li><li>DoubleSegmentTimeSeries</li><li>DoubleArraySegmentTimeSeries</li><li>StringTimeSeries</li><li>StringArrayTimeSeries</li><li>StringSegmentTimeSeries</li><li>StringArraySegmentTimeSeries</li></ul>
+SegmentTimeSeries | Represent any of the following data types: <ul><li>DoubleSegmentTimeSeries</li><li>DoubleArraySegmentTimeSeries</li><li>StringSegmentTimeSeries</li><li>StringArraySegmentTimeSeries</li></ul>
+ArrayTimeSeries | Represent any of the following data types: <ul><li>DoubleArrayTimeSeries</li><li>DoubleArraySegmentTimeSeries</li><li>StringArrayTimeSeries</li><li>StringArraySegmentTimeSeries</li></ul>
   
  *Table 2. Pseudo data types are not actual data types, but are placeholders that are used by the documentation to represent any of several time series data types.*
 
