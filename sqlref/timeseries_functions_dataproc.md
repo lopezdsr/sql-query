@@ -270,7 +270,7 @@ Combines observations with duplicate timeticks based on the specified [combiner]
 Output: *TimeSeries*  
 Returns a time series whose values correspond to the values of the input array time series at the specified index (second parameter).
 
-**TS_FILTER (time_series, boolean expression)**
+**TS_FILTER (time_series, Boolean expression)**
 Output: *TimeSeries*  
 Filter each value of the time series given a Boolean expression.
 
@@ -325,11 +325,11 @@ Segment a time series based on the specified anchor. The specified Long values d
 - Specify 5,3 to create a segment that includes, in addition to the observation at each anchor point, all observations that occur between 5 timeticks before and 3 timeticks after each anchor point.
 - Specify 5,-3 to create a segment that includes all observations that occur between 5 and 3 timeticks before the anchor point.
 
-**TS_SEGMENT_BY_MARKER (ts: AnyTimeSeries, marker: BooleanExpressionType[Any],prevInclusive: Boolean, nextInclusive: Boolean, requiresStartAndEnd: Boolean)**
+**TS_SEGMENT_BY_MARKER (ts: AnyTimeSeries, marker: BooleanExpressionType[Any], prevInclusive: Boolean, nextInclusive: Boolean, requiresStartAndEnd: Boolean)**
 Output: Same as input 
-Segment the time series by a marker point (Boolean Expression) where each segment exists between markers.
+Segment the time series by a marker point (Boolean expression) where each segment exists between markers.
 
-**TS_SEGMENT_BY_DUAL_MARKER (ts: AnyTimeSeries, markerStart: BooleanExpressionType[Any],markerEnd: BooleanExpressionType[Any], startInclusive: Boolean, endInclusive: Boolean, startOnFirst: Boolean, endOnFirst: Boolean)** 
+**TS_SEGMENT_BY_DUAL_MARKER (ts: AnyTimeSeries, markerStart: BooleanExpressionType[Any], markerEnd: BooleanExpressionType[Any], startInclusive: Boolean, endInclusive: Boolean, startOnFirst: Boolean, endOnFirst: Boolean)** 
 Output: Same as input
 Segment the time series by a start and end marker point (Boolean expression) where each segment exists between the start and end markers.
 
