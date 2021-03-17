@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020, 2021
-lastupdated: "2021-02-24"
+lastupdated: "2021-03-17"
 
 keywords: jdbc
 
@@ -135,7 +135,7 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 
 1. Install Tableau Desktop for Windows.
 
-2. Download the {{site.data.keyword.sqlquery_short}} JDBC driver and copy to the installation directory of Tableau.
+2. Download the {{site.data.keyword.sqlquery_short}} JDBC driver and copy it to the installation directory of Tableau.
 
    - For **Windows**: `C:\Program Files\Tableau\Drivers\ibmcloudsql-jdbc-<version>.jar`
 
@@ -162,11 +162,11 @@ The following steps describe how to make Tableau Desktop for Windows work with t
 </connection-customization>
 ```
 
-   - Store this content in a *.tdc file in the following folder:
+   - Store the content in a *.tdc file in the following folder:
 
-     For **Windows**: `C:\Documents\My Tableau Repository\Datasources\ibmcloudsql-jdbc.tdc`
+     **Windows**: `C:\Documents\My Tableau Repository\Datasources\ibmcloudsql-jdbc.tdc`
 
-     For **Mac**: `~/My Tableau Repository/Datasources/ibmcloudsql-jdbc.tdc`
+     **Mac**: `~/My Tableau Repository/Datasources/ibmcloudsql-jdbc.tdc`
 
      If further customization is needed in future, look [here](https://help.tableau.com/current/pro/desktop/en-us/jdbc_capabilities.htm) for capabilities that can be turned on and off.
 
