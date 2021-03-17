@@ -66,13 +66,13 @@ Each URI can be thought of as a table. It specifies one or more input objects; e
 You must have at least 'Reader' access to the buckets that contain the input objects.
     - If the format of the input objects is CSV, and no special options are required, it is not necessary to specify a `STORED AS` clause.
 However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, specify STORED AS JSON, STORED AS ORC, STORED AS PARQUET, or STORED AS AVRO.
-    - If text formats, such as JSON and CSV, are compressed with either gzip or bzip2 and have the extensions *.gz and *.bz, they automatically get recognized as compressed files. However, it is not recommended to use these kinds of compressed files due to performance reasons.
+    - If text formats, such as JSON and CSV, are compressed with either gzip or bzip2 and have the extensions *.gz and *.bz, they automatically get recognized as compressed files. However, do not use these kinds of compressed files due to performance reasons.
     - If the format of the input objects is CSV and a delimiter other than the default `,` (comma) is used, you must specify the delimiter by using the `FIELDS TERMINATED BY` option of the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause. All single Unicode characters are allowed as delimiters.
     - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns. If the objects don't have a header line, you must specify `NOHEADER` in the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - By default, it is assumed that JSON input objects consist of a single JSON record per line. If individual records span multiple lines, you must specify `MULTILINE` in the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - If required, you can use `JOIN` constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
     - Use the `INTO` clause of a [query](/docs/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the wanted result format.
-2. The **Target location** field displays where the result is stored. An initial bucket in one of your {{site.data.keyword.cos_short}} instances is automatically created for you when you open the UI. It is then chosen as your default location, if your query does not specify an `INTO` clause. To ensure the automatic setup of an initial bucket, perform the following steps in advance:
+2. The **Target location** field displays where the result is stored. An initial bucket in one of your {{site.data.keyword.cos_short}} instances is automatically created for you when you open the UI. It is then chosen as your default location, if your query does not specify an `INTO` clause. To ensure the automatic setup of an initial bucket, do the following steps in advance:
 
     - You must create a {{site.data.keyword.cos_short}} instance.
     - You must have at least 'Writer' access to the corresponding {{site.data.keyword.cos_short}} bucket.
@@ -138,7 +138,7 @@ The latter is only supported for target locations of an SQL query, and only for 
 ### Cloud Object Storage locations
 {: #cos-location}
 
-This identifier points to a location on Cloud {{site.data.keyword.cos_short}} with a URI format. The access to this Cloud {{site.data.keyword.cos_short}} bucket is performed with the {{site.data.keyword.iamlong}} (IAM) identity
+This identifier points to a location on Cloud {{site.data.keyword.cos_short}} with a URI format. The access to this Cloud {{site.data.keyword.cos_short}} bucket is given through the {{site.data.keyword.iamlong}} (IAM) identity
 of the user that submitted the SQL statement to {{site.data.keyword.sqlquery_short}}. So, make sure that the user's IAM identity has the necessary access rights that are granted on the Cloud {{site.data.keyword.cos_short}} bucket.
 
 The identifier has the following form:
@@ -215,7 +215,7 @@ An example for a CRN table is: `crn:v1:bluemix:public:dashdb-for-transactions:us
 
 If the SQL user cannot access the service credentials for the {{site.data.keyword.Db2_on_Cloud_short}} instance (because the user does not have access to the account that contains the database instance, or is not granted Operator privilege on the instance), the user can specify the database location by using a URI with the Db2 database hostname.
 
-By default the access to this database is performed with the IAM identity of the user who submitted the query. This default requires that the database is enabled for IAM authentication. Also, before you use this option, make sure that the IBMid of the user was added as a database user. For more information, see section "Console User Experience" in the "User management" documentation of the [Db2 Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 Lite plans because they don't support IAM authentication in the database.
+By default the access to this database is performed with the IAM identity of the user who submitted the query. This default requires that the database is enabled for IAM authentication. Also, before you use this option, make sure that the IBMid of the user was added as a database user. For more information, see section "Console User Experience" in the "User management" documentation of the [IMB Knowledge Center](https://www.ibm.com/support/knowledgecenter/en/SS6NHC/com.ibm.swg.im.dashdb.security.doc/doc/iam.html). This option is not available for Db2 Lite plans because they don't support IAM authentication in the database.
 
 If you cannot or do not want to use the default mechanism of IAM user authentication, you can instead specify a custom user and password or a custom API key. To do so, store the password or key into {{site.data.keyword.keymanagementservicefull}} and specify an [access secret clause](/docs/sql-query?topic=sql-query-sql-reference#accessSecrets) in your query. For more information, see the [security documentation](/docs/sql-query?topic=sql-query-authentication#accessauthentication). With this option, you can connect to *any* Db2 database that is accessible from the IBM public cloud network.
 
@@ -345,7 +345,7 @@ to use these functions.
 ## Required user roles
 {: #user-roles}
 
-The following table shows which user roles are required to launch a particular service action or API endpoint.
+The following table shows which user roles are required to start a particular service action or API endpoint.
 Use this information to decide which access rights to grant your users when you create new user IDs.
 
 Description | Service action | API endpoint | Required user roles
@@ -365,18 +365,18 @@ Each successful query is charged with at least 10 MB.
 ### Example
 {: #data-scanned-example}
 
-Let's assume you have 1 PB of data that is stored on Cloud {{site.data.keyword.cos_short}} that is laid out as described in the 
-[blog post](https://www.ibm.com/cloud/blog/big-data-layout) and is optimized for the queries you want to execute. 
+Assume you have 1 PB of data that is stored on Cloud {{site.data.keyword.cos_short}} that is laid out as described in the 
+[blog post](https://www.ibm.com/cloud/blog/big-data-layout) and is optimized for the queries you want to run. 
 If you run a single query, the most expensive query possible is `SELECT * FROM`, as reading 1 PB of data is required. Any other query is much cheaper and faster. For example, a 1 PB data set consists of audit events for users of a system (user A performed action B in system X at time T) and the data is laid out in a way that it is partitioned by time (one file per day and system). So to answer a query like `SELECT DISTINCT user FROM WHERE System='X' AND Day >= (TODAY - 30)`, {{site.data.keyword.sqlquery_short}} must access all objects for system X that contain data for the last 30 days. The sum of the size of these objects is the maximum estimate of data that is scanned that you would be charged for. But as {{site.data.keyword.sqlquery_short}} accesses only one field, and data is stored as Parquet, it is much less. Calculating the precise price of the query is not possible in advance because much of it depends on the data itself. Parquet, for example, stores compressed columns, so if the column can be compressed effectively, even less data needs to be read. You also find some further details in the blog post [SQL Query releases serverless transformation and partitioning of data in open formats](https://www.ibm.com/cloud/blog/announcements/sql-query-releases-serverless-transformation-and-partitioning-of-data-in-open-formats) about {{site.data.keyword.sqlquery_short}} ETL capabilities and how they affect scanned data.
 
 ## Timestamps
 {: #timestamps}
 
-Values of the **timestamp** data type are created with Coordinated Universal Time (UTC) time zone by default. So, for instance, the expressions `timestamp('2009-07-30 04:17:52')`, `to_timestamp('2016-12-31', 'yyyy-MM-dd')`, or `current_timestamp` all results in a UTC timestamp value and the input string expressions are assumed to be in UTC time.
+Values of the **timestamp** data type are created with Coordinated Universal Time (UTC) zone by default. So, for instance, the expressions `timestamp('2009-07-30 04:17:52')`, `to_timestamp('2016-12-31', 'yyyy-MM-dd')`, or `current_timestamp` all results in a Coordinated Universal Time timestamp value and the input string expressions are assumed to be in Coordinated Universal Time.
 
-If you want to create a UTC timestamp from a string expression that represents a different time zone, use [`to_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#to_utc_timestamp), as in `to_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
+If you want to create a Coordinated Universal Time timestamp from a string expression that represents a different time zone, use [`to_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#to_utc_timestamp), as in `to_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
 
-You can also create timestamp values in a different time zone from a UTC timestamp value, or a UTC string expression that is using [`from_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#from_utc_timestamp), as in `from_utc_timestamp(current_timestamp, 'Asia/Seoul'),` or `from_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
+You can also create timestamp values in a different time zone from a Coordinated Universal Time timestamp value, or a Coordinated Universal Time string expression that is using [`from_utc_timestamp`](/docs/sql-query?topic=sql-query-sqlfunctions#from_utc_timestamp), as in `from_utc_timestamp(current_timestamp, 'Asia/Seoul'),` or `from_utc_timestamp('2016-08-31', 'Asia/Seoul')`.
 
 ## Limitations
 {: #limitations}
