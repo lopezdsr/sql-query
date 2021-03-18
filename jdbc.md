@@ -55,7 +55,7 @@ Connection properties (except for the CRN) can be specified as part of the URL, 
   - Only tables are returned if `filterType` value is set to `table`.
   - Only views are returned if `filterType` value is set to `view`.
 - AppendInto (optional, default *true*):
-  - If it is set to false, no `INTO` clause is appended, and results are not available through the driver. It is used [ETL-type statements](#etl-type-statements), where the INTO options are provided as part of the statement. 
+  - If it is set to false, no `INTO` clause is appended, and results are not available through the driver. It is used with [ETL-type statements](#etl-type-statements), where the INTO options are provided as part of the statement. 
 
 ## Driver functionality
 {: #driver_functionality}

@@ -1954,7 +1954,7 @@ The `RLIKE` predicate searches for a regular expression pattern in a string. If 
 If the pattern expression is not found, the result is false. If the value of any of the arguments is null, the result of the RLIKE predicate is unknown.
 If `NOT` is specified, the result is reversed.
 
-The regular expression pattern must be a Java regular expression as defined by Java class `java.util.regex.Pattern`.
+The regular expression pattern must be a Java™ regular expression as defined by Java class `java.util.regex.Pattern`.
 Meta characters that start with a `\` must be escaped for the regular expression to work, for example, use `\\d` instead of `\d`
 in a pattern string to represent a digit. For more information, such as supported meta characters and predefined character classes, see the latest Java documentation.
 
@@ -3194,9 +3194,9 @@ The syntax of a table CRN is thoroughly described in section [Table unique resou
 <h3 id ="DB2_TABLE_URI">DB2_TABLE_URI</h3>
 
 A Db2 table URI is a string of characters that uniquely identifies a table in an {{site.data.keyword.Db2_on_Cloud_long}} and {{site.data.keyword.dashdblong}} instance. 
-The instance must be enabled for IAM and the IBMid of the user must be added as a database user.
+The instance must be enabled for IAM and the IBMid if the user must be added as a database user.
 
-The syntax of a Db2 Table URI is thoroughly described in section [Table unique resource identifier](/docs/services/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
+The syntax of a Db2 Table URI is thoroughly described in section [Table unique resource identifier](/docs/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
 
 <h3 id="identifier">Identifier</h3>
 
@@ -3211,8 +3211,8 @@ An unquoted identifier is at least one character long. The following valid chara
 
 <h4>Back quoted identifier</h4>
 
-This is an identifier that is embraced by grave accent <code>\`</code> characters. Back quoted identifier can
-contain any character that includes the grave accent character that must be escaped like this <code>\`\`</code>.
+This is an identifier that is embraced by grave accent <code>\`</code> characters. A back quoted identifier can
+contain any character. That includes the grave accent character that must be escaped like this <code>\`\`</code>.
 
 The following example shows how to add a column name thata contains a special character:
 
@@ -3264,6 +3264,6 @@ For more information about data types, see [dataType](#dataType).
 
 <h3 id="STRING">String</h3>
 
-A *string* is a sequence of arbitrary characters that include escaped characters, for example,
+A *string* is a sequence of arbitrary characters that includes escaped characters, for example,
 `\t`, either enclosed in single quotation marks `'`, or double quotation marks, `"`.
 To include any quotation mark characters in the string, they must be escaped as <code>\\\\\`</code> or `\\"`.
