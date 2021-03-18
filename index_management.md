@@ -186,7 +186,7 @@ WHERE ST_Intersects(ST_WKTToSQL(location), ST_Buffer(ST_WKTToSQL('POINT (-74.0 4
 
 You can use data skipping with all of the formats that are supported by {{site.data.keyword.sqlquery_short}}, except for AVRO.
 It is best for data layout to use a column-based format, such as Parquet.
-To infer the schema before running any query, the entire data set must first be scanned for CSV and JSON.
+To infer the schema for CSV and JSON, before running any queries, the entire data set must first be scanned.
 Scanning the entire data set is not necessary if you create tables by using the {{site.data.keyword.sqlquery_short}} [catalog](/docs/services/sql-query?topic=sql-query-hivemetastore). Unlike Parquet and ORC, CSV and JSON do not have built-in data skipping capabilities and can potentially benefit more from data skipping.
 
 ### Refreshing data skipping indexes
