@@ -1,8 +1,9 @@
+
 ---
 
 copyright:
   years: 2018, 2021
-lastupdated: "2021-03-10"
+lastupdated: "2021-03-18"
 
 ---
 
@@ -22,7 +23,7 @@ With {{site.data.keyword.sqlquery_full}}, you can analyze and transform open dat
 The SELECT statement (or query statement) is used to read object data from {{site.data.keyword.cos_full}} (COS),
 process the data, and store it back on Cloud {{site.data.keyword.cos_short}} eventually.
 
-You can use {{site.data.keyword.sqlquery_short}} as a data transformation service, as it always writes the results of a query to a indicated location in either {{site.data.keyword.cos_short}} or Db2 tables.
+You can use {{site.data.keyword.sqlquery_short}} as a data transformation service, as it always writes the results of a query to a specified location in either {{site.data.keyword.cos_short}} or Db2 tables.
 {{site.data.keyword.sqlquery_short}} provides extended SQL syntax inside a special INTO clause to control how the result data is stored physically. This includes control over data location, format, layout, and partitioning.
 
 A query statement can be submitted through {{site.data.keyword.sqlquery_short}}'s web UI or programmatically,
@@ -33,14 +34,14 @@ In addition to the ad hoc usage of data in {{site.data.keyword.cos_full}}, you c
 
 Several benefits to cataloging your data exist:
 
-- It simplifies SQL SELECT statements because the SQL author must not know and specify exactly where and how the data is stored.
+- It simplifies SQL SELECT statements because the SQL author does not need not know and specify exactly where and how the data is stored.
 - The SQL execution can skip the inference of schema and partitioning because this information is available in the metastore. This can improve you query performance, especially for text-based data formats, such as CSV and JSON, where the schema inference requires a full scan of the data before the actual query execution.
 <!-- Hide - With the *ANALYZE TABLE* command, you can gather statistics about your data, which is then used by the SQL compiler to do a cost-based optimization of the query plan, which can result in significantly improved query performance for queries on larger data volumes. -->
 
 ## Select
 {: #chapterSQLQueryStatement}
 
-See in the following examples the outline of the general syntax of an SQL query statement that uses the `query` clause and the `namedQuery` clause.
+See the following examples for an outline of the general syntax of an SQL query statement that uses the `query` clause and the `namedQuery` clause.
 
 <h3 id="query">query</h3>
 
@@ -159,15 +160,15 @@ The reason is that data cannot be overwritten by a query that is reading that sa
 For example, `SELECT * FROM cos://us-geo/mybucket/myprefix/mysubprefix INTO cos://us-geo/mybucket/myprefix JOBPREFIX NONE`
  returns an error when you try to submit it.
 
-In the *COS result clause* you can explicitly specify the storage location and type of a query result on Cloud {{site.data.keyword.cos_short}}.
-The storage location is specified by using a `COSURI`.
+In the *COS result clause*, you can explicitly specify the storage location and type of a query result on Cloud {{site.data.keyword.cos_short}}.
+The storage location is specified by a `COSURI`.
 
-Valid query result object types are: `AVRO`, `CSV`, `JSON`, `ORC`, and `PARQUET`. Object type names are not case-sensitive.
+Valid query result object formats are: `AVRO`, `CSV`, `JSON`, `ORC`, and `PARQUET`. Object type names are not case-sensitive.
 
 Being able to explicitly specify the location and the type of the result object enables a user to take the following actions:
 * Read *raw* data stored in one format, for example, CSV.
 * Cleanse the data by using SQL constructs.
-* Store the cleansed data by using an object type that offers benefits regarding query performance and storage consumption on Cloud {{site.data.keyword.cos_short}}, for example, a column-based object format, such as Parquet.
+* Store the cleansed data in a format that offers benefits regarding query performance and storage consumption on Cloud {{site.data.keyword.cos_short}}, for example, a column-based object format, such as Parquet.
 
 Moreover, a user can explicitly define the way a query result is stored physically on Cloud {{site.data.keyword.cos_short}} by using the *result partitioned clause*.
 
@@ -230,13 +231,13 @@ Partitioning the result object by the column `PARTITIONED BY (country)`, would c
 
 When the result object is stored this way on Cloud {{site.data.keyword.cos_short}}, each SQL query that contains a predicate,
 such as `country = 'USA'` or `country in ('MALTA', 'ITALY', 'VATICAN CITY')`, benefits from this physical layout. The reason is that during
-SQL query execution partitions only containing data for the countries of interest must be read. This tremendously cuts down the I/O traffic of the SQL query.
+SQL query execution partitions must only be read if they contain data for the countries of interest must be read. This tremendously cuts down the I/O traffic of the SQL query.
 
 Some additional remarks on Hive-style partitioning:
 
 - Hive-style partitions have an eye-catching naming scheme because the column names that are used for partitioning are part of the partition object prefix, for example, `/order/COUNTRY=USA/part-m-00000.snappy.parquet`.
 - Hive-style partitions do not contain any values for partition columns since their values are *stored* in the object prefix of the partition.
-Thus, if you copy a HIVE-style partition and rename the object prefix by removing the partition column values, you loose data.
+Thus, if you copy a HIVE-style partition and rename the object prefix by removing the partition column values, you lose data.
 - Hive-style partitions have a tendency for data skewing. For example, the partition that represents order data from Malta is likely much smaller 
 than the partition that represents order data from the US. You can partition the query result into separate objects if you want to have *equally sized* partitions.
 
@@ -247,11 +248,11 @@ By partitioning a query result into objects you can specify the exact number of 
 
 For example, knowing the size of the query result, it is possible to calculate the number of objects to end up with partitions that have a certain size. For example, 128 MB, that is the Hadoop default file size, or any other size that meets application requirements.
 
-The `INTO x BUCKETS/OBJECTS` clause can be combined with the `BY (column-list)` clause to create some partitions that support data affinity regarding specified partition columns.
+The `INTO x BUCKETS/OBJECTS` clause can be combined with the `BY (column-list)` clause to create a certain number of partitions that support data affinity regarding specified partition columns.
 
 Continue with the preceding example that specifies `PARTITION BY (customerid) INTO 10 OBJECTS` stores the query result into 10 objects ensuring that all data for a customer
 is stored in the same partition. Although it is ensured that all data for a certain customer is stored in the same partition,
-it is not ensured that the data is sorted physically according to the specified column.
+it is not ensured that the data is physically sorted according to the specified column.
 
 <h4>Partition by number of rows</h4>
 
@@ -361,7 +362,7 @@ These set operators can be further refined by using the following modifiers:
 * `DISTINCT`: This modifier ensures that the overall result set does not contain any duplicates. This is the default modifier that applies if no modifier is present.
 * `ALL`: All rows of a fullselect's result set are combined by using a set operator. Thus, the overall result set can contain duplicates.
 
-The following combination of set operators and set modifiers is not supported:
+The following combinations of set operators and set modifiers are not supported:
 * `INTERSECT ALL`
 * `EXCEPT ALL`
 * `MINUS ALL`
@@ -524,7 +525,7 @@ A *simpleselect* is a component of a *fullselect*. Its syntax is defined by the 
 <img style="max-width: 594px;" usemap="#simpleselectImgMap" alt="syntax diagram for a simpleselect" src="./diagrams/simpleselect-2613ee7ee78918ffb56cdbe104141633.svg" />
 </div>
 
-With simpleselect you can specify the following characteristics of a result set:
+With a *simpleselect*, you can specify the following characteristics of a result set:
 * The list of *result columns* from *relations* or *lateral views* that are part of the final result set. The result column list can be further redefined by using the following modifier keywords:
     * `DISTINCT`: Eliminates all but one of each set of duplicate rows of the final result set.
     * `ALL`: Retains all rows of the final result set, and does not eliminate redundant duplicates. This is the default.
@@ -906,9 +907,9 @@ If two rows contain the same `timetick`, it is uncertain which `timetick` comes 
 * `key`: Optionally specify a `key` column that you can use to group each time series by. If a `key` is indicated, you can assume that *n* time series are created, where *n* is the set of all keys in the `key` column. If no `key` column is specified, a single time series is created from the indicated data set.
 
 * `starttime`: Optionally specify a `starttime` string (any properly formatted [`DateTime`](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html))
-for which to set the time series [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `starttime` is not indicated, and `granularity` is indicated, the `starttime` defaults to 1 January 1970 12am (midnight) GMT. However, if no `granularity` is indicated, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
+for which to set the time series [TRS](/docs/sql-query?topic=sql-query-TRS). If `starttime` is not indicated, and `granularity` is indicated, the `starttime` defaults to 1 January 1970 12am (midnight) GMT. However, if no `granularity` is indicated, a [TRS](/docs/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
-* `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/services/sql-query?topic=sql-query-TRS). If `granularity` is not indicated, and `starttime` is indicated, the default `granularity` is 1 millisecond. However, if no `starttime` is indicated, a [TRS](/docs/services/sql-query?topic=sql-query-TRS) is not associated with the created time series.
+* `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/sql-query?topic=sql-query-TRS). If `granularity` is not indicated, and `starttime` is indicated, the default `granularity` is 1 millisecond. However, if no `starttime` is indicated, a [TRS](/docs/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
 <div style="overflow-x : auto;">
 <map name="timeSeriesOptionsImgMap">
@@ -928,7 +929,7 @@ A table transformer is a function that is applied to the input data set before i
 You can wrap your external table definition optionally with the `FLATTEN` table transformation function.
 It preprocesses your input table before query compilation to a fully flat column schema.
 This can be useful when you have hierarchical input data as it is often found in JSON documents.
-By using `FLATTEN`, you must not dereference all nested columns explicitly in your SQL statement.
+By using `FLATTEN`, you do not need to dereference all nested columns explicitly in your SQL statement.
 
 For example, you can run a simple `SELECT * FROM FLATTEN(cos://us-geo/sql/iotmessages STORED AS JSON)` on a flattened JSON
 input and use CSV output to easily browse a sample of your JSON input data.
@@ -962,7 +963,7 @@ However, you cannot wrap other table transformers around the `DESCRIBE` transfor
 
 <h3 id="tableValuedFunction">tableValuedFunction</h3>
 
-A table-valued function returns a relation, that is, a set of rows. An example of a table-valued function is `range()`. For more information, see [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
+A table-valued function returns a relation, that is, a set of rows. An example of a table-valued function is `range()`. For more information, see [SQL functions](/docs/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
 
 <div style="overflow-x : auto;">
 <map name="tableValuedFunctionImgMap">
@@ -1005,7 +1006,7 @@ A *values clause* is a component of a *fullselect* or represents a *primary rela
 <img style="max-width: 565px;" usemap="#valuesClauseImgMap" alt="syntax diagram for a values clause" src="./diagrams/valuesClause-6e4b32c045678d269bef4cd9c75c3579.svg" />
 </div>
 
-With a values clause you can define a result set by specifying actual values for each column of a row by using expressions.
+With a values clause, you can define a result set by specifying actual values for each column of a row by using expressions.
 
 Each `expression` in the list of expressions represents a row of the result set that is defined.
 
@@ -1087,7 +1088,7 @@ The result of the example query is shown in the following table.
 ### Values Statement
 {: #chapterValuesStatement}
 
-A *values statement* is a stand-alone statement on its own. It can be used instead of a *fullselect* if your statement 
+A *values statement* is a statement on its own. It can be used instead of a *fullselect* if your statement 
 references only a single value and does not contain any join with other relations or values clauses.
 
 <h3>Examples</h3>
@@ -1146,7 +1147,7 @@ A *values clause* is referenced by the following clauses:
 
 A lateral view is a component of a *simpleselect*. Lateral views allow to build  *virtual tables* at query execution time
 by using *table-generating functions*. Examples of table-generating functions are `explode()`, `posexplode()`, and `posexplode_outer()`.
-The explode()-style functions take an array or map as input and return a row for each element in the array. For more information, see [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
+The explode()-style functions take an array or map as input and return a row for each element in the array. For more information, see [SQL functions](/docs/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
 
 <h3 id="lateralView">lateralView</h3>
 
@@ -1637,7 +1638,7 @@ The syntax for SQL function invocation is described by the following syntax diag
 
 Most function invocations look like `function(argument1, ..., argumentN)` but functions like `TRIM()`, `POSITION()`, `FIRST()`, `LAST()`, `STRUCT()`, `EXTRACT()`, and `SUBSTRING()` support a different invocation style.
 
-Refer to section [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for details about supported functions.
+Refer to section [SQL functions](/docs/sql-query?topic=sql-query-sqlfunctions#sqlfunctions) for details about supported functions.
 
 <h3>More topics</h3>
 
@@ -1671,7 +1672,7 @@ There are three types of window functions:
 - **Analytic functions**, for example, `cume_dist()`, `first_value()`, or `last_value()`
 - **Aggregation functions**, for example, `sum()`, `max()`, or `min()`
 
-For more information, see [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
+For more information, see [SQL functions](/docs/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
 
 A window can be defined in two ways:
 * The `WINDOW` keyword lets you define an identifier for a window specification in a *fullselect* or *simpleselect*. This named window specification can then be referenced by the `OVER` keyword.
@@ -2867,7 +2868,7 @@ There are two scalar functions, `NULLIF()` and `COALESCE()`, that are specialize
 {: caption="Table 50. CASE, NULLIF(), and COALESCE()" caption-side="top"}
 
 
-For more information, see [SQL functions](/docs/services/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
+For more information, see [SQL functions](/docs/sql-query?topic=sql-query-sqlfunctions#sqlfunctions).
 
 For more information about the clauses that are used by a *case expression*, see the following topic:
 * [expression](#expression)
@@ -2919,7 +2920,7 @@ The syntax of a *time series expression* is described by the following syntax di
 The syntax shows time series functions that require expressions, such as  `TS_MAP()`,  `TS_FILTER()`, `TS_SEGMENT_BY_ANCHOR()`, `TS_SEGMENT_BY_MARKER()`, `TS_SEGMENT_BY_DUAL_MARKER()`,
 `TS_FIND()`, and `TS_COUNT_ANCHOR()`.
 
-For more information on each function, see [Data processing functions](/docs/services/sql-query?topic=sql-query-data_processing_functions).
+For more information on each function, see [Data processing functions](/docs/sql-query?topic=sql-query-data_processing_functions).
 
 <h4>Example</h4>
 
@@ -2976,7 +2977,7 @@ A *time series expression* is referenced by the following clause:
 
 The Boolean time series expression syntax shows the available Boolean expresssions, such as `TS_EXP_GT()`, which is also used in the previous example.
 
-For more information on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
+For more information on each function, see [Artifact creation functions](/docs/sql-query?topic=sql-query-artifact).
 
 <h4 id="valueTimeSeriesExpression">valueTimeSeriesExpression</h4>
 
@@ -3032,7 +3033,7 @@ Time series values for expressions can either be a `string` or a `double` dataty
 The functions shown in the double time series expressions, such as `TS_EXP_ABS()` and `TS_EXP_LENGTH()`, are able to consume again double time series expressions,
 `number`, or an identity time series expression.
 
-For more information on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
+For more information on each function, see [Artifact creation functions](/docs/sql-query?topic=sql-query-artifact).
 
 <h4 id="stringTimeSeriesExpression">stringTimeSeriesExpression</h4>
 
@@ -3049,7 +3050,7 @@ For more information on each function, see [Artifact creation functions](/docs/s
 
 The string function `TS_EXP_ID_TO_STRING()` converts an ID to a string and the `TS_EXP_CONCAT()` function concatenates the result of two string expressions.
 
-For more information on each function see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
+For more information on each function see [Artifact creation functions](/docs/sql-query?topic=sql-query-artifact).
 
 <h4 id="stringConditionalExpression">stringConditionalExpression</h4>
 
@@ -3069,7 +3070,7 @@ For more information on each function see [Artifact creation functions](/docs/se
 
 There are three conditional expression functions for string values `TS_EXP_IF_THEN_ELSE()`, `TS_EXP_IF_THEN()`, and `TS_EXP_MATCH_CASE()`.
 
-For more information on each function, see [Artifact creation functions](/docs/services/sql-query?topic=sql-query-artifact).
+For more information on each function, see [Artifact creation functions](/docs/sql-query?topic=sql-query-artifact).
 
 <h4 id="identityTimeSeriesExpression">identityTimeSeriesExpression</h4>
 
@@ -3276,7 +3277,7 @@ A *dataType* is referenced by the following clauses:
 
 The following commands allow users to store table metadata catalog in the {{site.data.keyword.sqlquery_short}} catalog. 
 By defining the tables, columns, and partitions in the catalog, you can use short table names in the SQL SELECT statements. Each instance of {{site.data.keyword.sqlquery_short}} has its own catalog, and table definitions are not visible from other instances.
-For more information, see [catalog management](/docs/services/sql-query?topic=sql-query-hivemetastore).
+For more information, see [catalog management](/docs/sql-query?topic=sql-query-hivemetastore).
 
 ### Create table
 {: #chapterCreateTable}
@@ -3642,7 +3643,7 @@ SHOW PARTITIONS customers_partitioned
 
 The following commands allow you to create indexes for data skipping during SQL execution to improve performance and lower the costs of your SQL queries.
 The indexes store summary metadata for each partition of your table to avoid scanning data that is not needed for the query execution.
-For more information, see [index management](/docs/services/sql-query?topic=sql-query-index_management).
+For more information, see [index management](/docs/sql-query?topic=sql-query-index_management).
 
 ### Create Index
 {: #chapterCreateIndex}
