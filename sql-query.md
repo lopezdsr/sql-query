@@ -61,7 +61,7 @@ Watch the following video to learn more about {{site.data.keyword.sqlquery_short
 In SQL, the term *query* is just another way of saying *SELECT statement*. To run a query:
 
 1. In the SQL editor field of the {{site.data.keyword.sqlquery_short}} UI, enter a SELECT statement. In this statement:
-    - After the FROM keyword, specify one or more [unique resource identifiers](#table-unique-resource-identifier) (URIs).
+    - After the FROM keyword, specify one or more [unique resource identifiers](#unique) (URIs).
 Each URI can be thought of as a table. It specifies one or more input objects; each input object can be thought of as a table partition.
 You must have at least 'Reader' access to the buckets that contain the input objects.
     - If the format of the input objects is CSV, and no special options are required, it is not necessary to specify a `STORED AS` clause.
@@ -71,7 +71,7 @@ However, if the format is JSON, ORC, Parquet, or AVRO, after the `FROM` clause, 
     - By default, it is assumed that CSV input objects have a header line that specifies the names of the input columns. If the objects don't have a header line, you must specify `NOHEADER` in the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - By default, it is assumed that JSON input objects consist of a single JSON record per line. If individual records span multiple lines, you must specify `MULTILINE` in the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause.
     - If required, you can use `JOIN` constructs to join data from several input URIs, even if those URIs point to different instances of Cloud {{site.data.keyword.cos_short}} .
-    - Use the `INTO` clause of a [query](/docs/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#table-unique-resource-identifier), that is, the location to which the result is to be written and the wanted result format.
+    - Use the `INTO` clause of a [query](/docs/sql-query?topic=sql-query-sql-reference#chapterSQLQueryStatement) to specify the output [URI](#unique), that is, the location to which the result is to be written and the wanted result format.
 2. The **Target location** field displays where the result is stored. An initial bucket in one of your {{site.data.keyword.cos_short}} instances is automatically created for you when you open the UI. It is then chosen as your default location, if your query does not specify an `INTO` clause. To ensure the automatic setup of an initial bucket, do the following steps in advance:
 
     - You must create a {{site.data.keyword.cos_short}} instance.
@@ -175,7 +175,7 @@ objects `mydir/test100`, and `mydir/test101/nested/object`.
 ### Composite input tables
 {: compositeInput}
 
-As noted previously, the URI for an input table on Cloud {{site.data.keyword.cos_short}} can match multiple objects, forming a "composite" input table. When you run a query over composite input, ensure that the schema of each matching object is appropriate within the context of the SELECT statement. The schemas of the objects must not be identical; depending on the input format, the schemas of multiple objects can be merged:
+As noted previously, the URI for an input table on Cloud {{site.data.keyword.cos_short}} can match multiple objects, forming a "composite" input table. When you run a query over composite input, ensure that the schema of each matching object is appropriate within the context of the SELECT statement. The schemas of the objects do not need to be identical; depending on the input format, the schemas of multiple objects can be merged:
 - For CSV format, columns are matched based on their *order*. Some input objects can contain more columns than others, but common columns must always use the same order across objects. The number of columns in the composite input is the maximum number of columns from all matched objects.
 - For JSON and Parquet format, columns are matched based on their *name*. The set of columns in the composite input is the union of all column names from matched objects. For Parquet format, you must use the `MERGE SCHEMA` option of the [`STORED AS`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) clause to indicate that schema merging is to be performed.
 - Input schema merging is not supported for AVRO and ORC formats. The first object determines the set of columns in the composite input, all columns that do not occur in the first object are ignored. The same behavior applies to Parquet, if the `MERGE SCHEMA` option is not specified.
