@@ -1,4 +1,3 @@
-following syntax diagram
 ---
 
 copyright:
