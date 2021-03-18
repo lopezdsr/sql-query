@@ -86,7 +86,7 @@ You can view completed and failed jobs, the number of bytes processed, and the j
 
 - JSON preview:
   You can directly preview query results in JSON format in the SQL console. Add `INTO <COS URI> STORED AS JSON` to your SQL statement to produce JSON output and preview it in the web console.
-- Support for Parquet schema evolution through the [`MERGE SCHEMA`](docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) sub clause for `STORED AS PARQUET` input data. Check out the new samples in the UI.
+- Support for Parquet schema evolution through the [`MERGE SCHEMA`](/docs/sql-query?topic=sql-query-sql-reference#externalTableSpec) sub clause for `STORED AS PARQUET` input data. Check out the new samples in the UI.
 - Support for [`CLEANCOLS`](/docs/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that generically cleanses all input column names from characters that are not supported by the Parquet target format. Check out the new Samples.
 - Support for [`FLATTEN`](/docs/sql-query?topic=sql-query-sql-reference#tableTransformer) table transformation function that generically flattens all nested input columns into a flat hierarchy, allowing to easily work with, for example, JSON input data and write the results out to flat CSV files. Check out the new samples in the UI.
 

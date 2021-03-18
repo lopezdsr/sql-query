@@ -3195,7 +3195,7 @@ The syntax of a table CRN is thoroughly described in section [Table unique resou
 A Db2 table URI is a string of characters that uniquely identifies a table in an {{site.data.keyword.Db2_on_Cloud_long}} and {{site.data.keyword.dashdblong}} instance. 
 The instance must be enabled for IAM and the IBMid if the user must be added as a database user.
 
-The syntax of a Db2 Table URI is thoroughly described in section [Table unique resource identifier](/docs/sql-query?topic=sql-query-overview#table-unique-resource-identifier).
+The syntax of a Db2 Table URI is thoroughly described in section [Table unique resource identifier](/docs/sql-query?topic=sql-query-overview#unique).
 
 <h3 id="identifier">Identifier</h3>
 
