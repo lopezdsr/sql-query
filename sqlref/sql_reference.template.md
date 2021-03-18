@@ -1954,7 +1954,7 @@ The `RLIKE` predicate searches for a regular expression pattern in a string. If 
 If the pattern expression is not found, the result is false. If the value of any of the arguments is null, the result of the RLIKE predicate is unknown.
 If `NOT` is specified, the result is reversed.
 
-The regular expression pattern must be a Java regular expression as defined by Java class `java.util.regex.Pattern`.
+The regular expression pattern must be a Java™ regular expression as defined by Java class `java.util.regex.Pattern`.
 Meta characters that start with a `\` must be escaped for the regular expression to work, for example, use `\\d` instead of `\d`
 in a pattern string to represent a digit. For more information, such as supported meta characters and predefined character classes, see the latest Java documentation.
 
