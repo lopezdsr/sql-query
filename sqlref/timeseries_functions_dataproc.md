@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019, 2020
-lastupdated: "2020-10-08"
+  years: 2019, 2021
+lastupdated: "2021-03-05"
 
 keywords: SQL query, time series, SQL, data processing function
 
@@ -29,26 +29,26 @@ Each of these functions converts time series data to tabular data.
 
 **TS_EXPLODE(DoubleTimeSeries)**  
 Output: Rows of Long, Double  
-Converts each observation of the input data into a two-column row comprising a timetick of type Long and a value of type Double.
+Converts each observation of the input data into a two-column row that comprises a timetick of type Long and a value of type Double.
 
 **TS_S_EXPLODE(StringTimeSeries)**  
 Output: Rows of Long, String  
-Converts each observation of the input data into a two-column row comprising a timetick of type Long and a value of type String.
+Converts each observation of the input data into a two-column row that comprises a timetick of type Long and a value of type String.
 
 **TS_DA_EXPLODE(DoubleArrayTimeSeries)**  
 Output: Rows of Long, DoubleArray  
-Converts each observation of the input data into a two-column row comprising a timetick of type Long and a value of type DoubleArray.
+Converts each observation of the input data into a two-column row that comprises a timetick of type Long and a value of type DoubleArray.
 
 **TS_SA_EXPLODE(StringArrayTimeSeries)**  
 Output: Rows of Long, StringArray  
-Converts each observation of the input data into a two-column row comprising a timetick of type Long and a value of type StringArray.
+Converts each observation of the input data into a two-column row that comprises a timetick of type Long and a value of type StringArray.
 
 **TS_FLATTEN(*SegmentTimeSeries*)**  
 Output: Rows of Long, Integer, *TimeSeries*  
 Converts a segment time series into a series of rows, with there being one row for each segment:  
-- A Long value specifying the timetick of the first observation in the segment
-- An integer indicating the index number (0 to n) of the segment
-- A time series containing the observations that comprise the segment  
+- A Long value that specifies the timetick of the first observation in the segment.
+- An integer that indicates the index number (0 to n) of the segment.
+- A time series that contains the observations that comprise the segment.
 
 The type of the output time series corresponds to the type of the input segment time series.
 
@@ -142,18 +142,18 @@ Returns the Damerau–Levenshtein distance between two time series.
 
 **TS_SEG_DL(DoubleSegmentTimeSeries, DoubleSegmentTimeSeries)**  
 Output: Double  
-Returns the Damerau–Levenshtein distance distance between each pair of corresponding segments in the two input time series. Each timetick in the output time series is the timetick of the corresponding segment.
+Returns the Damerau–Levenshtein distance between each pair of corresponding segments in the two input time series. Each timetick in the output time series is the timetick of the corresponding segment.
 
 **TS_FFT(DoubleTimeSeries, String)**  
 Output: DoubleArray  
-Uses a [fast Fourier transform (FFT)](https://en.wikipedia.org/wiki/Fast_Fourier_transform) algorithm to return the discrete Fourier transform of a time series. The string specified for the second parameter determines the type of transform:
+Uses a [fast Fourier transform (FFT)](https://en.wikipedia.org/wiki/Fast_Fourier_transform) algorithm to return the discrete Fourier transform of a time series. The stringt that is specified for the second parameter determines the type of transform:
 
 - `forward` or `f` for a forward transform
 - `inverse` or `i` for an inverse transform
 
 **TS_SEG_FFT(DoubleSegmentTimeSeries, String)**  
 Output: DoubleArrayTimeSeries  
-Uses a [fast Fourier transform (FFT)](https://en.wikipedia.org/wiki/Fast_Fourier_transform) algorithm to return the discrete Fourier transform for each segment of the input time series. The string specified for the second parameter determines the type of transform:
+Uses a [fast Fourier transform (FFT)](https://en.wikipedia.org/wiki/Fast_Fourier_transform) algorithm to return the discrete Fourier transform for each segment of the input time series. The string that is specified for the second parameter determines the type of transform:
 
 - `forward` or `f` for a forward transform
 - `inverse` or `i` for an inverse transform
@@ -234,7 +234,7 @@ Returns the skewness of the values of each segment of the input time series. Eac
 
 **TS_GRANGER(DoubleTimeSeries, DoubleTimeSeries, Numeric)**  
 Output: DoubleArray  
-Returns the result of a [Granger causality test](https://en.wikipedia.org/wiki/Granger_causality) as an array of the form [fStat, pValue, R2]. This indicates whether the first time series is useful in forecasting the second time series. The third parameter specifies the number of lags.
+Returns the result of a [Granger causality test](https://en.wikipedia.org/wiki/Granger_causality) as an array of the form [fStat, pValue, R2]. The result indicates whether the first time series is useful in forecasting the second time series. The third parameter specifies the number of lags.
 
 ## Forecasting functions
 {: #forecasting_funcitons}
@@ -247,16 +247,16 @@ Returns a forecast of the specified number of expected observations (third param
 
 **TS_DETECT_ANOMALIES(DoubleTimeSeries, ForecastingModel, Double)**  
 Output: DoubleTimeSeries  
-Returns a time series containing all the anomalies in the input time series, using the specified forecasting model (second parameter) and confidence level (third parameter).
+Returns a time series that contains all the anomalies in the input time series, by using the specified forecasting model (second parameter) and confidence level (third parameter).
 
 ## Filtering functions
 {: #filtering_funcitons}
 
-Each of these functions returns the sub-sequence of a time series that satisfies the filter criteria.
+Each of these functions returns the subsequence of a time series that satisfies the filter criteria.
 
 **TS_SLICE(*TimeSeries*, Long, Long)**  
 Output: *TimeSeries*  
-Returns the sub-sequence of the specified time series that lies between the specified start time (second parameter) and end time (third parameter).
+Returns the subsequence of the specified time series that lies between the specified start time (second parameter) and end time (third parameter).
 
 **TS_REMOVE_CONSECUTIVE_DUPLICATES(*TimeSeries*)**  
 Output: *TimeSeries*  
@@ -270,7 +270,7 @@ Combines observations with duplicate timeticks based on the specified [combiner]
 Output: *TimeSeries*  
 Returns a time series whose values correspond to the values of the input array time series at the specified index (second parameter).
 
-**TS_FILTER (time_series, boolean expression)**
+**TS_FILTER (time_series, Boolean expression)**
 Output: *TimeSeries*  
 Filter each value of the time series given a Boolean expression.
 
@@ -297,8 +297,7 @@ Each of these functions creates, as output, a segmented version of a time series
 **TS_SEGMENT(see below<sup>2</sup>, Int, Int)**  
 Output: The type of the output segment time series corresponds to the type of the input.  
 Returns a SegmentTimeSeries based on the input time series and the specified segment size (second parameter) and step size (third parameter). 
-The step size corresponds to a number of observations. For example, the array `[1,2,3,4,5,6,7]` segmented with a segment size of 3 and a step size 
-of 2 would produce the result `[1,2,3]`, `[3,4,5]`, `[5,6,7]`.
+The step size corresponds to a number of observations. For example, the array `[1,2,3,4,5,6,7]` segmented with a segment size of 3 and a step size of 2 produces the result `[1,2,3]`, `[3,4,5]`, `[5,6,7]`.
 
 **TS_SEGMENT_BY_TIME(see below<sup>2</sup>, Long, Long)**  
 Output: The type of the output segment time series corresponds to the type of the input.  
@@ -314,24 +313,23 @@ Output: The type of the output segment time series corresponds to the type of th
 Segment a time series whenever no observation occurs within the length of time, in timetick units, that is calculated by the formula
 `min(T×F, H)` where:
 
-- T = Interarrival time (that is, the time between two observations), smoothed using the specified [exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing) factor alpha (second parameter)
+- T = Interarrival time (that is, the time between two observations), smoothed by using the specified [exponential smoothing](https://en.wikipedia.org/wiki/Exponential_smoothing) factor alpha (second parameter)
 - F = factor (third parameter)
 - H = Threshold (fourth parameter)
 
 **TS_SEGMENT_BY_ANCHOR(see below<sup>2</sup>, AnchorType, Long, Long)**  
 Output: The type of the output segment time series corresponds to the type of the input.  
-Segment a time series based on the specified anchor. The specified Long values determine a segment that begins before (third parameter) and ends after (fourth parameter) 
-each anchor point. For example:
+Segment a time series based on the specified anchor. The specified Long values determine a segment that begins before (third parameter) and ends after (fourth parameter) each anchor point. For example:
 
 - Specify 0,0 to return only those observations that correspond to the anchor points.
 - Specify 5,3 to create a segment that includes, in addition to the observation at each anchor point, all observations that occur between 5 timeticks before and 3 timeticks after each anchor point.
 - Specify 5,-3 to create a segment that includes all observations that occur between 5 and 3 timeticks before the anchor point.
 
-**TS_SEGMENT_BY_MARKER (ts: AnyTimeSeries, marker: BooleanExpressionType[Any],prevInclusive: Boolean, nextInclusive: Boolean, requiresStartAndEnd: Boolean)**
-Output: Same as input
-Segment the time series by a marker point (Boolean Expression) where each segment exists between markers.
+**TS_SEGMENT_BY_MARKER (ts: AnyTimeSeries, marker: BooleanExpressionType[Any], prevInclusive: Boolean, nextInclusive: Boolean, requiresStartAndEnd: Boolean)**
+Output: Same as input 
+Segment the time series by a marker point (Boolean expression) where each segment exists between markers.
 
-**TS_SEGMENT_BY_DUAL_MARKER (ts: AnyTimeSeries, markerStart: BooleanExpressionType[Any],markerEnd: BooleanExpressionType[Any], startInclusive: Boolean, endInclusive: Boolean, startOnFirst: Boolean, endOnFirst: Boolean)** 
+**TS_SEGMENT_BY_DUAL_MARKER (ts: AnyTimeSeries, markerStart: BooleanExpressionType[Any], markerEnd: BooleanExpressionType[Any], startInclusive: Boolean, endInclusive: Boolean, startOnFirst: Boolean, endOnFirst: Boolean)** 
 Output: Same as input
 Segment the time series by a start and end marker point (Boolean expression) where each segment exists between the start and end markers.
 
@@ -340,13 +338,12 @@ Segment the time series by a start and end marker point (Boolean expression) whe
 ## Temporal join and align functions
 {: #temporal_join_align_funcitons}
 
-A temporal join produces a single array time series based on the timeticks and values of the two input time series. A temporal align produces two output time series with identical timeticks. In both cases, an interpolator is used to fill in missing values.
+A temporal join produces a single array time series based on the timeticks and values of the two input time series. A temporal align produces two output time series with identical timeticks. In both cases, an interpolator is used to complete missing values.
 
 The output time series contain the concatenated values of the input time series. For example:
 
-- If the first time series is a DoubleTimeSeries with an observation (t1, a1), and the second time series is a DoubleTimeSeries with an observation (t1, b1), the join will result in (t1, [a1, b1]).
-- If the first time series is a DoubleArrayTimeSeries with an observation (t1, a1, a2), and the second time series is a DoubleArrayTimeSeries with an observation (t1, b1, b2, b3), the join will 
-result in (t1, [a1, a2, b1, b2, b3]).
+- If the first time series is a DoubleTimeSeries with an observation (t1, a1), and the second time series is a DoubleTimeSeries with an observation (t1, b1), the join results in (t1, [a1, b1]).
+- If the first time series is a DoubleArrayTimeSeries with an observation (t1, a1, a2), and the second time series is a DoubleArrayTimeSeries with an observation (t1, b1, b2, b3), the join results in (t1, [a1, a2, b1, b2, b3]).
 
 **TS_INNER_JOIN(*TimeSeries*, *TimeSeries*)**  
 Output: *ArrayTimeSeries*  
@@ -374,28 +371,24 @@ Temporally full join two time series of the same type. Replace missing values as
 
 **TS_INNER_ALIGN(*TimeSeries*, *TimeSeries*, InterpolatorType)**  
 Output: *TimeSeries*, *TimeSeries*  
-Temporally inner align two time series of the same type. Unlike TS_INNER_JOIN, this produces two output time series, each of which is aligned with the other. 
+Temporally inner align two time series of the same type. Unlike TS_INNER_JOIN, this function produces two output time series, each of which is aligned with the other. 
 The output time series are of the same type as the input time series.
 
 **TS_LEFT_ALIGN(*TimeSeries*, *TimeSeries*, InterpolatorType)**  
 Output: *TimeSeries*, *TimeSeries*  
-Temporally left align two time series of the same type, and set any missing values to null. Unlike TS_LEFT_JOIN, this produces two output time series, 
-each of which is aligned with the other. The output time series are of the same type as the input time series.
+Temporally left align two time series of the same type, and set any missing values to null. Unlike TS_LEFT_JOIN, this function produces two output time series, each of which is aligned with the other. The output time series are of the same type as the input time series.
 
 **TS_RIGHT_ALIGN(*TimeSeries*, *TimeSeries*, InterpolatorType)**  
 Output: *TimeSeries*, *TimeSeries*  
-Temporally right align two time series of the same type, and set any missing values to null. Unlike TS_RIGHT_JOIN, this produces two output time series, 
-each of which is aligned with the other. The output time series are of the same type as the input time series.
+Temporally right align two time series of the same type, and set any missing values to null. Unlike TS_RIGHT_JOIN, this function produces two output time series, each of which is aligned with the other. The output time series are of the same type as the input time series.
 
 **TS_FULL_ALIGN(*TimeSeries*, *TimeSeries*, InterpolatorType)**  
 Output: *TimeSeries*, *TimeSeries*  
-Temporally full align two time series of the same type, and set any missing values to null. Unlike TS_FULL_JOIN, this produces two output time series, 
-each of which is aligned with the other. The output time series are of the same type as the input time series.
+Temporally full align two time series of the same type, and set any missing values to null. Unlike TS_FULL_JOIN, this function produces two output time series, each of which is aligned with the other. The output time series are of the same type as the input time series.
 
 **TS_VECTORN(*TimeSeries*, *TimeSeries*, ...)**  
 Output: *ArrayTimeSeries*  
-Temporally inner join up to 10 time series of the same type to produce a single array time series of vectors. Only observations with matching timeticks 
-are retained, so if all observations are to be retained, align the input time series before using this function.
+Temporally inner join up to 10 time series of the same type to produce a single array time series of vectors. Only observations with matching timeticks are retained, so if all observations are to be retained, align the input time series before you use this function.
 
 ## Interpolation functions
 {: #interpolation_functions}
@@ -404,7 +397,7 @@ Use interpolation either to fill missing values or to resample a time series at 
 
 **TS_RESAMPLE(DoubleTimeSeries, Long, InterpolatorType) or TS_RESAMPLE(StringTimeSeries, Long, InterpolatorType)**  
 Output: The output is of the same type as the input time series.  
-Resample the specified time series using the specified periodicity (second parameter). Note that, depending on the periodicity:
+Resample the specified time series by using the specified periodicity (second parameter). Depending on the periodicity:
 
 - The output time series might contain new, generated observations that are not in the input time series. The [interpolator](/docs/services/sql-query?topic=sql-query-artifact#interpolator_creation) (third parameter) determines how to set values for any generated observations.
 - Some of the observations in the input time series might be absent from the output time series. However, even skipped observations are used during interpolation.
@@ -426,8 +419,8 @@ Convert a string or timestamp into a value of type Long.
 
 **TS_TIMESTAMP(String) or TS_TIMESTAMP(TimestampType)**  
 Output: Long  
-Convert the specified string or timestamp into a value of type Long containing an epoch millisecond timestamp in [Unix time](https://en.wikipedia.org/wiki/Unix_time).  
-- If the input parameter is a string, it is parsed using the [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html).
+Convert the specified string or timestamp into a value of type Long that contains an epoch millisecond timestamp in [Unix time](https://en.wikipedia.org/wiki/Unix_time).  
+- If the input parameter is a string, it is parsed by using the [DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html).
 - If the input parameter is a TimeStampType value, it is treated as a Java timestamp.
 
 ## General functions

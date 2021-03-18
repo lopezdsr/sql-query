@@ -1,12 +1,12 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="sql-query" category="databases" audience="service" arm="3663118" href="/docs/sql-query?topic=sql-query-gettingstarted" path="sql-query"}
+{: .toc subcollection="sql-query" category="databases" audience="service" arm="3663118" href="/docs/sql-query?topic=sql-query-getting-started" path="sql-query"}
 SQL Query
 
     {: .navgroup id="learn"}
-    sql-query.md
     getting-started.md
+    sql-query.md
     whatsnew.md
     hive_metastore.md
     index_management.md

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2018, 2021
-lastupdated: "2021-02-18"
+lastupdated: "2021-03-03"
 
 keywords: SQL query, tutorial, video, provision, run query, introduction, REST API, command line, object storage
 
@@ -27,7 +27,7 @@ The first video shows you how to provision {{site.data.keyword.cos_full}} and {{
 src="https://www.youtube.com/embed/_fMEyqRC__c?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 1. {{site.data.keyword.sqlquery_full}}: Provision the IBM Cloud Services*.
+*Video 1. Provision the IBM Cloud Services*.
 
 <br>
 
@@ -37,7 +37,7 @@ The second video helps you to run a basic query from the console.
 src="https://www.youtube.com/embed/PZAaWSzwo7s?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 2. {{site.data.keyword.sqlquery_full}}: Run queries from the console*.
+*Video 2. Run queries from the console*.
 
 <br>
 
@@ -58,7 +58,7 @@ The following video shows you how to use the REST API.
 src="https://www.youtube.com/embed/jDZKF0CnUvU?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 4. {{site.data.keyword.sqlquery_full}}: Use the REST API*.
+*Video 4. Use the REST API*.
 
 <br>
 
@@ -68,7 +68,7 @@ The next video shows you how to manage data files in an {{site.data.keyword.cos_
 src="https://www.youtube.com/embed/QPO3e5fXQio?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 5. {{site.data.keyword.sqlquery_full}}: Connect to IBM Cloud Object Storage through the command line*.
+*Video 5. Connect to IBM Cloud Object Storage through the command line*.
 
 <br>
 
@@ -78,7 +78,7 @@ The following video in this series shows you how to run {{site.data.keyword.sqlq
 src="https://www.youtube.com/embed/yX-8_jTiAuo?list=PLzpeuWUENMK2R9CqhF0eJDSxfPBi6JeXA" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 6. {{site.data.keyword.sqlquery_full}}: End-to-End Use Case for Using the API*.
+*Video 6. End-to-end use case for using the API*.
 
 <br>
 
@@ -88,7 +88,7 @@ Finally, the last video is an in-depth overview of {{site.data.keyword.sqlquery_
 src="https://www.youtube.com/embed/HTcfM0AbAmc" 
 frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
-*Video 7. {{site.data.keyword.sqlquery_full}}: A complete overview*.
+*Video 7. A complete overview*.
 
 
 

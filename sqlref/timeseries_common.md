@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2019
-lastupdated: "2019-07-17"
+  years: 2019, 2021
+lastupdated: "2021-03-02"
 
 keywords: SQL query, time series, SQL, cleaning, resampling, examples, common functions, converting, timeticks, segmentation, TRS
 
@@ -16,7 +16,7 @@ subcollection: sql-query
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Examples of common timeseries functions
+# Examples of common time series functions
 {: #examples_common}
 
 These examples of SQL queries illustrate commonly used time series functions.
@@ -24,9 +24,9 @@ These examples of SQL queries illustrate commonly used time series functions.
 ## Converting table data to a time series
 {: #converting}
 
-Consider the following table, which is stored in a Parquet object with the name cos://us-geo/sql/timeseries.parquet.
+Consider the following table, which is stored in a Parquet object with the name cos://us-geo/sql/timeseries.parquet:
 
-| timetick | value |
+| Timetick | Value |
 |-----------|-------|
 | 1         | "a"   |
 | 3         | "b"   |
@@ -50,7 +50,7 @@ The output object (timeseries.parquet) contains a table with a single column nam
 
 The data type of column ts in the following table is DoubleTimeSeries.
 
-| ts                                                                    |
+| Ts                                                                    |
 |-----------------------------------------------------------------------|
 | [(1,"a"), (3, "b"), (5, "c"), (5, "d"), (5, "e"), (7, "f"), (9, "g")] |
 
@@ -61,7 +61,7 @@ Consider the following input StringTimeSeries, which is stored in a table column
 
 `[(1,"a"), (3, "b"), (5, "c"), (5, "d"), (5, "e"), (7, "f"), (9, "g")]`
 
-The following SELECT statement combines the observations that have identical time-stamps into a single observation whose value is the original values separated by an underscore (_) character:
+The following SELECT statement combines the observations that have identical time-stamps into a single observation whose value is the original values that are separated by an underscore (_) character:
 
 ```sql
 SELECT TS_COMBINE_DUPLICATE_TIMETICKS(ts1a, TS_COMBINER_CONCATENATE("_"))    
@@ -70,7 +70,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
 
-The result of the example query is shown below: 
+Following, see the result of the example query: 
 
 `[(1,"a"), (3, "b"), (5, "c_d_e"), (7, "f"), (9, "g")]`  
 
@@ -87,7 +87,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
  
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(1,7.0), (3, 8.5), (5, 9.8), (7, 10.7), (9, 12.2)]`
 
@@ -107,7 +107,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
 
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(1, [(1, 1.0), (3, 2.0)]), (3, [(3, 2.0), (5, 3.0)]), (5, [(5, 3.0),(7, 4.0)]), (7, [(7, 4.0),(9, 5.0)])]`  
 
@@ -121,7 +121,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
  
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(1, 1.5), (3, 2.5), (5, 3.5), (7, 4.5)]`
 
@@ -141,7 +141,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
 
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(1=1990-01-02T00:00:00, 1.0), (3=1990-01-04T00:00:00, 2.0), (5=1990-01-06T00:00:00, 3.0), (7=1990-01-08T00:00:00, 4.0), (9=1990-01-10T00:00:00, 5.0)]`
 
@@ -161,7 +161,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
 
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(1, -1.0), (3, 2.0), (5, 2.0), (7, 6.0), (8, 7.1)]`  
 
@@ -184,7 +184,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
 
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(1, NaN), (2, NaN), (3, 2.0), (4, 2.0), (5, 3.5), (6, 3.5), (7, 6.0), (8, 7.1)]`  
 
@@ -199,11 +199,11 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
 
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(0, -1.0), (2, NaN), (4, 2.0), (6, 3.5), (8, 7.1)]`  
 
-Note:  
+**Note:**  
 
 The timestamp of the first generated observation is calculated by the formula TRUNCATE(first_timestamp/period)*x*period, so the first timestamp in the output time series is not necessarily the same as the first timestamp in the input time series. In this example, TRUNCATE(1/2)*x*2=0. Due to the difference in periodicity of the input and output time series, some of the observations in the input time series do not appear in the output. However, the values of any skipped observations are used during interpolation.  
 
@@ -216,7 +216,7 @@ INTO <your target location> STORED AS PARQUET
 ```
 {: codeblock}
 
-The result of the example query is shown below:  
+Following, see the result of the example query:  
 
 `[(0, -1.0), (3, 2.0), (6, 3.5)]`
 
