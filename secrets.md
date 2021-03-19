@@ -39,7 +39,7 @@ For more information, see the [Key Protect documentation](/docs/services/key-pro
 7. List the keys again (as in step 5) to retrieve the key ID and CRN for the new key that you created. Use the key CRN in an 
 [access secret clause](/docs/sql-query?topic=sql-query-sql-reference#accessSecrets) of an SQL query.
 
-You can verify the correct setup and function of your IBM Cloud CLI by downloading and running <a href="kp_check.sh" download>this script</a> in your command line. It performs some tests for creating and verifying a test key in one of your Key Protect instances.
+You can verify the correct setup and function of your IBM Cloud CLI by downloading and running [this script](https://raw.githubusercontent.com/ibm-cloud-docs/sql-query/master/kp_check.sh) in your command line. It performs some tests for creating and verifying a test key in one of your Key Protect instances.
 
 You cannot use the CLI or web console to review actual key content after it is uploaded. However, you can use the 
 [REST API](https://cloud.ibm.com/apidocs/key-protect#retrieve-a-key-by-id) directly to review existing custom key content by issuing the following command:
