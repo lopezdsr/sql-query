@@ -754,7 +754,7 @@ for which to set the time series [TRS](/docs/sql-query?topic=sql-query-TRS). If 
 
 * `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/sql-query?topic=sql-query-TRS). If `granularity` is not indicated, and `starttime` is indicated, the default `granularity` is 1 millisecond. However, if no `starttime` is indicated, a [TRS](/docs/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
-The following examples show you how to use time series.
+The following examples show you how to use  TIME_SERIES_FORMAT parameters for dynamic time series generation during the read process.
 
 Create a time series per location, set the time series TRS with default start time and 1 ms granularity, and store with it with the name "ts".
 
