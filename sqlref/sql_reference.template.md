@@ -3,7 +3,7 @@
 
 copyright:
   years: 2018, 2021
-lastupdated: "2021-03-18"
+lastupdated: "2021-03-25"
 
 ---
 
@@ -753,6 +753,51 @@ If two rows contain the same `timetick`, it is uncertain which `timetick` comes 
 for which to set the time series [TRS](/docs/sql-query?topic=sql-query-TRS). If `starttime` is not indicated, and `granularity` is indicated, the `starttime` defaults to 1 January 1970 12am (midnight) GMT. However, if no `granularity` is indicated, a [TRS](/docs/sql-query?topic=sql-query-TRS) is not associated with the created time series.
 
 * `granularity`: Optionally specify a `granularity` string (a properly formatted ISO-8601 duration format) for which to set the time series reference system [TRS](/docs/sql-query?topic=sql-query-TRS). If `granularity` is not indicated, and `starttime` is indicated, the default `granularity` is 1 millisecond. However, if no `starttime` is indicated, a [TRS](/docs/sql-query?topic=sql-query-TRS) is not associated with the created time series.
+
+The following examples show you how to use time series.
+
+Create a time series per location, set the time series TRS with default start time and 1 ms granularity, and store with it with the name "ts".
+
+```
+SELECT 
+	location, 
+	ts
+FROM cos://us-geo/sql/temperature_humidity.csv
+USING TIME_SERIES_FORMAT(key="location", timetick="timestamp", value="humidity", granularity="PT0.001S") in ts
+```
+
+Create a time series per location, set the time series TRS with start time "2011-12-03T10:15:30" and default granularity (1 ms), and store it 
+with the name "ts".
+
+```
+SELECT 
+	location, 
+	ts
+FROM cos://us-geo/sql/temperature_humidity.csv
+USING TIME_SERIES_FORMAT(key="location", timetick="timestamp", value="humidity", starttime="2011-12-03T10:15:30") in ts
+```
+
+Create a time series per location with no TRS, store it with the name "ts".
+If no granularity or start time are provided, a TRS will not be associated with the time series and therefore with_trs will run into exception.
+
+```
+SELECT 
+	location, 
+	ts
+FROM cos://us-geo/sql/temperature_humidity.csv
+USING TIME_SERIES_FORMAT(key="location", timetick="timestamp", value="humidity") in ts
+```
+
+Create a single time series, store it with the default name "time_series". 
+Without specifying a key, it is not possible to create multiple time series.
+
+```
+SELECT 
+	location, 
+	time_series
+FROM cos://us-geo/sql/temperature_humidity.csv
+USING TIME_SERIES_FORMAT(timetick="timestamp", value="humidity")
+```
 
 <!--include-svg src="./svgfiles/timeSeriesOptions.svg" target="./diagrams/timeSeriesOptions.svg" alt="syntax diagram for time series options" layout="" -->
 
