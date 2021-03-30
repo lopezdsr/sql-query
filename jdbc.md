@@ -2,7 +2,7 @@
 
 copyright:
   years: 2020, 2021
-lastupdated: "2021-03-17"
+lastupdated: "2021-03-30"
 
 keywords: jdbc
 
@@ -39,9 +39,11 @@ The JDBC URL needs to include the CRN of an {{site.data.keyword.sqlquery_full}} 
 
 `jdbc:ibmcloudsql:{instance-crn}[?{key1}={value1}&{key2}={value2}...]`
 
-The CRN can be obtained from the service dashboard in the IBM Cloud console. The following URL is an example of a CRN:
+The CRN can be obtained from the service dashboard in the IBM Cloud console. The following is an example of a JDBC URL: 
 
 `jdbc:ibmcloudsql:crn:v1:bluemix:public:sql-query:eu-de:a/290ec9931c0737248f3dc2aa57187d14%3AAf86d20c4-7646-441e-ad4b-182c57008471::?targetcosurl=cos://us-geo/sample-result-bucket/results/`
+
+You can also easily obtain the JDBC URL from the {{site.data.keyword.sqlquery_short}} UI from the **Connect** tab.
 
 Connection properties (except for the CRN) can be specified as part of the URL, separated by `&`, or through the Java connection properties object. The following properties are supported:
 
